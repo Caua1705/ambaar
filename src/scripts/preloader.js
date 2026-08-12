@@ -7,7 +7,7 @@
    Ao terminar, sobe e resolve `preloaded`; a timeline da hero espera por essa
    promessa para só então começar. */
 
-import { gsap, reducedMotion, lenis, refresh } from './motion.js'
+import { gsap, reducedMotion, lenis, refresh, EASE } from './motion.js'
 
 const CRITICAS = ['/img/hero.webp', '/img/jardim.webp']
 const MIN_EM_CENA = 700 // ms: em cache o contador passaria rápido demais para ser lido
@@ -16,6 +16,7 @@ const LIMITE = 6000 // ms: uma imagem travada não pode prender o site
 const preloader = document.querySelector('#preloader')
 const contador = document.querySelector('#preloader-count')
 const marca = preloader?.querySelector('.preloader__mark')
+const filete = document.querySelector('#preloader-fill')
 
 const desbloquear = () => {
   document.documentElement.classList.remove('is-loading')
@@ -40,6 +41,8 @@ export const preloaded = new Promise((resolve) => {
   const desenhar = () => {
     const n = Math.round(mostrado.valor * 100)
     if (contador) contador.textContent = n < 100 ? String(n).padStart(2, '0') : '100'
+    // o filete mede o mesmo progresso, em transform
+    if (filete) filete.style.transform = 'scaleX(' + mostrado.valor.toFixed(4) + ')'
   }
 
   const mirar = (progresso) => {
@@ -77,9 +80,13 @@ export const preloaded = new Promise((resolve) => {
         resolve()
       }
     })
-      .to(marca, { scale: 1.6, opacity: 0, duration: 0.5, ease: 'power2.in' }, 0)
-      .to(contador, { opacity: 0, duration: 0.35, ease: 'power1.in' }, 0)
-      .to(preloader, { yPercent: -100, duration: 0.9, ease: 'power3.inOut' }, 0.3)
+      .to(marca, { opacity: 0, duration: 0.4, ease: EASE }, 0)
+      // o algarismo cresce ao sair: fecha em 100 e é despedido, não apagado
+      .to(contador, { scale: 1.12, opacity: 0, duration: 0.7, ease: EASE, transformOrigin: 'left bottom' }, 0.05)
+      .to(filete, { scaleY: 0, opacity: 0, duration: 0.5, ease: EASE }, 0.2)
+      // a cortina descasca de baixo para cima e entrega a hero por trás
+      .fromTo(preloader, { clipPath: 'inset(0% 0% 0% 0%)' },
+        { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'power3.inOut' }, 0.35)
       // a rolagem só volta quando a cortina já está saindo, nunca antes
       .add(desbloquear, 0.6)
   }

@@ -33,11 +33,12 @@
   margin: 0;
 }
 
-/* a foto é mais alta que o quadro: a sobra é o curso do paralaxe interno */
+/* a foto é maior que o quadro nos dois eixos: a sobra é o curso do
+   paralaxe interno, que agora acontece em X além de Y */
 .gallery__item img {
   position: absolute;
-  inset: -11% 0;
-  width: 100%;
+  inset: -11% -9%;
+  width: 118%;
   height: 122%;
   object-fit: cover;
   filter: saturate(var(--foto-sat)) brightness(var(--foto-conteudo));
@@ -68,6 +69,13 @@
   text-shadow: 0 1px 12px rgba(13, 13, 13, .95);
 }
 
+/* A foto que quebra a cadência: sangra o palco inteiro em altura contra as
+   62svh das vizinhas. Sem ela a faixa tem pulso regular e vira carrossel. */
+.gallery__item--solta {
+  width: 88vw;
+  height: 100svh;
+}
+
 @media (min-width: 900px) {
   .gallery__track {
     gap: 2.5rem;
@@ -77,6 +85,11 @@
   .gallery__item {
     width: 42vw;
     height: 70svh;
+  }
+
+  .gallery__item--solta {
+    width: 52vw;
+    height: 100svh;
   }
 
   .gallery__label {

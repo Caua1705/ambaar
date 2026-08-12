@@ -74,9 +74,13 @@
   padding: 0;
 }
 
+/* 46svh e não uma tela cheia: quatro drinks em sequência a 56svh davam à
+   carta a mesma duração do capítulo anterior, e dois blocos de igual
+   duração em seguida achatam o ritmo. Aqui cada drink ainda tem a tela só
+   para si, mas a seção inteira passa mais rápido. */
 .drink {
   position: relative;
-  min-height: 56svh;
+  min-height: 46svh;
   display: flex;
   flex-direction: column;
   align-items: center;

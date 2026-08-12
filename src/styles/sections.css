@@ -139,7 +139,7 @@
 
 /* o reservado já é uma foto quase toda em sombra: escurecê-la de novo a apaga */
 #cap-reservado .chapter__img {
-  filter: saturate(var(--foto-sat)) brightness(1.08);
+  filter: saturate(var(--foto-sat)) brightness(1.42);
   object-position: center 55%;
 }
 
@@ -151,9 +151,9 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(200, 137, 46, .1) 0%,
-    rgba(13, 13, 13, .3) 40%,
-    rgba(13, 13, 13, .7) 80%,
+    rgba(200, 137, 46, .08) 0%,
+    rgba(13, 13, 13, .12) 40%,
+    rgba(13, 13, 13, .45) 82%,
     var(--carvao) 100%
   );
 }
@@ -161,9 +161,9 @@
 .chapter--night .chapter__stage::after {
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .25) 0%,
-    rgba(13, 13, 13, .35) 40%,
-    rgba(13, 13, 13, .7) 80%,
+    rgba(13, 13, 13, .1) 0%,
+    rgba(13, 13, 13, .16) 40%,
+    rgba(13, 13, 13, .45) 82%,
     var(--carvao) 100%
   );
 }
@@ -323,10 +323,10 @@
   /* alto o bastante para cobrir do rótulo (14svh) ao texto: os dois
      blocos agora estão longe um do outro */
   background: radial-gradient(
-    ellipse 120% 50% at var(--scrim-x) 30%,
-    rgba(13, 13, 13, .75) 0%,
-    rgba(13, 13, 13, .4) 50%,
-    transparent 75%
+    ellipse 78% 40% at var(--scrim-x) 34%,
+    rgba(13, 13, 13, .8) 0%,
+    rgba(13, 13, 13, .45) 55%,
+    transparent 78%
   );
   pointer-events: none;
 }

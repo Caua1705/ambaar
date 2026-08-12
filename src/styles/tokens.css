@@ -24,10 +24,16 @@
      conteúdo não. */
   --foto-sat: 1.05;
 
-  --foto-fundo: .45;    /* atrás de texto: hero, cartaz */
-  --foto-cena: .85;     /* o assunto da tela: capítulos */
+  /* Passe de luminância: os valores abaixo subiram todos. O site empilhava
+     brilho reduzido + duas ou três demãos de preto sobre a mesma foto, e o
+     resultado composto ficava entre 5% e 13% de luminância — abaixo disso a
+     imagem deixa de ser um lugar e vira sujeira escura. O texto passa a ser
+     protegido por um scrim local, junto dele, em vez de a cena inteira ser
+     escurecida para que ele caiba. */
+  --foto-fundo: .62;    /* atrás de texto: hero, cartaz */
+  --foto-cena: 1;       /* o assunto da tela: capítulos */
   --foto-conteudo: 1;   /* a foto é o conteúdo: galeria, gaveta */
-  --foto-cartao: .5;    /* cartão com texto por cima: reservas */
+  --foto-cartao: .62;   /* cartão com texto por cima: reservas */
 
   --ease: cubic-bezier(.16, 1, .3, 1);
   --dur-med: .9s;
@@ -38,8 +44,14 @@
      ninguém usava: o wordmark, o cartaz, o relógio e o número fantasma
      tinham cada um a sua escala, quase iguais mas nunca iguais. */
 
-  /* uma palavra por linha, ocupando a tela: wordmark da hero e cartaz */
+  /* uma palavra por linha, ocupando a tela: exclusivo do wordmark da hero.
+     Nada no site pode alcançá-lo — ele é a maior voz tipográfica da página. */
   --fs-mega: clamp(3.25rem, 19vw, 12rem);
+
+  /* manchete de cartaz: três linhas empilhadas. Fica um degrau abaixo do
+     wordmark de propósito (15vw contra 19vw) — assim o cartaz tem escala de
+     pôster sem disputar com a hero, e as três linhas cabem na tela inteiras. */
+  --fs-poster: clamp(2.75rem, 15vw, 8.5rem);
 
   /* algarismo em fantasma atrás do conteúdo: relógio e numeral de seção */
   --fs-numero: clamp(7.5rem, 40vw, 19rem);

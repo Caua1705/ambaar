@@ -28,8 +28,8 @@
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .25) 0%,
-    rgba(13, 13, 13, .5) 55%,
+    rgba(13, 13, 13, .1) 0%,
+    rgba(13, 13, 13, .28) 55%,
     var(--carvao) 100%
   );
 }

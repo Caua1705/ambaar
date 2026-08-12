@@ -33,7 +33,9 @@
   object-fit: cover;
   object-position: center 45%;
   transform: scale(1.2);
-  filter: blur(26px) saturate(var(--foto-sat)) brightness(var(--foto-fundo));
+  /* a foto é uma boate em luz vermelha: o hue-rotate a leva para o âmbar da
+     marca, senão a manchete âmbar cairia sobre um campo carmim */
+  filter: blur(30px) hue-rotate(24deg) saturate(.85) brightness(var(--foto-fundo));
   z-index: 0;
 }
 
@@ -44,8 +46,8 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(13, 13, 13, .55) 0%, rgba(13, 13, 13, .88) 100%),
-    linear-gradient(to bottom, var(--carvao) 0%, transparent 22%, transparent 78%, var(--carvao) 100%);
+    radial-gradient(ellipse 66% 52% at 50% 46%, rgba(13, 13, 13, .34) 0%, rgba(13, 13, 13, .74) 100%),
+    linear-gradient(to bottom, var(--carvao) 0%, transparent 20%, transparent 80%, var(--carvao) 100%);
 }
 
 .cartaz__content {
@@ -74,7 +76,7 @@
   flex-direction: column;
   align-items: flex-start;
   font-family: var(--font);
-  font-size: var(--fs-mega);
+  font-size: var(--fs-poster);
   font-weight: 200;
   text-transform: uppercase;
   letter-spacing: .05em;

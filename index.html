@@ -9,10 +9,11 @@
   </head>
   <body>
     <div class="preloader" id="preloader">
-      <div class="preloader__inner">
-        <img class="preloader__mark" src="/brand/losango.svg" alt="" aria-hidden="true">
-        <p class="preloader__count" id="preloader-count">00</p>
-      </div>
+      <img class="preloader__mark" src="/brand/losango.svg" alt="" aria-hidden="true">
+      <p class="preloader__count" id="preloader-count">00</p>
+      <span class="preloader__rule" aria-hidden="true">
+        <span class="preloader__fill" id="preloader-fill"></span>
+      </span>
     </div>
 
     <header class="topbar" id="topbar">
@@ -109,7 +110,7 @@
       <!-- ── O cartaz da noite ──────────────────────────── -->
       <section class="cartaz" id="cartaz" data-vrail="SEXTA · 22H" data-nav="programacao" data-choreo>
         <div class="cartaz__stage">
-          <img class="cartaz__bg" src="/img/salao.webp" alt="" loading="lazy">
+          <img class="cartaz__bg" src="/img/detalhe-05.webp" alt="" loading="lazy">
           <div class="cartaz__content">
             <p class="cartaz__eyebrow">Sexta · 22h</p>
             <h2 class="cartaz__title">
@@ -133,33 +134,35 @@
             <figure class="gallery__item">
               <img src="/img/detalhe-01.webp" alt="" loading="lazy">
             </figure>
-            <figure class="gallery__item">
+            <!-- a que quebra a cadência: sangra o topo e a base do palco -->
+            <figure class="gallery__item gallery__item--solta">
               <img src="/img/detalhe-02.webp" alt="" loading="lazy">
             </figure>
             <figure class="gallery__item">
               <img src="/img/detalhe-03.webp" alt="" loading="lazy">
             </figure>
-            <figure class="gallery__item">
-              <img src="/img/detalhe-05.webp" alt="" loading="lazy">
-            </figure>
           </div>
         </div>
       </section>
 
-      <!-- ── O silêncio: sobre o som ────────────────────── -->
-      <section class="som" id="som" data-vrail="SOBRE O SOM" data-flat>
-        <div class="som__beat">
-          <p class="som__big reveal">Não é sobre o volume.</p>
-        </div>
-        <div class="som__beat">
-          <p class="som__big reveal">É sobre o que você escuta</p>
-          <p class="som__big som__big--accent reveal" data-delay="240">quando ele baixa.</p>
-        </div>
-        <div class="som__beat som__beat--note">
-          <span class="som__rule" aria-hidden="true"></span>
-          <p class="som__eyebrow reveal reveal--line">Sobre o som</p>
-          <p class="som__text reveal">Não trabalhamos com pista, trabalhamos com escuta. A programação é feita por curadoria, não por pedido: organic house, downtempo e o que existe entre os dois.</p>
-          <p class="som__text som__text--last reveal" data-delay="120">Sistema de som calibrado para volume baixo — porque música boa não precisa gritar para ser ouvida.</p>
+      <!-- ── A escuta: sequência de quadros ao scroll ───── -->
+      <!-- O copo enche enquanto a página rola. 48 quadros WebP desenhados
+           num canvas, com três blocos de texto entrando em momentos, posições
+           e escalas diferentes do mesmo curso. -->
+      <section class="sequencia" id="som" data-vrail="SOBRE O SOM" data-nav="programacao">
+        <div class="sequencia__stage">
+          <canvas class="sequencia__canvas" aria-hidden="true"></canvas>
+          <span class="sequencia__scrim" aria-hidden="true"></span>
+
+          <p class="sequencia__bloco sequencia__bloco--a">
+            Não trabalhamos com pista,<br>trabalhamos com escuta.
+          </p>
+          <p class="sequencia__bloco sequencia__bloco--b">
+            Organic house, downtempo,<br>e o que existe entre os dois.
+          </p>
+          <p class="sequencia__bloco sequencia__bloco--c">
+            Música boa não precisa gritar<br>para ser ouvida.
+          </p>
         </div>
       </section>
 
@@ -278,7 +281,7 @@
 
         <ul class="salas">
           <li class="sala reveal">
-            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Jardim%20do%20%C3%82mbar." target="_blank" rel="noopener">
+            <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Jardim%20do%20%C3%82mbar." target="_blank" rel="noopener">
               <img class="sala__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
               <span class="sala__num">01</span>
               <span class="sala__body">
@@ -289,7 +292,7 @@
             </a>
           </li>
           <li class="sala reveal" data-delay="120">
-            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Sal%C3%A3o%20do%20%C3%82mbar." target="_blank" rel="noopener">
+            <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Sal%C3%A3o%20do%20%C3%82mbar." target="_blank" rel="noopener">
               <img class="sala__img" src="/img/salao.webp" alt="" loading="lazy">
               <span class="sala__num">02</span>
               <span class="sala__body">
@@ -300,7 +303,7 @@
             </a>
           </li>
           <li class="sala reveal" data-delay="240">
-            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Reservado%20do%20%C3%82mbar." target="_blank" rel="noopener">
+            <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Reservado%20do%20%C3%82mbar." target="_blank" rel="noopener">
               <img class="sala__img" src="/img/reservado.webp" alt="" loading="lazy">
               <span class="sala__num">03</span>
               <span class="sala__body">

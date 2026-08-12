@@ -1,0 +1,130 @@
+/* A escuta — a sequência de quadros.
+
+   Substitui a antiga seção "Sobre o som", que era três telas de texto sobre
+   preto. O assunto é o mesmo; o que mudou é que agora ele acontece sobre
+   imagem em movimento, e passa a ser o momento mais denso do site em vez do
+   mais vazio.
+
+   Uma frase por tela, cada uma num canto e numa escala diferentes: se as três
+   entrassem centradas e do mesmo tamanho, a seção teria a duração de três
+   telas e a informação de uma. */
+
+.sequencia {
+  position: relative;
+  background: var(--carvao);
+  scroll-margin-top: 5rem;
+}
+
+.sequencia__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sequencia__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* o canvas nasce preto e só depois recebe o primeiro quadro: sem isto
+     haveria um lampejo branco entre o layout e o primeiro desenho */
+  background: var(--carvao);
+}
+
+/* O líquido é âmbar puro e ocupa a tela inteira: sem esta demão o texto
+   branco cairia sobre um fundo tão claro quanto ele. Escurece o suficiente
+   para a tipografia existir, sem apagar o movimento por trás. */
+.sequencia__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(13, 13, 13, .72) 0%, rgba(13, 13, 13, .52) 38%, rgba(13, 13, 13, .78) 100%),
+    radial-gradient(ellipse 90% 60% at 50% 50%, transparent 0%, rgba(13, 13, 13, .5) 100%);
+}
+
+/* ── Os três blocos ────────────────────────────────────── */
+
+.sequencia__bloco {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  color: #fff;
+  text-shadow:
+    0 2px 30px rgba(13, 13, 13, .95),
+    0 1px 6px rgba(13, 13, 13, .85);
+}
+
+/* (a) alto e à esquerda, na escala de display discreto */
+.sequencia__bloco--a {
+  top: 16svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: 1.24;
+  letter-spacing: var(--track-display);
+}
+
+/* (b) no miolo e à direita, miúda e em caixa alta: é a única das três que
+   não é frase de efeito, e sim informação — e a escala diz isso */
+.sequencia__bloco--b {
+  top: 46svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  text-align: right;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-mid);
+  line-height: 2.2;
+  color: rgba(255, 255, 255, .92);
+}
+
+/* (c) embaixo e grande: é o fecho, e por isso a maior das três */
+.sequencia__bloco--c {
+  bottom: 14svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  font-family: var(--font-display);
+  font-size: var(--fs-grande);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
+}
+
+@media (min-width: 900px) {
+  /* na tela larga as três deixam de ocupar a faixa inteira: cada uma fica
+     numa coluna própria, e o vazio em volta é o que dá a elas a escala */
+  .sequencia__bloco--a { right: auto; max-width: 15ch; }
+  .sequencia__bloco--b { left: auto; max-width: 34ch; }
+  .sequencia__bloco--c { right: auto; max-width: 18ch; }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+/* Sem canvas e sem pin: as três frases viram uma lista legível, com o mesmo
+   contraste tipográfico entre elas que a versão animada tem no tempo. */
+.sequencia.is-estatica .sequencia__stage {
+  height: auto;
+  padding: 14svh var(--gutter-r) 14svh var(--gutter-l);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.sequencia.is-estatica .sequencia__canvas,
+.sequencia.is-estatica .sequencia__scrim {
+  display: none;
+}
+
+.sequencia.is-estatica .sequencia__bloco {
+  position: static;
+  text-shadow: none;
+}
+
+.sequencia.is-estatica .sequencia__bloco--b {
+  text-align: left;
+}

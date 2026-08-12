@@ -15,6 +15,8 @@
 .manifesto__content {
   position: relative;
   z-index: 1;
+  border-left: 1px solid rgba(200, 137, 46, .4);
+  padding-left: 1.5rem;
 }
 
 .manifesto__bg {
@@ -24,7 +26,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center 25%;
-  opacity: .35;
+  opacity: .5;
+  filter: contrast(1.15);
   z-index: 0;
 }
 
@@ -62,12 +65,20 @@
   letter-spacing: .02em;
   line-height: 1.35;
   margin-bottom: 0;
-  max-width: 18ch;
+  max-width: 24ch;
   text-align: left;
 }
 
 .manifesto__line--accent {
   color: var(--ambar);
+}
+
+.manifesto__sign {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(119, 115, 110, .7);
+  margin-top: 3rem;
 }
 
 /* ── Interlúdio ────────────────────────────────────────── */
@@ -118,7 +129,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
-  transform: scale(1.1);
+  transform: scale(1.22);
   filter: saturate(1.05) brightness(.85);
   /* camadas empilhadas: o progresso da rolagem controla a opacidade de cada uma */
   opacity: 0;

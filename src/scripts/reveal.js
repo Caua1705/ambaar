@@ -54,8 +54,10 @@ for (const el of document.querySelectorAll('.reveal')) {
 
 const SHIFT = 8 // deslocamento lateral máximo, em % da largura da imagem
 const OVERLAP = 0.25 // fatia da janela compartilhada com a vizinha
-const SCALE_FROM = 1.14
-const SCALE_TO = 1.02
+// a escala precisa cobrir o translateX: em p=1 a imagem desloca 8% da própria
+// largura, então o excedente de cada lado não pode ficar abaixo disso
+const SCALE_FROM = 1.28
+const SCALE_TO = 1.18
 
 const clamp01 = (n) => Math.min(Math.max(n, 0), 1)
 

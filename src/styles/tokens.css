@@ -10,6 +10,12 @@
   --font: 'Jost', system-ui, sans-serif;
   --font-display: 'Cormorant Garamond', Georgia, serif;
 
+  /* ── Tracking ────────────────────────────────────────────
+     A marca tem um tracking só dela, largo, porque é assim que ela existe
+     na identidade — as seis letras respirando dentro de uma caixa larga.
+     Nenhum outro texto do site usa esse valor. */
+  --track-marca: .2em;
+
   /* serifada não aguenta tracking largo */
   --track-display: .04em;
 
@@ -24,48 +30,51 @@
      conteúdo não. */
   --foto-sat: 1.05;
 
-  /* Passe de luminância: os valores abaixo subiram todos. O site empilhava
-     brilho reduzido + duas ou três demãos de preto sobre a mesma foto, e o
-     resultado composto ficava entre 5% e 13% de luminância — abaixo disso a
-     imagem deixa de ser um lugar e vira sujeira escura. O texto passa a ser
-     protegido por um scrim local, junto dele, em vez de a cena inteira ser
-     escurecida para que ele caiba. */
-  --foto-fundo: .62;    /* atrás de texto: hero, cartaz */
+  /* Passe de luminância. O site empilhava brilho reduzido + duas ou três
+     demãos de preto sobre a mesma foto, e o resultado composto ficava entre
+     5% e 13% de luminância — abaixo disso a imagem deixa de ser um lugar e
+     vira sujeira escura. Onde o texto brigava com a foto, quem desceu foi o
+     scrim local atrás do texto, nunca a cena inteira. */
+  --foto-fundo: .86;    /* atrás de texto: hero, cartaz */
   --foto-cena: 1;       /* o assunto da tela: capítulos */
-  --foto-conteudo: 1;   /* a foto é o conteúdo: galeria, gaveta */
-  --foto-cartao: .62;   /* cartão com texto por cima: reservas */
+  --foto-conteudo: 1;   /* a foto é o conteúdo: galeria */
+  --foto-cartao: .8;    /* cartão com texto por cima: reservas */
+
+  /* O material fotográfico da faixa foi todo feito sob luz vermelha de
+     boate, e vermelho puro é a única cor que não existe nesta paleta. Um
+     giro de matiz único leva as cinco para o âmbar — é o que faz a faixa
+     parecer da mesma noite que o resto do site. */
+  --grade-noite: saturate(.82) hue-rotate(-14deg) brightness(1.06);
 
   --ease: cubic-bezier(.16, 1, .3, 1);
   --dur-med: .9s;
 
   /* ── Escala tipográfica ──────────────────────────────────
-     Um degrau por papel, e nenhuma seção inventa o seu. Antes havia oito
-     clamps soltos pelos arquivos e dois tokens (--fs-hero, --fs-mega) que
-     ninguém usava: o wordmark, o cartaz, o relógio e o número fantasma
-     tinham cada um a sua escala, quase iguais mas nunca iguais. */
+     Um degrau por papel, e nenhuma seção inventa o seu. */
 
-  /* uma palavra por linha, ocupando a tela: exclusivo do wordmark da hero.
-     Nada no site pode alcançá-lo — ele é a maior voz tipográfica da página. */
-  --fs-mega: clamp(3.25rem, 19vw, 12rem);
+  /* A marca. É a maior voz tipográfica da página e nada pode alcançá-la:
+     ocupa a largura da tela menos as duas faixas laterais, numa linha só. */
+  --fs-mega: clamp(3.4rem, 20.5vw, 12rem);
 
-  /* manchete de cartaz: três linhas empilhadas. Fica um degrau abaixo do
-     wordmark de propósito (15vw contra 19vw) — assim o cartaz tem escala de
-     pôster sem disputar com a hero, e as três linhas cabem na tela inteiras. */
+  /* manchete de cartaz: três linhas empilhadas. Fica um degrau abaixo da
+     marca de propósito — assim o cartaz tem escala de pôster sem disputar
+     com a hero, e as três linhas cabem na tela inteiras. */
   --fs-poster: clamp(2.75rem, 15vw, 8.5rem);
 
-  /* algarismo em fantasma atrás do conteúdo: relógio e numeral de seção */
+  /* algarismo em fantasma atrás do conteúdo: o relógio dos capítulos e o
+     contador do preloader */
   --fs-numero: clamp(7.5rem, 40vw, 19rem);
 
   /* título de seção */
   --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
 
-  /* display discreto: manifesto, silêncio, aberturas */
+  /* display discreto: manifesto, aberturas */
   --fs-quieto: clamp(1.9rem, 8.5vw, 4.25rem);
 
-  /* nome de cartão grande e contador do preloader */
+  /* nome de cartão grande */
   --fs-title: clamp(2.25rem, 9vw, 4rem);
 
-  /* nome e algarismo dos cartões pequenos */
+  /* algarismo dos cartões pequenos */
   --fs-card: 1.5rem;
 
   --fs-body: clamp(.95rem, 3.6vw, 1.05rem);

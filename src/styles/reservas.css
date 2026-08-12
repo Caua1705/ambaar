@@ -1,10 +1,15 @@
 /* Reservas — a narrativa desemboca numa escolha.
 
-   Um botão só encerrava o site pedindo uma ação genérica. Aqui a pergunta é a
-   mesma que a página vinha respondendo há três capítulos: em qual dos três
-   ambientes. Cada cartão reaproveita a foto do capítulo correspondente, então
-   a escolha é feita sobre a imagem que o usuário já viu — e cada link abre o
-   WhatsApp com a mensagem do ambiente escolhido já escrita. */
+   Esta é a chegada, não um formulário. O relógio acabou de fechar em 03h no
+   capítulo anterior, e a seção abre justamente com esse horário: "São 03h /
+   A noite acabou de passar. Escolha onde recomeçar." A pergunta é a mesma
+   que a página vinha respondendo há três capítulos — em qual dos três
+   ambientes —, e cada cartão é feito sobre a foto do capítulo
+   correspondente, de modo que a escolha acontece sobre a imagem que o
+   usuário já atravessou.
+
+   A letra miúda desceu para depois dos cartões: quem chega aqui já decidiu
+   vir, e as condições não podem ficar entre a decisão e a escolha. */
 
 .reservas {
   background: var(--fume);
@@ -28,11 +33,12 @@
   font-weight: 300;
   letter-spacing: var(--track-display);
   color: #fff;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+  line-height: 1.15;
+  max-width: 16ch;
 }
 
 .reservas__text {
+  margin-top: 3rem;
   font-size: var(--fs-body);
   color: var(--concreto);
   line-height: 1.8;

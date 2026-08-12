@@ -1,3 +1,16 @@
+/* O fecho.
+
+   Era uma lista centrada: losango, nome, tag, horários, @. Cinco blocos com
+   o mesmo peso, parados, um debaixo do outro — o rodapé de qualquer site.
+
+   Agora é um momento. A tag saiu (ela já foi dita na hero, sob a marca, e
+   repeti-la aqui era só preencher espaço) e no lugar dela entrou a única
+   frase do site que fala da marca em vez de falar da casa: o âmbar não conta
+   o tempo, ele guarda. É o eco do que o manifesto abriu — a página inteira
+   foi uma noite passando, e ela termina dizendo que a noite ficou.
+
+   O nome usa a letra da marca, como na hero, e não a serifada dos capítulos. */
+
 .outro {
   position: relative;
   min-height: 100svh;
@@ -5,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem var(--gutter-r) 4rem var(--gutter-l);
+  padding: 6rem var(--gutter-r) 4rem var(--gutter-l);
   overflow: hidden;
 }
 
@@ -24,48 +37,68 @@
   position: relative;
   z-index: 1;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .outro__mark {
   display: block;
-  height: 40px;
+  height: 44px;
   width: auto;
-  margin: 0 auto 2rem;
+  margin-bottom: 2.5rem;
   /* o stroke="currentColor" do SVG inline herda daqui */
   color: var(--ambar);
 }
 
 .outro__name {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: var(--fs-title);
-  font-weight: 300;
-  letter-spacing: var(--track-display);
-  text-indent: var(--track-display);
+  font-weight: 200;
+  letter-spacing: var(--track-marca);
+  text-indent: var(--track-marca);
   color: var(--ambar);
   line-height: 1;
+  white-space: nowrap;
 }
 
-.outro__tag {
-  margin-top: 1.25rem;
-  font-size: var(--fs-label);
-  text-transform: uppercase;
-  letter-spacing: var(--track-mid);
+/* a frase de fecho: serifada, quieta, na escala do manifesto */
+.outro__line {
+  margin-top: 3rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 5.5vw, 2.25rem);
+  font-weight: 300;
+  letter-spacing: var(--track-display);
   color: var(--concreto);
+  line-height: 1.35;
+}
+
+/* ── O pé ──────────────────────────────────────────────── */
+
+/* Horário e perfil viram uma linha só de serviço, separada do resto por um
+   filete: informação, não composição. */
+.outro__foot {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(107, 74, 46, .45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .outro__hours {
-  margin-top: 3rem;
   font-size: var(--fs-label);
   letter-spacing: var(--track-mid);
-  color: var(--concreto);
-  line-height: 2.2;
+  color: rgba(119, 115, 110, .8);
+  line-height: 2;
 }
 
 .outro__ig {
-  display: inline-block;
-  margin-top: 3rem;
   font-size: var(--fs-label);
-  letter-spacing: var(--track-mid);
+  letter-spacing: var(--track-wide);
+  text-indent: var(--track-wide);
+  text-transform: uppercase;
   color: var(--concreto);
   text-decoration: none;
   transition: color var(--dur-med) var(--ease);
@@ -74,4 +107,18 @@
 .outro__ig:hover,
 .outro__ig:focus-visible {
   color: var(--ambar);
+}
+
+@media (min-width: 900px) {
+  .outro__foot {
+    flex-direction: row;
+    gap: 3rem;
+    align-items: baseline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outro__ig {
+    transition: none;
+  }
 }

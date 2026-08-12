@@ -1,29 +1,29 @@
 /* Seção: .gallery — a faixa horizontal de detalhes.
 
-   Era a seção mais genérica do site: a trilha inteira andava 1:1 com a
-   rolagem, todas as fotos rígidas dentro dela, e o resultado lia como um
-   carrossel. Três coisas quebram isso agora:
+   A montagem (formatos e alturas desencontrados, uma foto sangrando o palco)
+   está em gallery.css. Aqui mora o que quebra o 1:1:
 
    1. Cada quadro tem o seu multiplicador de deslocamento. A trilha continua
-      sendo a base, mas um quadro fica para trás e outro se adianta, então a
+      sendo a base, mas dois quadros se adiantam e um fica para trás, então a
       distância entre as fotos muda enquanto a faixa corre — elas não chegam
-      juntas. O desvio é pequeno de propósito (±5%): o suficiente para o olho
-      perceber que não é um bloco, pequeno demais para as fotos colidirem.
+      juntas. O desvio era de ±5%, imperceptível; agora vai a ±12%, que é o
+      quanto o olho precisa para ler cadências diferentes sem que as fotos
+      cheguem a colidir.
+
+      O último quadro anda a 1 de propósito: é ele que define o fim do
+      percurso, e adiantá-lo ou atrasá-lo deixaria uma folga na borda.
 
    2. Cada foto também anda dentro do próprio quadro, nos dois eixos, com
       amplitude própria. A foto é maior que a janela justamente para isso.
-
-   3. Uma das três sangra o palco inteiro em altura, contra as 62svh das
-      outras. É ela que impede a faixa de ter um pulso regular.
 
    Com movimento reduzido não há pin: a faixa vira uma tira de rolagem
    horizontal comum, alcançável no toque e no teclado. */
 
 import { gsap, reducedMotion, prioridadeRefresh } from './motion.js'
 
-const RITMO = [1, 0.95, 1.06]     // multiplicador de deslocamento por quadro
-const DERIVA_Y = [7, -11, 5]      // % de deslocamento vertical da foto
-const DERIVA_X = [-6, 9, -7]      // % de deslocamento horizontal da foto
+const RITMO = [1.12, 0.9, 1.04, 1.08, 1]   // multiplicador de deslocamento
+const DERIVA_Y = [8, -12, 5, -9, 7]        // % de deslocamento vertical da foto
+const DERIVA_X = [-7, 9, -5, 8, -6]        // % de deslocamento horizontal da foto
 
 const gallery = document.querySelector('.gallery')
 
@@ -43,7 +43,10 @@ if (gallery) {
       scrollTrigger: {
         trigger: gallery,
         start: 'top top',
-        end: () => '+=' + percurso(),
+        // um quarto a mais de curso do que a faixa tem de largura: a trilha
+        // anda mais devagar que o dedo, e é isso que dá peso às fotos em vez
+        // de fazê-las deslizar como um menu
+        end: () => '+=' + Math.round(percurso() * 1.25),
         pin: stage,
         scrub: 1,
         anticipatePin: 1,

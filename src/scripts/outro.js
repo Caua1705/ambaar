@@ -16,9 +16,8 @@ if (outro) {
   const marca = outro.querySelector('.outro__mark')
   const nome = outro.querySelector('.outro__name')
   const cauda = [
-    outro.querySelector('.outro__tag'),
-    outro.querySelector('.outro__hours'),
-    outro.querySelector('.outro__ig')
+    outro.querySelector('.outro__line'),
+    outro.querySelector('.outro__foot')
   ].filter(Boolean)
 
   const chars = splitChars(nome)

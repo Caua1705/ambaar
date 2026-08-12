@@ -1,8 +1,12 @@
 /* Seção: .chapter (Jardim, Salão, Reservado) — a timeline de cada ambiente.
 
    Cada capítulo é uma tela pinada onde a noite avança de verdade: o relógio
-   gigante conta a faixa de horário do ambiente (18h→20h, 20h→00h, 00h→03h), a
+   gigante conta a faixa de horário do ambiente (17h→20h, 20h→00h, 00h→03h), a
    imagem respira, o título entra letra a letra e o bloco se desfaz na saída.
+
+   O Jardim começa às 17h porque é a hora em que o café que divide o espaço
+   fecha. É o horário que dá início à noite inteira, e é dele que o relógio
+   do manifesto já parte, uma tela antes deste capítulo existir.
 
    O curso de rolagem vem do data-run de cada seção, não de um valor único: o
    entardecer é o momento denso do site (300%) e os outros dois passam mais
@@ -133,10 +137,32 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     }, 0.16)
   }
 
-  /* ── Saída: cada peça por um lado ──────────────────── */
+  /* ── Saída ─────────────────────────────────────────── */
 
-  tl.to(title, { xPercent: -12, opacity: 0, duration: 0.2, ease: EASE }, 0.82)
-    .to(text, { xPercent: 12, opacity: 0, duration: 0.2, ease: EASE }, 0.84)
-    .to(meta, { opacity: 0, duration: 0.16, ease: 'none' }, 0.82)
+  /* Três capítulos que se desfazem do mesmo jeito são três vezes a mesma
+     seção. Cada um sai como o seu assunto pede, e o data-saida do HTML é
+     quem escolhe:
+
+       luz   — o Jardim não se apaga, ele é engolido pelo entardecer: o céu
+               vai a cheio e o conteúdo sobe para dentro dele;
+       parte — o Salão se parte ao meio, título para um lado e texto para o
+               outro, como a pista abrindo;
+       fecha — o Reservado contrai para o centro e escurece: a noite se
+               fecha em si mesma, que é literalmente o que o texto diz. */
+
+  tl.to(meta, { opacity: 0, duration: 0.16, ease: 'none' }, 0.82)
     .to(clock, { opacity: 0, duration: 0.16, ease: 'none' }, 0.86)
+
+  if (chapter.dataset.saida === 'luz') {
+    tl.to([title, text], { y: -70, opacity: 0, duration: 0.22, ease: EASE, stagger: 0.03 }, 0.82)
+      // o céu já está cheio: o que cresce agora é a mancha de luz dentro
+      // dele, e a última coisa do capítulo passa a ser o próprio poente
+      .to(dusk, { scale: 1.45, duration: 0.22, ease: 'none' }, 0.82)
+  } else if (chapter.dataset.saida === 'fecha') {
+    tl.to([title, text], { scale: 0.94, opacity: 0, duration: 0.22, ease: EASE, stagger: 0.04 }, 0.82)
+      .to(media, { opacity: 0.15, duration: 0.22, ease: 'none' }, 0.84)
+  } else {
+    tl.to(title, { xPercent: -14, opacity: 0, duration: 0.2, ease: EASE }, 0.82)
+      .to(text, { xPercent: 14, opacity: 0, duration: 0.2, ease: EASE }, 0.84)
+  }
 }

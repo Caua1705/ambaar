@@ -6,10 +6,8 @@
 @import './styles/cartaz.css';
 @import './styles/gallery.css';
 @import './styles/sequencia.css';
-@import './styles/carta.css';
 @import './styles/curtain.css';
 @import './styles/topbar.css';
-@import './styles/experiencias.css';
 @import './styles/reservas.css';
 @import './styles/outro.css';
 /* âncoras fixas por último: elas reservam faixa nas seções acima */

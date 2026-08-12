@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Cocktail bar e listening club. Drinks autorais, vinil e som analógico." />
+    <meta name="description" content="Cocktail bar e listening club em Fortaleza. Uma noite em três ambientes: Jardim, Salão e Reservado." />
     <title>Âmbar · Cocktail Bar &amp; Listening Club</title>
   </head>
   <body>
@@ -19,25 +19,27 @@
     <header class="topbar" id="topbar">
       <span class="topbar__mark">ÂMBAR</span>
       <nav class="topbar__nav">
-        <a class="topbar__link" data-nav="programacao" href="#experiencias">Programação</a>
         <a class="topbar__link" data-nav="ambientes" href="#cap-jardim">Ambientes</a>
-        <a class="topbar__link" data-nav="carta" href="#carta">Carta</a>
+        <a class="topbar__link" data-nav="escuta" href="#som">A escuta</a>
         <a class="topbar__link topbar__link--cta" data-nav="reservas" href="#reservas">Reservas</a>
       </nav>
     </header>
 
     <div id="app">
+      <!-- ── A marca ────────────────────────────────────── -->
+      <!-- O lockup é o da identidade: sans geométrica leve, tracking largo,
+           assinatura logo abaixo de um filete. A serifada não entra aqui —
+           ela é a voz dos capítulos, não a da marca. -->
       <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-choreo>
         <picture class="hero__bg">
           <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
+        <span class="hero__scrim" aria-hidden="true"></span>
         <p class="hero__place">Fortaleza · Ceará</p>
-        <div class="hero__content">
+        <div class="hero__lockup">
           <h1 class="hero__mark">ÂMBAR</h1>
-        </div>
-        <div class="hero__sub">
-          <span class="hero__sub-line">Cocktail Bar</span>
-          <span class="hero__sub-line">Listening Club</span>
+          <span class="hero__rule" aria-hidden="true"></span>
+          <p class="hero__tag">Cocktail Bar &nbsp;•&nbsp; Listening Club</p>
         </div>
         <div class="hero__scroll" aria-hidden="true">
           <span class="hero__scroll-line"></span>
@@ -45,28 +47,43 @@
         </div>
       </section>
 
-      <section class="manifesto" data-flat data-choreo>
+      <!-- ── A passagem: onde o relógio começa a contar ─── -->
+      <!-- Três telas dentro de um pin só. A fumaça se abre sobre o manifesto,
+           o manifesto dá lugar à ideia do âmbar como tempo parado, e a luz
+           quente que sobra é a que entrega o jardim — com 17h já aceso no
+           canto onde o capítulo 01 vai continuar contando. -->
+      <section class="manifesto" id="manifesto" data-flat data-choreo>
         <div class="manifesto__stage">
           <img class="manifesto__smoke manifesto__smoke--soft" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--sharp" src="/img/textura-fumaca.webp" alt="" loading="lazy">
-          <div class="manifesto__content">
-            <p class="manifesto__line reveal">Um lugar onde a música</p>
-            <p class="manifesto__line manifesto__line--accent reveal">não é fundo. É o motivo.</p>
-            <p class="manifesto__sign reveal">Fortaleza · desde 2026</p>
+          <span class="manifesto__luz" aria-hidden="true"></span>
+
+          <div class="manifesto__bloco manifesto__bloco--um">
+            <span class="manifesto__rule" aria-hidden="true"></span>
+            <p class="manifesto__line">Um lugar onde a música</p>
+            <p class="manifesto__line manifesto__line--accent">não é fundo. É o motivo.</p>
           </div>
+
+          <div class="manifesto__bloco manifesto__bloco--dois">
+            <p class="manifesto__line">O âmbar guarda um instante</p>
+            <p class="manifesto__line">por milhões de anos.</p>
+            <p class="manifesto__line manifesto__line--accent">A gente guarda uma noite.</p>
+          </div>
+
+          <span class="manifesto__hora" aria-hidden="true">17h</span>
         </div>
       </section>
 
       <!-- ── 01 · O entardecer acontecendo ───────────────── -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="300" data-choreo>
+               data-nav="ambientes" data-run="300" data-saida="luz" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__img" src="/img/jardim.webp" alt="">
             <img class="chapter__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
           </div>
           <span class="chapter__dusk" aria-hidden="true"></span>
-          <span class="chapter__clock" aria-hidden="true" data-clock="18—20">18h</span>
+          <span class="chapter__clock" aria-hidden="true" data-clock="17—20">17h</span>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
@@ -76,7 +93,7 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-              <p class="chapter__text reveal">A tarde cai devagar. O som começa lá fora, entre as plantas, sem pressa.</p>
+              <p class="chapter__text reveal">O café fecha às 17h e o jardim abre. O som começa lá fora, entre as plantas, sem pressa.</p>
             </div>
           </div>
         </div>
@@ -86,7 +103,7 @@
 
       <!-- ── 02 · O salão ───────────────────────────────── -->
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
-               data-nav="ambientes" data-run="200" data-choreo>
+               data-nav="ambientes" data-run="200" data-saida="parte" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__img" src="/img/salao.webp" alt="">
@@ -101,14 +118,14 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">House All Night</h2>
-              <p class="chapter__text reveal">O som entra. A luz baixa. A noite encontra o próprio ritmo.</p>
+              <p class="chapter__text reveal">O DJ entra. A luz baixa. A noite encontra o próprio ritmo.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ── O cartaz da noite ──────────────────────────── -->
-      <section class="cartaz" id="cartaz" data-vrail="SEXTA · 22H" data-nav="programacao" data-choreo>
+      <section class="cartaz" id="cartaz" data-vrail="SEXTA · 22H" data-nav="ambientes" data-choreo>
         <div class="cartaz__stage">
           <img class="cartaz__bg" src="/img/detalhe-05.webp" alt="" loading="lazy">
           <div class="cartaz__content">
@@ -127,19 +144,26 @@
         </div>
       </section>
 
+      <!-- ── A faixa: cinco quadros em cadências diferentes ─ -->
       <section class="gallery" id="gallery" data-vrail="A NOITE" data-choreo>
         <div class="gallery__stage">
           <span class="gallery__label vrail-style" aria-hidden="true">A noite</span>
           <div class="gallery__track">
-            <figure class="gallery__item">
+            <figure class="gallery__item gallery__item--alta">
               <img src="/img/detalhe-01.webp" alt="" loading="lazy">
             </figure>
-            <!-- a que quebra a cadência: sangra o topo e a base do palco -->
+            <figure class="gallery__item gallery__item--baixa">
+              <img src="/img/detalhe-03.webp" alt="" loading="lazy">
+            </figure>
+            <!-- a que quebra a cadência: sangra o palco inteiro em altura -->
             <figure class="gallery__item gallery__item--solta">
+              <img src="/img/jardim-noite.webp" alt="" loading="lazy">
+            </figure>
+            <figure class="gallery__item gallery__item--baixa">
               <img src="/img/detalhe-02.webp" alt="" loading="lazy">
             </figure>
-            <figure class="gallery__item">
-              <img src="/img/detalhe-03.webp" alt="" loading="lazy">
+            <figure class="gallery__item gallery__item--alta">
+              <img src="/img/detalhe-04.webp" alt="" loading="lazy">
             </figure>
           </div>
         </div>
@@ -149,7 +173,7 @@
       <!-- O copo enche enquanto a página rola. 48 quadros WebP desenhados
            num canvas, com três blocos de texto entrando em momentos, posições
            e escalas diferentes do mesmo curso. -->
-      <section class="sequencia" id="som" data-vrail="SOBRE O SOM" data-nav="programacao">
+      <section class="sequencia" id="som" data-vrail="A ESCUTA" data-nav="escuta">
         <div class="sequencia__stage">
           <canvas class="sequencia__canvas" aria-hidden="true"></canvas>
           <span class="sequencia__scrim" aria-hidden="true"></span>
@@ -172,7 +196,7 @@
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
-               data-nav="ambientes" data-run="220" data-choreo>
+               data-nav="ambientes" data-run="220" data-saida="fecha" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__img" src="/img/reservado.webp" alt="" loading="lazy">
@@ -187,97 +211,16 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
-              <p class="chapter__text reveal">Poucas mesas, luz baixa, o som no ponto certo. A noite se fecha em si mesma.</p>
+              <p class="chapter__text reveal">Poucas mesas, luz de vela, o som no ponto exato. A noite se fecha em si mesma.</p>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ── A carta ────────────────────────────────────── -->
-      <section class="carta" id="carta" data-vrail="A CARTA" data-nav="carta" data-choreo>
-        <div class="carta__open">
-          <div class="carta__head">
-            <p class="carta__eyebrow">Cocktails autorais</p>
-            <p class="carta__note">Quatro receitas fixas e uma que muda toda semana.</p>
-          </div>
-        </div>
-
-        <ul class="carta__list">
-          <li class="drink">
-            <span class="drink__rule" aria-hidden="true"></span>
-            <h3 class="drink__name">Entardecer</h3>
-            <p class="drink__mix">gin · maracujá · tomilho · tônica</p>
-          </li>
-          <li class="drink">
-            <span class="drink__rule" aria-hidden="true"></span>
-            <h3 class="drink__name">Fumê</h3>
-            <p class="drink__mix">mezcal · laranja queimada · agave</p>
-          </li>
-          <li class="drink">
-            <span class="drink__rule" aria-hidden="true"></span>
-            <h3 class="drink__name">Reservado</h3>
-            <p class="drink__mix">bourbon · cacau · bitter</p>
-          </li>
-          <li class="drink">
-            <span class="drink__rule" aria-hidden="true"></span>
-            <h3 class="drink__name">Vinil</h3>
-            <p class="drink__mix">cachaça envelhecida · café · limão siciliano</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="experiencias" id="experiencias" data-vrail="A PROGRAMAÇÃO" data-nav="programacao" data-flat>
-        <p class="experiencias__eyebrow reveal reveal--line">A programação</p>
-        <hr class="experiencias__rule">
-        <div class="experiencias__head">
-          <span class="experiencias__ghost" aria-hidden="true">04</span>
-          <h2 class="experiencias__title reveal">Três noites, três ritmos.</h2>
-        </div>
-        <ul class="exp-list">
-          <li class="exp-card reveal" role="button" tabindex="0" aria-expanded="false">
-            <span class="exp-card__num">01</span>
-            <div class="exp-card__body">
-              <h3 class="exp-card__name">Sunset Session</h3>
-              <p class="exp-card__when">Qua, Qui e Dom · 18h — 00h</p>
-              <p class="exp-card__desc">House orgânico no jardim, cocktails autorais e o fim de tarde sem pressa.</p>
-            </div>
-            <span class="exp-card__toggle" aria-hidden="true">+</span>
-            <div class="exp-card__reveal">
-              <img src="/img/jardim-noite.webp" alt="" loading="lazy">
-            </div>
-          </li>
-          <li class="exp-card reveal" data-delay="120" role="button" tabindex="0" aria-expanded="false">
-            <span class="exp-card__num">02</span>
-            <div class="exp-card__body">
-              <h3 class="exp-card__name">House All Night</h3>
-              <p class="exp-card__when">Sex e Sáb · 22h — 03h</p>
-              <p class="exp-card__desc">O salão abre. DJ residente e convidados até o fim da noite.</p>
-            </div>
-            <span class="exp-card__toggle" aria-hidden="true">+</span>
-            <div class="exp-card__reveal">
-              <img src="/img/salao.webp" alt="" loading="lazy">
-            </div>
-          </li>
-          <li class="exp-card reveal" data-delay="240" role="button" tabindex="0" aria-expanded="false">
-            <span class="exp-card__num">03</span>
-            <div class="exp-card__body">
-              <h3 class="exp-card__name">Deep Listening</h3>
-              <p class="exp-card__when">Sex e Sáb · 00h — 03h</p>
-              <p class="exp-card__desc">Espaço reservado, curadoria de som e poucos lugares.</p>
-            </div>
-            <span class="exp-card__toggle" aria-hidden="true">+</span>
-            <div class="exp-card__reveal">
-              <img src="/img/reservado.webp" alt="" loading="lazy">
-            </div>
-          </li>
-        </ul>
       </section>
 
       <!-- ── Reservas: a narrativa desemboca na escolha ─── -->
       <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas">
-        <p class="reservas__eyebrow reveal reveal--line">Reservas</p>
-        <h2 class="reservas__title reveal">Garanta sua mesa.</h2>
-        <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. Reserve pelo WhatsApp e receba a confirmação na hora.</p>
+        <p class="reservas__eyebrow reveal reveal--line">São 03h</p>
+        <h2 class="reservas__title reveal">A noite acabou de passar.<br>Escolha onde recomeçar.</h2>
 
         <ul class="salas">
           <li class="sala reveal">
@@ -286,7 +229,7 @@
               <span class="sala__num">01</span>
               <span class="sala__body">
                 <span class="sala__name">Jardim</span>
-                <span class="sala__when">18h — 00h</span>
+                <span class="sala__when">17h — 00h</span>
               </span>
               <span class="sala__go" aria-hidden="true">Reservar</span>
             </a>
@@ -314,6 +257,8 @@
             </a>
           </li>
         </ul>
+
+        <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. A confirmação chega na hora, pelo WhatsApp.</p>
       </section>
 
       <footer class="outro" data-vrail="@AMBAR.BAR" data-choreo>
@@ -324,12 +269,11 @@
             <path d="M20 19 L29.5 32 L20 45 L10.5 32 Z" stroke-width="1.1" stroke-opacity=".5"/>
           </svg>
           <p class="outro__name">ÂMBAR</p>
-          <p class="outro__tag">Cocktail Bar • Listening Club</p>
-          <div class="outro__hours">
-            <p>Qua, Qui e Dom · 18h — 00h</p>
-            <p>Sex e Sáb · 18h — 03h</p>
+          <p class="outro__line">O âmbar não conta o tempo.<br>Ele guarda.</p>
+          <div class="outro__foot">
+            <p class="outro__hours">Qua, Qui e Dom · 17h — 00h<br>Sex e Sáb · 17h — 03h</p>
+            <a class="outro__ig" href="https://instagram.com/ambar.bar" target="_blank" rel="noopener">@ambar.bar</a>
           </div>
-          <a class="outro__ig" href="https://instagram.com/ambar.bar">@ambar.bar</a>
         </div>
       </footer>
     </div>

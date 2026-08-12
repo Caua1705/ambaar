@@ -1,6 +1,27 @@
-/* Faixa horizontal de detalhes — o palco é pinado e a trilha corre no eixo X
-   enquanto a página rola. Cada foto anda também na vertical, com amplitude
-   própria, para a faixa não se ler como um bloco rígido. */
+/* A faixa — os detalhes da noite.
+
+   Era a seção mais genérica do site: três fotos do mesmo tamanho, todas
+   centradas na mesma linha, andando 1:1 com a rolagem. Um carrossel.
+
+   O que mudou, por ordem de importância:
+
+   1. As fotos não se alinham mais. Cada uma tem o seu tamanho e a sua altura
+      dentro do palco — uma encosta no topo, a seguinte no pé, e nenhuma
+      passa pelo centro. É a montagem que quebra o pulso, antes de qualquer
+      animação.
+
+   2. Uma delas sangra o palco inteiro e é quase o dobro das outras em área.
+      Ela não é um item da faixa, é uma parada dentro dela.
+
+   3. São cinco, não três. Com três, a faixa acabava antes de o olho entender
+      que era uma faixa; o percurso mal chegava a uma tela e meia.
+
+   4. O material é todo de luz vermelha de boate, que é a única cor fora da
+      paleta. Um giro de matiz único (--grade-noite) leva as cinco para o
+      âmbar: a faixa passa a parecer da mesma noite que o resto do site.
+
+   Com movimento reduzido não há pin: a faixa vira uma tira de rolagem
+   horizontal comum, alcançável no toque e no teclado. */
 
 .gallery {
   position: relative;
@@ -17,8 +38,9 @@
 
 .gallery__track {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  align-items: stretch;
+  height: 100%;
+  gap: 1.25rem;
   /* a folga final entra na medida do percurso: a última foto encosta na borda */
   padding: 0 1.5rem;
   will-change: transform;
@@ -27,21 +49,62 @@
 .gallery__item {
   position: relative;
   flex: none;
-  width: 78vw;
-  height: 62svh;
   overflow: hidden;
   margin: 0;
 }
 
 /* a foto é maior que o quadro nos dois eixos: a sobra é o curso do
-   paralaxe interno, que agora acontece em X além de Y */
+   paralaxe interno, que acontece em X além de Y */
 .gallery__item img {
   position: absolute;
   inset: -11% -9%;
   width: 118%;
   height: 122%;
   object-fit: cover;
-  filter: saturate(var(--foto-sat)) brightness(var(--foto-conteudo));
+  filter: var(--grade-noite) brightness(var(--foto-conteudo));
+}
+
+/* ── Os três formatos ──────────────────────────────────── */
+
+.gallery__item--alta {
+  width: 74vw;
+  height: 64svh;
+}
+
+.gallery__item--baixa {
+  width: 60vw;
+  height: 44svh;
+}
+
+/* A que quebra a cadência: sangra o palco inteiro em altura e é a mais
+   larga das cinco. Sem ela a faixa tem pulso regular e vira carrossel. */
+.gallery__item--solta {
+  width: 86vw;
+  height: 100svh;
+}
+
+/* ── As alturas ────────────────────────────────────────── */
+
+/* Ímpares encostam no topo, pares no pé, e o intervalo de cada uma é
+   diferente: nenhuma das cinco cruza a linha do centro. */
+.gallery__item:nth-child(odd) {
+  align-self: flex-start;
+  margin-top: 9svh;
+}
+
+.gallery__item:nth-child(even) {
+  align-self: flex-end;
+  margin-bottom: 12svh;
+}
+
+.gallery__item:nth-child(4) {
+  margin-bottom: 4svh;
+}
+
+/* a solta não obedece: ela é o palco inteiro */
+.gallery__item--solta {
+  align-self: center;
+  margin: 0;
 }
 
 /* as fotos passam por baixo do rótulo o tempo todo: sem esta faixa escura
@@ -69,26 +132,24 @@
   text-shadow: 0 1px 12px rgba(13, 13, 13, .95);
 }
 
-/* A foto que quebra a cadência: sangra o palco inteiro em altura contra as
-   62svh das vizinhas. Sem ela a faixa tem pulso regular e vira carrossel. */
-.gallery__item--solta {
-  width: 88vw;
-  height: 100svh;
-}
-
 @media (min-width: 900px) {
   .gallery__track {
     gap: 2.5rem;
     padding: 0 2.5rem;
   }
 
-  .gallery__item {
-    width: 42vw;
-    height: 70svh;
+  .gallery__item--alta {
+    width: 38vw;
+    height: 68svh;
+  }
+
+  .gallery__item--baixa {
+    width: 30vw;
+    height: 46svh;
   }
 
   .gallery__item--solta {
-    width: 52vw;
+    width: 50vw;
     height: 100svh;
   }
 

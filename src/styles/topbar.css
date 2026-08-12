@@ -24,11 +24,15 @@
   pointer-events: auto;
 }
 
+/* a marca é sempre a letra da marca: mesma família e mesmo tracking da hero
+   e do fecho, só que na menor escala em que ela ainda se lê */
 .topbar__mark {
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: .8rem;
   color: var(--ambar);
-  letter-spacing: var(--track-mid);
+  letter-spacing: var(--track-wide);
+  text-indent: var(--track-wide);
 }
 
 .topbar__nav {

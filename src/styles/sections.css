@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 25%;
   opacity: .35;
   z-index: 0;
 }
@@ -110,6 +110,21 @@
 
 #cap-salao .chapter__content {
   padding-top: 62svh;
+}
+
+/* capítulo 03: texturas já escuras, mesmo tratamento das fotos de detalhe */
+#cap-reservado .chapter__img {
+  filter: saturate(1.1) brightness(1.05);
+}
+
+#cap-reservado .chapter__sticky::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, .3) 0%,
+    rgba(13, 13, 13, .45) 40%,
+    rgba(13, 13, 13, .75) 80%,
+    var(--carvao) 100%
+  );
 }
 
 /* derrete a emenda com o manifesto */

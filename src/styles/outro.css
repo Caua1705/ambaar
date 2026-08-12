@@ -1,0 +1,76 @@
+.outro {
+  position: relative;
+  min-height: 100svh;
+  background: var(--carvao);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+}
+
+.outro__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .25;
+  z-index: 0;
+}
+
+.outro__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.outro__mark {
+  display: block;
+  height: 40px;
+  width: auto;
+  margin: 0 auto 2rem;
+  /* o stroke="currentColor" do SVG inline herda daqui */
+  color: var(--ambar);
+}
+
+.outro__name {
+  font-size: var(--fs-title);
+  font-weight: 200;
+  letter-spacing: var(--track-wide);
+  text-indent: var(--track-wide);
+  color: var(--ambar);
+  line-height: 1;
+}
+
+.outro__tag {
+  margin-top: 1.25rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-mid);
+  color: var(--concreto);
+}
+
+.outro__hours {
+  margin-top: 3rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-mid);
+  color: var(--concreto);
+  line-height: 2.2;
+}
+
+.outro__ig {
+  display: inline-block;
+  margin-top: 3rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-mid);
+  color: var(--concreto);
+  text-decoration: none;
+  transition: color var(--dur-med) var(--ease);
+}
+
+.outro__ig:hover,
+.outro__ig:focus-visible {
+  color: var(--ambar);
+}

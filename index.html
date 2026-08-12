@@ -46,7 +46,6 @@
 
       <section class="manifesto" data-flat data-choreo>
         <div class="manifesto__stage">
-          <img class="manifesto__reveal" src="/img/jardim.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--soft" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--sharp" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <div class="manifesto__content">
@@ -154,22 +153,18 @@
         </div>
         <div class="som__beat">
           <p class="som__big reveal">É sobre o que você escuta</p>
-          <p class="som__big som__big--accent reveal" data-delay="260">quando ele baixa.</p>
+          <p class="som__big som__big--accent reveal" data-delay="240">quando ele baixa.</p>
         </div>
         <div class="som__beat som__beat--note">
           <span class="som__rule" aria-hidden="true"></span>
           <p class="som__eyebrow reveal reveal--line">Sobre o som</p>
           <p class="som__text reveal">Não trabalhamos com pista, trabalhamos com escuta. A programação é feita por curadoria, não por pedido: organic house, downtempo e o que existe entre os dois.</p>
-          <p class="som__text som__text--last reveal" data-delay="180">Sistema de som calibrado para volume baixo — porque música boa não precisa gritar para ser ouvida.</p>
+          <p class="som__text som__text--last reveal" data-delay="120">Sistema de som calibrado para volume baixo — porque música boa não precisa gritar para ser ouvida.</p>
         </div>
       </section>
 
       <div class="curtain curtain--smoke" aria-hidden="true">
-        <!-- a cortina é fixed e cobre a tela desde o load: quem anuncia a
-             chegada dela é o capítulo que vem depois -->
-        <video class="curtain__video" data-src="/video/fumaca.mp4" data-observe="#cap-reservado"
-               poster="/video/fumaca-poster.jpg"
-               muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="curtain__fumaca"></span>
       </div>
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
@@ -198,8 +193,6 @@
       <!-- ── A carta ────────────────────────────────────── -->
       <section class="carta" id="carta" data-vrail="A CARTA" data-nav="carta" data-choreo>
         <div class="carta__open">
-          <video class="carta__video" data-src="/video/liquido.mp4" poster="/video/liquido-poster.jpg"
-                 muted loop playsinline preload="none" aria-hidden="true"></video>
           <div class="carta__head">
             <p class="carta__eyebrow">Cocktails autorais</p>
             <p class="carta__note">Quatro receitas fixas e uma que muda toda semana.</p>

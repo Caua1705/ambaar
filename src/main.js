@@ -15,9 +15,8 @@ import './scripts/carta.js'
 import './scripts/curtains.js'
 import './scripts/outro.js'
 
-// transversais: entradas genéricas, mídia sob demanda e as âncoras fixas
+// transversais: entradas genéricas e as âncoras fixas
 import './scripts/reveal.js'
-import './scripts/video.js'
 import './scripts/sections.js'
 import './scripts/spine.js'
 import './scripts/topbar.js'

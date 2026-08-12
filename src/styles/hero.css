@@ -16,7 +16,9 @@
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  filter: saturate(.85) contrast(1.05);
+  /* desce o suficiente para o âmbar do wordmark assentar por cima; sem
+     recorte não é preciso esmagar a foto para criar contraste */
+  filter: saturate(var(--foto-sat)) contrast(1.1) brightness(var(--foto-fundo));
 }
 
 .hero::after {
@@ -41,58 +43,47 @@
   pointer-events: none;
 }
 
-/* A camada ocupa a hero inteira, não só a linha de texto: assim o
-   background dela cai exatamente sobre a foto do fundo (mesma caixa, mesmo
-   cover, mesmo enquadramento) e as letras viram um furo no scrim.
-   O texto é levado para ~42% da altura pelo padding, não por posição. */
+/* A camada ocupa a hero inteira, não só a linha de texto: o texto é levado
+   para ~42% da altura pelo padding, não por posição.
+
+   Houve aqui uma máscara: a foto da hero recortada dentro das letras. Saiu.
+   O recorte dava um wordmark de densidade irregular — a folhagem escura comia
+   o Â e o R, a parede clara estourava o M e o ventilador aparecia dentro do
+   B. Numa serifada de traço fino como a Cormorant, qualquer sujeira dentro da
+   letra vira defeito de desenho.
+
+   Âmbar sólido resolve as duas coisas de uma vez: a cor da marca volta
+   inteira e as seis letras passam a ter o mesmo peso. A compensação é
+   tipográfica — 400 no lugar de 300 para o traço fino aguentar a foto,
+   tracking mais aberto para as letras respirarem, e uma sombra larga e
+   fechada que descola o wordmark da folhagem sem desenhar contorno. */
 .hero__mark {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
-  padding-left: 1.5rem;
+  padding-left: var(--gutter-l);
   padding-bottom: 16%;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 19vw, 12rem);
-  font-weight: 300;
-  letter-spacing: var(--track-display);
+  font-size: var(--fs-mega);
+  font-weight: 400;
+  letter-spacing: .06em;
   color: var(--ambar);
   line-height: 1;
-  text-indent: var(--track-display);
+  text-indent: .06em;
+  text-shadow:
+    0 2px 40px rgba(13, 13, 13, .95),
+    0 1px 10px rgba(13, 13, 13, .8);
   /* cresce a partir da borda esquerda, onde está ancorado */
   transform-origin: left center;
-}
-
-/* O que faz a janela ser legível é a diferença entre as duas cópias da mesma
-   foto: a de trás escurece, a de dentro das letras não passa por filtro
-   nenhum. Sem isso o wordmark alinha com o fundo e desaparece.
-   Só vale quando a máscara existe — no fallback o âmbar sólido não precisa. */
-.hero.has-mask .hero__bg img {
-  filter: saturate(.85) contrast(1.05) brightness(.6);
-}
-
-/* só entra quando o JS confirma o suporte; sem ele fica o âmbar sólido.
-   A demão de âmbar por cima da foto não é enfeite: o terço esquerdo da
-   imagem é folhagem escura e sem ela as primeiras letras somem. Ela também
-   devolve ao wordmark a cor da marca, que a máscara sozinha tirava. */
-.hero.has-mask .hero__mark {
-  background-image:
-    linear-gradient(rgba(200, 137, 46, .34), rgba(200, 137, 46, .34)),
-    url('/img/hero.webp');
-  background-size: cover;
-  background-position: center 30%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* ── Âncora superior direita ────────────────────────────── */
 
 .hero__place {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: var(--pad-x);
+  right: var(--gutter-r);
   z-index: 2;
   font-size: var(--fs-label);
   letter-spacing: var(--track-wide);
@@ -134,7 +125,7 @@
 
 .hero__scroll {
   position: absolute;
-  right: 1.5rem;
+  right: var(--gutter-r);
   bottom: 2rem;
   z-index: 2;
   display: flex;

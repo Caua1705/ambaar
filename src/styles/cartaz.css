@@ -33,7 +33,7 @@
   object-fit: cover;
   object-position: center 45%;
   transform: scale(1.2);
-  filter: blur(26px) saturate(1.15) brightness(.5);
+  filter: blur(26px) saturate(var(--foto-sat)) brightness(var(--foto-fundo));
   z-index: 0;
 }
 
@@ -74,7 +74,7 @@
   flex-direction: column;
   align-items: flex-start;
   font-family: var(--font);
-  font-size: clamp(3.25rem, 20vw, 12rem);
+  font-size: var(--fs-mega);
   font-weight: 200;
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -107,12 +107,6 @@
   letter-spacing: var(--track-wide);
   color: rgba(200, 137, 46, .8);
   text-indent: var(--track-wide);
-}
-
-@media (min-width: 900px) {
-  .cartaz__title {
-    font-size: clamp(5rem, 13vw, 11rem);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

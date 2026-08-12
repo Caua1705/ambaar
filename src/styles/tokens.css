@@ -16,20 +16,48 @@
   --track-wide: .28em;
   --track-mid: .14em;
 
+  /* ── Tratamento das fotos ────────────────────────────────
+     Havia sete saturações diferentes (0.8, 1.05, 1.08, 1.1, 1.15) para o
+     mesmo material fotográfico, e o conjunto não parecia da mesma noite.
+     A saturação passa a ser uma só; o que varia é o brilho, e ele varia por
+     papel — foto atrás de texto precisa descer, foto que é o próprio
+     conteúdo não. */
+  --foto-sat: 1.05;
+
+  --foto-fundo: .45;    /* atrás de texto: hero, cartaz */
+  --foto-cena: .85;     /* o assunto da tela: capítulos */
+  --foto-conteudo: 1;   /* a foto é o conteúdo: galeria, gaveta */
+  --foto-cartao: .5;    /* cartão com texto por cima: reservas */
+
   --ease: cubic-bezier(.16, 1, .3, 1);
-  --dur-slow: 1.2s;
   --dur-med: .9s;
 
-  --fs-hero: clamp(3rem, 14vw, 7rem);
+  /* ── Escala tipográfica ──────────────────────────────────
+     Um degrau por papel, e nenhuma seção inventa o seu. Antes havia oito
+     clamps soltos pelos arquivos e dois tokens (--fs-hero, --fs-mega) que
+     ninguém usava: o wordmark, o cartaz, o relógio e o número fantasma
+     tinham cada um a sua escala, quase iguais mas nunca iguais. */
+
+  /* uma palavra por linha, ocupando a tela: wordmark da hero e cartaz */
+  --fs-mega: clamp(3.25rem, 19vw, 12rem);
+
+  /* algarismo em fantasma atrás do conteúdo: relógio e numeral de seção */
+  --fs-numero: clamp(7.5rem, 40vw, 19rem);
+
+  /* título de seção */
+  --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
+
+  /* display discreto: manifesto, silêncio, aberturas */
+  --fs-quieto: clamp(1.9rem, 8.5vw, 4.25rem);
+
+  /* nome de cartão grande e contador do preloader */
   --fs-title: clamp(2.25rem, 9vw, 4rem);
+
+  /* nome e algarismo dos cartões pequenos */
+  --fs-card: 1.5rem;
+
   --fs-body: clamp(.95rem, 3.6vw, 1.05rem);
   --fs-label: clamp(.65rem, 2.6vw, .75rem);
-
-  /* Escala dramática: os três tamanhos que ocupam a tela.
-     --fs-mega é para uma palavra por linha e sangra de propósito. */
-  --fs-mega: clamp(3.25rem, 17vw, 11rem);
-  --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
-  --fs-quieto: clamp(1.9rem, 8.5vw, 4.25rem);
 
   /* As duas faixas laterais que nenhum conteúdo invade: à esquerda mora o
      fio com o losango, à direita o texto vertical. Reservá-las como token

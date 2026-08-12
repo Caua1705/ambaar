@@ -17,6 +17,24 @@ gsap.registerPlugin(ScrollTrigger, CustomEase)
    das transitions para o GSAP */
 export const EASE = CustomEase.create('ambar', '0.16, 1, 0.3, 1')
 
+/* A varredura das cortinas é o único movimento do site que não é entrada de
+   conteúdo: é um painel mecânico atravessando a tela, e pede aceleração
+   simétrica em vez da curva de assentamento. As duas emendas usam este par. */
+export const EASE_VARRE_ENTRA = 'power2.in'
+export const EASE_VARRE_SAI = 'power2.out'
+
+/* Durações das entradas que não são presas ao scroll. Antes cada seção
+   escolhia a sua (0.9, 1.0, 1.1, 1.15, 1.4, 1.8) e o site inteiro parecia
+   ter sotaques diferentes de uma seção para outra. São só duas: texto entra
+   em DUR_TEXTO, traço cresce em DUR_TRACO — o traço é mais lento de
+   propósito, porque ele é o gesto que anuncia o texto. */
+export const DUR_TEXTO = 0.9
+export const DUR_TRACO = 1.4
+
+/* Defasagem entre irmãos: um único passo para toda a página. */
+export const STAGGER = 0.12
+export const STAGGER_CHAR = 0.04
+
 /* O caminho sem movimento é metade do comportamento do site e não pode
    depender de trocar a preferência do sistema para ser conferido: em dev,
    ?reduce=1 força o mesmo ramo. O import.meta.env.DEV é constante no build,
@@ -42,8 +60,10 @@ if (!reducedMotion) {
   gsap.ticker.lagSmoothing(0)
 
   // com o Lenis no comando, window.scrollTo do devtools é desfeito no quadro
-  // seguinte: em dev fica a instância à mão para conferir posições
-  if (import.meta.env.DEV) window.__lenis = lenis
+  // seguinte: em dev ficam as três instâncias à mão para conferir posições,
+  // listar os gatilhos com seus start/end e forçar quadros quando o rAF do
+  // navegador está estrangulado (janela em segundo plano)
+  if (import.meta.env.DEV) Object.assign(window, { __lenis: lenis, __gsap: gsap, __ST: ScrollTrigger })
 
   // âncoras do menu: o scroll-behavior do CSS brigaria com o Lenis
   document.addEventListener('click', (evento) => {
@@ -58,6 +78,28 @@ if (!reducedMotion) {
   })
 }
 
+/* ── Ordem de recálculo ────────────────────────────────── */
+
+/* O ScrollTrigger mede os gatilhos na ordem em que foram criados, não na
+   ordem em que eles aparecem na página. Um pin criado antes de outro que
+   está acima dele no documento mede a própria posição sem contar o
+   espaçador que o de cima ainda vai inserir, e nasce deslocado exatamente
+   pela altura desse espaçador.
+
+   Era o caso do Reservado: os três capítulos nascem juntos em chapters.js,
+   que roda antes de gallery.js, mas o Reservado vem depois da galeria na
+   página — e começava 1515px acima do lugar, que é justamente o curso da
+   faixa horizontal. A cortina de fumaça, medida corretamente, varria a tela
+   com o capítulo já pinado.
+
+   Amarrar a prioridade à posição no documento faz o recálculo seguir a
+   página em vez da ordem dos imports. Prioridade maior é recalculada antes,
+   então a primeira seção recebe 0 e as seguintes ficam negativas. */
+
+const ordemDocumento = [...document.querySelectorAll('#app > *')]
+
+export const prioridadeRefresh = (el) => -ordemDocumento.indexOf(el.closest('#app > *'))
+
 /* ── Ciclo de vida do layout ───────────────────────────── */
 
 /* Medidas de pin e de faixa horizontal dependem de imagem carregada e de
@@ -70,12 +112,22 @@ window.addEventListener('resize', () => {
   resizeTimer = setTimeout(refresh, 200)
 }, { passive: true })
 
+// as imagens já ocupam espaço reservado, mas as duas famílias chegam depois
+// do primeiro quadro: quando trocam a fonte de sistema pela real, cada bloco
+// de texto muda de altura e todas as seções abaixo escorregam junto
+document.fonts?.ready.then(refresh)
+
 window.addEventListener('load', refresh)
 
 /* ── Utilidades de texto ───────────────────────────────── */
 
 /* Parte o texto em caracteres. O rótulo original vira aria-label: sem isso
-   o leitor de tela soletraria a palavra letra a letra. */
+   o leitor de tela soletraria a palavra letra a letra.
+
+   Cada caractere é um inline-block, e o navegador aceita quebrar a linha
+   entre dois inline-blocks vizinhos mesmo sem espaço entre eles — era assim
+   que "Sunset Session" virava "Sunset S / ession". Por isso os caracteres são
+   agrupados por palavra: a quebra volta a acontecer só onde há espaço. */
 export const splitChars = (el) => {
   if (!el || el.dataset.split === 'chars') return []
 
@@ -84,13 +136,33 @@ export const splitChars = (el) => {
   el.textContent = ''
   el.dataset.split = 'chars'
 
-  return [...texto].map((caractere) => {
-    const span = document.createElement('span')
-    span.className = 'char'
-    span.textContent = caractere === ' ' ? ' ' : caractere
-    el.append(span)
-    return span
+  const chars = []
+
+  texto.split(/(\s+)/).forEach((pedaco) => {
+    if (!pedaco) return
+
+    // o espaço entre palavras fica como nó de texto solto: é ele que
+    // continua sendo o único ponto de quebra da linha
+    if (/^\s+$/.test(pedaco)) {
+      el.append(document.createTextNode(' '))
+      return
+    }
+
+    const palavra = document.createElement('span')
+    palavra.className = 'word'
+
+    for (const caractere of pedaco) {
+      const span = document.createElement('span')
+      span.className = 'char'
+      span.textContent = caractere
+      palavra.append(span)
+      chars.push(span)
+    }
+
+    el.append(palavra)
   })
+
+  return chars
 }
 
 /* Monta o rótulo com traço: o traço cresce e só então entrega o texto.

@@ -33,27 +33,10 @@
   opacity: 0;
 }
 
-/* Faixa reservada ao texto vertical.
-   A grade de experiências ocupa a largura toda em qualquer tela, então abre
-   espaço sempre; o filete continua sangrando até a borda.
-   O recuo do capítulo alinhado à direita fica em sections.css. */
-.experiencias {
-  padding-right: 2.75rem;
-}
-
-.experiencias__rule {
-  margin-right: -2.75rem;
-}
-
-/* no estreito o texto encosta na faixa em todas as seções de largura cheia */
-@media (max-width: 600px) {
-  .manifesto__stage,
-  .interlude,
-  .reservas,
-  .outro {
-    padding-right: 2.75rem;
-  }
-}
+/* A faixa que este texto ocupa é reservada por --gutter-r, e agora todas as
+   seções recuam por esse token direto no arquivo delas. As exceções que
+   moravam aqui (um recuo à parte para experiências, reservas, manifesto,
+   rodapé e um .interlude que já não existe) viraram repetição e saíram. */
 
 @media (prefers-reduced-motion: reduce) {
   .vrail {

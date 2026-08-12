@@ -15,23 +15,31 @@
   will-change: transform;
 }
 
-/* ── A cortina de fumaça ───────────────────────────────── */
+/* ── A passagem de fumaça ──────────────────────────────── */
 
-/* A fumaça é a passagem para o Reservado: em vez do painel liso, o preto
-   vem carregado de textura em movimento. O vídeo viaja junto com o painel —
-   não tem timeline própria, é o mesmo transform que já estava acontecendo.
+/* Era um MP4 de 625 KB para dois segundos de emenda. Aqui a fumaça é
+   desenhada: três elipses âmbar/bronze desencontradas sobre o carvão, que é
+   o que o vídeo entregava em termos de leitura — um clarão quente
+   atravessando o preto.
 
-   Fica em opacidade baixa de propósito: é uma emenda de dois segundos, e a
-   fumaça precisa ser sentida, não assistida. */
-.curtain__video {
+   O painel varre com o mesmo yPercent e o mesmo par de easings da outra
+   cortina, então o ritmo das duas emendas é idêntico. O que muda é só a
+   substância: a fumaça é revelada por um clipPath que abre e fecha dentro do
+   painel, e é essa defasagem entre o painel e o clarão que dá o movimento
+   interno que o vídeo tinha.
+
+   Gradiente parado + clipPath animado: nenhuma das duas coisas repinta. */
+.curtain__fumaca {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: .5;
-  filter: saturate(1.15) brightness(.85);
+  inset: -10%;
   pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 40% at 30% 42%, rgba(200, 137, 46, .3) 0%, transparent 62%),
+    radial-gradient(ellipse 45% 55% at 72% 58%, rgba(107, 74, 46, .38) 0%, transparent 66%),
+    radial-gradient(ellipse 80% 30% at 50% 78%, rgba(200, 137, 46, .14) 0%, transparent 70%);
+  filter: blur(28px);
+  /* estado de partida: o clarão nasce fechado no alto do painel */
+  clip-path: inset(0% 0% 100% 0%);
 }
 
 @media (prefers-reduced-motion: reduce) {

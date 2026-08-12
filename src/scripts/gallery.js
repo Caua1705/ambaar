@@ -10,7 +10,7 @@
    Com movimento reduzido não há pin: a faixa vira uma tira de rolagem
    horizontal comum, que continua alcançável no toque e no teclado. */
 
-import { gsap, reducedMotion } from './motion.js'
+import { gsap, reducedMotion, prioridadeRefresh } from './motion.js'
 
 const AMPLITUDES = [7, -11, 5, -9, 8] // % de deslocamento vertical por foto
 
@@ -36,7 +36,8 @@ if (gallery) {
         scrub: 1,
         anticipatePin: 1,
         // largura de foto é vw: a medida muda a cada resize
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        refreshPriority: prioridadeRefresh(gallery)
       }
     })
 

@@ -13,7 +13,7 @@
    de céu (.chapter__dusk) por cima: as duas coisas cruzando no miolo da
    timeline são o entardecer acontecendo, não um crossfade. */
 
-import { gsap, reducedMotion, EASE, splitChars, splitLine } from './motion.js'
+import { gsap, reducedMotion, EASE, splitChars, splitLine, prioridadeRefresh } from './motion.js'
 
 const NATURAL = { opacity: 1, y: 0, x: 0, scaleX: 1 }
 const OVERLAP = 0.25 // fatia da janela compartilhada com a vizinha
@@ -83,7 +83,8 @@ for (const chapter of document.querySelectorAll('.chapter')) {
       pin: stage,
       scrub: 1,
       anticipatePin: 1,
-      invalidateOnRefresh: true
+      invalidateOnRefresh: true,
+      refreshPriority: prioridadeRefresh(chapter)
     }
   })
 

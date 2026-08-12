@@ -1,8 +1,7 @@
 /* ── Manifesto ─────────────────────────────────────────── */
 
-/* Deixou de ser uma seção com textura de fundo: agora é a passagem que abre
-   o capítulo 01. O palco é pinado e as três camadas (jardim revelado, fumaça
-   borrada, fumaça nítida) se cruzam sobre ele. */
+/* A passagem que abre o capítulo 01. O palco é pinado e as duas camadas de
+   fumaça (borrada e nítida) se cruzam sobre ele até devolver o escuro. */
 
 .manifesto {
   position: relative;
@@ -20,7 +19,6 @@
   overflow: hidden;
 }
 
-.manifesto__reveal,
 .manifesto__smoke {
   position: absolute;
   inset: 0;
@@ -29,16 +27,6 @@
   object-fit: cover;
   z-index: 0;
   pointer-events: none;
-}
-
-/* o jardim entra por baixo já no enquadramento com que o capítulo 01 abre */
-.manifesto__reveal {
-  object-position: center 40%;
-  filter: saturate(1.05) brightness(.85);
-  opacity: 0;
-}
-
-.manifesto__smoke {
   object-position: center 25%;
   filter: contrast(1.15);
 }
@@ -140,7 +128,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
-  filter: saturate(1.05) brightness(.85);
+  filter: saturate(var(--foto-sat)) brightness(var(--foto-cena));
   /* camadas empilhadas: o progresso da rolagem controla a opacidade de cada uma */
   opacity: 0;
 }
@@ -151,7 +139,7 @@
 
 /* o reservado já é uma foto quase toda em sombra: escurecê-la de novo a apaga */
 #cap-reservado .chapter__img {
-  filter: saturate(1.08) brightness(1.08);
+  filter: saturate(var(--foto-sat)) brightness(1.08);
   object-position: center 55%;
 }
 
@@ -208,7 +196,7 @@
   bottom: 4svh;
   left: calc(var(--gutter-l) - .085em);
   z-index: 3;
-  font-size: clamp(7.5rem, 40vw, 19rem);
+  font-size: var(--fs-numero);
   font-weight: 200;
   letter-spacing: -.03em;
   line-height: .78;
@@ -224,7 +212,7 @@
    lugar de um horário só. Três vezes mais largo, então três vezes menor —
    e um pouco mais presente, já que aqui ele é a única coisa que se move. */
 .chapter__clock--faixa {
-  font-size: clamp(2.25rem, 12vw, 5.5rem);
+  font-size: var(--fs-grande);
   opacity: .16;
 }
 

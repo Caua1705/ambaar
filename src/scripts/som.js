@@ -8,7 +8,7 @@
    Deliberadamente não há mais nada. Amarrar esta seção ao scroll devolveria a
    ela o ritmo das outras e ela deixaria de ser o respiro que justifica o resto. */
 
-import { gsap, reducedMotion, EASE } from './motion.js'
+import { gsap, reducedMotion, EASE, DUR_TRACO } from './motion.js'
 
 const rule = document.querySelector('.som__rule')
 
@@ -20,7 +20,7 @@ if (rule) {
       { scaleY: 0 },
       {
         scaleY: 1,
-        duration: 1.8,
+        duration: DUR_TRACO,
         ease: EASE,
         scrollTrigger: { trigger: rule, start: 'top 85%', once: true }
       })

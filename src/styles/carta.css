@@ -5,8 +5,8 @@
    drink e outro são os da peça; o que mudou foi a escala dos nomes, que aqui
    ocupam a tela, e o fato de cada filete crescer da esquerda ao ser alcançado.
 
-   O vídeo do líquido abre a seção e sai antes do primeiro drink: é a abertura
-   da carta, não papel de parede. */
+   A abertura é só tipografia sobre o carvão: o clarão que a preenche é o
+   mesmo gradiente radial das outras seções escuras, não uma imagem. */
 
 .carta {
   position: relative;
@@ -27,28 +27,18 @@
   padding: 0 var(--gutter-r) 0 var(--gutter-l);
 }
 
-.carta__video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  opacity: 0;
-  /* o vídeo é textura, não conteúdo: nunca compete com o texto por leitura */
-  filter: saturate(1.1) brightness(.85);
-  pointer-events: none;
-}
-
+/* o clarão âmbar que segura o texto no meio do escuro */
 .carta__open::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 55% at 50% 50%, rgba(13, 13, 13, .7) 0%, rgba(13, 13, 13, .92) 100%),
-    linear-gradient(to bottom, var(--carvao) 0%, transparent 25%, transparent 70%, var(--carvao) 100%);
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 50%,
+    rgba(200, 137, 46, .07) 0%,
+    transparent 65%
+  );
 }
 
 .carta__head {
@@ -133,9 +123,5 @@
 @media (prefers-reduced-motion: reduce) {
   .drink__rule {
     transform: none;
-  }
-
-  .carta__video {
-    display: none;
   }
 }

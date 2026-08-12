@@ -61,6 +61,14 @@ html.is-loading body {
   transform: none;
 }
 
+/* A palavra é a unidade indivisível: o navegador quebra linha entre dois
+   inline-blocks vizinhos mesmo sem espaço, e sem este invólucro os títulos
+   partiam no meio ("Sunset S / ession"). */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .char {
   display: inline-block;
   opacity: 0;
@@ -86,14 +94,8 @@ html.is-loading body {
   transform: translateY(8px);
 }
 
-/* subida longa, sem escalonamento */
-.reveal--rise {
-  transform: translateY(20px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal--rise,
   .char,
   .reveal__text {
     opacity: 1;

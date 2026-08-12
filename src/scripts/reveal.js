@@ -9,11 +9,13 @@
    haveria um quadro de conteúdo visível antes do script rodar. O GSAP só
    caminha desse estado até o natural. */
 
-import { gsap, reducedMotion, EASE, splitChars, splitLine } from './motion.js'
+import {
+  gsap, reducedMotion, EASE, splitChars, splitLine,
+  DUR_TEXTO, STAGGER_CHAR
+} from './motion.js'
 
-const CHAR_STEP = 0.04 // s entre um caractere e o seguinte
-const DUR = 0.9
-const DUR_RISE = 1.4 // a subida longa dos horários
+const CHAR_STEP = STAGGER_CHAR
+const DUR = DUR_TEXTO
 
 const NATURAL = { opacity: 1, y: 0, scaleX: 1 }
 
@@ -31,10 +33,6 @@ export const montarReveal = (el) => {
       { alvo: dash, dur: DUR },
       { alvo: text, dur: DUR, em: 0.45 }
     ]
-  }
-
-  if (el.classList.contains('reveal--rise')) {
-    return [{ alvo: el, dur: DUR_RISE }]
   }
 
   return [{ alvo: el, dur: DUR }]

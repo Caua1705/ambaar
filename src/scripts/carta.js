@@ -4,16 +4,15 @@
    tela: o filete cresce da esquerda, o nome sobe e a receita vem atrás. Ler a
    carta vira um percurso, que é a única coisa que o papel não conseguia fazer.
 
-   O vídeo do líquido abre a seção e sai antes do primeiro drink — é a abertura
-   da carta, não papel de parede. Quem carrega o arquivo é o video.js; aqui só
-   se trata da opacidade dele. */
+   A abertura é só tipografia. Havia ali um vídeo de líquido dourado; saiu, e
+   o que sobrou — duas linhas centradas no escuro — é mais próximo do que a
+   peça impressa fazia, que era abrir a carta com o nome dela e nada mais. */
 
-import { gsap, reducedMotion, EASE } from './motion.js'
+import { gsap, reducedMotion, EASE, DUR_TEXTO, DUR_TRACO, STAGGER } from './motion.js'
 
 const carta = document.querySelector('.carta')
 
 if (carta) {
-  const video = carta.querySelector('.carta__video')
   const head = [...carta.querySelectorAll('.carta__eyebrow, .carta__note')]
   const drinks = [...carta.querySelectorAll('.drink')]
 
@@ -31,34 +30,7 @@ if (carta) {
     gsap.timeline({
       scrollTrigger: { trigger: carta, start: 'top 70%', once: true }
     })
-      .to(head, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.18 })
-
-    // o líquido acende e apaga com a tela de abertura: nunca acompanha a lista
-    if (video) {
-      gsap.fromTo(video,
-        { opacity: 0 },
-        {
-          opacity: 0.55,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: carta.querySelector('.carta__open'),
-            start: 'top bottom',
-            end: 'top top',
-            scrub: 1
-          }
-        })
-
-      gsap.to(video, {
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: carta.querySelector('.carta__open'),
-          start: 'bottom 80%',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
-    }
+      .to(head, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE, stagger: STAGGER })
 
     /* ── Um drink por vez ────────────────────────────── */
 
@@ -72,9 +44,9 @@ if (carta) {
       gsap.timeline({
         scrollTrigger: { trigger: drink, start: 'top 78%', once: true }
       })
-        .to(rule, { scaleX: 1, duration: 1.4, ease: EASE }, 0)
-        .to(name, { opacity: 1, y: 0, duration: 1, ease: EASE }, 0.18)
-        .to(mix, { opacity: 1, y: 0, duration: 1, ease: EASE }, 0.38)
+        .to(rule, { scaleX: 1, duration: DUR_TRACO, ease: EASE }, 0)
+        .to(name, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE }, 0.18)
+        .to(mix, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE }, 0.38)
     }
   }
 }

@@ -40,7 +40,7 @@
   width: 100%;
   height: 122%;
   object-fit: cover;
-  filter: saturate(1.1) brightness(1.05);
+  filter: saturate(var(--foto-sat)) brightness(var(--foto-conteudo));
 }
 
 /* as fotos passam por baixo do rótulo o tempo todo: sem esta faixa escura

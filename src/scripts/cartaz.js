@@ -8,7 +8,7 @@
    delas, quando a seção chega. Amarrar as três ao dedo do usuário tiraria
    delas o peso de cartaz — um cartaz não se monta devagar, ele aparece. */
 
-import { gsap, reducedMotion, EASE } from './motion.js'
+import { gsap, reducedMotion, EASE, DUR_TEXTO, STAGGER } from './motion.js'
 
 const cartaz = document.querySelector('.cartaz')
 
@@ -29,11 +29,11 @@ if (cartaz) {
     gsap.timeline({
       scrollTrigger: { trigger: cartaz, start: 'top 65%', once: true }
     })
-      .to(eyebrow, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 0)
-      // o escalonamento é largo: as palavras caem uma de cada vez, não juntas
-      .to(words, { yPercent: 0, duration: 1.15, ease: EASE, stagger: 0.13 }, 0.2)
-      .to(mark, { opacity: 0.75, scale: 1, rotate: 0, duration: 0.9, ease: EASE }, 0.85)
-      .to(foot, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 1)
+      .to(eyebrow, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE }, 0)
+      // as palavras caem uma de cada vez, não juntas
+      .to(words, { yPercent: 0, duration: DUR_TEXTO, ease: EASE, stagger: STAGGER }, 0.2)
+      .to(mark, { opacity: 0.75, scale: 1, rotate: 0, duration: DUR_TEXTO, ease: EASE }, 0.85)
+      .to(foot, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE }, 1)
 
     /* ── O fundo desfocado anda devagar enquanto a seção passa ── */
 

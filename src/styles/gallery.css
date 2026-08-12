@@ -16,9 +16,12 @@
    3. São cinco, não três. Com três, a faixa acabava antes de o olho entender
       que era uma faixa; o percurso mal chegava a uma tela e meia.
 
-   4. O material é todo de luz vermelha de boate, que é a única cor fora da
-      paleta. Um giro de matiz único (--grade-noite) leva as cinco para o
-      âmbar: a faixa passa a parecer da mesma noite que o resto do site.
+   4. As cinco vêm de noites e câmeras diferentes — uma sob luz vermelha de
+      boate, outra num jardim esverdeado. A grade que as leva todas ao âmbar
+      é por imagem e está assada nos arquivos (scripts/grade-faixa.mjs), não
+      num filter em tempo de execução: um valor único não serviria às cinco,
+      e filtrar cinco fotos grandes a cada quadro dentro de um pin é caro
+      justamente no telefone.
 
    Com movimento reduzido não há pin: a faixa vira uma tira de rolagem
    horizontal comum, alcançável no toque e no teclado. */
@@ -54,26 +57,37 @@
 }
 
 /* a foto é maior que o quadro nos dois eixos: a sobra é o curso do
-   paralaxe interno, que acontece em X além de Y */
+   paralaxe interno, que acontece em X além de Y
+
+   Sem filter: a grade âmbar está assada nos arquivos faixa-*.webp. Estas
+   cinco imagens recebem transform a cada quadro dentro de um pin, e é a
+   única seção do site em que cinco fotos grandes se movem ao mesmo tempo —
+   filtrar aqui é pagar a correção de cor a 60fps por nada. */
 .gallery__item img {
   position: absolute;
   inset: -11% -9%;
   width: 118%;
   height: 122%;
   object-fit: cover;
-  filter: var(--grade-noite) brightness(var(--foto-conteudo));
 }
 
 /* ── Os três formatos ──────────────────────────────────── */
 
+/* No telefone os quadros ocupam proporcionalmente muito mais do que no
+   desktop. A 60vw de largura e 44svh de altura, com 9svh e 12svh de recuo,
+   cabia pouco mais de uma foto por tela e o resto era preto: o desencontro
+   de alturas deixava de ler como composição e passava a ler como buraco.
+   Numa tela estreita a faixa precisa ser densa — o vazio que interessa é o
+   entre as fotos, não o acima delas. */
+
 .gallery__item--alta {
-  width: 74vw;
-  height: 64svh;
+  width: 84vw;
+  height: 76svh;
 }
 
 .gallery__item--baixa {
-  width: 60vw;
-  height: 44svh;
+  width: 72vw;
+  height: 60svh;
 }
 
 /* A que quebra a cadência: sangra o palco inteiro em altura e é a mais
@@ -89,16 +103,31 @@
    diferente: nenhuma das cinco cruza a linha do centro. */
 .gallery__item:nth-child(odd) {
   align-self: flex-start;
-  margin-top: 9svh;
+  margin-top: 5svh;
 }
 
 .gallery__item:nth-child(even) {
   align-self: flex-end;
-  margin-bottom: 12svh;
+  margin-bottom: 7svh;
 }
 
 .gallery__item:nth-child(4) {
-  margin-bottom: 4svh;
+  margin-bottom: 3svh;
+}
+
+/* no desktop cabem três quadros por tela e o desencontro pode respirar */
+@media (min-width: 900px) {
+  .gallery__item:nth-child(odd) {
+    margin-top: 9svh;
+  }
+
+  .gallery__item:nth-child(even) {
+    margin-bottom: 12svh;
+  }
+
+  .gallery__item:nth-child(4) {
+    margin-bottom: 4svh;
+  }
 }
 
 /* a solta não obedece: ela é o palco inteiro */
@@ -107,30 +136,12 @@
   margin: 0;
 }
 
-/* as fotos passam por baixo do rótulo o tempo todo: sem esta faixa escura
-   na borda ele some assim que uma imagem clara cruza a esquerda */
-.gallery__stage::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 7rem;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(to right, var(--carvao) 0%, rgba(13, 13, 13, .6) 45%, transparent 100%);
-}
-
-/* rótulo vertical preso ao palco, do lado oposto ao .vrail global */
-.gallery__label {
-  position: absolute;
-  left: 1.5rem;
-  top: 50%;
-  z-index: 4;
-  transform: translateY(-50%) rotate(180deg);
-  color: rgba(119, 115, 110, .55);
-  pointer-events: none;
-  /* ao contrário do .vrail global, este passa por cima das fotos */
-  text-shadow: 0 1px 12px rgba(13, 13, 13, .95);
-}
+/* Havia aqui um rótulo vertical "A noite" preso à esquerda do palco, com uma
+   faixa escura de 7rem para protegê-lo das fotos claras. Os dois saíram: a
+   seção declara data-vrail="A NOITE", então o rótulo global já escrevia a
+   mesma palavra do outro lado da mesma tela. Eram duas legendas iguais em
+   lados opostos — e a faixa escura ainda comia a borda esquerda da primeira
+   foto. Sem eles a faixa sangra de borda a borda, que é o que ela quer. */
 
 @media (min-width: 900px) {
   .gallery__track {
@@ -152,10 +163,6 @@
     width: 50vw;
     height: 100svh;
   }
-
-  .gallery__label {
-    left: 2rem;
-  }
 }
 
 /* Sem pin: a faixa vira uma tira de rolagem horizontal comum, alcançável
@@ -169,9 +176,3 @@
   display: none;
 }
 
-/* sem o rótulo por cima das fotos, a faixa escura da borda não tem função —
-   e num contêiner que rola ela iria embora junto com o conteúdo */
-.gallery.is-static .gallery__label,
-.gallery.is-static .gallery__stage::before {
-  display: none;
-}

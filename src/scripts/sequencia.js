@@ -89,23 +89,54 @@ if (secao) {
 
     /* ── Carga sob demanda ───────────────────────────── */
 
+    /* Os 48 quadros são pedidos em fila de largura fixa, não todos de uma vez.
+
+       Disparar as 48 imagens no mesmo quadro satura a decodificação: a carga
+       começa duas telas antes, e essas duas telas são justamente a faixa
+       horizontal, que é uma seção pinada com cinco fotos grandes recebendo
+       transform a cada quadro. As duas coisas competindo travam a rolagem no
+       telefone por segundos — e a seção que trava não é nem a que está
+       carregando.
+
+       Seis por vez chega folgado dentro das duas telas de antecedência e
+       deixa a linha principal livre para a seção que está em cena. A ordem é
+       a da animação, então os primeiros quadros — os únicos que podem ser
+       pedidos cedo — são também os primeiros a chegar. */
+    const FRENTE = 6
+
     const carregar = () => {
       if (iniciouCarga) return
       iniciouCarga = true
 
-      for (let i = 0; i < TOTAL; i++) {
+      let proximo = 0
+
+      const puxar = () => {
+        if (proximo >= TOTAL) return
+
+        const i = proximo++
         const img = new Image()
         img.decoding = 'async'
+
+        const seguinte = () => {
+          // a fila anda mesmo quando um quadro falha: um 404 no meio não
+          // pode impedir os outros 47 de chegarem
+          puxar()
+        }
+
         img.onload = () => {
           prontas[i] = true
           // o primeiro quadro entra em cena assim que existe; os demais só
           // redesenham se forem justamente o que a rolagem está pedindo
           if (i === 0 || i === pedido) desenharDisponivel(pedido)
+          seguinte()
         }
-        img.onerror = () => { prontas[i] = false }
+        img.onerror = () => { prontas[i] = false; seguinte() }
+
         img.src = caminho(i)
         imagens[i] = img
       }
+
+      for (let k = 0; k < FRENTE; k++) puxar()
     }
 
     /* Duas telas de antecedência, medidas pelo próprio ScrollTrigger.

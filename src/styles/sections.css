@@ -21,9 +21,34 @@
    Os três blocos ocupam o mesmo palco e nunca coexistem: uma ideia por tela,
    como no resto do site. */
 
+/* O empilhamento é o que resolve a emenda — ver manifesto.js.
+
+   Durante o pin o manifesto tem de estar ACIMA do capítulo 01: o capítulo é
+   irmão posterior e, sem isto, a borda de cima dele subiria por dentro da
+   tela ainda presa, varrendo o palco de baixo para cima.
+
+   Solto o pin, a ordem se inverte: o capítulo passa a cobrir o palco que
+   está indo embora, e o palco nunca chega a ser visto atravessando nada. */
+
 .manifesto {
   position: relative;
+  z-index: 2;
   background: var(--carvao);
+}
+
+.manifesto.is-passada {
+  z-index: 0;
+}
+
+/* A tela que o espaçador do pin devolve deixa de existir: o capítulo 01 sobe
+   uma tela inteira e passa a começar exatamente onde o pin solta. Sem pin
+   não há espaçador nenhum a compensar, e a sobreposição destruiria o layout —
+   por isso a regra vive dentro da consulta de movimento. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .manifesto:not(.is-estatico) + .chapter {
+    margin-top: -100svh;
+  }
 }
 
 .manifesto__stage {
@@ -31,6 +56,27 @@
   height: 100svh;
   overflow: hidden;
   background: var(--fume);
+}
+
+/* O jardim por baixo de tudo: entra no último quarto do percurso, sob a luz
+   âmbar, no mesmo enquadramento e na mesma escala inicial do .chapter__media
+   do capítulo 01 (scale 1.25, object-position center 40%). É essa coincidência
+   que faz a troca de seção não ter costura visível. */
+
+.manifesto__jardim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  z-index: 0;
+  opacity: 0;
+  /* o mesmo par escala/rotação com que o .chapter__media do capítulo 01
+     começa a sua timeline: o quadro tem de ser o mesmo, não parecido */
+  transform: scale(1.25) rotate(.5deg);
+  filter: saturate(var(--foto-sat)) brightness(var(--foto-cena));
+  pointer-events: none;
 }
 
 .manifesto__smoke {
@@ -65,6 +111,25 @@
   background:
     radial-gradient(ellipse 120% 70% at 50% 108%, rgba(200, 137, 46, .5) 0%, rgba(107, 74, 46, .22) 45%, transparent 78%),
     linear-gradient(to bottom, rgba(13, 13, 13, .9) 0%, rgba(26, 26, 26, .5) 45%, rgba(107, 74, 46, .3) 100%);
+}
+
+/* Cópia exata do .chapter__stage::after do capítulo 01. O último quadro da
+   passagem tem de ser o primeiro quadro do capítulo: mesma foto, mesma
+   escala, mesmo enquadramento e mesma demão por cima. */
+
+.manifesto__ceu {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(200, 137, 46, .08) 0%,
+    rgba(13, 13, 13, .12) 40%,
+    rgba(13, 13, 13, .45) 82%,
+    var(--carvao) 100%
+  );
 }
 
 /* ── Os blocos de texto ────────────────────────────────── */
@@ -143,6 +208,11 @@
 
 /* Sem pin não há três telas: os dois blocos deixam de disputar o mesmo
    centro e viram uma coluna, com a luz e o relógio no lugar de sempre. */
+/* sem pin não há curso a reservar: a seção volta a ter a altura do conteúdo */
+.manifesto.is-estatico {
+  height: auto;
+}
+
 .manifesto.is-estatico .manifesto__stage {
   height: auto;
   display: flex;

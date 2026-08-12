@@ -1,9 +1,9 @@
-/* Seção: entradas genéricas (.reveal) — interlúdio, experiências e reservas.
+/* Seção: entradas genéricas (.reveal) — hoje só as reservas.
 
-   As seções coreografadas (hero, manifesto, capítulos, fechamento) trazem
-   [data-choreo] e são puladas aqui: quem anima o conteúdo delas é a timeline
-   da própria seção. As quatro variantes originais continuam existindo, com os
-   mesmos tempos de antes — o que mudou foi quem dispara.
+   As seções coreografadas (hero, manifesto, capítulos, cartaz, fechamento)
+   trazem [data-choreo] e são puladas aqui: quem anima o conteúdo delas é a
+   timeline da própria seção. As variantes continuam existindo com os mesmos
+   tempos — o que muda é quem dispara.
 
    O estado escondido continua morando no CSS, não aqui: se ele nascesse no JS
    haveria um quadro de conteúdo visível antes do script rodar. O GSAP só

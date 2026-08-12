@@ -37,14 +37,13 @@
      scrim local atrás do texto, nunca a cena inteira. */
   --foto-fundo: .86;    /* atrás de texto: hero, cartaz */
   --foto-cena: 1;       /* o assunto da tela: capítulos */
-  --foto-conteudo: 1;   /* a foto é o conteúdo: galeria */
   --foto-cartao: .8;    /* cartão com texto por cima: reservas */
 
-  /* O material fotográfico da faixa foi todo feito sob luz vermelha de
-     boate, e vermelho puro é a única cor que não existe nesta paleta. Um
-     giro de matiz único leva as cinco para o âmbar — é o que faz a faixa
-     parecer da mesma noite que o resto do site. */
-  --grade-noite: saturate(.82) hue-rotate(-14deg) brightness(1.06);
+  /* A faixa horizontal não aparece aqui. As cinco fotos dela vêm de noites e
+     câmeras diferentes, e nenhum valor único de filter serve às cinco: o
+     giro que leva o vermelho de boate ao âmbar leva o jardim ao oliva. A
+     correção passou a ser por imagem e assada no arquivo — os faixa-*.webp,
+     em scripts/grade-faixa.mjs. */
 
   --ease: cubic-bezier(.16, 1, .3, 1);
   --dur-med: .9s;

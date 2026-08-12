@@ -54,9 +54,16 @@
            canto onde o capítulo 01 vai continuar contando. -->
       <section class="manifesto" id="manifesto" data-flat data-choreo>
         <div class="manifesto__stage">
+          <!-- o jardim já está aqui, apagado. É nele que a passagem termina, e
+               é por isso que a emenda com o capítulo 01 deixa de existir: os
+               dois lados da emenda mostram a mesma foto no mesmo enquadramento. -->
+          <img class="manifesto__jardim" src="/img/jardim.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--soft" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--sharp" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <span class="manifesto__luz" aria-hidden="true"></span>
+          <!-- a mesma demão que o capítulo 01 tem por cima da foto: sem ela o
+               jardim daqui e o jardim de lá teriam tons diferentes na emenda -->
+          <span class="manifesto__ceu" aria-hidden="true"></span>
 
           <div class="manifesto__bloco manifesto__bloco--um">
             <span class="manifesto__rule" aria-hidden="true"></span>
@@ -147,23 +154,27 @@
       <!-- ── A faixa: cinco quadros em cadências diferentes ─ -->
       <section class="gallery" id="gallery" data-vrail="A NOITE" data-choreo>
         <div class="gallery__stage">
-          <span class="gallery__label vrail-style" aria-hidden="true">A noite</span>
           <div class="gallery__track">
+            <!-- faixa-*: as mesmas fotos com a grade âmbar já assada no
+                 arquivo (scripts/grade-faixa.mjs). Cinco fotos grandes com
+                 filter CSS numa seção pinada custam caro no telefone, e um
+                 filtro único não serve a cinco fotos de temperaturas
+                 diferentes — a correção é por imagem, e é feita no build. -->
             <figure class="gallery__item gallery__item--alta">
-              <img src="/img/detalhe-01.webp" alt="" loading="lazy">
+              <img src="/img/faixa-01.webp" alt="" loading="lazy">
             </figure>
             <figure class="gallery__item gallery__item--baixa">
-              <img src="/img/detalhe-03.webp" alt="" loading="lazy">
+              <img src="/img/faixa-03.webp" alt="" loading="lazy">
             </figure>
             <!-- a que quebra a cadência: sangra o palco inteiro em altura -->
             <figure class="gallery__item gallery__item--solta">
-              <img src="/img/jardim-noite.webp" alt="" loading="lazy">
+              <img src="/img/faixa-05.webp" alt="" loading="lazy">
             </figure>
             <figure class="gallery__item gallery__item--baixa">
-              <img src="/img/detalhe-02.webp" alt="" loading="lazy">
+              <img src="/img/faixa-02.webp" alt="" loading="lazy">
             </figure>
             <figure class="gallery__item gallery__item--alta">
-              <img src="/img/detalhe-04.webp" alt="" loading="lazy">
+              <img src="/img/faixa-04.webp" alt="" loading="lazy">
             </figure>
           </div>
         </div>
@@ -240,7 +251,7 @@
               <span class="sala__num">02</span>
               <span class="sala__body">
                 <span class="sala__name">Salão</span>
-                <span class="sala__when">22h — 03h</span>
+                <span class="sala__when">20h — 03h</span>
               </span>
               <span class="sala__go" aria-hidden="true">Reservar</span>
             </a>

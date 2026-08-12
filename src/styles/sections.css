@@ -16,7 +16,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 1.5rem;
+  padding: 0 var(--gutter-r) 0 var(--gutter-l);
   overflow: hidden;
 }
 
@@ -84,13 +84,13 @@
 
 .manifesto__line {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 9vw, 3.75rem);
+  font-size: var(--fs-quieto);
   font-weight: 300;
   color: var(--concreto);
   letter-spacing: .02em;
-  line-height: 1.35;
+  line-height: 1.3;
   margin-bottom: 0;
-  max-width: 24ch;
+  max-width: 18ch;
   text-align: left;
   text-shadow: 0 2px 24px rgba(13, 13, 13, .8);
 }
@@ -107,35 +107,11 @@
   margin-top: 3rem;
 }
 
-/* ── Interlúdio ────────────────────────────────────────── */
-
-.interlude {
-  background: var(--carvao);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1.5rem;
-  text-align: center;
-}
-
-.interlude__line {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 7.5vw, 3.25rem);
-  font-weight: 300;
-  color: rgba(255, 255, 255, .82);
-  line-height: 1.5;
-}
-
-.interlude__line:last-child {
-  color: var(--ambar);
-}
-
 /* ── Capítulo ──────────────────────────────────────────── */
 
-/* O palco é uma tela só, pinada pelo ScrollTrigger; o curso de rolagem que
-   antes vinha de um bloco de 200svh agora vem do próprio pin. */
+/* O palco é uma tela só, pinada pelo ScrollTrigger. Cada capítulo tem seu
+   próprio curso de rolagem (data-run), porque nem todo ambiente merece a
+   mesma duração: o entardecer é o momento denso, o resto passa mais rápido. */
 
 .chapter {
   --scrim-x: 15%; /* centro horizontal do scrim, segue o alinhamento do texto */
@@ -173,19 +149,10 @@
   opacity: 1;
 }
 
-/* capítulo 03: texturas já escuras, escurecê-las de novo as apaga */
+/* o reservado já é uma foto quase toda em sombra: escurecê-la de novo a apaga */
 #cap-reservado .chapter__img {
-  filter: saturate(1.1) brightness(1.05);
-}
-
-#cap-reservado .chapter__stage::after {
-  background: linear-gradient(
-    to bottom,
-    rgba(13, 13, 13, .3) 0%,
-    rgba(13, 13, 13, .45) 40%,
-    rgba(13, 13, 13, .75) 80%,
-    var(--carvao) 100%
-  );
+  filter: saturate(1.08) brightness(1.08);
+  object-position: center 55%;
 }
 
 .chapter__stage::after {
@@ -213,39 +180,81 @@
   );
 }
 
-.chapter__ghost {
+/* ── A luz que cai (só no capítulo 01) ─────────────────── */
+
+/* Uma demão de céu por cima da foto. Nasce âmbar alto e quente, e a
+   timeline a leva a opacidade cheia enquanto a foto de dia dá lugar à de
+   noite: as duas coisas juntas são o entardecer acontecendo.
+   Gradiente parado + opacity animada — animar as paradas custaria repintura. */
+.chapter__dusk {
   position: absolute;
-  bottom: 8rem;
-  left: 1.5rem;
-  font-size: clamp(9rem, 42vw, 20rem);
-  font-weight: 200;
-  color: var(--concreto);
-  opacity: .045;
-  line-height: .8;
-  z-index: 3;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 90% 55% at 70% 88%, rgba(200, 137, 46, .3) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(13, 13, 13, .55) 0%, rgba(107, 74, 46, .28) 45%, transparent 100%);
+}
+
+/* ── O relógio gigante ─────────────────────────────────── */
+
+/* Substitui o par número-fantasma + horário-miúdo dos capítulos antigos.
+   A noite avança de verdade ao longo do site: 18h → 20h → 00h → 03h, sempre
+   na maior escala da tela. Um elemento no lugar de dois, e o que ele diz é
+   o assunto do capítulo, não a sua numeração. */
+.chapter__clock {
+  position: absolute;
+  bottom: 4svh;
+  left: calc(var(--gutter-l) - .085em);
+  z-index: 3;
+  font-size: clamp(7.5rem, 40vw, 19rem);
+  font-weight: 200;
+  letter-spacing: -.03em;
+  line-height: .78;
+  color: #fff;
+  opacity: .085;
+  pointer-events: none;
+  white-space: nowrap;
+  /* o dígito troca a cada quadro: sem largura fixa o número treme */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sem contagem (movimento reduzido) o relógio vira faixa: "18h — 20h" no
+   lugar de um horário só. Três vezes mais largo, então três vezes menor —
+   e um pouco mais presente, já que aqui ele é a única coisa que se move. */
+.chapter__clock--faixa {
+  font-size: clamp(2.25rem, 12vw, 5.5rem);
+  opacity: .16;
+}
+
+.chapter--center .chapter__clock {
+  left: 50%;
+}
+
+.chapter--right .chapter__clock {
+  left: auto;
+  right: calc(var(--gutter-r) - .085em);
 }
 
 .chapter__content {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   isolation: isolate;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 0 1.5rem;
+  padding: 0 var(--gutter-r) 0 var(--gutter-l);
 }
 
-/* ── Âncoras do topo: rótulo e horário em cantos opostos ─ */
+/* ── Âncora do topo: só o rótulo ───────────────────────── */
 
 .chapter__meta {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
   width: 100%;
-  /* o recuo vive no invólucro: no rótulo sozinho ele desalinharia o horário */
+  /* o recuo vive no invólucro, não no rótulo */
   padding-top: 14svh;
 }
 
@@ -261,8 +270,14 @@
   opacity: .5;
 }
 
-/* o horário fica do lado oposto ao alinhamento do capítulo */
-.chapter--right .chapter__meta,
+.chapter--center .chapter__meta {
+  justify-content: center;
+}
+
+.chapter--right .chapter__meta {
+  justify-content: flex-end;
+}
+
 .chapter--right .chapter__labelwrap {
   flex-direction: row-reverse;
 }
@@ -281,7 +296,7 @@
 
 .chapter--left .chapter__body {
   align-items: flex-start;
-  padding-top: 30svh;
+  padding-top: 26svh;
 }
 
 .chapter--center .chapter__content {
@@ -291,7 +306,7 @@
 
 .chapter--center .chapter__body {
   align-items: center;
-  padding-top: 34svh;
+  padding-top: 30svh;
 }
 
 .chapter--center .chapter__text {
@@ -301,24 +316,15 @@
 .chapter--right .chapter__content {
   align-items: flex-end;
   text-align: right;
-  /* o texto encosta na borda direita, onde mora o .vrail: abre a faixa dele */
-  padding-right: 3.25rem;
 }
 
 .chapter--right .chapter__body {
   align-items: flex-end;
-  padding-top: 26svh;
+  padding-top: 24svh;
 }
 
 .chapter--center { --scrim-x: 50%; }
 .chapter--right { --scrim-x: 85%; }
-
-/* a centralização do fantasma é feita em xPercent pelo GSAP: em pixel,
-   o valor ficaria velho no primeiro resize */
-.chapter--right .chapter__ghost {
-  left: auto;
-  right: 1.5rem;
-}
 
 /* scrim: garante legibilidade seja qual for a imagem atrás */
 .chapter__content::before {
@@ -338,7 +344,6 @@
 }
 
 .chapter__label,
-.chapter__time,
 .chapter__title,
 .chapter__text {
   text-shadow:
@@ -358,49 +363,35 @@
     0 1px 3px rgba(13, 13, 13, .9);
 }
 
-.chapter__time {
-  display: inline-block;
-  font-size: var(--fs-label);
-  letter-spacing: var(--track-mid);
-  color: rgba(255, 255, 255, .5);
-  white-space: nowrap;
-  /* o contador troca de dígito a cada quadro: sem largura fixa o texto treme */
-  font-variant-numeric: tabular-nums;
-  /* alinha a linha de base com o rótulo, que carrega o losango de 18px */
-  padding-top: .25rem;
-}
-
+/* O título passa a ocupar a tela: uma palavra por linha, na escala grande.
+   O que era um subtítulo confortável virou a coisa mais legível do capítulo. */
 .chapter__title {
   font-family: var(--font-display);
-  font-size: var(--fs-title);
+  font-size: var(--fs-grande);
   font-weight: 300;
   color: #fff;
   letter-spacing: var(--track-display);
+  line-height: .95;
+  max-width: 8ch;
+}
+
+.chapter--center .chapter__title {
+  max-width: 9ch;
 }
 
 .chapter__text {
   font-size: var(--fs-body);
   color: rgba(255, 255, 255, .85);
-  max-width: 28ch;
-  margin-top: 1.25rem;
+  max-width: 26ch;
+  margin-top: 1.75rem;
   line-height: 1.7;
 }
 
 /* ── Estreito: as âncoras laterais não podem esbarrar no texto ── */
 
 @media (max-width: 600px) {
-  /* a faixa do .vrail é mais estreita aqui: o rótulo encolhe junto */
-  .chapter--right .chapter__content {
-    padding-right: 2.75rem;
-  }
-
-  /* rótulo e horário dividem uma linha só: menos tracking, menos folga */
   .chapter__label {
     letter-spacing: var(--track-mid);
-  }
-
-  .chapter__meta {
-    gap: .75rem;
   }
 
   .chapter__losango {

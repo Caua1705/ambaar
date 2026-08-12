@@ -1,0 +1,75 @@
+/* O fio — o objeto de continuidade do site.
+
+   Um filete de ponta a ponta na borda esquerda e o losango descendo por ele:
+   a posição do losango é o progresso da página inteira, e a rotação acompanha.
+   Substitui o par losango-parado + trilha-de-pontos: um elemento só faz os
+   dois trabalhos e, ao contrário dos pontos, existe em todas as seções.
+
+   Tudo aqui é transform sobre um elemento fixo — o fio não repinta. */
+
+.spine {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--gutter-l);
+  z-index: 15;
+  pointer-events: none;
+  /* o filete nasce fora de cena e é a timeline global que o entrega */
+  opacity: 0;
+}
+
+.spine.is-ready {
+  opacity: 1;
+  transition: opacity 1.2s var(--ease);
+}
+
+.spine__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(107, 74, 46, .55) 12%,
+    rgba(107, 74, 46, .55) 88%,
+    transparent 100%
+  );
+}
+
+/* A conta de posição vive no JS (spine.js) em --t, de 0 a 1: aqui só se diz
+   entre que alturas o losango pode andar. Assim o resize não precisa de
+   recálculo nenhum — a caixa é o próprio viewport. */
+.spine__mark {
+  position: absolute;
+  left: 50%;
+  top: calc(9% + var(--t, 0) * 82%);
+  width: 20px;
+  opacity: .5;
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+  /* a transição costura os degraus do JS num giro contínuo, sem colar no dedo */
+  transition: transform 1.1s var(--ease), opacity .6s var(--ease);
+}
+
+/* fundo liso: sem foto competindo, o losango pode aparecer mais */
+.spine.is-lit .spine__mark {
+  opacity: .95;
+}
+
+@media (max-width: 600px) {
+  .spine__mark {
+    width: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spine {
+    opacity: 1;
+  }
+
+  .spine__mark {
+    transition: none;
+  }
+}

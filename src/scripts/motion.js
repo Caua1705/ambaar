@@ -17,7 +17,13 @@ gsap.registerPlugin(ScrollTrigger, CustomEase)
    das transitions para o GSAP */
 export const EASE = CustomEase.create('ambar', '0.16, 1, 0.3, 1')
 
-export const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+/* O caminho sem movimento é metade do comportamento do site e não pode
+   depender de trocar a preferência do sistema para ser conferido: em dev,
+   ?reduce=1 força o mesmo ramo. O import.meta.env.DEV é constante no build,
+   então a condição inteira desaparece do bundle de produção. */
+export const reducedMotion =
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+  (import.meta.env.DEV && new URLSearchParams(location.search).has('reduce'))
 
 export let lenis = null
 

@@ -1,6 +1,6 @@
 /* Painel sólido que varre a tela na emenda entre capítulos.
 
-   Fica abaixo das âncoras fixas (.vrail, .brandmark, z-index 15): elas são a
+   Fica abaixo das âncoras fixas (.vrail, .spine, z-index 15): elas são a
    continuidade do site e não devem ser cobertas — é justamente durante a
    varredura que sustentam a leitura. */
 
@@ -11,7 +11,27 @@
   background: var(--carvao);
   pointer-events: none;
   visibility: hidden;
+  overflow: hidden;
   will-change: transform;
+}
+
+/* ── A cortina de fumaça ───────────────────────────────── */
+
+/* A fumaça é a passagem para o Reservado: em vez do painel liso, o preto
+   vem carregado de textura em movimento. O vídeo viaja junto com o painel —
+   não tem timeline própria, é o mesmo transform que já estava acontecendo.
+
+   Fica em opacidade baixa de propósito: é uma emenda de dois segundos, e a
+   fumaça precisa ser sentida, não assistida. */
+.curtain__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .5;
+  filter: saturate(1.15) brightness(.85);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

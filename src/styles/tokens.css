@@ -24,4 +24,25 @@
   --fs-title: clamp(2.25rem, 9vw, 4rem);
   --fs-body: clamp(.95rem, 3.6vw, 1.05rem);
   --fs-label: clamp(.65rem, 2.6vw, .75rem);
+
+  /* Escala dramática: os três tamanhos que ocupam a tela.
+     --fs-mega é para uma palavra por linha e sangra de propósito. */
+  --fs-mega: clamp(3.25rem, 17vw, 11rem);
+  --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
+  --fs-quieto: clamp(1.9rem, 8.5vw, 4.25rem);
+
+  /* As duas faixas laterais que nenhum conteúdo invade: à esquerda mora o
+     fio com o losango, à direita o texto vertical. Reservá-las como token
+     evita que cada seção invente o próprio recuo. */
+  --gutter-l: 2.5rem;
+  --gutter-r: 2.75rem;
+  --pad-x: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --gutter-l: 3.5rem;
+    --gutter-r: 3.5rem;
+    --pad-x: 2.5rem;
+  }
 }

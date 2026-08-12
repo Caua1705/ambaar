@@ -106,10 +106,10 @@
 
 /* ── Âncora inferior esquerda ───────────────────────────── */
 
-/* acima do losango fixo (.brandmark), que ocupa o canto */
+/* encostado na faixa do fio (.spine), nunca por cima dela */
 .hero__sub {
   position: absolute;
-  left: 1.5rem;
+  left: var(--gutter-l);
   bottom: 4.5rem;
   z-index: 2;
   display: flex;

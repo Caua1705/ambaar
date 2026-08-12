@@ -3,7 +3,10 @@
 @import './styles/preloader.css';
 @import './styles/hero.css';
 @import './styles/sections.css';
+@import './styles/cartaz.css';
 @import './styles/gallery.css';
+@import './styles/som.css';
+@import './styles/carta.css';
 @import './styles/curtain.css';
 @import './styles/topbar.css';
 @import './styles/experiencias.css';
@@ -11,6 +14,5 @@
 @import './styles/outro.css';
 /* âncoras fixas por último: elas reservam faixa nas seções acima */
 @import './styles/vrail.css';
-@import './styles/brandmark.css';
-@import './styles/track.css';
+@import './styles/spine.css';
 @import './styles/grain.css';

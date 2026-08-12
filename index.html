@@ -20,6 +20,7 @@
       <nav class="topbar__nav">
         <a class="topbar__link" data-nav="programacao" href="#experiencias">Programação</a>
         <a class="topbar__link" data-nav="ambientes" href="#cap-jardim">Ambientes</a>
+        <a class="topbar__link" data-nav="carta" href="#carta">Carta</a>
         <a class="topbar__link topbar__link--cta" data-nav="reservas" href="#reservas">Reservas</a>
       </nav>
     </header>
@@ -56,19 +57,22 @@
         </div>
       </section>
 
-      <section class="chapter chapter--left" id="cap-jardim" data-vrail="JARDIM" data-nav="ambientes" data-choreo>
+      <!-- ── 01 · O entardecer acontecendo ───────────────── -->
+      <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
+               data-nav="ambientes" data-run="300" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__img" src="/img/jardim.webp" alt="">
+            <img class="chapter__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
           </div>
-          <span class="chapter__ghost" aria-hidden="true">01</span>
+          <span class="chapter__dusk" aria-hidden="true"></span>
+          <span class="chapter__clock" aria-hidden="true" data-clock="18—20">18h</span>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
                 <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">01 — Jardim</span>
               </span>
-              <span class="chapter__time reveal reveal--rise">17h — 20h</span>
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
@@ -80,19 +84,20 @@
 
       <div class="curtain" aria-hidden="true"></div>
 
-      <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO" data-nav="ambientes" data-choreo>
+      <!-- ── 02 · O salão ───────────────────────────────── -->
+      <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
+               data-nav="ambientes" data-run="200" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__img" src="/img/salao.webp" alt="">
           </div>
-          <span class="chapter__ghost" aria-hidden="true">02</span>
+          <span class="chapter__clock" aria-hidden="true" data-clock="20—00">20h</span>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
                 <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">02 — Salão</span>
               </span>
-              <span class="chapter__time reveal reveal--rise">20h — 00h</span>
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">House All Night</h2>
@@ -102,7 +107,27 @@
         </div>
       </section>
 
-      <section class="gallery" id="gallery" data-choreo>
+      <!-- ── O cartaz da noite ──────────────────────────── -->
+      <section class="cartaz" id="cartaz" data-vrail="SEXTA · 22H" data-nav="programacao" data-choreo>
+        <div class="cartaz__stage">
+          <img class="cartaz__bg" src="/img/salao.webp" alt="" loading="lazy">
+          <div class="cartaz__content">
+            <p class="cartaz__eyebrow">Sexta · 22h</p>
+            <h2 class="cartaz__title">
+              <span class="cartaz__word"><span>House</span></span>
+              <span class="cartaz__word"><span>All</span></span>
+              <span class="cartaz__word"><span>Night</span></span>
+            </h2>
+            <svg class="cartaz__mark" viewBox="0 0 40 64" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M20 1.5 L38 32 L20 62.5 L2 32 Z" stroke-width="1.1"/>
+              <path d="M2 32 L38 32" stroke-width="1.1"/>
+            </svg>
+            <p class="cartaz__foot">Organic House · Deep Listening</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery" id="gallery" data-vrail="A NOITE" data-choreo>
         <div class="gallery__stage">
           <span class="gallery__label vrail-style" aria-hidden="true">A noite</span>
           <div class="gallery__track">
@@ -116,37 +141,51 @@
               <img src="/img/detalhe-03.webp" alt="" loading="lazy">
             </figure>
             <figure class="gallery__item">
-              <img src="/img/detalhe-04.webp" alt="" loading="lazy">
-            </figure>
-            <figure class="gallery__item">
               <img src="/img/detalhe-05.webp" alt="" loading="lazy">
             </figure>
           </div>
         </div>
       </section>
 
-      <section class="interlude" data-flat>
-        <p class="interlude__line reveal">Não é sobre o volume.</p>
-        <p class="interlude__line reveal" data-delay="220">É sobre o que você escuta</p>
-        <p class="interlude__line reveal" data-delay="440">quando ele baixa.</p>
+      <!-- ── O silêncio: sobre o som ────────────────────── -->
+      <section class="som" id="som" data-vrail="SOBRE O SOM" data-flat>
+        <div class="som__beat">
+          <p class="som__big reveal">Não é sobre o volume.</p>
+        </div>
+        <div class="som__beat">
+          <p class="som__big reveal">É sobre o que você escuta</p>
+          <p class="som__big som__big--accent reveal" data-delay="260">quando ele baixa.</p>
+        </div>
+        <div class="som__beat som__beat--note">
+          <span class="som__rule" aria-hidden="true"></span>
+          <p class="som__eyebrow reveal reveal--line">Sobre o som</p>
+          <p class="som__text reveal">Não trabalhamos com pista, trabalhamos com escuta. A programação é feita por curadoria, não por pedido: organic house, downtempo e o que existe entre os dois.</p>
+          <p class="som__text som__text--last reveal" data-delay="180">Sistema de som calibrado para volume baixo — porque música boa não precisa gritar para ser ouvida.</p>
+        </div>
       </section>
 
-      <div class="curtain" aria-hidden="true"></div>
+      <div class="curtain curtain--smoke" aria-hidden="true">
+        <!-- a cortina é fixed e cobre a tela desde o load: quem anuncia a
+             chegada dela é o capítulo que vem depois -->
+        <video class="curtain__video" data-src="/video/fumaca.mp4" data-observe="#cap-reservado"
+               poster="/video/fumaca-poster.jpg"
+               muted loop playsinline preload="none" aria-hidden="true"></video>
+      </div>
 
-      <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO" data-nav="ambientes" data-choreo>
+      <!-- ── 03 · O reservado ───────────────────────────── -->
+      <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
+               data-nav="ambientes" data-run="220" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
-            <img class="chapter__img" src="/img/textura-marmore.webp" alt="" loading="lazy">
-            <img class="chapter__img" src="/img/textura-particulas.webp" alt="" loading="lazy">
+            <img class="chapter__img" src="/img/reservado.webp" alt="" loading="lazy">
           </div>
-          <span class="chapter__ghost" aria-hidden="true">03</span>
+          <span class="chapter__clock" aria-hidden="true" data-clock="00—03">00h</span>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
                 <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">03 — Reservado</span>
               </span>
-              <span class="chapter__time reveal reveal--rise">00h — 03h</span>
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
@@ -154,6 +193,41 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- ── A carta ────────────────────────────────────── -->
+      <section class="carta" id="carta" data-vrail="A CARTA" data-nav="carta" data-choreo>
+        <div class="carta__open">
+          <video class="carta__video" data-src="/video/liquido.mp4" poster="/video/liquido-poster.jpg"
+                 muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="carta__head">
+            <p class="carta__eyebrow">Cocktails autorais</p>
+            <p class="carta__note">Quatro receitas fixas e uma que muda toda semana.</p>
+          </div>
+        </div>
+
+        <ul class="carta__list">
+          <li class="drink">
+            <span class="drink__rule" aria-hidden="true"></span>
+            <h3 class="drink__name">Entardecer</h3>
+            <p class="drink__mix">gin · maracujá · tomilho · tônica</p>
+          </li>
+          <li class="drink">
+            <span class="drink__rule" aria-hidden="true"></span>
+            <h3 class="drink__name">Fumê</h3>
+            <p class="drink__mix">mezcal · laranja queimada · agave</p>
+          </li>
+          <li class="drink">
+            <span class="drink__rule" aria-hidden="true"></span>
+            <h3 class="drink__name">Reservado</h3>
+            <p class="drink__mix">bourbon · cacau · bitter</p>
+          </li>
+          <li class="drink">
+            <span class="drink__rule" aria-hidden="true"></span>
+            <h3 class="drink__name">Vinil</h3>
+            <p class="drink__mix">cachaça envelhecida · café · limão siciliano</p>
+          </li>
+        </ul>
       </section>
 
       <section class="experiencias" id="experiencias" data-vrail="A PROGRAMAÇÃO" data-nav="programacao" data-flat>
@@ -173,7 +247,7 @@
             </div>
             <span class="exp-card__toggle" aria-hidden="true">+</span>
             <div class="exp-card__reveal">
-              <img src="/img/jardim.webp" alt="" loading="lazy">
+              <img src="/img/jardim-noite.webp" alt="" loading="lazy">
             </div>
           </li>
           <li class="exp-card reveal" data-delay="120" role="button" tabindex="0" aria-expanded="false">
@@ -197,19 +271,53 @@
             </div>
             <span class="exp-card__toggle" aria-hidden="true">+</span>
             <div class="exp-card__reveal">
-              <img src="/img/textura-marmore.webp" alt="" loading="lazy">
+              <img src="/img/reservado.webp" alt="" loading="lazy">
             </div>
           </li>
         </ul>
       </section>
 
+      <!-- ── Reservas: a narrativa desemboca na escolha ─── -->
       <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas">
-        <div class="reservas__box">
-          <p class="reservas__eyebrow reveal reveal--line">Reservas</p>
-          <h2 class="reservas__title reveal">Garanta sua mesa.</h2>
-          <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. Reserve pelo WhatsApp e receba a confirmação na hora.</p>
-          <a class="reservas__btn" href="https://wa.me/55SEUNUMERO" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
-        </div>
+        <p class="reservas__eyebrow reveal reveal--line">Reservas</p>
+        <h2 class="reservas__title reveal">Garanta sua mesa.</h2>
+        <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. Reserve pelo WhatsApp e receba a confirmação na hora.</p>
+
+        <ul class="salas">
+          <li class="sala reveal">
+            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Jardim%20do%20%C3%82mbar." target="_blank" rel="noopener">
+              <img class="sala__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
+              <span class="sala__num">01</span>
+              <span class="sala__body">
+                <span class="sala__name">Jardim</span>
+                <span class="sala__when">18h — 00h</span>
+              </span>
+              <span class="sala__go" aria-hidden="true">Reservar</span>
+            </a>
+          </li>
+          <li class="sala reveal" data-delay="120">
+            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Sal%C3%A3o%20do%20%C3%82mbar." target="_blank" rel="noopener">
+              <img class="sala__img" src="/img/salao.webp" alt="" loading="lazy">
+              <span class="sala__num">02</span>
+              <span class="sala__body">
+                <span class="sala__name">Salão</span>
+                <span class="sala__when">22h — 03h</span>
+              </span>
+              <span class="sala__go" aria-hidden="true">Reservar</span>
+            </a>
+          </li>
+          <li class="sala reveal" data-delay="240">
+            <a class="sala__link" href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Reservado%20do%20%C3%82mbar." target="_blank" rel="noopener">
+              <img class="sala__img" src="/img/reservado.webp" alt="" loading="lazy">
+              <span class="sala__num">03</span>
+              <span class="sala__body">
+                <span class="sala__name">Reservado</span>
+                <span class="sala__when">00h — 03h</span>
+              </span>
+              <span class="sala__go" aria-hidden="true">Reservar</span>
+            </a>
+          </li>
+        </ul>
       </section>
 
       <footer class="outro" data-vrail="@AMBAR.BAR" data-choreo>
@@ -230,15 +338,14 @@
       </footer>
     </div>
 
-    <img class="brandmark" src="/brand/losango.svg" alt="" aria-hidden="true">
+    <!-- o fio que atravessa o site inteiro: o losango desce por ele -->
+    <div class="spine" aria-hidden="true">
+      <span class="spine__line"></span>
+      <img class="spine__mark" src="/brand/losango.svg" alt="">
+    </div>
 
     <span class="vrail vrail-style" aria-hidden="true">ÂMBAR · MMXXVI</span>
 
-    <div class="track" aria-hidden="true">
-      <span class="track__dot"></span>
-      <span class="track__dot"></span>
-      <span class="track__dot"></span>
-    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

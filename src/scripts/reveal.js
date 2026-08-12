@@ -13,6 +13,39 @@ const observer = new IntersectionObserver(
   { threshold: 0.25 }
 )
 
+const CHAR_STEP = 40 // ms entre um caractere e o seguinte
+
+/* Quebra o texto em caracteres. O rótulo original vira aria-label:
+   sem isso o leitor de tela soletraria a palavra letra a letra. */
+const prepararCaracteres = (el) => {
+  const texto = el.textContent
+  el.setAttribute('aria-label', texto)
+  el.textContent = ''
+
+  ;[...texto].forEach((caractere, i) => {
+    const span = document.createElement('span')
+    span.className = 'char'
+    span.textContent = caractere === ' ' ? ' ' : caractere
+    span.style.transitionDelay = `${i * CHAR_STEP}ms`
+    el.append(span)
+  })
+}
+
+/* Embrulha o texto para que ele possa entrar depois do traço do ::before. */
+const prepararLinha = (el) => {
+  const span = document.createElement('span')
+  span.className = 'reveal__text'
+  span.append(...el.childNodes)
+  el.append(span)
+}
+
+// a preparação precisa vir antes de observar: se .is-visible chegasse primeiro,
+// os pedaços nasceriam já no estado final e apareceriam de uma vez
+if (!reducedMotion.matches) {
+  for (const el of document.querySelectorAll('.reveal--chars')) prepararCaracteres(el)
+  for (const el of document.querySelectorAll('.reveal--line')) prepararLinha(el)
+}
+
 for (const el of document.querySelectorAll('.reveal')) {
   observer.observe(el)
 }

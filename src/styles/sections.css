@@ -52,8 +52,9 @@
 .manifesto__line {
   position: relative;
   z-index: 1;
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  font-weight: 200;
+  font-weight: 300;
   color: var(--concreto);
   letter-spacing: .02em;
   margin-bottom: 3.5rem;
@@ -64,10 +65,36 @@
   margin-bottom: 0;
 }
 
+/* ── Interlúdio ────────────────────────────────────────── */
+
+.interlude {
+  background: var(--carvao);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.interlude__line {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 7.5vw, 3.25rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, .82);
+  line-height: 1.5;
+}
+
+.interlude__line:last-child {
+  color: var(--ambar);
+}
+
 /* ── Capítulo ──────────────────────────────────────────── */
 
 .chapter {
   --melt-from: var(--fume);
+  --scrim-x: 15%; /* centro horizontal do scrim, segue o alinhamento do texto */
   position: relative;
   background: var(--carvao);
 }
@@ -106,10 +133,6 @@
 /* fotos de detalhe já são noturnas: escurecê-las de novo as apaga */
 .chapter__img[class*='crop-'] {
   filter: saturate(1.1) brightness(1.05);
-}
-
-#cap-salao .chapter__content {
-  padding-top: 62svh;
 }
 
 /* capítulo 03: texturas já escuras, mesmo tratamento das fotos de detalhe */
@@ -186,8 +209,45 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 55svh 1.5rem 0;
+  padding: 0 1.5rem;
   margin-top: -100svh;
+}
+
+/* ── Composição por capítulo ───────────────────────────── */
+
+.chapter--left .chapter__content {
+  align-items: flex-start;
+  text-align: left;
+  padding-top: 55svh;
+}
+
+.chapter--center .chapter__content {
+  align-items: center;
+  text-align: center;
+  padding-top: 60svh;
+}
+
+.chapter--center .chapter__text {
+  margin-inline: auto;
+}
+
+.chapter--right .chapter__content {
+  align-items: flex-end;
+  text-align: right;
+  padding-top: 48svh;
+}
+
+.chapter--center { --scrim-x: 50%; }
+.chapter--right { --scrim-x: 85%; }
+
+.chapter--center .chapter__ghost {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chapter--right .chapter__ghost {
+  left: auto;
+  right: 1.5rem;
 }
 
 /* scrim: garante legibilidade seja qual for a imagem atrás */
@@ -197,7 +257,7 @@
   inset: 0;
   z-index: -1;
   background: radial-gradient(
-    ellipse 120% 45% at 15% 32%,
+    ellipse 120% 45% at var(--scrim-x) 32%,
     rgba(13, 13, 13, .75) 0%,
     rgba(13, 13, 13, .4) 50%,
     transparent 75%
@@ -234,10 +294,11 @@
 }
 
 .chapter__title {
+  font-family: var(--font-display);
   font-size: var(--fs-title);
-  font-weight: 200;
+  font-weight: 300;
   color: #fff;
-  letter-spacing: var(--track-mid);
+  letter-spacing: var(--track-display);
 }
 
 .chapter__text {

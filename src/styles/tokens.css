@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@200;300;400&display=swap');
 
 :root {
   --carvao: #0D0D0D;
@@ -8,6 +8,10 @@
   --fume: #1A1A1A;
 
   --font: 'Jost', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+
+  /* serifada não aguenta tracking largo */
+  --track-display: .04em;
 
   --track-wide: .28em;
   --track-mid: .14em;
@@ -16,8 +20,8 @@
   --dur-slow: 1.2s;
   --dur-med: .9s;
 
-  --fs-hero: clamp(2.5rem, 12vw, 6rem);
-  --fs-title: clamp(1.75rem, 7vw, 3rem);
+  --fs-hero: clamp(3rem, 14vw, 7rem);
+  --fs-title: clamp(2.25rem, 9vw, 4rem);
   --fs-body: clamp(.95rem, 3.6vw, 1.05rem);
   --fs-label: clamp(.65rem, 2.6vw, .75rem);
 }

@@ -58,12 +58,13 @@
 }
 
 .hero__mark {
+  font-family: var(--font-display);
   font-size: var(--fs-hero);
-  font-weight: 200;
-  letter-spacing: var(--track-wide);
+  font-weight: 300;
+  letter-spacing: var(--track-display);
   color: var(--ambar);
   line-height: 1;
-  text-indent: var(--track-wide);
+  text-indent: var(--track-display);
 }
 
 .hero__sub {

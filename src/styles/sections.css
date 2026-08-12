@@ -6,10 +6,15 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 0 1.5rem;
   overflow: hidden;
+}
+
+.manifesto__content {
+  position: relative;
+  z-index: 1;
 }
 
 .manifesto__bg {
@@ -50,19 +55,19 @@
 }
 
 .manifesto__line {
-  position: relative;
-  z-index: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+  font-size: clamp(2rem, 9vw, 3.75rem);
   font-weight: 300;
   color: var(--concreto);
   letter-spacing: .02em;
-  margin-bottom: 3.5rem;
+  line-height: 1.35;
+  margin-bottom: 0;
+  max-width: 18ch;
+  text-align: left;
 }
 
-.manifesto__line:last-child {
+.manifesto__line--accent {
   color: var(--ambar);
-  margin-bottom: 0;
 }
 
 /* ── Interlúdio ────────────────────────────────────────── */

@@ -8,6 +8,11 @@
     <title>Âmbar · Cocktail Bar &amp; Listening Club</title>
   </head>
   <body>
+    <header class="topbar" id="topbar">
+      <span class="topbar__mark">ÂMBAR</span>
+      <a class="topbar__cta" href="#reservas">Reservas</a>
+    </header>
+
     <div id="app">
       <section class="hero">
         <picture class="hero__bg">
@@ -22,9 +27,10 @@
 
       <section class="manifesto">
         <img class="manifesto__bg" src="/img/textura-fumaca.webp" alt="" loading="lazy">
-        <p class="manifesto__line reveal" style="transition-delay: 0ms">Cocktails autorais.</p>
-        <p class="manifesto__line reveal" style="transition-delay: 180ms">Música com curadoria.</p>
-        <p class="manifesto__line reveal" style="transition-delay: 360ms">Ambiente atemporal.</p>
+        <div class="manifesto__content">
+          <p class="manifesto__line reveal" style="transition-delay: 0ms">Um lugar onde a música</p>
+          <p class="manifesto__line manifesto__line--accent reveal" style="transition-delay: 260ms">não é fundo. É o motivo.</p>
+        </div>
       </section>
 
       <section class="chapter chapter--left" id="cap-jardim">
@@ -74,6 +80,46 @@
           <p class="chapter__time reveal reveal--rise">00h — 03h</p>
           <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
           <p class="chapter__text reveal">Poucas mesas, luz baixa, o som no ponto certo. A noite se fecha em si mesma.</p>
+        </div>
+      </section>
+
+      <section class="experiencias">
+        <p class="experiencias__eyebrow reveal reveal--line">A programação</p>
+        <h2 class="experiencias__title reveal">Três noites, três ritmos.</h2>
+        <ul class="exp-list">
+          <li class="exp-card reveal" style="transition-delay: 0ms">
+            <span class="exp-card__num">01</span>
+            <div class="exp-card__body">
+              <h3 class="exp-card__name">Sunset Session</h3>
+              <p class="exp-card__when">Qua, Qui e Dom · 18h — 00h</p>
+              <p class="exp-card__desc">House orgânico no jardim, cocktails autorais e o fim de tarde sem pressa.</p>
+            </div>
+          </li>
+          <li class="exp-card reveal" style="transition-delay: 120ms">
+            <span class="exp-card__num">02</span>
+            <div class="exp-card__body">
+              <h3 class="exp-card__name">House All Night</h3>
+              <p class="exp-card__when">Sex e Sáb · 22h — 03h</p>
+              <p class="exp-card__desc">O salão abre. DJ residente e convidados até o fim da noite.</p>
+            </div>
+          </li>
+          <li class="exp-card reveal" style="transition-delay: 240ms">
+            <span class="exp-card__num">03</span>
+            <div class="exp-card__body">
+              <h3 class="exp-card__name">Deep Listening</h3>
+              <p class="exp-card__when">Sex e Sáb · 00h — 03h</p>
+              <p class="exp-card__desc">Espaço reservado, curadoria de som e poucos lugares.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="reservas" id="reservas">
+        <div class="reservas__box">
+          <p class="reservas__eyebrow reveal reveal--line">Reservas</p>
+          <h2 class="reservas__title reveal">Garanta sua mesa.</h2>
+          <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. Reserve pelo WhatsApp e receba a confirmação na hora.</p>
+          <a class="reservas__btn" href="https://wa.me/55SEUNUMERO" target="_blank" rel="noopener">Reservar pelo WhatsApp</a>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 /* ── Manifesto ─────────────────────────────────────────── */
 
 .manifesto {
+  position: relative;
   background: var(--fume);
   min-height: 100svh;
   display: flex;
@@ -8,10 +9,38 @@
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
+  overflow: hidden;
+}
+
+.manifesto__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .35;
+  z-index: 0;
+}
+
+/* brilho âmbar difuso por cima da textura */
+.manifesto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200, 137, 46, .05) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
 }
 
 .manifesto::before {
   content: '';
+  position: relative;
+  z-index: 1;
   flex: none;
   width: 48px;
   height: 1px;
@@ -21,7 +50,9 @@
 }
 
 .manifesto__line {
-  font-size: var(--fs-title);
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   font-weight: 200;
   color: var(--concreto);
   letter-spacing: .02em;
@@ -72,6 +103,15 @@
 .crop-whisky { object-position: 25% 30%; }
 .crop-centro { object-position: center 45%; }
 
+/* fotos de detalhe já são noturnas: escurecê-las de novo as apaga */
+.chapter__img[class*='crop-'] {
+  filter: saturate(1.1) brightness(1.05);
+}
+
+#cap-salao .chapter__content {
+  padding-top: 62svh;
+}
+
 /* derrete a emenda com o manifesto */
 .chapter__sticky::before {
   content: '';
@@ -104,9 +144,9 @@
 .chapter--night .chapter__sticky::after {
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .35) 0%,
-    rgba(13, 13, 13, .5) 40%,
-    rgba(13, 13, 13, .8) 80%,
+    rgba(13, 13, 13, .25) 0%,
+    rgba(13, 13, 13, .35) 40%,
+    rgba(13, 13, 13, .7) 80%,
     var(--carvao) 100%
   );
 }

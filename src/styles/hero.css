@@ -27,8 +27,8 @@
   z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .55) 0%,
-    rgba(13, 13, 13, .7) 55%,
+    rgba(13, 13, 13, .25) 0%,
+    rgba(13, 13, 13, .5) 55%,
     var(--carvao) 100%
   );
 }
@@ -54,7 +54,7 @@
   text-transform: uppercase;
   letter-spacing: var(--track-mid);
   color: var(--concreto);
-  margin-top: 1.5rem;
+  margin-top: 2.25rem;
 }
 
 .hero__scroll {

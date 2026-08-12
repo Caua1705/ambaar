@@ -1,115 +1,69 @@
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+/* Seção: entradas genéricas (.reveal) — interlúdio, experiências e reservas.
 
-/* ── Reveal na entrada ─────────────────────────────────── */
+   As seções coreografadas (hero, manifesto, capítulos, fechamento) trazem
+   [data-choreo] e são puladas aqui: quem anima o conteúdo delas é a timeline
+   da própria seção. As quatro variantes originais continuam existindo, com os
+   mesmos tempos de antes — o que mudou foi quem dispara.
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue
-      entry.target.classList.add('is-visible')
-      observer.unobserve(entry.target)
-    }
-  },
-  { threshold: 0.25 }
-)
+   O estado escondido continua morando no CSS, não aqui: se ele nascesse no JS
+   haveria um quadro de conteúdo visível antes do script rodar. O GSAP só
+   caminha desse estado até o natural. */
 
-const CHAR_STEP = 40 // ms entre um caractere e o seguinte
+import { gsap, reducedMotion, EASE, splitChars, splitLine } from './motion.js'
 
-/* Quebra o texto em caracteres. O rótulo original vira aria-label:
-   sem isso o leitor de tela soletraria a palavra letra a letra. */
-const prepararCaracteres = (el) => {
-  const texto = el.textContent
-  el.setAttribute('aria-label', texto)
-  el.textContent = ''
+const CHAR_STEP = 0.04 // s entre um caractere e o seguinte
+const DUR = 0.9
+const DUR_RISE = 1.4 // a subida longa dos horários
 
-  ;[...texto].forEach((caractere, i) => {
-    const span = document.createElement('span')
-    span.className = 'char'
-    span.textContent = caractere === ' ' ? ' ' : caractere
-    span.style.transitionDelay = `${i * CHAR_STEP}ms`
-    el.append(span)
+const NATURAL = { opacity: 1, y: 0, scaleX: 1 }
+
+const alvos = [...document.querySelectorAll('.reveal')].filter((el) => !el.closest('[data-choreo]'))
+
+/* Cada variante devolve os pedaços a animar e em que instante cada um entra. */
+export const montarReveal = (el) => {
+  if (el.classList.contains('reveal--chars')) {
+    return [{ alvo: splitChars(el), dur: DUR, stagger: CHAR_STEP }]
+  }
+
+  if (el.classList.contains('reveal--line')) {
+    const { dash, text } = splitLine(el)
+    return [
+      { alvo: dash, dur: DUR },
+      { alvo: text, dur: DUR, em: 0.45 }
+    ]
+  }
+
+  if (el.classList.contains('reveal--rise')) {
+    return [{ alvo: el, dur: DUR_RISE }]
+  }
+
+  return [{ alvo: el, dur: DUR }]
+}
+
+/* Escreve o estado final direto, sem passar pela animação. */
+export const assentarReveal = (el, partes) => {
+  for (const { alvo } of partes) gsap.set(alvo, NATURAL)
+  gsap.set(el, NATURAL)
+}
+
+for (const el of alvos) {
+  const partes = montarReveal(el)
+
+  // nas variantes partidas quem esconde são os pedaços: o pai já pode aparecer
+  if (el.dataset.split) gsap.set(el, NATURAL)
+
+  if (reducedMotion) {
+    assentarReveal(el, partes)
+    continue
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: el, start: 'top 80%', once: true },
+    // o escalonamento que vivia no style inline de cada elemento
+    delay: Number(el.dataset.delay || 0) / 1000
   })
-}
 
-/* Embrulha o texto para que ele possa entrar depois do traço do ::before. */
-const prepararLinha = (el) => {
-  const span = document.createElement('span')
-  span.className = 'reveal__text'
-  span.append(...el.childNodes)
-  el.append(span)
-}
-
-// a preparação precisa vir antes de observar: se .is-visible chegasse primeiro,
-// os pedaços nasceriam já no estado final e apareceriam de uma vez
-if (!reducedMotion.matches) {
-  for (const el of document.querySelectorAll('.reveal--chars')) prepararCaracteres(el)
-  for (const el of document.querySelectorAll('.reveal--line')) prepararLinha(el)
-}
-
-for (const el of document.querySelectorAll('.reveal')) {
-  observer.observe(el)
-}
-
-/* ── Crossfade e deslocamento das imagens do capítulo ──── */
-
-const SHIFT = 8 // deslocamento lateral máximo, em % da largura da imagem
-const OVERLAP = 0.25 // fatia da janela compartilhada com a vizinha
-// a escala precisa cobrir o translateX: em p=1 a imagem desloca 8% da própria
-// largura, então o excedente de cada lado não pode ficar abaixo disso
-const SCALE_FROM = 1.28
-const SCALE_TO = 1.18
-
-const clamp01 = (n) => Math.min(Math.max(n, 0), 1)
-
-const chapters = [...document.querySelectorAll('.chapter')]
-  .map((section) => ({ section, imgs: [...section.querySelectorAll('.chapter__img')] }))
-  .filter(({ imgs }) => imgs.length)
-
-if (chapters.length) {
-  let ticking = false
-
-  const update = () => {
-    ticking = false
-    const viewport = window.innerHeight
-    const moves = !reducedMotion.matches
-
-    for (const { section, imgs } of chapters) {
-      const rect = section.getBoundingClientRect()
-
-      // fora da viewport: nada a calcular
-      if (rect.bottom <= 0 || rect.top >= viewport) continue
-
-      // curso disponível = altura da seção menos a tela fixa
-      const travel = rect.height - viewport
-      const progress = travel > 0 ? clamp01(-rect.top / travel) : 0
-
-      const window_ = 1 / imgs.length
-      const overlap = OVERLAP * window_
-
-      imgs.forEach((img, i) => {
-        const start = i * window_
-
-        // entra ao longo da sobreposição, montada em cima da vizinha de baixo
-        const fadeFrom = start - overlap / 2
-        img.style.opacity = i === 0 ? 1 : clamp01((progress - fadeFrom) / overlap)
-
-        if (moves) {
-          // a escala percorre a janela da própria imagem; o translateX é global
-          const local = clamp01((progress - start) / window_)
-          const scale = SCALE_FROM + (SCALE_TO - SCALE_FROM) * local
-          img.style.transform = `translateX(${-SHIFT * progress}%) scale(${scale})`
-        }
-      })
-    }
+  for (const { alvo, dur, stagger, em } of partes) {
+    tl.to(alvo, { ...NATURAL, duration: dur, ease: EASE, stagger }, em || 0)
   }
-
-  const onScroll = () => {
-    if (ticking) return
-    ticking = true
-    requestAnimationFrame(update)
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('resize', onScroll, { passive: true })
-  update()
 }

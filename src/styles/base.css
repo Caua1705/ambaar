@@ -6,17 +6,15 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--carvao);
   color: var(--concreto);
   font-family: var(--font);
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* clip, não hidden: hidden faria do body um contêiner de rolagem e o pin
+     do ScrollTrigger passaria a medir a caixa errada */
+  overflow-x: clip;
 }
 
 img {
@@ -24,49 +22,54 @@ img {
   max-width: 100%;
 }
 
+/* ── Lenis ─────────────────────────────────────────────── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* trava também o caminho sem Lenis (movimento reduzido), enquanto a
+   cortina de carregamento está em cena */
+html.is-loading,
+html.is-loading body {
+  overflow: hidden;
+}
+
+/* ── Estados de entrada ────────────────────────────────── */
+
+/* Só o estado escondido mora aqui. Quem caminha daqui até o natural é o
+   GSAP (reveal.js e as timelines de seção) — não há mais transition. */
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity var(--dur-med) var(--ease),
-              transform var(--dur-med) var(--ease);
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* ── Variantes de entrada ──────────────────────────────── */
-
-/* caractere a caractere: o elemento não anima, cada pedaço anima */
-.reveal--chars {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-
-.reveal--chars .char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity var(--dur-med) var(--ease),
-              transform var(--dur-med) var(--ease);
-}
-
-.reveal--chars.is-visible .char {
-  opacity: 1;
-  transform: none;
-}
-
-/* traço que cresce e só então entrega o texto */
+/* nas variantes partidas quem entra são os pedaços, não o elemento */
+.reveal--chars,
 .reveal--line {
   opacity: 1;
   transform: none;
-  transition: none;
 }
 
-.reveal--line::before {
-  content: '';
+.char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* traço que cresce e só então entrega o texto.
+   Era um ::before: virou elemento para o GSAP poder animá-lo. */
+.reveal__dash {
   display: inline-block;
   width: 32px;
   height: 1px;
@@ -75,50 +78,29 @@ img {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform var(--dur-med) var(--ease);
 }
 
-.reveal--line.is-visible::before {
-  transform: scaleX(1);
-}
-
-.reveal--line .reveal__text {
+.reveal__text {
   display: inline-block;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity var(--dur-med) var(--ease),
-              transform var(--dur-med) var(--ease);
-  transition-delay: .45s;
-}
-
-.reveal--line.is-visible .reveal__text {
-  opacity: 1;
-  transform: none;
 }
 
 /* subida longa, sem escalonamento */
 .reveal--rise {
   transform: translateY(20px);
-  transition: opacity 1.4s var(--ease), transform 1.4s var(--ease);
-  transition-delay: 0s;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal.is-visible,
   .reveal--rise,
-  .reveal--chars .char,
-  .reveal--chars.is-visible .char,
-  .reveal--line .reveal__text,
-  .reveal--line.is-visible .reveal__text {
+  .char,
+  .reveal__text {
     opacity: 1;
     transform: none;
-    transition: none;
   }
 
-  .reveal--line::before,
-  .reveal--line.is-visible::before {
+  .reveal__dash {
     transform: scaleX(1);
-    transition: none;
   }
 }

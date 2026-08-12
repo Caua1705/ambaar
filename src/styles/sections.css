@@ -1,15 +1,52 @@
 /* ── Manifesto ─────────────────────────────────────────── */
 
+/* Deixou de ser uma seção com textura de fundo: agora é a passagem que abre
+   o capítulo 01. O palco é pinado e as três camadas (jardim revelado, fumaça
+   borrada, fumaça nítida) se cruzam sobre ele. */
+
 .manifesto {
   position: relative;
   background: var(--fume);
-  min-height: 100svh;
+}
+
+.manifesto__stage {
+  position: relative;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   padding: 0 1.5rem;
   overflow: hidden;
+}
+
+.manifesto__reveal,
+.manifesto__smoke {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* o jardim entra por baixo já no enquadramento com que o capítulo 01 abre */
+.manifesto__reveal {
+  object-position: center 40%;
+  filter: saturate(1.05) brightness(.85);
+  opacity: 0;
+}
+
+.manifesto__smoke {
+  object-position: center 25%;
+  filter: contrast(1.15);
+}
+
+/* o par borrada/nítida é o que faz o blur diminuir sem animar filter:
+   o desfoque é estático, quem anda é a opacidade de cada cópia */
+.manifesto__smoke--soft {
+  filter: contrast(1.15) blur(18px);
 }
 
 .manifesto__content {
@@ -19,20 +56,8 @@
   padding-left: 1.5rem;
 }
 
-.manifesto__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-  opacity: .5;
-  filter: contrast(1.15);
-  z-index: 0;
-}
-
 /* brilho âmbar difuso por cima da textura */
-.manifesto::after {
+.manifesto__stage::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -45,7 +70,7 @@
   pointer-events: none;
 }
 
-.manifesto::before {
+.manifesto__stage::before {
   content: '';
   position: relative;
   z-index: 1;
@@ -67,6 +92,7 @@
   margin-bottom: 0;
   max-width: 24ch;
   text-align: left;
+  text-shadow: 0 2px 24px rgba(13, 13, 13, .8);
 }
 
 .manifesto__line--accent {
@@ -108,18 +134,27 @@
 
 /* ── Capítulo ──────────────────────────────────────────── */
 
+/* O palco é uma tela só, pinada pelo ScrollTrigger; o curso de rolagem que
+   antes vinha de um bloco de 200svh agora vem do próprio pin. */
+
 .chapter {
-  --melt-from: var(--fume);
   --scrim-x: 15%; /* centro horizontal do scrim, segue o alinhamento do texto */
   position: relative;
   background: var(--carvao);
 }
 
-.chapter__sticky {
-  position: sticky;
-  top: 0;
+.chapter__stage {
+  position: relative;
   height: 100svh;
   overflow: hidden;
+}
+
+.chapter__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* o meio grau de rotação da timeline descobriria os cantos sem folga */
+  transform: scale(1.25);
 }
 
 .chapter__img {
@@ -129,34 +164,21 @@
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
-  transform: scale(1.22);
   filter: saturate(1.05) brightness(.85);
   /* camadas empilhadas: o progresso da rolagem controla a opacidade de cada uma */
   opacity: 0;
-  transition: opacity .25s var(--ease);
 }
 
 .chapter__img:first-of-type {
   opacity: 1;
 }
 
-/* enquadramento por imagem — sobrescreve o object-position padrão */
-.crop-taca { object-position: 55% 40%; }
-.crop-copo { object-position: 50% 55%; }
-.crop-whisky { object-position: 25% 30%; }
-.crop-centro { object-position: center 45%; }
-
-/* fotos de detalhe já são noturnas: escurecê-las de novo as apaga */
-.chapter__img[class*='crop-'] {
-  filter: saturate(1.1) brightness(1.05);
-}
-
-/* capítulo 03: texturas já escuras, mesmo tratamento das fotos de detalhe */
+/* capítulo 03: texturas já escuras, escurecê-las de novo as apaga */
 #cap-reservado .chapter__img {
   filter: saturate(1.1) brightness(1.05);
 }
 
-#cap-reservado .chapter__sticky::after {
+#cap-reservado .chapter__stage::after {
   background: linear-gradient(
     to bottom,
     rgba(13, 13, 13, .3) 0%,
@@ -166,22 +188,12 @@
   );
 }
 
-/* derrete a emenda com o manifesto */
-.chapter__sticky::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 30svh;
-  z-index: 1;
-  background: linear-gradient(to bottom, var(--melt-from) 0%, transparent 100%);
-  pointer-events: none;
-}
-
-.chapter__sticky::after {
+.chapter__stage::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 2;
+  pointer-events: none;
   background: linear-gradient(
     to bottom,
     rgba(200, 137, 46, .1) 0%,
@@ -191,11 +203,7 @@
   );
 }
 
-.chapter--night {
-  --melt-from: var(--carvao);
-}
-
-.chapter--night .chapter__sticky::after {
+.chapter--night .chapter__stage::after {
   background: linear-gradient(
     to bottom,
     rgba(13, 13, 13, .25) 0%,
@@ -215,18 +223,18 @@
   opacity: .045;
   line-height: .8;
   z-index: 3;
+  pointer-events: none;
 }
 
 .chapter__content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 3;
   isolation: isolate;
-  min-height: 200svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 0 1.5rem;
-  margin-top: -100svh;
 }
 
 /* ── Âncoras do topo: rótulo e horário em cantos opostos ─ */
@@ -273,7 +281,7 @@
 
 .chapter--left .chapter__body {
   align-items: flex-start;
-  padding-top: 39svh;
+  padding-top: 30svh;
 }
 
 .chapter--center .chapter__content {
@@ -283,7 +291,7 @@
 
 .chapter--center .chapter__body {
   align-items: center;
-  padding-top: 44svh;
+  padding-top: 34svh;
 }
 
 .chapter--center .chapter__text {
@@ -299,17 +307,14 @@
 
 .chapter--right .chapter__body {
   align-items: flex-end;
-  padding-top: 32svh;
+  padding-top: 26svh;
 }
 
 .chapter--center { --scrim-x: 50%; }
 .chapter--right { --scrim-x: 85%; }
 
-.chapter--center .chapter__ghost {
-  left: 50%;
-  transform: translateX(-50%);
-}
-
+/* a centralização do fantasma é feita em xPercent pelo GSAP: em pixel,
+   o valor ficaria velho no primeiro resize */
 .chapter--right .chapter__ghost {
   left: auto;
   right: 1.5rem;
@@ -359,6 +364,8 @@
   letter-spacing: var(--track-mid);
   color: rgba(255, 255, 255, .5);
   white-space: nowrap;
+  /* o contador troca de dígito a cada quadro: sem largura fixa o texto treme */
+  font-variant-numeric: tabular-nums;
   /* alinha a linha de base com o rótulo, que carrega o losango de 18px */
   padding-top: .25rem;
 }

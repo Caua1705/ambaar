@@ -1,7 +1,10 @@
 @import './styles/tokens.css';
 @import './styles/base.css';
+@import './styles/preloader.css';
 @import './styles/hero.css';
 @import './styles/sections.css';
+@import './styles/gallery.css';
+@import './styles/curtain.css';
 @import './styles/topbar.css';
 @import './styles/experiencias.css';
 @import './styles/reservas.css';

@@ -11,24 +11,12 @@
   z-index: 0;
 }
 
-@keyframes heroZoom {
-  from { transform: scale(1.12); }
-  to   { transform: scale(1); }
-}
-
 .hero__bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
   filter: saturate(.85) contrast(1.05);
-  animation: heroZoom 24s var(--ease) forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__bg img {
-    animation: none;
-  }
 }
 
 .hero::after {
@@ -44,29 +32,59 @@
   );
 }
 
-/* ── Wordmark: a âncora dominante, colada à esquerda ────── */
+/* ── Wordmark: a janela para a foto ─────────────────────── */
 
-/* o deslocamento vertical mora no invólucro: .reveal--chars zera o
-   transform do próprio h1 para animar caractere a caractere */
 .hero__content {
   position: absolute;
-  top: 42%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
+  inset: 0;
   z-index: 2;
+  pointer-events: none;
 }
 
+/* A camada ocupa a hero inteira, não só a linha de texto: assim o
+   background dela cai exatamente sobre a foto do fundo (mesma caixa, mesmo
+   cover, mesmo enquadramento) e as letras viram um furo no scrim.
+   O texto é levado para ~42% da altura pelo padding, não por posição. */
 .hero__mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-bottom: 16%;
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 19vw, 12rem);
   font-weight: 300;
   letter-spacing: var(--track-display);
   color: var(--ambar);
   line-height: 1;
-  text-align: left;
-  padding-left: 1.5rem;
   text-indent: var(--track-display);
+  /* cresce a partir da borda esquerda, onde está ancorado */
+  transform-origin: left center;
+}
+
+/* O que faz a janela ser legível é a diferença entre as duas cópias da mesma
+   foto: a de trás escurece, a de dentro das letras não passa por filtro
+   nenhum. Sem isso o wordmark alinha com o fundo e desaparece.
+   Só vale quando a máscara existe — no fallback o âmbar sólido não precisa. */
+.hero.has-mask .hero__bg img {
+  filter: saturate(.85) contrast(1.05) brightness(.6);
+}
+
+/* só entra quando o JS confirma o suporte; sem ele fica o âmbar sólido.
+   A demão de âmbar por cima da foto não é enfeite: o terço esquerdo da
+   imagem é folhagem escura e sem ela as primeiras letras somem. Ela também
+   devolve ao wordmark a cor da marca, que a máscara sozinha tirava. */
+.hero.has-mask .hero__mark {
+  background-image:
+    linear-gradient(rgba(200, 137, 46, .34), rgba(200, 137, 46, .34)),
+    url('/img/hero.webp');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ── Âncora superior direita ────────────────────────────── */

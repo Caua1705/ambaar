@@ -1,0 +1,21 @@
+/* Painel sólido que varre a tela na emenda entre capítulos.
+
+   Fica abaixo das âncoras fixas (.vrail, .brandmark, z-index 15): elas são a
+   continuidade do site e não devem ser cobertas — é justamente durante a
+   varredura que sustentam a leitura. */
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  background: var(--carvao);
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain {
+    display: none;
+  }
+}

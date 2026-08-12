@@ -1,5 +1,6 @@
 import './style.css'
 import './scripts/reveal.js'
-import './scripts/track.js'
+import './scripts/sections.js'
+import './scripts/brandmark.js'
 import './scripts/topbar.js'
 import './scripts/exp-cards.js'

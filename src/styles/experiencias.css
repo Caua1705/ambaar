@@ -1,6 +1,8 @@
 .experiencias {
   background: var(--carvao);
   padding: 8rem 1.5rem;
+  /* o link do cabeçalho fixo aponta para cá: compensa a altura da barra */
+  scroll-margin-top: 5rem;
 }
 
 /* mesmo papel do .chapter__label: rótulo acima do título */
@@ -12,13 +14,43 @@
   margin-bottom: 1.5rem;
 }
 
+/* filete de ponta a ponta: sangra a margem lateral da seção */
+.experiencias__rule {
+  border: 0;
+  height: 1px;
+  background: rgba(107, 74, 46, .4);
+  margin: 0 -1.5rem 2.5rem;
+}
+
+/* mesmo par do capítulo: número em fantasma atrás do título */
+.experiencias__head {
+  position: relative;
+  isolation: isolate;
+  margin-bottom: 4rem;
+}
+
+.experiencias__ghost {
+  position: absolute;
+  z-index: -1;
+  left: -.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(9rem, 42vw, 20rem);
+  font-weight: 200;
+  color: var(--concreto);
+  opacity: .045;
+  line-height: .8;
+  pointer-events: none;
+}
+
 .experiencias__title {
   font-family: var(--font-display);
-  font-size: var(--fs-title);
+  font-size: clamp(2.5rem, 11vw, 5rem);
   font-weight: 300;
   letter-spacing: var(--track-display);
   color: #fff;
-  margin-bottom: 4rem;
+  text-align: left;
+  line-height: 1.1;
 }
 
 .exp-list {

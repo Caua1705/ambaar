@@ -1,0 +1,56 @@
+/* Texto vertical fixo na lateral direita: a assinatura que atravessa o site.
+   O conteúdo é trocado por sections.js conforme a seção que ocupa a tela.
+   A altura é fixa para que a trilha de progresso, logo abaixo, não dance
+   quando o texto muda de comprimento. */
+
+.vrail {
+  position: fixed;
+  right: .75rem;
+  top: 50%;
+  z-index: 15;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  display: grid;
+  place-content: center;
+  height: 13rem;
+  font-size: var(--fs-label);
+  line-height: 1.2;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(119, 115, 110, .55);
+  pointer-events: none;
+  transition: opacity .4s var(--ease);
+}
+
+.vrail.is-swapping {
+  opacity: 0;
+}
+
+/* Faixa reservada ao texto vertical.
+   A grade de experiências ocupa a largura toda em qualquer tela, então abre
+   espaço sempre; o filete continua sangrando até a borda.
+   O recuo do capítulo alinhado à direita fica em sections.css. */
+.experiencias {
+  padding-right: 2.75rem;
+}
+
+.experiencias__rule {
+  margin-right: -2.75rem;
+}
+
+/* no estreito o texto encosta na faixa em todas as seções de largura cheia */
+@media (max-width: 600px) {
+  .manifesto,
+  .interlude,
+  .reservas,
+  .outro {
+    padding-right: 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vrail {
+    transition: none;
+  }
+}

@@ -10,22 +10,33 @@
   <body>
     <header class="topbar" id="topbar">
       <span class="topbar__mark">ÂMBAR</span>
-      <a class="topbar__cta" href="#reservas">Reservas</a>
+      <nav class="topbar__nav">
+        <a class="topbar__link" data-nav="programacao" href="#experiencias">Programação</a>
+        <a class="topbar__link" data-nav="ambientes" href="#cap-jardim">Ambientes</a>
+        <a class="topbar__link topbar__link--cta" data-nav="reservas" href="#reservas">Reservas</a>
+      </nav>
     </header>
 
     <div id="app">
-      <section class="hero">
+      <section class="hero" data-vrail="ÂMBAR · MMXXVI">
         <picture class="hero__bg">
           <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
+        <p class="hero__place">Fortaleza · Ceará</p>
         <div class="hero__content">
           <h1 class="hero__mark reveal reveal--chars">ÂMBAR</h1>
-          <p class="hero__sub">Cocktail Bar • Listening Club</p>
         </div>
-        <div class="hero__scroll" aria-hidden="true"></div>
+        <div class="hero__sub">
+          <span class="hero__sub-line">Cocktail Bar</span>
+          <span class="hero__sub-line">Listening Club</span>
+        </div>
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+          <span class="hero__scroll-word">Rolar</span>
+        </div>
       </section>
 
-      <section class="manifesto">
+      <section class="manifesto" data-flat>
         <img class="manifesto__bg" src="/img/textura-fumaca.webp" alt="" loading="lazy">
         <div class="manifesto__content">
           <p class="manifesto__line reveal" style="transition-delay: 0ms">Um lugar onde a música</p>
@@ -34,20 +45,27 @@
         </div>
       </section>
 
-      <section class="chapter chapter--left" id="cap-jardim">
+      <section class="chapter chapter--left" id="cap-jardim" data-vrail="JARDIM" data-nav="ambientes">
         <div class="chapter__sticky">
           <img class="chapter__img" src="/img/jardim.webp" alt="">
           <span class="chapter__ghost">01</span>
         </div>
         <div class="chapter__content">
-          <p class="chapter__label reveal reveal--line">01 — Jardim</p>
-          <p class="chapter__time reveal reveal--rise">17h — 20h</p>
-          <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-          <p class="chapter__text reveal">A tarde cai devagar. O som começa lá fora, entre as plantas, sem pressa.</p>
+          <div class="chapter__meta">
+            <span class="chapter__labelwrap">
+              <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
+              <span class="chapter__label reveal reveal--line">01 — Jardim</span>
+            </span>
+            <span class="chapter__time reveal reveal--rise">17h — 20h</span>
+          </div>
+          <div class="chapter__body">
+            <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
+            <p class="chapter__text reveal">A tarde cai devagar. O som começa lá fora, entre as plantas, sem pressa.</p>
+          </div>
         </div>
       </section>
 
-      <section class="chapter chapter--night chapter--center" id="cap-salao">
+      <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO" data-nav="ambientes">
         <div class="chapter__sticky">
           <img class="chapter__img" src="/img/salao.webp" alt="">
           <img class="chapter__img crop-taca" src="/img/detalhe-01.webp" alt="" loading="lazy">
@@ -58,35 +76,54 @@
           <span class="chapter__ghost">02</span>
         </div>
         <div class="chapter__content">
-          <p class="chapter__label reveal reveal--line">02 — Salão</p>
-          <p class="chapter__time reveal reveal--rise">20h — 00h</p>
-          <h2 class="chapter__title reveal reveal--chars">House All Night</h2>
-          <p class="chapter__text reveal">O som entra. A luz baixa. A noite encontra o próprio ritmo.</p>
+          <div class="chapter__meta">
+            <span class="chapter__labelwrap">
+              <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
+              <span class="chapter__label reveal reveal--line">02 — Salão</span>
+            </span>
+            <span class="chapter__time reveal reveal--rise">20h — 00h</span>
+          </div>
+          <div class="chapter__body">
+            <h2 class="chapter__title reveal reveal--chars">House All Night</h2>
+            <p class="chapter__text reveal">O som entra. A luz baixa. A noite encontra o próprio ritmo.</p>
+          </div>
         </div>
       </section>
-      <section class="interlude">
+
+      <section class="interlude" data-flat>
         <p class="interlude__line reveal" style="transition-delay: 0ms">Não é sobre o volume.</p>
         <p class="interlude__line reveal" style="transition-delay: 220ms">É sobre o que você escuta</p>
         <p class="interlude__line reveal" style="transition-delay: 440ms">quando ele baixa.</p>
       </section>
 
-      <section class="chapter chapter--night chapter--right" id="cap-reservado">
+      <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO" data-nav="ambientes">
         <div class="chapter__sticky">
           <img class="chapter__img" src="/img/textura-marmore.webp" alt="" loading="lazy">
           <img class="chapter__img" src="/img/textura-particulas.webp" alt="" loading="lazy">
           <span class="chapter__ghost">03</span>
         </div>
         <div class="chapter__content">
-          <p class="chapter__label reveal reveal--line">03 — Reservado</p>
-          <p class="chapter__time reveal reveal--rise">00h — 03h</p>
-          <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
-          <p class="chapter__text reveal">Poucas mesas, luz baixa, o som no ponto certo. A noite se fecha em si mesma.</p>
+          <div class="chapter__meta">
+            <span class="chapter__labelwrap">
+              <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
+              <span class="chapter__label reveal reveal--line">03 — Reservado</span>
+            </span>
+            <span class="chapter__time reveal reveal--rise">00h — 03h</span>
+          </div>
+          <div class="chapter__body">
+            <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
+            <p class="chapter__text reveal">Poucas mesas, luz baixa, o som no ponto certo. A noite se fecha em si mesma.</p>
+          </div>
         </div>
       </section>
 
-      <section class="experiencias">
+      <section class="experiencias" id="experiencias" data-vrail="A PROGRAMAÇÃO" data-nav="programacao" data-flat>
         <p class="experiencias__eyebrow reveal reveal--line">A programação</p>
-        <h2 class="experiencias__title reveal">Três noites, três ritmos.</h2>
+        <hr class="experiencias__rule">
+        <div class="experiencias__head">
+          <span class="experiencias__ghost" aria-hidden="true">04</span>
+          <h2 class="experiencias__title reveal">Três noites, três ritmos.</h2>
+        </div>
         <ul class="exp-list">
           <li class="exp-card reveal" style="transition-delay: 0ms" role="button" tabindex="0" aria-expanded="false">
             <span class="exp-card__num">01</span>
@@ -127,7 +164,7 @@
         </ul>
       </section>
 
-      <section class="reservas" id="reservas">
+      <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas">
         <div class="reservas__box">
           <p class="reservas__eyebrow reveal reveal--line">Reservas</p>
           <h2 class="reservas__title reveal">Garanta sua mesa.</h2>
@@ -136,7 +173,7 @@
         </div>
       </section>
 
-      <footer class="outro">
+      <footer class="outro" data-vrail="@AMBAR.BAR">
         <img class="outro__bg" src="/img/textura-particulas.webp" alt="" loading="lazy">
         <div class="outro__content">
           <svg class="outro__mark" viewBox="0 0 40 64" fill="none" stroke="currentColor" role="img" aria-label="Âmbar">
@@ -153,6 +190,10 @@
         </div>
       </footer>
     </div>
+
+    <img class="brandmark" src="/brand/losango.svg" alt="" aria-hidden="true">
+
+    <span class="vrail" aria-hidden="true">ÂMBAR · MMXXVI</span>
 
     <div class="track" aria-hidden="true">
       <span class="track__dot"></span>

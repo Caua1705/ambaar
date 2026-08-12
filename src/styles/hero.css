@@ -2,8 +2,6 @@
   position: relative;
   height: 100svh;
   width: 100%;
-  display: grid;
-  place-items: center;
   overflow: hidden;
 }
 
@@ -46,42 +44,115 @@
   );
 }
 
+/* ── Wordmark: a âncora dominante, colada à esquerda ────── */
+
+/* o deslocamento vertical mora no invólucro: .reveal--chars zera o
+   transform do próprio h1 para animar caractere a caractere */
 .hero__content {
   position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 42%;
+  left: 0;
   width: 100%;
+  transform: translateY(-50%);
   z-index: 2;
-  text-align: center;
-  padding: 0 1.5rem;
 }
 
 .hero__mark {
   font-family: var(--font-display);
-  font-size: var(--fs-hero);
+  font-size: clamp(3.5rem, 19vw, 12rem);
   font-weight: 300;
   letter-spacing: var(--track-display);
   color: var(--ambar);
   line-height: 1;
+  text-align: left;
+  padding-left: 1.5rem;
   text-indent: var(--track-display);
 }
 
+/* ── Âncora superior direita ────────────────────────────── */
+
+.hero__place {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-wide);
+  color: rgba(119, 115, 110, .8);
+  text-align: right;
+  /* o topo da foto é a parede clara: sem sombra o rótulo some nela */
+  text-shadow:
+    0 1px 12px rgba(13, 13, 13, .95),
+    0 1px 3px rgba(13, 13, 13, .8);
+}
+
+/* ── Âncora inferior esquerda ───────────────────────────── */
+
+/* acima do losango fixo (.brandmark), que ocupa o canto */
 .hero__sub {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 4.5rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding: 1rem 1.25rem;
+  background: rgba(13, 13, 13, .45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 137, 46, .25);
+}
+
+.hero__sub-line {
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-mid);
   color: var(--concreto);
-  margin-top: 2.25rem;
+  line-height: 1;
 }
+
+/* ── Indicador de rolagem ───────────────────────────────── */
 
 .hero__scroll {
   position: absolute;
+  right: 1.5rem;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+}
+
+.hero__scroll-line {
   width: 1px;
-  height: 48px;
+  height: 40px;
   background: linear-gradient(to bottom, transparent, var(--concreto));
+  transform-origin: top center;
+  animation: scrollTrace 2.4s var(--ease) infinite;
+}
+
+/* cresce a partir do topo e sai por baixo, sem nunca voltar subindo */
+@keyframes scrollTrace {
+  0%   { transform: translateY(0) scaleY(0); opacity: 0; }
+  30%  { transform: translateY(0) scaleY(1); opacity: 1; }
+  55%  { transform: translateY(0) scaleY(1); opacity: 1; }
+  100% { transform: translateY(40px) scaleY(0); opacity: 0; }
+}
+
+.hero__scroll-word {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(119, 115, 110, .8);
+  /* o tracking sobra à direita e desalinha a palavra do traço */
+  text-indent: var(--track-wide);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-line {
+    animation: none;
+    transform: none;
+  }
 }

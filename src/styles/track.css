@@ -1,11 +1,18 @@
+/* Trilha de progresso: um ponto por capítulo, o ativo em âmbar.
+   Fica logo abaixo do .vrail e no mesmo eixo direito — os dois leem
+   como um conjunto só. A trilha some fora dos capítulos. */
+
 .track {
   position: fixed;
-  top: 50%;
-  right: 1.25rem;
-  transform: translateY(-50%);
-  z-index: 10;
+  /* .vrail tem 13rem centradas em 50%: a borda de baixo cai em 50% + 6.5rem */
+  top: calc(50% + 8rem);
+  right: .75rem;
+  z-index: 15;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* mesma largura da caixa de texto vertical, para os eixos coincidirem */
+  width: 14px;
   gap: 14px;
   /* só entra em cena depois da hero */
   opacity: 0;

@@ -1,0 +1,33 @@
+/* Losango fixo no canto inferior esquerdo: o objeto que percorre a página
+   inteira. A rotação vem do progresso global da rolagem (brandmark.js) e
+   acende nas seções de fundo liso, onde não há foto para competir com ele. */
+
+.brandmark {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 2rem;
+  width: 22px;
+  z-index: 15;
+  opacity: .45;
+  pointer-events: none;
+  transition: transform 1.2s var(--ease), opacity .6s var(--ease);
+}
+
+.brandmark.is-lit {
+  opacity: .8;
+}
+
+/* no estreito ele divide o canto com o texto: menor e mais para o vinco */
+@media (max-width: 600px) {
+  .brandmark {
+    left: 1rem;
+    bottom: 1.25rem;
+    width: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brandmark {
+    transition: none;
+  }
+}

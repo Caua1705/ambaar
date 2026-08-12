@@ -209,10 +209,10 @@
   position: absolute;
   bottom: 8rem;
   left: 1.5rem;
-  font-size: clamp(6rem, 30vw, 14rem);
+  font-size: clamp(9rem, 42vw, 20rem);
   font-weight: 200;
   color: var(--concreto);
-  opacity: .06;
+  opacity: .045;
   line-height: .8;
   z-index: 3;
 }
@@ -229,18 +229,61 @@
   margin-top: -100svh;
 }
 
+/* ── Âncoras do topo: rótulo e horário em cantos opostos ─ */
+
+.chapter__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  /* o recuo vive no invólucro: no rótulo sozinho ele desalinharia o horário */
+  padding-top: 14svh;
+}
+
+.chapter__labelwrap {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.chapter__losango {
+  flex: none;
+  width: 18px;
+  opacity: .5;
+}
+
+/* o horário fica do lado oposto ao alinhamento do capítulo */
+.chapter--right .chapter__meta,
+.chapter--right .chapter__labelwrap {
+  flex-direction: row-reverse;
+}
+
 /* ── Composição por capítulo ───────────────────────────── */
+
+.chapter__body {
+  display: flex;
+  flex-direction: column;
+}
 
 .chapter--left .chapter__content {
   align-items: flex-start;
   text-align: left;
-  padding-top: 55svh;
+}
+
+.chapter--left .chapter__body {
+  align-items: flex-start;
+  padding-top: 39svh;
 }
 
 .chapter--center .chapter__content {
   align-items: center;
   text-align: center;
-  padding-top: 60svh;
+}
+
+.chapter--center .chapter__body {
+  align-items: center;
+  padding-top: 44svh;
 }
 
 .chapter--center .chapter__text {
@@ -250,7 +293,13 @@
 .chapter--right .chapter__content {
   align-items: flex-end;
   text-align: right;
-  padding-top: 48svh;
+  /* o texto encosta na borda direita, onde mora o .vrail: abre a faixa dele */
+  padding-right: 3.25rem;
+}
+
+.chapter--right .chapter__body {
+  align-items: flex-end;
+  padding-top: 32svh;
 }
 
 .chapter--center { --scrim-x: 50%; }
@@ -272,8 +321,10 @@
   position: absolute;
   inset: 0;
   z-index: -1;
+  /* alto o bastante para cobrir do rótulo (14svh) ao texto: os dois
+     blocos agora estão longe um do outro */
   background: radial-gradient(
-    ellipse 120% 45% at var(--scrim-x) 32%,
+    ellipse 120% 50% at var(--scrim-x) 30%,
     rgba(13, 13, 13, .75) 0%,
     rgba(13, 13, 13, .4) 50%,
     transparent 75%
@@ -291,11 +342,11 @@
 }
 
 .chapter__label {
+  display: inline-block;
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
   color: var(--ambar);
-  margin-bottom: 1.5rem;
   /* âmbar pequeno sobre folhagem clara pede sombra mais fechada */
   text-shadow:
     0 1px 12px rgba(13, 13, 13, .95),
@@ -303,10 +354,13 @@
 }
 
 .chapter__time {
+  display: inline-block;
   font-size: var(--fs-label);
   letter-spacing: var(--track-mid);
   color: rgba(255, 255, 255, .5);
-  margin-bottom: .75rem;
+  white-space: nowrap;
+  /* alinha a linha de base com o rótulo, que carrega o losango de 18px */
+  padding-top: .25rem;
 }
 
 .chapter__title {
@@ -323,4 +377,30 @@
   max-width: 28ch;
   margin-top: 1.25rem;
   line-height: 1.7;
+}
+
+/* ── Estreito: as âncoras laterais não podem esbarrar no texto ── */
+
+@media (max-width: 600px) {
+  /* a faixa do .vrail é mais estreita aqui: o rótulo encolhe junto */
+  .chapter--right .chapter__content {
+    padding-right: 2.75rem;
+  }
+
+  /* rótulo e horário dividem uma linha só: menos tracking, menos folga */
+  .chapter__label {
+    letter-spacing: var(--track-mid);
+  }
+
+  .chapter__meta {
+    gap: .75rem;
+  }
+
+  .chapter__losango {
+    width: 14px;
+  }
+
+  .chapter__labelwrap {
+    gap: .45rem;
+  }
 }

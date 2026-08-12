@@ -11,7 +11,7 @@
     <div id="app">
       <section class="hero">
         <picture class="hero__bg">
-          <img src="/img/hero.jpg" alt="" fetchpriority="high" decoding="async">
+          <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
         <div class="hero__content">
           <h1 class="hero__mark">ÂMBAR</h1>
@@ -21,21 +21,39 @@
       </section>
 
       <section class="manifesto">
-        <p class="manifesto__line">Cocktails autorais.</p>
-        <p class="manifesto__line">Música com curadoria.</p>
-        <p class="manifesto__line">Ambiente atemporal.</p>
+        <p class="manifesto__line reveal" style="transition-delay: 0ms">Cocktails autorais.</p>
+        <p class="manifesto__line reveal" style="transition-delay: 180ms">Música com curadoria.</p>
+        <p class="manifesto__line reveal" style="transition-delay: 360ms">Ambiente atemporal.</p>
       </section>
 
       <section class="chapter" id="cap-jardim">
         <div class="chapter__sticky">
-          <img class="chapter__img" src="/img/jardim.webp" alt="" loading="lazy">
+          <img class="chapter__img" src="/img/jardim.webp" alt="">
           <span class="chapter__ghost">01</span>
         </div>
         <div class="chapter__content">
-          <p class="chapter__label">01 — Jardim</p>
-          <p class="chapter__time">17h — 20h</p>
-          <h2 class="chapter__title">Sunset Session</h2>
-          <p class="chapter__text">A tarde cai devagar. O som começa lá fora, entre as plantas, sem pressa.</p>
+          <p class="chapter__label reveal">01 — Jardim</p>
+          <p class="chapter__time reveal">17h — 20h</p>
+          <h2 class="chapter__title reveal">Sunset Session</h2>
+          <p class="chapter__text reveal">A tarde cai devagar. O som começa lá fora, entre as plantas, sem pressa.</p>
+        </div>
+      </section>
+
+      <section class="chapter chapter--night" id="cap-salao">
+        <div class="chapter__sticky">
+          <img class="chapter__img" src="/img/salao.webp" alt="">
+          <img class="chapter__img crop-taca" src="/img/detalhe-01.webp" alt="" loading="lazy">
+          <img class="chapter__img crop-copo" src="/img/detalhe-02.webp" alt="" loading="lazy">
+          <img class="chapter__img crop-whisky" src="/img/detalhe-03.webp" alt="" loading="lazy">
+          <img class="chapter__img crop-centro" src="/img/detalhe-04.webp" alt="" loading="lazy">
+          <img class="chapter__img crop-centro" src="/img/detalhe-05.webp" alt="" loading="lazy">
+          <span class="chapter__ghost">02</span>
+        </div>
+        <div class="chapter__content">
+          <p class="chapter__label reveal">02 — Salão</p>
+          <p class="chapter__time reveal">20h — 00h</p>
+          <h2 class="chapter__title reveal">House All Night</h2>
+          <p class="chapter__text reveal">O som entra. A luz baixa. A noite encontra o próprio ritmo.</p>
         </div>
       </section>
     </div>

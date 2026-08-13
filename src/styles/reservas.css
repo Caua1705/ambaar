@@ -13,7 +13,7 @@
 
 .reservas {
   background: var(--fume);
-  padding: 8rem var(--gutter-r) 8rem var(--gutter-l);
+  padding: 5.5rem var(--gutter-r) 5.5rem var(--gutter-l);
   /* o link do cabeçalho fixo aponta para cá: compensa a altura da barra */
   scroll-margin-top: 5rem;
 }
@@ -50,7 +50,7 @@
 .salas {
   list-style: none;
   padding: 0;
-  margin-top: 4.5rem;
+  margin-top: 3rem;
   display: grid;
   gap: 1px;
   /* o gap de 1px sobre o fundo do bronze desenha os filetes entre os cartões
@@ -63,7 +63,7 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: 40svh;
+  min-height: 33svh;
   padding: 1.75rem var(--pad-x);
   overflow: hidden;
   text-decoration: none;

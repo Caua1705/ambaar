@@ -1,60 +1,51 @@
 /* Seção: .manifesto — a passagem entre a hero e o capítulo 01.
 
-   ── O painel entre a segunda e a terceira seção ────────────────────────
+   ── O que ela é agora ───────────────────────────────────────────────────
 
-   O sintoma: descendo do manifesto para o Jardim, um retângulo varria a tela
-   de cima para baixo, sem relação com nada.
+   Uma tela, uma ideia, uma passada de dedo. Antes eram três telas dentro de
+   um pin de 260% — 3,6 telas de rolagem para entregar duas frases, com o
+   texto amarrado ao dedo. Era o pior caso do site inteiro: seis passadas
+   para ler três linhas.
 
-   A causa não é gatilho mal medido — a ordem de recálculo por posição no
-   documento, que motion.js instalou, está correta e continua correta. É o
-   espaçador do pin.
+   O que saiu:
 
-   Com `pin: stage` e `pinSpacing: true`, o ScrollTrigger dá à seção a altura
-   do curso pinado MAIS a altura do próprio elemento pinado: 260svh de
-   espaçador + 100svh de palco = 360svh. O palco fica preso durante os
-   260svh e, passado o fim do gatilho, é solto no pé do espaçador e ainda
-   precisa percorrer uma tela inteira para sair de cena — rolando a 1:1, como
-   qualquer bloco comum. Essa tela é real, mede exatamente 100svh, e nenhuma
-   timeline anima nada nela.
+     · o segundo bloco (o âmbar que guarda um instante por milhões de anos)
+       foi para o fecho, que é onde essa ideia fecha o site em vez de
+       apenas passar por ele. Dito aqui E lá, era a mesma frase duas vezes;
+     · o relógio. Ele acendia aqui, uma tela inteira antes de o Jardim
+       abrir, contando uma hora que ainda não pertencia a nenhum capítulo.
+       Agora a hora nasce no capítulo que a conta.
 
-   O `.manifesto__stage` tem fundo opaco (--fume). Uma caixa opaca de tela
-   cheia atravessando o jardim que entra por baixo é, literalmente, um painel
-   varrendo a tela — e a aresta inferior dura é o que o olho registra.
+   O que ficou: o filete que a hero entregou, a frase, e a fumaça se abrindo
+   para revelar o jardim por baixo. O curso caiu de 260% para 110%.
 
-   Uma tentativa anterior pintou essa tela de âmbar e acendeu o relógio nela,
-   na esperança de que o painel deixasse de parecer um defeito. Não resolve:
-   só troca a cor do retângulo. O que desliza continua sendo uma aresta dura
-   sobre uma foto, e ainda põe dois "17h" na tela ao mesmo tempo — o do
-   manifesto subindo e o do capítulo chegando.
+   ── A emenda com o capítulo 01 ──────────────────────────────────────────
 
-   O conserto é remover a tela, não pintá-la. Três mudanças, e as três são
-   necessárias juntas:
+   O painel preto que varria a tela aqui era o espaçador do pin. Com
+   `pin` e `pinSpacing`, o ScrollTrigger dá à seção a altura do curso MAIS
+   a altura do elemento pinado: solto o pin, o palco (fundo opaco, tela
+   cheia) ainda percorre uma tela inteira para sair de cena, rolando a 1:1.
+   Uma caixa opaca atravessando a foto que entra por baixo é, literalmente,
+   um painel varrendo a tela.
 
-   1. O capítulo 01 sobe uma tela (margin-top: -100svh, no CSS) e passa a
-      começar exatamente onde o pin solta. A tela sobrando deixa de existir.
+   O conserto é remover a tela, não pintá-la, e são três mudanças que só
+   funcionam juntas:
 
-   2. Empilhamento invertido na soltura. Com o capítulo agora sobreposto ao
-      espaçador, ele subiria por dentro da tela ainda presa — o mesmo defeito
-      ao contrário. Então o manifesto fica acima dele durante o pin e abaixo
-      depois, o que faz o capítulo cobrir o palco em vez de o palco atravessar
-      o capítulo. A troca é a classe .is-passada, no onLeave do gatilho.
+     1. o capítulo 01 sobe uma tela (margin-top: -100svh, no CSS) e passa a
+        começar exatamente onde o pin solta;
+     2. o empilhamento se inverte na soltura (.is-passada), senão o capítulo
+        subiria por dentro do palco ainda preso — o mesmo defeito ao
+        contrário;
+     3. o jardim que aparece aqui no fim é o primeiro quadro da sequência do
+        capítulo, no mesmo enquadramento e com a mesma demão. O último
+        quadro da passagem é o primeiro quadro do capítulo, então o corte
+        não se vê.
 
-   3. O jardim entra por baixo da luz no fim do percurso, com a mesma foto, a
-      mesma escala, a mesma rotação, o mesmo enquadramento e a mesma demão do
-      capítulo 01. O último quadro da passagem é o primeiro quadro do
-      capítulo, então a troca de seção é um corte que não se vê.
+   O par borrada/nítida da fumaça existe para o desfoque diminuir sem animar
+   filter: animar blur() numa imagem de tela cheia custa repintura a cada
+   quadro; trocar a opacidade de duas cópias custa só composição. */
 
-   É também o que a seção pedia narrativamente: a fumaça que se dissipa é o
-   que abre a noite, e a entrada no jardim passa a ser causada por ela.
-
-   ── O percurso ─────────────────────────────────────────────────────────
-
-   Três telas num pin só, uma ideia por vez, nunca duas ao mesmo tempo. O
-   "blur decrescente" vem de duas cópias da fumaça, uma borrada e uma
-   nítida, trocando de opacidade: animar filter: blur() em imagem de tela
-   cheia custa repintura a cada quadro, a troca custa só composição. */
-
-import { gsap, reducedMotion, EASE, prioridadeRefresh } from './motion.js'
+import { gsap, ScrollTrigger, reducedMotion, EASE, entrada, prioridadeRefresh } from './motion.js'
 
 const manifesto = document.querySelector('.manifesto')
 
@@ -64,31 +55,31 @@ if (manifesto) {
   const sharp = manifesto.querySelector('.manifesto__smoke--sharp')
   const luz = manifesto.querySelector('.manifesto__luz')
   const rule = manifesto.querySelector('.manifesto__rule')
-  const hora = manifesto.querySelector('.manifesto__hora')
   const jardim = manifesto.querySelector('.manifesto__jardim')
   const ceu = manifesto.querySelector('.manifesto__ceu')
-  const um = [...manifesto.querySelectorAll('.manifesto__bloco--um .manifesto__line')]
-  const dois = [...manifesto.querySelectorAll('.manifesto__bloco--dois .manifesto__line')]
+  const linhas = [...manifesto.querySelectorAll('.manifesto__line')]
 
   if (reducedMotion) {
-    // sem pin: uma tela só, fumaça parada, os dois blocos empilhados e
-    // legíveis, e o relógio já aceso no canto
+    // sem pin: uma tela só, fumaça parada, a frase legível
     gsap.set(soft, { opacity: 0 })
-    gsap.set(sharp, { opacity: 0.35 })
-    gsap.set(luz, { opacity: 0.7 })
-    gsap.set([jardim, ceu], { opacity: 0 })
+    gsap.set(sharp, { opacity: 0.3 })
+    gsap.set([luz, jardim, ceu], { opacity: 0 })
     gsap.set(rule, { scaleX: 1 })
-    gsap.set([...um, ...dois], { opacity: 1, y: 0 })
-    gsap.set(hora, { opacity: 1 })
+    gsap.set(linhas, { opacity: 1, y: 0 })
     manifesto.classList.add('is-estatico')
   } else {
-    gsap.set([...um, ...dois], { opacity: 0, y: 28 })
+    gsap.set(linhas, { opacity: 0, y: 24 })
 
+    /* ── A matéria, presa ao dedo ────────────────────── */
+
+    /* Só a fumaça e a luz. A fumaça abrindo é a única coisa desta seção que
+       a rolagem deve poder controlar — é ela que entrega o jardim, e a
+       entrega tem de acontecer exatamente onde o pin solta. */
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: manifesto,
         start: 'top top',
-        end: '+=260%',
+        end: '+=100%',
         pin: stage,
         scrub: 1,
         anticipatePin: 1,
@@ -101,48 +92,43 @@ if (manifesto) {
       }
     })
 
-    /* ── 1. o manifesto ────────────────────────────────── */
-
-    // o filete chega da hero e o texto vem atrás dele
-    tl.to(rule, { scaleX: 1, duration: 0.06, ease: EASE }, 0.02)
-      .to(um, { opacity: 1, y: 0, duration: 0.09, ease: EASE, stagger: 0.03 }, 0.06)
-      .to(um, { opacity: 0, y: -20, duration: 0.07, ease: 'none', stagger: 0.02 }, 0.3)
-      .to(rule, { scaleX: 0, duration: 0.05, ease: EASE }, 0.32)
-
-    /* ── 2. a fumaça se abre e entrega a ideia ─────────── */
-
-    // cresce, perde corpo e ganha nitidez no caminho
+    // a fumaça cresce, perde corpo e ganha nitidez no caminho
     tl.fromTo(soft,
-      { opacity: 0.9, scale: 1.1 },
-      { opacity: 0, scale: 1.45, duration: 0.45, ease: 'none' }, 0)
+      { opacity: 0.85, scale: 1.08 },
+      { opacity: 0, scale: 1.4, duration: 0.62, ease: 'none' }, 0)
       .fromTo(sharp,
         { opacity: 0, scale: 1.1 },
-        { opacity: 0.5, scale: 1.3, duration: 0.3, ease: 'none' }, 0.12)
-      .to(sharp, { opacity: 0, scale: 1.5, duration: 0.3, ease: 'none' }, 0.42)
+        { opacity: 0.42, scale: 1.28, duration: 0.34, ease: 'none' }, 0.14)
+      .to(sharp, { opacity: 0, scale: 1.46, duration: 0.34, ease: 'none' }, 0.5)
 
-    tl.to(dois, { opacity: 1, y: 0, duration: 0.09, ease: EASE, stagger: 0.035 }, 0.42)
-      .to(dois, { opacity: 0, y: -20, duration: 0.07, ease: 'none', stagger: 0.02 }, 0.66)
+    /* O jardim sobe por baixo da luz, e a luz sai por cima dele. Em 1.0 o
+       palco é, pixel a pixel, o primeiro quadro do capítulo: mesma foto,
+       mesma escala, mesma rotação, mesma demão. É nesse quadro que o pin
+       solta. */
+    tl.to(luz, { opacity: 1, duration: 0.24, ease: 'none' }, 0.42)
+      .to(jardim, { opacity: 1, duration: 0.22, ease: 'none' }, 0.6)
+      .to(ceu, { opacity: 1, duration: 0.2, ease: 'none' }, 0.72)
+      .to(luz, { opacity: 0, duration: 0.2, ease: 'none' }, 0.76)
 
-    /* ── 3. a luz, o relógio, e o jardim por baixo ─────── */
+    /* ── A frase, por gatilho ────────────────────────── */
 
-    /* A luz sobe no último terço. O relógio acende depois dela e não apaga —
-       ele atravessa a emenda e reaparece no mesmo canto, na mesma escala,
-       dentro do capítulo 01. */
-    tl.to(luz, { opacity: 1, duration: 0.16, ease: 'none' }, 0.56)
-      .fromTo(hora,
-        { opacity: 0, y: 36 },
-        { opacity: 1, y: 0, duration: 0.12, ease: EASE }, 0.7)
+    // o filete chega da hero e o texto vem atrás dele; depois os dois saem
+    // juntos, no tempo deles, quando a fumaça já está aberta
+    entrada(manifesto, (t) => {
+      t.to(rule, { scaleX: 1, duration: 1, ease: EASE }, 0)
+        .to(linhas, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.14 }, 0.3)
+    }, { start: 'top 55%' })
 
-    /* O jardim sobe por baixo da luz, e a luz sai por cima dele: em cheio ela
-       tem 90% de preto no topo e apagaria a foto justamente quando ela precisa
-       ser lida. Quem fica no lugar da luz é o .manifesto__ceu, que é a demão
-       do capítulo 01.
+    const sai = gsap.timeline({ paused: true })
+    sai.to(linhas, { opacity: 0, y: -18, duration: 0.7, ease: EASE, stagger: 0.06 }, 0)
+      .to(rule, { scaleX: 0, duration: 0.6, ease: EASE }, 0.1)
 
-       Em 1.0 o palco é, pixel a pixel, o primeiro quadro do capítulo: mesma
-       foto, mesma escala, mesma rotação, mesma demão, 17h no mesmo canto. É
-       nesse quadro que o pin solta. */
-    tl.to(jardim, { opacity: 1, duration: 0.14, ease: 'none' }, 0.74)
-      .to(ceu, { opacity: 1, duration: 0.14, ease: 'none' }, 0.8)
-      .to(luz, { opacity: 0, duration: 0.14, ease: 'none' }, 0.82)
+    ScrollTrigger.create({
+      trigger: manifesto,
+      start: () => `top top-=${Math.round(window.innerHeight * 0.45)}`,
+      invalidateOnRefresh: true,
+      onEnter: () => sai.play(),
+      onLeaveBack: () => sai.reverse()
+    })
   }
 }

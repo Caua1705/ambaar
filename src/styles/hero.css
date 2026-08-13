@@ -32,29 +32,35 @@
   z-index: 0;
 }
 
-/* A foto é um jardim à noite, com a parede quente iluminada no miolo. Ela
-   estava a 62% de brilho debaixo de duas demãos de preto e da vinheta
-   global: numa tela estreita, que recorta justamente a faixa central, o
-   resultado era uma tela quase preta. Sobe para 86% e o recorte passa a
-   pegar a parede acesa. */
+/* A foto é o jardim na hora dourada: sol baixo, sombras compridas, o terço
+   de cima limpo. A hero anterior era a cabine do DJ à noite — a primeira
+   tela do site contradizia a premissa do próprio site, que é o café
+   fechando às 17h e o Âmbar abrindo.
+
+   E ela é uma foto PARADA, de propósito. O site inteiro é o tempo
+   passando; a marca é o tempo parado. A abertura é o instante guardado, e
+   a primeira rolagem é o que põe a noite em movimento. Nada nesta tela se
+   mexe até o dedo tocá-la.
+
+   Sem filtro: a exposição foi resolvida no arquivo. */
 .hero__bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 54% 42%;
-  filter: saturate(var(--foto-sat)) contrast(1.06) brightness(var(--foto-fundo));
+  object-position: 52% 46%;
 }
 
 /* Scrim local, não geral: uma elipse atrás do lockup e um pé escuro para o
-   rodapé da tela. O resto da foto fica como foi fotografado. */
+   rodapé da tela. O resto da foto fica como foi fotografado — é a foto mais
+   clara do site e a única em que se vê o lugar em plena luz. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 92% 34% at 50% 46%, rgba(13, 13, 13, .72) 0%, rgba(13, 13, 13, .3) 55%, transparent 78%),
-    linear-gradient(to bottom, rgba(13, 13, 13, .5) 0%, transparent 22%, transparent 62%, var(--carvao) 100%);
+    radial-gradient(ellipse 96% 38% at 50% 48%, rgba(13, 13, 13, .8) 0%, rgba(13, 13, 13, .42) 52%, transparent 80%),
+    linear-gradient(to bottom, rgba(13, 13, 13, .55) 0%, rgba(13, 13, 13, .12) 20%, transparent 40%, rgba(13, 13, 13, .3) 78%, rgba(13, 13, 13, .72) 92%, var(--carvao) 100%);
 }
 
 /* ── O lockup ───────────────────────────────────────────── */
@@ -110,9 +116,13 @@
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
   text-indent: var(--track-wide);
-  color: rgba(200, 137, 46, .82);
+  /* âmbar a 82% sobre parede quente em hora dourada é âmbar sobre âmbar: a
+     assinatura vem a cheio, com a sombra fechada que a descola do fundo */
+  color: var(--ambar);
   white-space: nowrap;
-  text-shadow: 0 1px 14px rgba(13, 13, 13, .95);
+  text-shadow:
+    0 1px 14px rgba(13, 13, 13, .95),
+    0 1px 3px rgba(13, 13, 13, .85);
 }
 
 /* ── Âncora superior direita ────────────────────────────── */

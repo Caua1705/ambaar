@@ -1,6 +1,17 @@
 /* Camada cinematográfica global: grão fino + vinheta.
-   Ambas fixas e inertes ao ponteiro, acima de todo o conteúdo
-   (o maior z-index do site é 10, na trilha de progresso). */
+
+   Ambas fixas, inertes ao ponteiro e acima de todo o conteúdo.
+
+   ── Passe de luminância ─────────────────────────────────
+   A vinheta estava a 55% de preto a partir de 45% do raio. Somada ao brilho
+   reduzido das fotos e às duas demãos de cada seção, ela era a terceira
+   camada escura sobre a mesma imagem — e a única que o autor de cada seção
+   não via ao ajustar a sua. Numa tela estreita, que recorta justamente a
+   faixa central da foto, o composto ficava entre 5% e 13% de luminância:
+   abaixo disso a imagem deixa de ser um lugar e vira sujeira escura.
+
+   Ela desce para 34% e começa mais tarde. O que protege o texto passou a
+   ser o scrim local de cada seção, que fica sob o texto e só ali. */
 
 body::before {
   content: '';
@@ -11,6 +22,7 @@ body::before {
   opacity: .05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  transition: opacity 1.6s var(--ease);
 }
 
 body::after {
@@ -21,7 +33,27 @@ body::after {
   pointer-events: none;
   background: radial-gradient(
     ellipse at center,
-    transparent 45%,
-    rgba(0, 0, 0, .55) 100%
+    transparent 58%,
+    rgba(0, 0, 0, .34) 100%
   );
+  transition: opacity 1.6s var(--ease);
+}
+
+/* O último quadro. O grão que esteve sobre a página inteira levanta e a
+   vinheta abre: a imagem para de ser filme correndo e vira a coisa
+   guardada. É o fecho de outro.js dito na camada que atravessa o site
+   todo — e é a única vez em que ela muda. */
+html.is-guardado body::before {
+  opacity: 0;
+}
+
+html.is-guardado body::after {
+  opacity: .4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    transition: none;
+  }
 }

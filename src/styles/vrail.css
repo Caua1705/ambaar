@@ -1,21 +1,14 @@
-/* Texto vertical. O tratamento tipográfico é uma classe à parte porque dois
-   elementos usam a mesma voz: o rail global fixo na direita e o rótulo da
-   faixa horizontal, preso à esquerda do palco da galeria. */
+/* Assinatura que atravessa o site. O conteúdo é trocado por sections.js
+   conforme a seção que ocupa a tela. A altura é fixa para que a trilha de
+   progresso, logo abaixo, não dance quando o texto muda de comprimento. */
 
-.vrail-style {
+.vrail {
   writing-mode: vertical-rl;
   font-size: var(--fs-label);
   line-height: 1.2;
   letter-spacing: var(--track-wide);
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-/* Assinatura que atravessa o site. O conteúdo é trocado por sections.js
-   conforme a seção que ocupa a tela. A altura é fixa para que a trilha de
-   progresso, logo abaixo, não dance quando o texto muda de comprimento. */
-
-.vrail {
   position: fixed;
   right: .75rem;
   top: 50%;

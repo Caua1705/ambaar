@@ -1,15 +1,10 @@
-/* O fecho.
+/* O fecho — o tempo parando.
 
-   Era uma lista centrada: losango, nome, tag, horários, @. Cinco blocos com
-   o mesmo peso, parados, um debaixo do outro — o rodapé de qualquer site.
+   A composição é a da hero ao contrário e é lida de fora para dentro: a
+   resina fechando nas bordas, o filete recolhendo até o ponto, o losango
+   no ponto, o nome, a frase. O porquê de cada gesto está em outro.js.
 
-   Agora é um momento. A tag saiu (ela já foi dita na hero, sob a marca, e
-   repeti-la aqui era só preencher espaço) e no lugar dela entrou a única
-   frase do site que fala da marca em vez de falar da casa: o âmbar não conta
-   o tempo, ele guarda. É o eco do que o manifesto abriu — a página inteira
-   foi uma noite passando, e ela termina dizendo que a noite ficou.
-
-   O nome usa a letra da marca, como na hero, e não a serifada dos capítulos. */
+   Cinco coisas na tela, e a quinta é serviço no rodapé. */
 
 .outro {
   position: relative;
@@ -18,37 +13,73 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem var(--gutter-r) 4rem var(--gutter-l);
+  padding: 8svh var(--gutter-r) 22svh var(--gutter-l);
   overflow: hidden;
 }
 
+/* Âmbar dentro de um copo: a única foto do site em que a marca aparece
+   como matéria, e por isso a única imagem que o fecho precisa. */
 .outro__bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  opacity: .25;
+  object-position: 38% 40%;
   z-index: 0;
+}
+
+/* A resina. Cresce das bordas para o centro enquanto a página termina: o
+   âmbar endurecendo em volta do que ficou dentro. */
+.outro__resina {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* o miolo não fica transparente: é justamente onde a frase cai, e é onde
+     o brilho do copo estava comendo o texto. A leitura do gesto vem do
+     intervalo entre o centro e a borda (.36 → .95), não de um centro limpo */
+  background:
+    radial-gradient(ellipse 78% 52% at 50% 44%, rgba(13, 13, 13, .44) 0%, rgba(13, 13, 13, .68) 62%, rgba(13, 13, 13, .95) 100%),
+    radial-gradient(ellipse 120% 66% at 50% 118%, rgba(200, 137, 46, .28) 0%, rgba(107, 74, 46, .1) 46%, transparent 74%);
 }
 
 .outro__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* ── O selo: o filete se recolhendo até o losango ──────── */
+
+/* O filete atravessa a tela inteira e mora no centro exato do losango, por
+   baixo dele: quando ele se recolhe, o ponto em que ele desaparece é
+   ocupado pela marca. Os dois são o mesmo objeto em dois estados. */
 .outro__mark {
+  position: relative;
+  z-index: 1;
   display: block;
-  height: 44px;
+  height: 52px;
   width: auto;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.75rem;
   /* o stroke="currentColor" do SVG inline herda daqui */
   color: var(--ambar);
+}
+
+.outro__rule {
+  position: absolute;
+  left: 50%;
+  top: 26px; /* metade da altura do losango */
+  width: 100vw;
+  margin-left: -50vw;
+  height: 1px;
+  background: var(--ambar);
+  transform: scaleX(1);
+  transform-origin: center;
+  pointer-events: none;
 }
 
 .outro__name {
@@ -62,29 +93,45 @@
   white-space: nowrap;
 }
 
-/* a frase de fecho: serifada, quieta, na escala do manifesto */
+/* a frase de fecho: serifada, quieta, na escala do manifesto — é o eco
+   dele, e a única frase do site que fala da marca em vez da casa */
 .outro__line {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 5.5vw, 2.25rem);
   font-weight: 300;
   letter-spacing: var(--track-display);
-  color: var(--concreto);
+  /* concreto puro some sobre o brilho do copo, que é justamente o que está
+     atrás desta linha: o cinza vem de branco rebaixado, não do token de
+     texto secundário */
+  color: rgba(255, 255, 255, .74);
   line-height: 1.35;
+  text-shadow:
+    0 2px 24px rgba(13, 13, 13, .95),
+    0 1px 4px rgba(13, 13, 13, .8);
+}
+
+.outro__line--accent {
+  margin-top: 1.25rem;
+  color: var(--ambar);
 }
 
 /* ── O pé ──────────────────────────────────────────────── */
 
-/* Horário e perfil viram uma linha só de serviço, separada do resto por um
-   filete: informação, não composição. */
+/* Horário e perfil saíram da coluna central: são serviço, não composição,
+   e presos ao rodapé da tela eles param de disputar peso com o fecho. */
 .outro__foot {
-  margin-top: 5rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(107, 74, 46, .45);
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 3.5svh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(107, 74, 46, .4);
 }
 
 .outro__hours {
@@ -92,6 +139,7 @@
   letter-spacing: var(--track-mid);
   color: rgba(119, 115, 110, .8);
   line-height: 2;
+  text-align: center;
 }
 
 .outro__ig {
@@ -112,8 +160,12 @@
 @media (min-width: 900px) {
   .outro__foot {
     flex-direction: row;
-    gap: 3rem;
+    justify-content: space-between;
     align-items: baseline;
+  }
+
+  .outro__hours {
+    text-align: left;
   }
 }
 

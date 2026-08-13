@@ -23,27 +23,58 @@
   --track-mid: .14em;
 
   /* ── Tratamento das fotos ────────────────────────────────
-     Havia sete saturações diferentes (0.8, 1.05, 1.08, 1.1, 1.15) para o
-     mesmo material fotográfico, e o conjunto não parecia da mesma noite.
-     A saturação passa a ser uma só; o que varia é o brilho, e ele varia por
-     papel — foto atrás de texto precisa descer, foto que é o próprio
-     conteúdo não. */
+     Não há mais correção de cor em tempo de execução. Ela morava aqui em
+     três formas — sete saturações diferentes, um brilho por papel e um
+     hue-rotate tentando levar luz vermelha de boate ao âmbar — e as três
+     saíram. As fotos novas já chegaram com a grade da marca feita, e a
+     exposição de cada uma é assada no arquivo, por imagem, em
+     scripts/fotos.mjs.
+
+     Sobrou o único caso em que o filtro é estado e não correção: o cartão
+     de reservas, que escurece parado e acende no toque. */
   --foto-sat: 1.05;
+  --foto-cartao: .82;
 
-  /* Passe de luminância. O site empilhava brilho reduzido + duas ou três
-     demãos de preto sobre a mesma foto, e o resultado composto ficava entre
-     5% e 13% de luminância — abaixo disso a imagem deixa de ser um lugar e
-     vira sujeira escura. Onde o texto brigava com a foto, quem desceu foi o
-     scrim local atrás do texto, nunca a cena inteira. */
-  --foto-fundo: .86;    /* atrás de texto: hero, cartaz */
-  --foto-cena: 1;       /* o assunto da tela: capítulos */
-  --foto-cartao: .8;    /* cartão com texto por cima: reservas */
+  /* ── As duas demãos de céu ───────────────────────────────
+     A base de cada capítulo: uma passagem para o carvão que costura o pé
+     da tela na seção seguinte.
 
-  /* A faixa horizontal não aparece aqui. As cinco fotos dela vêm de noites e
-     câmeras diferentes, e nenhum valor único de filter serve às cinco: o
-     giro que leva o vermelho de boate ao âmbar leva o jardim ao oliva. A
-     correção passou a ser por imagem e assada no arquivo — os faixa-*.webp,
-     em scripts/grade-faixa.mjs. */
+     Um gradiente de duas paradas para o preto sólido produz banda visível
+     justamente nos tons escuros deste site — era a aresta dura onde o ouro
+     virava preto. As paradas abaixo aproximam uma curva de assentamento em
+     vez de uma reta, e a dissolução ocupa o terço final da tela em vez do
+     último quinto.
+
+     A demão também tem um degrau escuro no topo, curto. Cada seção deste
+     site termina em carvão sólido e a seguinte começava em foto aberta: a
+     emenda entre as duas era uma linha horizontal dura no meio da tela. Com
+     os primeiros 12% escurecidos, o pé de uma seção encontra o topo da
+     outra no mesmo tom e o corte deixa de ter aresta. */
+  --ceu-dia: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, .5) 0%,
+    rgba(13, 13, 13, .16) 7%,
+    rgba(200, 137, 46, .06) 14%,
+    rgba(13, 13, 13, .07) 36%,
+    rgba(13, 13, 13, .18) 58%,
+    rgba(13, 13, 13, .36) 73%,
+    rgba(13, 13, 13, .58) 84%,
+    rgba(13, 13, 13, .83) 93%,
+    var(--carvao) 100%
+  );
+
+  --ceu-noite: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, .55) 0%,
+    rgba(13, 13, 13, .2) 7%,
+    rgba(13, 13, 13, .08) 14%,
+    rgba(13, 13, 13, .1) 36%,
+    rgba(13, 13, 13, .2) 58%,
+    rgba(13, 13, 13, .38) 73%,
+    rgba(13, 13, 13, .6) 84%,
+    rgba(13, 13, 13, .84) 93%,
+    var(--carvao) 100%
+  );
 
   --ease: cubic-bezier(.16, 1, .3, 1);
   --dur-med: .9s;
@@ -52,13 +83,12 @@
      Um degrau por papel, e nenhuma seção inventa o seu. */
 
   /* A marca. É a maior voz tipográfica da página e nada pode alcançá-la:
-     ocupa a largura da tela menos as duas faixas laterais, numa linha só. */
-  --fs-mega: clamp(3.4rem, 20.5vw, 12rem);
+     ocupa a largura da tela menos as duas faixas laterais, numa linha só.
 
-  /* manchete de cartaz: três linhas empilhadas. Fica um degrau abaixo da
-     marca de propósito — assim o cartaz tem escala de pôster sem disputar
-     com a hero, e as três linhas cabem na tela inteiras. */
-  --fs-poster: clamp(2.75rem, 15vw, 8.5rem);
+     20,5vw punha as seis letras com tracking largo em 374px dentro de uma
+     faixa útil de 330: a marca sangrava por cima do fio e do rail. Ela é
+     grande até a borda da faixa, e nem um pixel além. */
+  --fs-mega: clamp(3rem, 18vw, 12rem);
 
   /* algarismo em fantasma atrás do conteúdo: o relógio dos capítulos e o
      contador do preloader */
@@ -67,8 +97,8 @@
   /* título de seção */
   --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
 
-  /* display discreto: manifesto, aberturas */
-  --fs-quieto: clamp(1.9rem, 8.5vw, 4.25rem);
+  /* display discreto: manifesto, aberturas, fecho */
+  --fs-quieto: clamp(1.8rem, 8vw, 4.25rem);
 
   /* nome de cartão grande */
   --fs-title: clamp(2.25rem, 9vw, 4rem);

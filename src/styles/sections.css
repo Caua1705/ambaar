@@ -1,34 +1,15 @@
 /* ── Manifesto ─────────────────────────────────────────── */
 
-/* A dobradiça entre "isto é o Âmbar" e "a noite começa".
+/* A dobradiça entre "isto é o Âmbar" e "a noite começa". Uma tela, uma
+   ideia, uma passada de dedo — o percurso e o porquê do encolhimento
+   estão em manifesto.js.
 
-   Antes esta seção era uma frase solta sobre um fundo: entrava, era lida,
-   saía, e o capítulo 01 começava sem relação nenhuma com ela. E o painel
-   preto que varria a tela na emenda vinha justamente daqui — está descrito
-   em manifesto.js, junto com o conserto.
-
-   Agora ela é um percurso de três telas dentro de um pin só:
-
-     1. o filete que a hero entregou reaparece e o manifesto é dito;
-     2. a fumaça se abre e, no lugar dela, a ideia que dá nome à casa —
-        âmbar é resina que endureceu em volta de um instante e o guardou por
-        milhões de anos. O site inteiro é sobre o tempo passando; a marca é
-        sobre o tempo parado. É aqui, e só aqui, que as duas se encontram;
-     3. o escuro dá lugar a uma luz quente e 17h acende no canto de baixo —
-        na mesma posição, na mesma escala e com o mesmo tratamento que o
-        relógio do capítulo 01 vai continuar contando na tela seguinte.
-
-   Os três blocos ocupam o mesmo palco e nunca coexistem: uma ideia por tela,
-   como no resto do site. */
-
-/* O empilhamento é o que resolve a emenda — ver manifesto.js.
-
-   Durante o pin o manifesto tem de estar ACIMA do capítulo 01: o capítulo é
-   irmão posterior e, sem isto, a borda de cima dele subiria por dentro da
-   tela ainda presa, varrendo o palco de baixo para cima.
-
-   Solto o pin, a ordem se inverte: o capítulo passa a cobrir o palco que
-   está indo embora, e o palco nunca chega a ser visto atravessando nada. */
+   O empilhamento é o que resolve a emenda com o capítulo 01. Durante o pin
+   o manifesto tem de estar ACIMA dele: o capítulo é irmão posterior e, sem
+   isto, a borda de cima dele subiria por dentro da tela ainda presa,
+   varrendo o palco de baixo para cima. Solto o pin, a ordem se inverte: o
+   capítulo cobre o palco que está indo embora, e o palco nunca chega a ser
+   visto atravessando nada. */
 
 .manifesto {
   position: relative;
@@ -40,9 +21,9 @@
   z-index: 0;
 }
 
-/* A tela que o espaçador do pin devolve deixa de existir: o capítulo 01 sobe
-   uma tela inteira e passa a começar exatamente onde o pin solta. Sem pin
-   não há espaçador nenhum a compensar, e a sobreposição destruiria o layout —
+/* A tela que o espaçador do pin devolve deixa de existir: o capítulo 01
+   sobe uma tela inteira e passa a começar exatamente onde o pin solta. Sem
+   pin não há espaçador a compensar, e a sobreposição destruiria o layout —
    por isso a regra vive dentro da consulta de movimento. */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -58,10 +39,10 @@
   background: var(--fume);
 }
 
-/* O jardim por baixo de tudo: entra no último quarto do percurso, sob a luz
-   âmbar, no mesmo enquadramento e na mesma escala inicial do .chapter__media
-   do capítulo 01 (scale 1.25, object-position center 40%). É essa coincidência
-   que faz a troca de seção não ter costura visível. */
+/* O jardim por baixo de tudo é o PRIMEIRO QUADRO da sequência do capítulo
+   01 — o mesmo arquivo, no mesmo enquadramento e na mesma escala inicial
+   do .chapter__media. É essa coincidência que faz a troca de seção não ter
+   costura visível. */
 
 .manifesto__jardim {
   position: absolute;
@@ -74,8 +55,7 @@
   opacity: 0;
   /* o mesmo par escala/rotação com que o .chapter__media do capítulo 01
      começa a sua timeline: o quadro tem de ser o mesmo, não parecido */
-  transform: scale(1.25) rotate(.5deg);
-  filter: saturate(var(--foto-sat)) brightness(var(--foto-cena));
+  transform: scale(1.16) rotate(.4deg);
   pointer-events: none;
 }
 
@@ -99,9 +79,6 @@
 
 /* ── A luz que abre a noite ────────────────────────────── */
 
-/* O que a fumaça deixa para trás. Nasce apagada e é levada a cheia no
-   último terço do percurso: quando o pin solta, a tela que desliza para
-   fora é este campo quente com o relógio aceso, e não um retângulo preto. */
 .manifesto__luz {
   position: absolute;
   inset: 0;
@@ -110,7 +87,7 @@
   opacity: 0;
   background:
     radial-gradient(ellipse 120% 70% at 50% 108%, rgba(200, 137, 46, .5) 0%, rgba(107, 74, 46, .22) 45%, transparent 78%),
-    linear-gradient(to bottom, rgba(13, 13, 13, .9) 0%, rgba(26, 26, 26, .5) 45%, rgba(107, 74, 46, .3) 100%);
+    linear-gradient(to bottom, rgba(13, 13, 13, .82) 0%, rgba(26, 26, 26, .42) 45%, rgba(107, 74, 46, .26) 100%);
 }
 
 /* Cópia exata do .chapter__stage::after do capítulo 01. O último quadro da
@@ -123,16 +100,10 @@
   z-index: 2;
   pointer-events: none;
   opacity: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(200, 137, 46, .08) 0%,
-    rgba(13, 13, 13, .12) 40%,
-    rgba(13, 13, 13, .45) 82%,
-    var(--carvao) 100%
-  );
+  background: var(--ceu-dia);
 }
 
-/* ── Os blocos de texto ────────────────────────────────── */
+/* ── O bloco de texto ──────────────────────────────────── */
 
 .manifesto__bloco {
   position: absolute;
@@ -141,17 +112,8 @@
   right: var(--gutter-r);
   top: 50%;
   transform: translateY(-50%);
-}
-
-.manifesto__bloco--um {
   border-left: 1px solid rgba(200, 137, 46, .4);
   padding-left: 1.5rem;
-}
-
-/* o segundo bloco fica um degrau mais alto e sem o filete: é a mesma voz,
-   noutro lugar da tela, para o olho perceber que a tela virou */
-.manifesto__bloco--dois {
-  top: 42%;
 }
 
 .manifesto__line {
@@ -169,8 +131,7 @@
   color: var(--ambar);
 }
 
-/* o filete que veio da hero: cresce da esquerda, no lugar do ::before que
-   existia só como enfeite */
+/* o filete que veio da hero: cresce da esquerda */
 .manifesto__rule {
   display: block;
   width: 48px;
@@ -182,32 +143,8 @@
   transform-origin: left center;
 }
 
-/* ── O relógio nascendo ────────────────────────────────── */
-
-/* Mesma família, mesmo peso, mesma âncora e mesmo tratamento do
-   .chapter__clock: é literalmente o mesmo objeto começando a contar uma
-   tela antes de o primeiro capítulo existir. */
-.manifesto__hora {
-  position: absolute;
-  bottom: 4svh;
-  left: calc(var(--gutter-l) - .085em);
-  z-index: 4;
-  font-size: var(--fs-numero);
-  font-weight: 200;
-  letter-spacing: -.03em;
-  line-height: .78;
-  color: rgba(200, 137, 46, .16);
-  -webkit-text-stroke: 1px rgba(200, 137, 46, .5);
-  pointer-events: none;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-  opacity: 0;
-}
-
 /* ── Sem movimento ─────────────────────────────────────── */
 
-/* Sem pin não há três telas: os dois blocos deixam de disputar o mesmo
-   centro e viram uma coluna, com a luz e o relógio no lugar de sempre. */
 /* sem pin não há curso a reservar: a seção volta a ter a altura do conteúdo */
 .manifesto.is-estatico {
   height: auto;
@@ -215,29 +152,19 @@
 
 .manifesto.is-estatico .manifesto__stage {
   height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  padding: 16svh var(--gutter-r) 22svh var(--gutter-l);
+  padding: 22svh var(--gutter-r) 22svh var(--gutter-l);
 }
 
 .manifesto.is-estatico .manifesto__bloco {
   position: static;
-  left: auto;
-  right: auto;
-  top: auto;
   transform: none;
-}
-
-.manifesto.is-estatico .manifesto__hora {
-  font-size: var(--fs-grande);
 }
 
 /* ── Capítulo ──────────────────────────────────────────── */
 
 /* O palco é uma tela só, pinada pelo ScrollTrigger. Cada capítulo tem seu
-   próprio curso de rolagem (data-run), porque nem todo ambiente merece a
-   mesma duração: o entardecer é o momento denso, o resto passa mais rápido. */
+   próprio curso de rolagem (data-run) — três capítulos com a mesma duração
+   são o que faz uma peça parecer template. */
 
 .chapter {
   --scrim-x: 15%; /* centro horizontal do scrim, segue o alinhamento do texto */
@@ -255,18 +182,29 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* o meio grau de rotação da timeline descobriria os cantos sem folga */
-  transform: scale(1.25);
+  /* o meio grau de rotação da timeline descobriria os cantos sem folga.
+     O valor é o mesmo com que a timeline começa: antes de o GSAP assumir,
+     o quadro parado já é o quadro certo */
+  transform: scale(1.16) rotate(.4deg);
 }
 
-.chapter__img {
+/* Sem filter. A exposição de cada foto foi resolvida no arquivo
+   (scripts/fotos.mjs), por imagem: um valor único de brilho não serve a
+   uma cabine de DJ e a um jardim ao entardecer, e filtrar imagem de tela
+   cheia dentro de uma seção pinada é caro justamente no telefone. */
+.chapter__img,
+.chapter__poster,
+.chapter__canvas,
+.chapter__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
-  filter: saturate(var(--foto-sat)) brightness(var(--foto-cena));
+}
+
+.chapter__img {
   /* camadas empilhadas: o progresso da rolagem controla a opacidade de cada uma */
   opacity: 0;
 }
@@ -275,11 +213,37 @@
   opacity: 1;
 }
 
-/* o reservado já é uma foto quase toda em sombra: escurecê-la de novo a apaga */
-#cap-reservado .chapter__img {
-  filter: saturate(var(--foto-sat)) brightness(1.42);
+/* O cartaz é o que segura a cena antes de o canvas ter o primeiro quadro,
+   ou antes de o vídeo ter o primeiro segundo: a seção nunca é um retângulo
+   preto esperando arquivo. Quando a matéria em movimento entra, ele apaga
+   por baixo dela. */
+.chapter__poster {
+  z-index: 0;
+  transition: opacity .6s var(--ease);
+}
+
+.chapter__media.is-pintado .chapter__poster {
+  opacity: 0;
+}
+
+.chapter__canvas,
+.chapter__video {
+  z-index: 1;
+  display: block;
+}
+
+#cap-reservado .chapter__poster,
+#cap-reservado .chapter__video {
   object-position: center 55%;
 }
+
+/* ── A demão de céu ────────────────────────────────────── */
+
+/* Um gradiente de duas paradas para o carvão sólido produz banda visível
+   justamente nos tons escuros deste site — era a "aresta dura" onde o ouro
+   virava preto. As paradas intermediárias abaixo aproximam uma curva de
+   assentamento em vez de uma reta, e a dissolução final ocupa os últimos
+   28% da tela em vez dos últimos 18%. */
 
 .chapter__stage::after {
   content: '';
@@ -287,37 +251,22 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(200, 137, 46, .08) 0%,
-    rgba(13, 13, 13, .12) 40%,
-    rgba(13, 13, 13, .45) 82%,
-    var(--carvao) 100%
-  );
+  background: var(--ceu-dia);
 }
 
 .chapter--night .chapter__stage::after {
-  background: linear-gradient(
-    to bottom,
-    rgba(13, 13, 13, .1) 0%,
-    rgba(13, 13, 13, .16) 40%,
-    rgba(13, 13, 13, .45) 82%,
-    var(--carvao) 100%
-  );
+  background: var(--ceu-noite);
 }
 
 /* ── A luz que cai (só no capítulo 01) ─────────────────── */
 
-/* Uma demão de céu por cima da foto. Nasce apagada e a timeline a leva a
-   cheia enquanto a foto de dia dá lugar à de noite: as duas coisas juntas
-   são o entardecer acontecendo, não um crossfade.
+/* Uma demão de céu por cima dos quadros. Nasce apagada e a timeline a leva
+   a cheia enquanto o entardecer corre: ela não SUBSTITUI o entardecer (que
+   agora acontece nos próprios quadros), ela o acompanha — é o que costura
+   a luz da cena à paleta da marca.
 
-   A demão anterior era fraca demais para ser vista sobre folhagem — o poente
-   acontecia e ninguém percebia. O âmbar dobrou de força e o poente ganhou um
-   pé quente na base, que é onde o sol de Fortaleza cai.
-
-   Gradiente parado + opacity e scale animados — animar as paradas do
-   gradiente custaria repintura a cada quadro. */
+   Por isso ela é bem mais fraca do que era: quando o poente era falso, a
+   demão tinha de fazer o trabalho todo. Agora ela é tempero. */
 .chapter__dusk {
   position: absolute;
   inset: 0;
@@ -325,41 +274,45 @@
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(ellipse 95% 58% at 68% 86%, rgba(200, 137, 46, .62) 0%, rgba(200, 137, 46, .16) 46%, transparent 74%),
-    linear-gradient(to bottom, rgba(13, 13, 13, .6) 0%, rgba(107, 74, 46, .42) 48%, rgba(107, 74, 46, .12) 100%);
+    radial-gradient(ellipse 95% 58% at 68% 86%, rgba(200, 137, 46, .34) 0%, rgba(200, 137, 46, .1) 46%, transparent 74%),
+    linear-gradient(to bottom, rgba(13, 13, 13, .34) 0%, rgba(107, 74, 46, .2) 48%, rgba(107, 74, 46, .06) 100%);
 }
 
 /* ── O relógio gigante ─────────────────────────────────── */
 
-/* A noite avança de verdade ao longo do site: 17h → 20h → 00h → 03h, sempre
-   na maior escala da tela. É o dispositivo narrativo da página inteira.
+/* A noite avança de verdade ao longo do site: 17h → 20h → 00h → 03h,
+   sempre na maior escala da tela. É o dispositivo narrativo da página.
 
-   Ele estava a 8,5% de opacidade em branco, o que numa foto de folhagem
-   equivale a não estar. Mas subir a opacidade do algarismo cheio seria pôr
-   uma mancha branca de 40vw ao lado do título — e o título é que tem de ser
-   lido primeiro.
+   Massa trocada por contorno: o preenchimento fica baixo e o desenho da
+   letra ganha um traço âmbar de 1px. O relógio tem a presença de um objeto
+   grande sem ter o peso de um bloco de texto, e a cor o filia à marca em
+   vez de competir com o branco do título. É a mesma regra da resina: a
+   forma inteira está lá, mas você vê o contorno dela, não a massa.
 
-   A saída é trocar massa por contorno: o preenchimento fica baixo e o
-   desenho da letra ganha um traço âmbar de 1px. O relógio passa a ter a
-   presença de um objeto grande na tela sem ter o peso de um bloco de texto,
-   e a cor o filia à marca em vez de competir com o branco do título. É a
-   mesma regra da resina: a forma inteira está lá, mas você vê o contorno
-   dela, não a massa. */
+   O posicionamento é por caixa, não por âncora. Ancorado em `left: 50%`, o
+   "20h" do Salão começava a 200px numa tela de 414 e media 251px: o "h"
+   caía fora da tela. Agora a caixa ocupa a faixa útil entre as duas
+   goteiras e o algarismo se alinha dentro dela — em qualquer largura, e
+   para qualquer um dos quatro valores. */
 .chapter__clock {
   position: absolute;
   bottom: 4svh;
-  left: calc(var(--gutter-l) - .085em);
+  left: var(--gutter-l);
+  right: var(--gutter-r);
   z-index: 3;
   font-size: var(--fs-numero);
   font-weight: 200;
   letter-spacing: -.03em;
   line-height: .78;
-  color: rgba(200, 137, 46, .16);
-  -webkit-text-stroke: 1px rgba(200, 137, 46, .5);
+  color: rgba(200, 137, 46, .18);
+  -webkit-text-stroke: 1px rgba(200, 137, 46, .52);
   pointer-events: none;
   white-space: nowrap;
   /* o dígito troca a cada quadro: sem largura fixa o número treme */
   font-variant-numeric: tabular-nums;
+  /* a barriga do algarismo tem folga própria: sem o recuo ele nasce
+     desalinhado do resto da coluna */
+  text-indent: -.06em;
 }
 
 /* Sem contagem (movimento reduzido) o relógio vira faixa: "17h — 20h" no
@@ -370,12 +323,13 @@
 }
 
 .chapter--center .chapter__clock {
-  left: 50%;
+  text-align: center;
+  text-indent: 0;
 }
 
 .chapter--right .chapter__clock {
-  left: auto;
-  right: calc(var(--gutter-r) - .085em);
+  text-align: right;
+  text-indent: 0;
 }
 
 .chapter__content {
@@ -408,7 +362,7 @@
 .chapter__losango {
   flex: none;
   width: 18px;
-  opacity: .5;
+  opacity: 0;
 }
 
 .chapter--center .chapter__meta {
@@ -467,18 +421,18 @@
 .chapter--center { --scrim-x: 50%; }
 .chapter--right { --scrim-x: 85%; }
 
-/* scrim: garante legibilidade seja qual for a imagem atrás */
+/* Scrim local, e só onde o texto está. A regra do passe de luminância: onde
+   foto e texto brigam, a foto sobe e o texto ganha uma sombra própria —
+   nunca a cena inteira desce. */
 .chapter__content::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  /* alto o bastante para cobrir do rótulo (14svh) ao texto: os dois
-     blocos agora estão longe um do outro */
   background: radial-gradient(
-    ellipse 78% 40% at var(--scrim-x) 34%,
-    rgba(13, 13, 13, .8) 0%,
-    rgba(13, 13, 13, .45) 55%,
+    ellipse 76% 38% at var(--scrim-x) 34%,
+    rgba(13, 13, 13, .72) 0%,
+    rgba(13, 13, 13, .34) 55%,
     transparent 78%
   );
   pointer-events: none;
@@ -504,8 +458,7 @@
     0 1px 3px rgba(13, 13, 13, .9);
 }
 
-/* O título passa a ocupar a tela: uma palavra por linha, na escala grande.
-   O que era um subtítulo confortável virou a coisa mais legível do capítulo. */
+/* O título ocupa a tela: uma palavra por linha, na escala grande. */
 .chapter__title {
   font-family: var(--font-display);
   font-size: var(--fs-grande);
@@ -522,7 +475,7 @@
 
 .chapter__text {
   font-size: var(--fs-body);
-  color: rgba(255, 255, 255, .85);
+  color: rgba(255, 255, 255, .88);
   max-width: 26ch;
   margin-top: 1.75rem;
   line-height: 1.7;

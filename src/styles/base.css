@@ -22,6 +22,19 @@ img {
   max-width: 100%;
 }
 
+/* As vozes de display do site — serifada grande, em blocos de duas a
+   quatro linhas dentro de uma faixa estreita. Sem isto o navegador quebra
+   onde couber e deixa uma palavra sozinha na última linha: "Um lugar onde a
+   / música" era o caso mais visível. `balance` distribui as linhas em
+   comprimentos parecidos, que é o que um tipógrafo faria à mão. */
+.manifesto__line,
+.sequencia__bloco,
+.chapter__text,
+.reservas__title,
+.outro__line {
+  text-wrap: balance;
+}
+
 /* ── Lenis ─────────────────────────────────────────────── */
 
 html.lenis,

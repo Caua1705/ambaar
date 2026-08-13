@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Cocktail bar e listening club em Fortaleza. Uma noite em três ambientes: Jardim, Salão e Reservado." />
     <title>Âmbar · Cocktail Bar &amp; Listening Club</title>
+    <link rel="preload" as="image" href="/img/jardim-dourado.webp" fetchpriority="high" />
   </head>
   <body>
     <div class="preloader" id="preloader">
@@ -27,12 +28,16 @@
 
     <div id="app">
       <!-- ── A marca ────────────────────────────────────── -->
-      <!-- O lockup é o da identidade: sans geométrica leve, tracking largo,
+      <!-- A foto é o jardim na hora dourada: são 17h, o café acabou de
+           fechar. A hero antiga mostrava a cabine do DJ à noite e
+           contradizia a premissa do próprio site na primeira tela.
+
+           O lockup é o da identidade: sans geométrica leve, tracking largo,
            assinatura logo abaixo de um filete. A serifada não entra aqui —
            ela é a voz dos capítulos, não a da marca. -->
       <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-choreo>
         <picture class="hero__bg">
-          <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
+          <img src="/img/jardim-dourado.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
         <span class="hero__scrim" aria-hidden="true"></span>
         <p class="hero__place">Fortaleza · Ceará</p>
@@ -47,47 +52,40 @@
         </div>
       </section>
 
-      <!-- ── A passagem: onde o relógio começa a contar ─── -->
-      <!-- Três telas dentro de um pin só. A fumaça se abre sobre o manifesto,
-           o manifesto dá lugar à ideia do âmbar como tempo parado, e a luz
-           quente que sobra é a que entrega o jardim — com 17h já aceso no
-           canto onde o capítulo 01 vai continuar contando. -->
+      <!-- ── A passagem ─────────────────────────────────── -->
+      <!-- Uma tela, uma ideia, uma passada de dedo. A fumaça se abre sobre
+           a frase e entrega o jardim por baixo — o último quadro daqui é o
+           primeiro quadro do capítulo 01, mesma foto e mesmo enquadramento,
+           então a emenda não existe. O relógio não está mais aqui: a hora
+           pertence ao capítulo que a conta. -->
       <section class="manifesto" id="manifesto" data-flat data-choreo>
         <div class="manifesto__stage">
-          <!-- o jardim já está aqui, apagado. É nele que a passagem termina, e
-               é por isso que a emenda com o capítulo 01 deixa de existir: os
-               dois lados da emenda mostram a mesma foto no mesmo enquadramento. -->
-          <img class="manifesto__jardim" src="/img/jardim.webp" alt="" loading="lazy">
+          <img class="manifesto__jardim" src="/frames/dusk/d_001.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--soft" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <img class="manifesto__smoke manifesto__smoke--sharp" src="/img/textura-fumaca.webp" alt="" loading="lazy">
           <span class="manifesto__luz" aria-hidden="true"></span>
-          <!-- a mesma demão que o capítulo 01 tem por cima da foto: sem ela o
-               jardim daqui e o jardim de lá teriam tons diferentes na emenda -->
           <span class="manifesto__ceu" aria-hidden="true"></span>
 
-          <div class="manifesto__bloco manifesto__bloco--um">
+          <div class="manifesto__bloco">
             <span class="manifesto__rule" aria-hidden="true"></span>
-            <p class="manifesto__line">Um lugar onde a música</p>
-            <p class="manifesto__line manifesto__line--accent">não é fundo. É o motivo.</p>
+            <p class="manifesto__line">A música não é fundo.</p>
+            <p class="manifesto__line manifesto__line--accent">É o motivo.</p>
           </div>
-
-          <div class="manifesto__bloco manifesto__bloco--dois">
-            <p class="manifesto__line">O âmbar guarda um instante</p>
-            <p class="manifesto__line">por milhões de anos.</p>
-            <p class="manifesto__line manifesto__line--accent">A gente guarda uma noite.</p>
-          </div>
-
-          <span class="manifesto__hora" aria-hidden="true">17h</span>
         </div>
       </section>
 
       <!-- ── 01 · O entardecer acontecendo ───────────────── -->
+      <!-- A única seção do site em que a posição da rolagem é o estado da
+           cena: 22 quadros de um plano fixo, do fim de tarde à noite, com o
+           relógio contando 17h→20h amarrado ao mesmo curso. As luzinhas
+           acendem e a vela aparece porque estão nos quadros — nenhuma
+           demão colorida inventa isso. -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="300" data-saida="luz" data-choreo>
+               data-nav="ambientes" data-run="170" data-saida="luz" data-choreo>
         <div class="chapter__stage">
-          <div class="chapter__media">
-            <img class="chapter__img" src="/img/jardim.webp" alt="">
-            <img class="chapter__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
+          <div class="chapter__media" data-seq="dusk">
+            <img class="chapter__poster" src="/frames/dusk/d_001.webp" alt="">
+            <canvas class="chapter__canvas" aria-hidden="true"></canvas>
           </div>
           <span class="chapter__dusk" aria-hidden="true"></span>
           <span class="chapter__clock" aria-hidden="true" data-clock="17—20">17h</span>
@@ -106,14 +104,29 @@
         </div>
       </section>
 
-      <div class="curtain" aria-hidden="true"></div>
+      <!-- ── Pausa · 20h ────────────────────────────────── -->
+      <!-- Sem título, sem legenda, sem relógio: uma pessoa em tela cheia
+           entre dois ambientes. É o que ficou no lugar do painel preto que
+           varria a tela nas emendas — uma imagem que pertence à noite em vez
+           de um retângulo que não pertence a nada. -->
+      <section class="pausa" data-vrail="20H">
+        <div class="pausa__stage">
+          <img class="pausa__img" src="/img/perfil.webp" alt="" loading="lazy">
+          <span class="pausa__scrim" aria-hidden="true"></span>
+        </div>
+      </section>
 
       <!-- ── 02 · O salão ───────────────────────────────── -->
+      <!-- Duas fotos do mesmo DJ: a cabine vista de cima e o mesmo corpo
+           arrastado pelo obturador. A segunda entra sobre a primeira no
+           miolo do capítulo — é a noite perdendo o contorno, que é
+           literalmente o que o texto diz. -->
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
-               data-nav="ambientes" data-run="200" data-saida="parte" data-choreo>
+               data-nav="ambientes" data-run="140" data-saida="parte" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
-            <img class="chapter__img" src="/img/salao.webp" alt="">
+            <img class="chapter__img" src="/img/dj-cabine.webp" alt="" loading="lazy">
+            <img class="chapter__img" src="/img/dj-blur.webp" alt="" loading="lazy">
           </div>
           <span class="chapter__clock" aria-hidden="true" data-clock="20—00">20h</span>
           <div class="chapter__content">
@@ -131,86 +144,46 @@
         </div>
       </section>
 
-      <!-- ── O cartaz da noite ──────────────────────────── -->
-      <section class="cartaz" id="cartaz" data-vrail="SEXTA · 22H" data-nav="ambientes" data-choreo>
-        <div class="cartaz__stage">
-          <img class="cartaz__bg" src="/img/detalhe-05.webp" alt="" loading="lazy">
-          <div class="cartaz__content">
-            <p class="cartaz__eyebrow">Sexta · 22h</p>
-            <h2 class="cartaz__title">
-              <span class="cartaz__word"><span>House</span></span>
-              <span class="cartaz__word"><span>All</span></span>
-              <span class="cartaz__word"><span>Night</span></span>
-            </h2>
-            <svg class="cartaz__mark" viewBox="0 0 40 64" fill="none" stroke="currentColor" aria-hidden="true">
-              <path d="M20 1.5 L38 32 L20 62.5 L2 32 Z" stroke-width="1.1"/>
-              <path d="M2 32 L38 32" stroke-width="1.1"/>
-            </svg>
-            <p class="cartaz__foot">Organic House · Deep Listening</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── A faixa: cinco quadros em cadências diferentes ─ -->
-      <section class="gallery" id="gallery" data-vrail="A NOITE" data-choreo>
-        <div class="gallery__stage">
-          <div class="gallery__track">
-            <!-- faixa-*: as mesmas fotos com a grade âmbar já assada no
-                 arquivo (scripts/grade-faixa.mjs). Cinco fotos grandes com
-                 filter CSS numa seção pinada custam caro no telefone, e um
-                 filtro único não serve a cinco fotos de temperaturas
-                 diferentes — a correção é por imagem, e é feita no build. -->
-            <figure class="gallery__item gallery__item--alta">
-              <img src="/img/faixa-01.webp" alt="" loading="lazy">
-            </figure>
-            <figure class="gallery__item gallery__item--baixa">
-              <img src="/img/faixa-03.webp" alt="" loading="lazy">
-            </figure>
-            <!-- a que quebra a cadência: sangra o palco inteiro em altura -->
-            <figure class="gallery__item gallery__item--solta">
-              <img src="/img/faixa-05.webp" alt="" loading="lazy">
-            </figure>
-            <figure class="gallery__item gallery__item--baixa">
-              <img src="/img/faixa-02.webp" alt="" loading="lazy">
-            </figure>
-            <figure class="gallery__item gallery__item--alta">
-              <img src="/img/faixa-04.webp" alt="" loading="lazy">
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── A escuta: sequência de quadros ao scroll ───── -->
-      <!-- O copo enche enquanto a página rola. 48 quadros WebP desenhados
-           num canvas, com três blocos de texto entrando em momentos, posições
-           e escalas diferentes do mesmo curso. -->
+      <!-- ── A escuta ───────────────────────────────────── -->
+      <!-- A outra sequência de quadros, e o contrário da primeira: esta não
+           é presa ao dedo. Ela dispara quando a seção chega e corre sozinha,
+           em tempo real. Uma passada de dedo entrega o copo cheio. -->
       <section class="sequencia" id="som" data-vrail="A ESCUTA" data-nav="escuta">
         <div class="sequencia__stage">
           <canvas class="sequencia__canvas" aria-hidden="true"></canvas>
           <span class="sequencia__scrim" aria-hidden="true"></span>
 
           <p class="sequencia__bloco sequencia__bloco--a">
-            Não trabalhamos com pista,<br>trabalhamos com escuta.
+            Não trabalhamos com pista, trabalhamos com escuta.
           </p>
           <p class="sequencia__bloco sequencia__bloco--b">
             Organic house, downtempo,<br>e o que existe entre os dois.
           </p>
           <p class="sequencia__bloco sequencia__bloco--c">
-            Música boa não precisa gritar<br>para ser ouvida.
+            Música boa não precisa gritar para ser ouvida.
           </p>
         </div>
       </section>
 
-      <div class="curtain curtain--smoke" aria-hidden="true">
-        <span class="curtain__fumaca"></span>
-      </div>
+      <!-- ── Pausa · 00h ────────────────────────────────── -->
+      <section class="pausa" data-vrail="00H">
+        <div class="pausa__stage">
+          <img class="pausa__img" src="/img/rosto.webp" alt="" loading="lazy">
+          <span class="pausa__scrim" aria-hidden="true"></span>
+        </div>
+      </section>
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
+      <!-- Vídeo em plano fixo: só as chamas se mexem, a meia velocidade. É o
+           fim da noite, não o clímax dela — o movimento tem de estar no
+           limiar do perceptível. -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
-               data-nav="ambientes" data-run="220" data-saida="fecha" data-choreo>
+               data-nav="ambientes" data-run="115" data-saida="fecha" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
-            <img class="chapter__img" src="/img/reservado.webp" alt="" loading="lazy">
+            <img class="chapter__poster" src="/img/reservado.webp" alt="" loading="lazy">
+            <video class="chapter__video" data-src="/video/reservado.mp4"
+                   muted loop playsinline preload="none" aria-hidden="true"></video>
           </div>
           <span class="chapter__clock" aria-hidden="true" data-clock="00—03">00h</span>
           <div class="chapter__content">
@@ -236,7 +209,7 @@
         <ul class="salas">
           <li class="sala reveal">
             <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Jardim%20do%20%C3%82mbar." target="_blank" rel="noopener">
-              <img class="sala__img" src="/img/jardim-noite.webp" alt="" loading="lazy">
+              <img class="sala__img" src="/frames/dusk/d_022.webp" alt="" loading="lazy">
               <span class="sala__num">01</span>
               <span class="sala__body">
                 <span class="sala__name">Jardim</span>
@@ -247,7 +220,7 @@
           </li>
           <li class="sala reveal" data-delay="120">
             <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Sal%C3%A3o%20do%20%C3%82mbar." target="_blank" rel="noopener">
-              <img class="sala__img" src="/img/salao.webp" alt="" loading="lazy">
+              <img class="sala__img" src="/img/dj-cabine.webp" alt="" loading="lazy">
               <span class="sala__num">02</span>
               <span class="sala__body">
                 <span class="sala__name">Salão</span>
@@ -272,19 +245,32 @@
         <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. A confirmação chega na hora, pelo WhatsApp.</p>
       </section>
 
+      <!-- ── O fecho: o tempo para ──────────────────────── -->
+      <!-- O site inteiro foi uma noite passando. Aqui ela para de passar.
+
+           O filete que a hero entregou ao manifesto volta uma última vez e
+           faz o caminho inverso do da abertura: lá ele veio do horizonte e
+           abriu a marca; aqui ele se recolhe até virar um ponto — e o ponto
+           é o losango. A resina fechando em volta do instante.
+
+           Atrás, âmbar dentro de um copo: a única foto do site em que a
+           marca aparece como matéria. -->
       <footer class="outro" data-vrail="@AMBAR.BAR" data-choreo>
-        <img class="outro__bg" src="/img/textura-particulas.webp" alt="" loading="lazy">
+        <img class="outro__bg" src="/img/mao-copo.webp" alt="" loading="lazy">
+        <span class="outro__resina" aria-hidden="true"></span>
         <div class="outro__content">
+          <span class="outro__rule" aria-hidden="true"></span>
           <svg class="outro__mark" viewBox="0 0 40 64" fill="none" stroke="currentColor" role="img" aria-label="Âmbar">
             <path d="M20 1.5 L38 32 L20 62.5 L2 32 Z" stroke-width="1.1"/>
             <path d="M20 19 L29.5 32 L20 45 L10.5 32 Z" stroke-width="1.1" stroke-opacity=".5"/>
           </svg>
           <p class="outro__name">ÂMBAR</p>
-          <p class="outro__line">O âmbar não conta o tempo.<br>Ele guarda.</p>
-          <div class="outro__foot">
-            <p class="outro__hours">Qua, Qui e Dom · 17h — 00h<br>Sex e Sáb · 17h — 03h</p>
-            <a class="outro__ig" href="https://instagram.com/ambar.bar" target="_blank" rel="noopener">@ambar.bar</a>
-          </div>
+          <p class="outro__line">O âmbar guarda um instante<br>por milhões de anos.</p>
+          <p class="outro__line outro__line--accent">A gente guarda uma noite.</p>
+        </div>
+        <div class="outro__foot">
+          <p class="outro__hours">Qua, Qui e Dom · 17h — 00h<br>Sex e Sáb · 17h — 03h</p>
+          <a class="outro__ig" href="https://instagram.com/ambar.bar" target="_blank" rel="noopener">@ambar.bar</a>
         </div>
       </footer>
     </div>
@@ -295,7 +281,7 @@
       <img class="spine__mark" src="/brand/losango.svg" alt="">
     </div>
 
-    <span class="vrail vrail-style" aria-hidden="true">ÂMBAR · MMXXVI</span>
+    <span class="vrail" aria-hidden="true">ÂMBAR · MMXXVI</span>
 
     <script type="module" src="/src/main.js"></script>
   </body>

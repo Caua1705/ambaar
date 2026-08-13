@@ -22,7 +22,7 @@ const NATURAL = { opacity: 1, y: 0, scaleX: 1 }
 const alvos = [...document.querySelectorAll('.reveal')].filter((el) => !el.closest('[data-choreo]'))
 
 /* Cada variante devolve os pedaços a animar e em que instante cada um entra. */
-export const montarReveal = (el) => {
+const montarReveal = (el) => {
   if (el.classList.contains('reveal--chars')) {
     return [{ alvo: splitChars(el), dur: DUR, stagger: CHAR_STEP }]
   }
@@ -39,7 +39,7 @@ export const montarReveal = (el) => {
 }
 
 /* Escreve o estado final direto, sem passar pela animação. */
-export const assentarReveal = (el, partes) => {
+const assentarReveal = (el, partes) => {
   for (const { alvo } of partes) gsap.set(alvo, NATURAL)
   gsap.set(el, NATURAL)
 }

@@ -1,0 +1,57 @@
+/* A pausa — uma tela de gente entre dois ambientes.
+
+   Uma imagem, e nada mais: nem título, nem legenda, nem relógio. O rail
+   vertical já escreve a hora do outro lado da tela, e é a única informação
+   que a seção precisa dar.
+
+   Substitui as cortinas — o painel opaco de tela cheia que varria as
+   emendas e que nunca leu como transição. A justificativa está em
+   pausa.js.
+
+   O scrim é local e fraco: estas fotos são o assunto da tela, não fundo de
+   texto. O que elas precisam é só do pé escuro que costura a emenda com a
+   seção seguinte — que é onde o site tinha uma aresta dura de ouro para
+   preto. */
+
+.pausa {
+  position: relative;
+  background: var(--carvao);
+}
+
+.pausa__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.pausa__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  /* a exposição destas fotos foi resolvida no arquivo (scripts/fotos.mjs):
+     aqui não há filter nenhum a pagar por quadro */
+}
+
+.pausa__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* dissolução longa nas duas pontas, com paradas intermediárias: um
+     gradiente de duas paradas para o carvão sólido produz banda visível
+     justamente nos tons escuros do site */
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, .55) 0%,
+    rgba(13, 13, 13, .22) 9%,
+    rgba(13, 13, 13, .05) 18%,
+    transparent 32%,
+    transparent 58%,
+    rgba(13, 13, 13, .06) 72%,
+    rgba(13, 13, 13, .3) 86%,
+    rgba(13, 13, 13, .72) 95%,
+    var(--carvao) 100%
+  );
+}

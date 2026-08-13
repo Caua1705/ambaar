@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "optimize": "node scripts/optimize-images.mjs"
+    "frames": "node scripts/frames.mjs",
+    "fotos": "node scripts/fotos.mjs",
+    "video": "node scripts/video.mjs",
+    "midia": "npm run frames && npm run fotos && npm run video"
   },
   "devDependencies": {
     "sharp": "^0.35.3",

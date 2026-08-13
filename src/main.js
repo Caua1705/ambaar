@@ -8,10 +8,8 @@ import './scripts/preloader.js'
 import './scripts/hero.js'
 import './scripts/manifesto.js'
 import './scripts/chapters.js'
-import './scripts/cartaz.js'
-import './scripts/gallery.js'
+import './scripts/pausa.js'
 import './scripts/sequencia.js'
-import './scripts/curtains.js'
 import './scripts/outro.js'
 
 // transversais: entradas genéricas e as âncoras fixas

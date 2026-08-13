@@ -9,7 +9,11 @@
 
 import { gsap, reducedMotion, lenis, refresh, EASE } from './motion.js'
 
-const CRITICAS = ['/img/hero.webp', '/img/jardim.webp']
+/* As duas imagens que abrem o site: a hero e o primeiro quadro do
+   entardecer — que é a mesma foto que o manifesto revela no fim da
+   passagem e o cartaz do capítulo 01. Nenhuma terceira: o resto chega
+   depois da cortina, e chega tarde de propósito. */
+const CRITICAS = ['/img/jardim-dourado.webp', '/frames/dusk/d_001.webp']
 const MIN_EM_CENA = 700 // ms: em cache o contador passaria rápido demais para ser lido
 const LIMITE = 6000 // ms: uma imagem travada não pode prender o site
 

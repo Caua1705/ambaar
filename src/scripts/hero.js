@@ -25,7 +25,7 @@
    caixa por letra e o tracking largo se desfaria. */
 
 import { gsap, reducedMotion, EASE, DUR_TEXTO, STAGGER } from './motion.js'
-import { preloaded } from './preloader.js'
+import { preloaded } from './abertura.js'
 
 const hero = document.querySelector('.hero')
 const mark = document.querySelector('.hero__mark')
@@ -34,6 +34,9 @@ if (hero && mark && !reducedMotion) {
   const rule = hero.querySelector('.hero__rule')
   const tag = hero.querySelector('.hero__tag')
   const bg = hero.querySelector('.hero__bg img')
+  // as duas camadas do wordmark: a janela e o âmbar cheio
+  const marcaFoto = hero.querySelector('.hero__mark-layer--foto')
+  const marcaCheia = hero.querySelector('.hero__mark-layer--cheio')
   // o scrim apaga junto com a foto: sozinho ele deixaria uma faixa opaca
   // de carvão no pé da hero, e essa faixa é uma aresta dura contra o
   // Jardim que sobe por baixo
@@ -52,21 +55,25 @@ if (hero && mark && !reducedMotion) {
   gsap.set(mark, { clipPath: 'inset(100% 0% 0% 0%)' })
   gsap.set(tag, { clipPath: 'inset(0% 0% 100% 0%)', opacity: 1 })
   gsap.set(cantos, { opacity: 0, y: 16 })
-  gsap.set(rule, { scaleX: 0, opacity: 0 })
+
+  /* A linha JÁ ESTÁ NA TELA quando esta timeline começa: ela é a linha da
+     abertura, medida contra este filete e entregue no lugar exato dele
+     (abertura.js). A hero não a acende — ela continua o gesto.
+
+     Era aqui que a versão anterior tinha o passo de sobra: a cortina
+     descascava levando tudo consigo e a hero acendia uma linha nova do
+     zero, o que fazia o começo do site ter duas aberturas. Agora tem uma. */
+  gsap.set(rule, { scaleX: horizonte(), opacity: 0.55 })
 
   preloaded.then(() => {
     gsap.timeline()
-      // o horizonte chega
-      .fromTo(rule,
-        { scaleX: horizonte(), opacity: 0 },
-        { opacity: 0.55, duration: 0.8, ease: 'power2.out' }, 0)
-      // e se recolhe até a largura do lockup
-      .to(rule, { scaleX: 1, duration: 1.5, ease: EASE }, 0.35)
+      // o horizonte se recolhe até a largura do lockup
+      .to(rule, { scaleX: 1, duration: 1.5, ease: EASE }, 0.15)
       // a marca sai de dentro dele. É a única duração própria do site: é a
       // abertura, e precisa durar mais que qualquer entrada interna
-      .to(mark, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: EASE }, 1.05)
-      .to(tag, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: EASE }, 1.35)
-      .to(cantos, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE, stagger: STAGGER }, 1.6)
+      .to(mark, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: EASE }, 0.85)
+      .to(tag, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: EASE }, 1.15)
+      .to(cantos, { opacity: 1, y: 0, duration: DUR_TEXTO, ease: EASE, stagger: STAGGER }, 1.4)
 
     /* ── Saída ───────────────────────────────────────── */
 
@@ -87,14 +94,31 @@ if (hero && mark && !reducedMotion) {
       // a foto recua enquanto o lockup fica: profundidade sem paralaxe de
       // duas velocidades brigando entre si
       .to(bg, { scale: 1.14, duration: 1, ease: 'none' }, 0)
-      /* E apaga no último quarto. Com "A passagem" removida, esta é a
-         emenda mais importante do site: uma foto parada do jardim
-         entregando o mesmo jardim em movimento. Duas fotografias de
+      /* ── O âmbar fecha em volta do jardim ──────────────
+
+         Estas três linhas são o mesmo gesto, e por isso correm na mesma
+         janela: as letras deixam de ser uma janela e viram matéria cheia
+         enquanto o jardim de verdade apaga atrás delas. O que fica na tela
+         é o âmbar com o jardim dentro — a última frase do site executada na
+         primeira rolagem, quinze telas antes de ela ser escrita.
+
+         ── E é também a emenda ────────────────────────────────────────────
+
+         Esta é a costura mais importante da página: uma foto PARADA do
+         jardim entregando o MESMO jardim em movimento. Duas fotografias de
          sangria total encostando uma na outra deixam uma linha horizontal
-         dura no meio da tela; apagando a de cima antes do encontro, o que
-         o capítulo 01 sobe é carvão, e o corte ganha uma batida de preto —
-         que é como um corte se faz. */
-      .to([bg, scrim], { opacity: 0, duration: 0.26, ease: 'none', immediateRender: false }, 0.74)
+         dura atravessando a tela, e a versão anterior só apagava a de cima
+         no último quarto do percurso — ou seja, as duas ficavam visíveis
+         juntas, com a costura à mostra, durante três quartos da saída.
+
+         Apagando a foto no MEIO do percurso, o capítulo 01 sobe contra
+         carvão limpo e o corte ganha uma batida de preto, que é como um
+         corte se faz. A foto sai cedo e não faz falta: o que segura a tela
+         a partir dali é a marca, e a marca é a única coisa desta seção que
+         precisava sobreviver até o fim. */
+      .to(marcaFoto, { opacity: 0, duration: 0.3, ease: 'none', immediateRender: false }, 0.3)
+      .to(marcaCheia, { opacity: 1, duration: 0.3, ease: 'none', immediateRender: false }, 0.3)
+      .to([bg, scrim], { opacity: 0, duration: 0.32, ease: 'none', immediateRender: false }, 0.34)
       .to(cantos, { opacity: 0, duration: 0.3, ease: 'none', immediateRender: false }, 0)
       // nome e assinatura recolhem na direção do filete
       .to(mark, { y: 42, opacity: 0, duration: 0.45, ease: 'none', immediateRender: false }, 0.3)

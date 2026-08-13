@@ -1,9 +1,14 @@
 /* Um único observador decide qual seção manda na tela — a que cruza a faixa
-   central — e dela saem as três âncoras fixas: o texto vertical da lateral, o
-   item ativo do menu e o brilho do losango no fio.
+   central — e dela saem as âncoras fixas do site: o texto vertical da
+   lateral, o item ativo do menu, o brilho do losango no fio e, desde que o
+   relógio virou um objeto só, a hora e o lugar dele.
 
    A faixa é estreita de propósito: seções têm 100svh ou mais, então na prática
-   só uma a cruza por vez, e a troca acontece no mesmo ponto subindo e descendo. */
+   só uma a cruza por vez, e a troca acontece no mesmo ponto subindo e descendo.
+
+   O relógio não é chamado daqui por nome: a seção que assume é publicada num
+   evento e quem quiser que ouça. É o que evita este arquivo virar o lugar
+   onde todas as âncoras do site se conhecem. */
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -54,6 +59,8 @@ const aplicar = (secao) => {
 
   // fundo liso: sem foto competindo, o losango pode aparecer mais
   if (spine) spine.classList.toggle('is-lit', secao.hasAttribute('data-flat'))
+
+  document.dispatchEvent(new CustomEvent('secao:ativa', { detail: { secao } }))
 }
 
 /* ── Observação ────────────────────────────────────────── */

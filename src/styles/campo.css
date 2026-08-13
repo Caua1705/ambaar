@@ -1,0 +1,134 @@
+/* O campo — filetes âmbar de comprimentos desiguais.
+
+   É o segundo objeto de continuidade do site, ao lado do fio: nasce em "A
+   escuta", em tamanho de composição, e continua vivendo dentro do controle
+   de som, em miniatura, pelo resto da noite. Os dois são a MESMA coisa em
+   duas escalas — mesma marcação, mesmo movimento, mesma classe.
+
+   ── Por que filetes, e não um equalizador ───────────────────────────────
+
+   Um equalizador é um gráfico: barras que sobem e descem em barras iguais,
+   e o olho lê "player de mídia". Aqui os comprimentos são desiguais e
+   fixos, e o que se move é a ALTURA de cada linha, devagar, em períodos
+   diferentes e primos entre si (7, 8, 9, 10, 11, 12 e 13 segundos): o
+   desenho nunca fecha o ciclo e nunca se repete visivelmente. O que se lê é
+   uma coisa respirando, não um medidor funcionando.
+
+   ── A única coisa da página que se move sem o dedo ──────────────────────
+
+   Todo o resto do site anda porque a rolagem andou. O campo anda porque o
+   tempo passou. É a diferença entre uma página que reage e um lugar que
+   está aberto — e é de propósito que essa diferença apareça justamente na
+   seção sobre escutar, e depois more no botão que liga o som.
+
+   ── Dois estados, dois motores ──────────────────────────────────────────
+
+   PARADO / DERIVANDO. Sem som, cada linha deriva na vertical por keyframe
+   de CSS: custo zero de JavaScript, nenhum rAF ligado, nada acordando o
+   telefone. A amplitude é pequena (--amp).
+
+   TOCANDO. Com som, o JavaScript escreve --n em cada linha a partir do
+   espectro real da faixa (som.js) e o comprimento passa a ser a música. A
+   deriva vertical continua por CSS, então as duas camadas de movimento não
+   disputam a mesma propriedade: o CSS anima translateY no invólucro, o JS
+   anima scaleX no filete de dentro. */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.campo__linha {
+  display: block;
+  width: 100%;
+}
+
+.campo__linha i {
+  display: block;
+  height: 1px;
+  background: var(--ambar);
+  opacity: .5;
+  transform-origin: left center;
+  /* --w é o comprimento de repouso, escrito no HTML; --n é o comprimento
+     que a música pede, escrito por som.js. Sem música, --n não existe e o
+     filete fica no comprimento de repouso. */
+  transform: scaleX(var(--n, var(--w, 1)));
+  transition: transform .09s linear;
+}
+
+/* ── A deriva ──────────────────────────────────────────── */
+
+/* Em "A escuta" o campo fica imóvel durante as duas primeiras frases e só
+   começa a respirar na terceira — a que diz que música boa não precisa
+   gritar. É o único acontecimento da seção.
+
+   No controle de som ele já nasce vivo: o controle só existe DEPOIS desse
+   acontecimento, e um botão de som parado até alguém passar o ponteiro por
+   cima não é um objeto vivo, é um ícone. Ele tem de respirar sozinho, e no
+   telefone não existe ponteiro para passar. */
+.campo.is-viva .campo__linha,
+.campo--mini .campo__linha {
+  animation: campoDeriva var(--d, 10s) ease-in-out var(--del, 0s) infinite;
+}
+
+.campo.is-tocando {
+  --amp: 6px;
+}
+
+@keyframes campoDeriva {
+  0%, 100% { transform: translateY(calc(var(--amp, 3px) * -1)); }
+  50%      { transform: translateY(var(--amp, 3px)); }
+}
+
+/* ── Em "A escuta" ─────────────────────────────────────── */
+
+/* Ancorado na goteira esquerda, no terço baixo da tela, abaixo de qualquer
+   frase. Não é um rodapé: é o chão da sala. */
+.escuta .campo {
+  position: absolute;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 10svh;
+  height: 18svh;
+  z-index: 1;
+}
+
+@media (min-width: 900px) {
+  .escuta .campo {
+    right: auto;
+    width: min(46vw, 34rem);
+    bottom: 12svh;
+    height: 16svh;
+  }
+}
+
+/* ── No controle de som ────────────────────────────────── */
+
+/* Três linhas dentro do anel. A amplitude é proporcional: o mesmo gesto,
+   numa caixa doze vezes menor. */
+.campo--mini {
+  --amp: 1.5px;
+  width: 13px;
+  height: 9px;
+}
+
+.campo--mini.is-tocando {
+  --amp: 2.5px;
+}
+
+.campo--mini .campo__linha i {
+  opacity: .85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campo.is-viva .campo__linha,
+  .campo--mini .campo__linha {
+    animation: none;
+  }
+
+  .campo__linha i {
+    transition: none;
+  }
+}

@@ -27,18 +27,20 @@
                   entardecer acontece de verdade — as luzinhas acendem, a
                   vela aparece na mesa. Antes eram duas fotos em crossfade
                   sob uma demão colorida, que lia como troca de filtro.
-     02 Salão     duas fotos do mesmo DJ, a nítida e a arrastada, cruzando
-                  no miolo: a noite perdendo o contorno.
+     02 Salão     quatro planos que trocam secos, com os intervalos
+                  encurtando: o bar vazio, a cabine vista de cima, as mãos
+                  nos faders e o corpo arrastado pelo obturador.
      03 Reservado vídeo em plano fixo a meia velocidade, só as chamas se
                   mexendo. É o fim da noite, não o clímax dela.
 
-   ── O relógio ───────────────────────────────────────────────────────────
+   ── O relógio saiu daqui ────────────────────────────────────────────────
 
-   17h → 20h → 00h → 03h, sempre na maior escala da tela, sempre preso ao
-   scroll. No Jardim ele anda ~40% mais devagar por hora que no resto do
-   site: é a seção em que o tempo é o assunto, e é a única em que a imagem
-   conta a mesma hora que o algarismo. Salão e Reservado correm à mesma
-   taxa entre si — a noite, depois que começa, passa em ritmo constante. */
+   Cada capítulo tinha o seu, e as pausas tinham os delas: seis objetos que
+   se pareciam e nunca se encontravam. Agora é um algarismo só para a página
+   inteira (relogio.js), e o que o capítulo declara é apenas a faixa de
+   horas dele e onde o algarismo deve se acomodar — data-hora e data-hora-em
+   no HTML. A noite passou a avançar entre as seções, e não só dentro
+   delas. */
 
 import {
   gsap, ScrollTrigger, reducedMotion, EASE, entrada, splitChars, splitLine, prioridadeRefresh
@@ -52,26 +54,6 @@ const SEQUENCIAS = {
   dusk: { total: 22, caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp` }
 }
 
-/* "20—00" atravessa a meia-noite e conta 20, 21, 22, 23, 00. O texto
-   escrito no HTML é só o estado inicial. */
-const lerRelogio = (attr) => {
-  const partes = String(attr).match(/^\s*(\d{1,2})\s*[—–-]\s*(\d{1,2})\s*$/)
-  if (!partes) return null
-
-  const inicio = Number(partes[1])
-  const alvo = Number(partes[2])
-  const fim = alvo <= inicio ? alvo + 24 : alvo
-
-  const pad = (n) => String(Math.floor(n) % 24).padStart(2, '0')
-
-  return {
-    inicio,
-    fim,
-    render: (v) => `${pad(v)}h`,
-    estatico: `${pad(inicio)}h — ${pad(fim)}h`
-  }
-}
-
 for (const chapter of document.querySelectorAll('.chapter')) {
   const stage = chapter.querySelector('.chapter__stage')
   const media = chapter.querySelector('.chapter__media')
@@ -79,7 +61,6 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   const canvas = chapter.querySelector('.chapter__canvas')
   const video = chapter.querySelector('.chapter__video')
   const dusk = chapter.querySelector('.chapter__dusk')
-  const clock = chapter.querySelector('.chapter__clock')
   const label = chapter.querySelector('.chapter__label')
   const title = chapter.querySelector('.chapter__title')
   const text = chapter.querySelector('.chapter__text')
@@ -88,7 +69,6 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
   const { dash, text: labelText } = splitLine(label)
   const chars = splitChars(title)
-  const relogio = clock ? lerRelogio(clock.dataset.clock) : null
   const curso = Number(chapter.dataset.run) || 180
 
   gsap.set(label, NATURAL)
@@ -96,21 +76,13 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   /* ── Sem movimento ─────────────────────────────────── */
 
   if (reducedMotion) {
-    // estado final legível: o cartaz parado do ambiente, o texto inteiro e
-    // o horário como faixa em vez de contagem
+    // estado final legível: o cartaz parado do ambiente e o texto inteiro
     gsap.set([dash, labelText, title, text, ...chars], NATURAL)
     gsap.set(losango, { opacity: 0.5 })
     gsap.set(imgs, { opacity: (i) => (i === imgs.length - 1 ? 1 : 0) })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
     if (video) video.remove()
-
-    // a faixa inteira tem três vezes a largura de um horário só: na escala
-    // do relógio animado ela sairia da tela
-    if (relogio) {
-      clock.textContent = relogio.estatico
-      clock.classList.add('chapter__clock--faixa')
-    }
     continue
   }
 
@@ -168,17 +140,25 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
      Duas gramáticas, e o data-montagem do HTML escolhe.
 
-     CORTE (Salão). Quatro enquadramentos que trocam secos, sem
-     dissolução: o plano aberto da cabine, um corte fechado nas mãos sobre
-     a mesa, uma aproximação no mesmo plano aberto e o corpo arrastado pelo
-     obturador. É a única seção do site que corta — todo o resto dissolve,
-     acende ou deriva — e por isso o corte lê como montagem, não como
-     defeito.
+     CORTE (Salão). Quatro enquadramentos que trocam secos, sem dissolução.
+     É a única seção do site que corta — todo o resto dissolve, acende ou
+     deriva — e por isso o corte lê como montagem, não como defeito.
+
+     Os quatro planos passaram a ser quatro FOTOGRAFIAS diferentes. Antes o
+     primeiro e o terceiro eram o mesmo arquivo com escalas diferentes: um
+     corte que volta para a mesma imagem não é montagem, é repetição, e era
+     a coisa mais visível de errado no capítulo. A ordem agora vai de aberto
+     a desfeito, e a luz cai junto com ela:
+
+       1. o bar da casa, ainda vazio, com a rua acabando de escurecer na
+          porta — o plano aberto que o capítulo nunca teve, e a única foto
+          do acervo que o site jamais tinha usado;
+       2. a cabine vista de cima: a pessoa chega;
+       3. as mãos nos faders, agora em corte fechado de verdade;
+       4. o corpo arrastado pelo obturador.
 
      Os intervalos ENCURTAM: 0.30, depois 0.22, depois 0.16. O capítulo diz
-     que a noite encontra o próprio ritmo, e a montagem acelera junto. Era
-     a ideia mais cinética do site entregue pela transição menos cinética
-     que existe, um crossfade.
+     que a noite encontra o próprio ritmo, e a montagem acelera junto.
 
      Cada enquadramento tem escala e âncora próprias no CSS, então o corte
      troca de plano e não só de foto — que é o que um corte faz.
@@ -234,51 +214,47 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   // a luz caindo: a demão de céu ganha corpo no miolo (só o Jardim)
   if (dusk) {
     tl.fromTo(dusk, { opacity: 0 }, { opacity: 1, duration: 0.55, ease: 'none' }, 0.2)
-  }
 
-  /* O relógio conta ao longo do curso.
+    /* ── A batida de preto ──────────────────────────────
 
-     ── A hora final tem de caber ────────────────────────────────────────
-     A contagem é linear e o que se lê é o piso dela, então a última hora
-     só aparecia no instante exato em que a contagem terminava — e a
-     saída começava logo em seguida. Na prática o Jardim ia de 17h a 20h e
-     nunca chegava a mostrar 20h; o Salão morria em 23h.
+       A emenda hero → Jardim é a única do site em que duas fotografias de
+       sangria total se encontram, e são fotografias DO MESMO LUGAR: uma
+       parada, na hora dourada, e a mesma em movimento. O corte entre as
+       duas é a ideia da casa (âmbar é o instante guardado, a noite é o
+       instante correndo), e o corte tem de ser preto no meio.
 
-     O conserto é contar até UMA HORA ALÉM do destino e travar a leitura no
-     destino. Cada hora passa a ocupar uma fatia igual do percurso,
-     inclusive a última: o capítulo fecha com a hora de chegada parada na
-     tela pelo mesmo tempo que as outras ficaram, e não a virando na porta.
+       A versão anterior apagava só a foto de CIMA, no último quarto do
+       percurso — e a de baixo subia acesa desde o primeiro pixel. O
+       resultado era uma linha horizontal dura atravessando a tela durante
+       toda a saída da hero: o corte que o comentário descrevia nunca
+       chegava a existir.
 
-     ── A taxa ───────────────────────────────────────────────────────────
-     Em telas de rolagem por hora: Jardim 0,29; Salão 0,19; Reservado 0,20.
-     O entardecer corre 50% mais devagar por hora, de propósito — é a seção
-     em que o tempo é o assunto e a única em que a imagem também diz a hora
-     (as luzinhas acendem quando o relógio marca 19h porque as duas coisas
-     andam no mesmo eixo). Depois que a noite começa ela passa em ritmo
-     constante: Salão e Reservado ficam a 4% um do outro.
-
-     É rápido, e é uma escolha: manter o Salão na mesma taxa do Jardim
-     custaria mais uma tela e meia de rolagem só ali, e encurtar a rolagem
-     é a prioridade que manda nesta passada. O que compensa é a hora andar
-     em degraus visíveis em vez de deslizar — o algarismo fica parado e
-     vira, como um relógio, em vez de escorrer como um contador. */
-  if (relogio) {
-    const conta = { v: relogio.inicio }
-    tl.to(conta, {
-      v: relogio.fim + 1,
-      duration: 0.68,
+       Agora as duas pontas se apagam contra o mesmo carvão. A hero some no
+       meio do percurso dela (hero.js) e o Jardim sobe do preto enquanto
+       ainda está na metade de baixo da tela: onde as duas se cruzam não há
+       fotografia nenhuma, só o fundo da página. */
+    gsap.fromTo(media, { opacity: 0 }, {
+      opacity: 1,
       ease: 'none',
-      onUpdate: () => {
-        clock.textContent = relogio.render(Math.min(conta.v, relogio.fim))
+      scrollTrigger: {
+        trigger: chapter,
+        /* A janela é tardia de propósito: enquanto o topo do capítulo está
+           na metade de baixo da tela ele é quase carvão puro, e a
+           fotografia só toma corpo quando a seção já é dona do quadro.
+           Numa janela larga as duas fotos ficam meio visíveis ao mesmo
+           tempo e o que se vê é uma dissolução — que é justamente a
+           gramática que este join não pode ter. */
+        start: 'top 62%',
+        end: 'top 6%',
+        scrub: true
       }
-    }, 0.06)
+    })
   }
 
   /* ── O texto: gatilho, não dedo ────────────────────── */
 
   /* Começa antes de a seção prender, enquanto ela ainda sobe: quando o pin
      assume, a frase já está posta. Uma passada de dedo, uma frase. */
-  gsap.set(clock, { opacity: 0 })
 
   entrada(chapter, (t) => {
     t.to(dash, { scaleX: 1, duration: 0.7, ease: EASE }, 0)
@@ -286,10 +262,6 @@ for (const chapter of document.querySelectorAll('.chapter')) {
       .to(labelText, { ...NATURAL, duration: 0.7, ease: EASE }, 0.2)
       .to(chars, { ...NATURAL, duration: 0.7, ease: EASE, stagger: 0.028 }, 0.34)
       .to(text, { ...NATURAL, duration: 0.9, ease: EASE }, 0.66)
-      // o relógio é a última coisa a acender, e acende no capítulo a que
-      // pertence: antes ele já estava na tela uma seção inteira antes de o
-      // Jardim abrir, contando uma hora que ainda não era de ninguém
-      .to(clock, { opacity: 1, duration: 0.9, ease: EASE }, 0.5)
   }, {
     /* A seção já subiu 60% da tela quando o texto começa: a composição
        anterior terminou de sair e a entrada não acontece por cima dela.
@@ -316,7 +288,6 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   const saida = gsap.timeline({ paused: true })
 
   saida.to(meta, { opacity: 0, duration: 0.6, ease: 'none' }, 0)
-    .to(clock, { opacity: 0, duration: 0.6, ease: 'none' }, 0.1)
 
   if (chapter.dataset.saida === 'luz') {
     saida.to([title, text], { y: -70, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.06 }, 0)

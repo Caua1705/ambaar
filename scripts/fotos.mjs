@@ -35,6 +35,24 @@ const FOTOS = [
   // a hora dourada do jardim: é a hero, e é a foto mais nítida do site
   { saida: 'jardim-dourado', de: 'jardim-dourado.png', largura: 920, q: 70, luz: 1.06 },
 
+  /* O bar da casa, ainda vazio, com a rua acabando de escurecer na porta.
+     Estava fora do site inteiro até agora, e é o único plano ABERTO que o
+     Salão tem: é ele que abre a montagem do capítulo 02, no minuto em que
+     a pausa das 20h diz que "o salão enche sem que ninguém perceba".
+
+     Uma pitada de tinta e meio ponto de saturação a menos: o original tem
+     verde de folhagem e azul de fim de tarde na porta, e os dois precisam
+     recuar meio passo para o quadro pertencer à mesma noite que os três
+     seguintes — sem apagar a luz azul, que é justamente o que faz esta ser
+     a hora em que a rua acaba. */
+  /* 820px e q66, e não 900/74 como as outras: é um plano de FUNDO que
+     entra em corte seco, fica três segundos em cena, é escalado 1,06 e
+     recebe a demão de céu noturno por cima. O original é folhagem em luz
+     baixa — ruído de alta frequência puro, o material mais caro que existe
+     em WebP —, e no degrau anterior este arquivo sozinho pesava mais que a
+     hero. Aqui ele cai 40% sem diferença visível em cena. */
+  { saida: 'salao-bar', de: 'salao.jpg', largura: 820, q: 66, luz: 1.04, sat: 0.88, tinta: 0.12 },
+
   // a cabine, vista de cima, com o globo espelhado: o Salão
   { saida: 'dj-cabine', de: 'dj-cabine.png', largura: 900, q: 74, luz: 1.16 },
   // o mesmo DJ arrastado: entra por cima da primeira no meio do capítulo

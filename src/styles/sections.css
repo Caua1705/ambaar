@@ -54,12 +54,31 @@
 /* ── Os quatro planos do Salão ─────────────────────────── */
 
 /* Um corte que só troca a foto e mantém o enquadramento não é um corte, é
-   uma troca de slide. Cada plano tem escala e âncora próprias, então o
-   corte muda a distância da câmera: plano aberto, corte fechado nas mãos,
-   aproximação no mesmo aberto, e o arrasto.
+   uma troca de slide. E um corte que VOLTA para a mesma fotografia não é
+   nem isso — era o caso do capítulo até agora, em que o primeiro e o
+   terceiro plano eram o mesmo arquivo em escalas diferentes.
+
+   São quatro fotografias diferentes, em quatro distâncias diferentes, e a
+   luz cai ao longo delas:
+
+     sala     o bar da casa, ainda vazio, com a rua acabando de escurecer
+              na porta. É o plano mais aberto e o mais claro do capítulo, e
+              a única foto do acervo que o site nunca tinha publicado.
+     aberto   a cabine vista de cima: a pessoa chega, e a luz já é âmbar.
+     maos     as mãos nos faders. O corte fechado de verdade.
+     arrasto  o corpo desfeito pelo obturador. O mais escuro.
 
    As escalas se compõem com a da timeline (.chapter__media anda de 1.16 a
    1.02), então o valor aqui é relativo ao plano de base, não absoluto. */
+
+/* O bar. Numa tela estreita a foto retrato entra inteira em altura e o
+   corte acontece nas laterais: a âncora baixa mantém o balcão, os bancos e
+   o canteiro no quadro, e deixa a copa das árvores sangrar por cima —
+   que é onde o título do capítulo vai cair. */
+.chapter__img--sala {
+  object-position: 46% 62%;
+  transform: scale(1.06);
+}
 
 .chapter__img--aberto {
   object-position: center 42%;
@@ -68,18 +87,17 @@
 /* As mãos na mesa. Numa tela 9:19,5 a foto retrato entra inteira em altura
    e o corte só acontece nas laterais — então object-position não tira o
    alto do quadro, onde estão a parede clara e a estampa da camiseta. Quem
-   fecha o plano é a escala, com a origem nas mãos: o corte-in é de
-   verdade, e é o mais fechado dos quatro. */
+   fecha o plano é a escala, com a origem nas mãos.
+
+   A escala subiu de 1,62 para 2,05: no valor antigo o torso e o logotipo da
+   camiseta continuavam em cena e o "corte fechado" fechava em nada. Agora o
+   quadro é o mixer, os faders e as duas mãos, e mais nada — que é o plano
+   que o capítulo pedia e a razão de a fotografia ter sido chamada de fraca:
+   ela é uma foto de detalhe sendo usada como plano médio. */
 .chapter__img--maos {
   object-position: 60% 50%;
-  transform: scale(1.62);
-  transform-origin: 58% 74%;
-}
-
-.chapter__img--fechado {
-  object-position: 46% 34%;
-  transform: scale(1.3);
-  transform-origin: 46% 30%;
+  transform: scale(2.05);
+  transform-origin: 56% 72%;
 }
 
 .chapter__img--arrasto {
@@ -152,59 +170,9 @@
     linear-gradient(to bottom, rgba(13, 13, 13, .34) 0%, rgba(107, 74, 46, .2) 48%, rgba(107, 74, 46, .06) 100%);
 }
 
-/* ── O relógio gigante ─────────────────────────────────── */
-
-/* A noite avança de verdade ao longo do site: 17h → 20h → 00h → 03h,
-   sempre na maior escala da tela. É o dispositivo narrativo da página.
-
-   Massa trocada por contorno: o preenchimento fica baixo e o desenho da
-   letra ganha um traço âmbar de 1px. O relógio tem a presença de um objeto
-   grande sem ter o peso de um bloco de texto, e a cor o filia à marca em
-   vez de competir com o branco do título. É a mesma regra da resina: a
-   forma inteira está lá, mas você vê o contorno dela, não a massa.
-
-   O posicionamento é por caixa, não por âncora. Ancorado em `left: 50%`, o
-   "20h" do Salão começava a 200px numa tela de 414 e media 251px: o "h"
-   caía fora da tela. Agora a caixa ocupa a faixa útil entre as duas
-   goteiras e o algarismo se alinha dentro dela — em qualquer largura, e
-   para qualquer um dos quatro valores. */
-.chapter__clock {
-  position: absolute;
-  bottom: 4svh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
-  z-index: 3;
-  font-size: var(--fs-numero);
-  font-weight: 200;
-  letter-spacing: -.03em;
-  line-height: .78;
-  color: rgba(200, 137, 46, .18);
-  -webkit-text-stroke: 1px rgba(200, 137, 46, .52);
-  pointer-events: none;
-  white-space: nowrap;
-  /* o dígito troca a cada quadro: sem largura fixa o número treme */
-  font-variant-numeric: tabular-nums;
-  /* a barriga do algarismo tem folga própria: sem o recuo ele nasce
-     desalinhado do resto da coluna */
-  text-indent: -.06em;
-}
-
-/* Sem contagem (movimento reduzido) o relógio vira faixa: "17h — 20h" no
-   lugar de um horário só. Três vezes mais largo, então três vezes menor. */
-.chapter__clock--faixa {
-  font-size: var(--fs-grande);
-  -webkit-text-stroke-width: .5px;
-}
-
-.chapter--center .chapter__clock {
-  text-align: center;
-  text-indent: 0;
-}
-
-.chapter--right .chapter__clock {
-  text-align: right;
-  text-indent: 0;
-}
+/* O relógio saiu daqui: virou um objeto só para a página inteira
+   (relogio.css). O que o capítulo declara agora é apenas a faixa de horas e
+   onde o algarismo deve se acomodar — data-hora e data-hora-em no HTML. */
 
 .chapter__content {
   position: absolute;

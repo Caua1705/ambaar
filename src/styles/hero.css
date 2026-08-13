@@ -59,7 +59,11 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 96% 38% at 50% 48%, rgba(13, 13, 13, .8) 0%, rgba(13, 13, 13, .42) 52%, transparent 80%),
+    /* a elipse fechou mais e subiu para a altura do wordmark: a marca
+       preenchida com fotografia precisa de um fundo mais escuro do que a
+       marca chapada precisava — é a diferença entre uma letra que tem cor
+       própria e uma que empresta a cor do que está atrás dela */
+    radial-gradient(ellipse 92% 32% at 50% 43%, rgba(13, 13, 13, .88) 0%, rgba(13, 13, 13, .5) 54%, transparent 82%),
     linear-gradient(to bottom, rgba(13, 13, 13, .55) 0%, rgba(13, 13, 13, .12) 20%, transparent 40%, rgba(13, 13, 13, .3) 78%, rgba(13, 13, 13, .72) 92%, var(--carvao) 100%);
 }
 
@@ -81,7 +85,29 @@
   text-align: center;
 }
 
+/* ── A marca é uma janela ──────────────────────────────── */
+
+/* Âmbar é resina que endureceu em volta de um instante e o guardou. O site
+   inteiro diz isso — e dizia só na última tela, em texto, quinze telas
+   depois de o usuário ter parado de olhar.
+
+   Agora a marca DEMONSTRA. O wordmark tem duas camadas exatamente no mesmo
+   lugar: uma preenchida com a própria fotografia do jardim e outra em âmbar
+   chapado. Na abertura, quem está em cena é a fotografia — as letras são
+   uma janela e o que se vê através delas é o jardim vivo. Na primeira
+   rolagem a foto do fundo apaga e a camada cheia toma o lugar da camada de
+   foto: o jardim que se via ATRAVÉS das letras fica DENTRO delas.
+
+   É a tese da casa executada no primeiro gesto da página, e é a única vez
+   em que a tipografia do site é uma imagem em vez de ser texto por cima de
+   uma. Custa zero byte: a foto é a mesma que já está carregada atrás.
+
+   O empilhamento é por grade e não por posicionamento absoluto — as duas
+   camadas ocupam a mesma célula, então a caixa do h1 continua sendo medida
+   pelo texto e o lockup inteiro continua se centrando sozinho. */
+
 .hero__mark {
+  display: grid;
   font-family: var(--font);
   font-size: var(--fs-mega);
   font-weight: 200;
@@ -89,14 +115,56 @@
   /* o tracking sobra depois da última letra: sem o recuo a palavra nasce
      deslocada meio caractere para a esquerda do eixo */
   text-indent: var(--track-marca);
-  color: var(--ambar);
   line-height: .92;
   white-space: nowrap;
+}
+
+.hero__mark-layer {
+  grid-area: 1 / 1;
+}
+
+/* A camada de fotografia.
+
+   Duas correções sem as quais a ideia não passa de efeito:
+
+   1. A DEMÃO. Uma foto crua dentro das letras faz um recorte de folhagem —
+      verde de mata dentro de uma marca âmbar. A demão de 52% puxa o recheio
+      para a paleta sem apagar a luz da hora dourada.
+
+   2. O CONTORNO. A Jost 200 a 18vw tem haste de quatro pixels. Preenchida
+      com fotografia, e sobre fotografia, ela perde a forma — as letras
+      viravam manchas. O traço âmbar de meio pixel devolve a aresta e é
+      exatamente o mesmo tratamento do relógio da casa: preenchimento baixo,
+      contorno âmbar. A marca e a hora passam a ser desenhadas pela mesma
+      regra, que é o que faz as duas pertencerem à mesma peça. */
+.hero__mark-layer--foto {
+  background-image:
+    linear-gradient(rgba(200, 137, 46, .52), rgba(200, 137, 46, .52)),
+    url('/img/jardim-dourado.webp');
+  background-size: cover;
+  background-position: 50% 30%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: .5px rgba(200, 137, 46, .85);
+}
+
+/* A camada cheia. Nasce apagada e é para onde a marca vai. */
+.hero__mark-layer--cheio {
+  color: var(--ambar);
+  opacity: 0;
   /* a foto é quente e o âmbar é quente: sem a sombra larga a marca encosta
      no fundo em vez de flutuar sobre ele */
   text-shadow:
     0 2px 48px rgba(13, 13, 13, .9),
     0 1px 12px rgba(13, 13, 13, .7);
+}
+
+/* Sem movimento não há primeira rolagem que troque uma camada pela outra:
+   a marca fica na versão chapada, que é a legível. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__mark-layer--foto { opacity: 0; }
+  .hero__mark-layer--cheio { opacity: 1; }
 }
 
 /* O filete: a marca nasce de dentro dele e ele é a última coisa a sair

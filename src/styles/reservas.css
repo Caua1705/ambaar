@@ -71,20 +71,42 @@
   isolation: isolate;
 }
 
+/* A foto é o pano de fundo da escolha, não a informação: fica apagada e só
+   acende no toque ou no foco.
+
+   O apagamento era um `filter: brightness()` que TRANSICIONAVA. Era a única
+   coisa animada no site fora de transform, opacity e clipPath — e a pior
+   possível: um filtro sobre uma fotografia de tela cheia repinta a camada
+   inteira a cada quadro, e são três cartões.
+
+   Agora o brilho de repouso é assado no arquivo (scripts/fotos.mjs, como o
+   resto das fotos) e quem acende é uma DEMÃO com opacidade própria. Mesmo
+   efeito, mesma duração, e nada além de opacity e transform em movimento. */
 .sala__img {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* a foto é o pano de fundo da escolha, não a informação: entra apagada e
-     só acende no toque ou no foco */
-  filter: saturate(var(--foto-sat)) brightness(var(--foto-cartao));
   transform: scale(1.04);
-  transition: transform 1.1s var(--ease), filter 1.1s var(--ease);
+  transition: transform 1.1s var(--ease);
 }
 
+/* a demão que apaga a foto em repouso — e some no toque */
+.sala__link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: var(--carvao);
+  opacity: .34;
+  transition: opacity 1.1s var(--ease);
+}
+
+/* o pé escuro que segura o nome da sala: este NÃO acende, porque é ele que
+   torna o texto legível */
 .sala__link::after {
   content: '';
   position: absolute;
@@ -149,7 +171,11 @@
 .sala__link:hover .sala__img,
 .sala__link:focus-visible .sala__img {
   transform: scale(1.09);
-  filter: saturate(var(--foto-sat)) brightness(.68);
+}
+
+.sala__link:hover::before,
+.sala__link:focus-visible::before {
+  opacity: .1;
 }
 
 .sala__link:focus-visible {
@@ -169,6 +195,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sala__img,
+  .sala__link::before,
   .sala__go {
     transition: none;
   }

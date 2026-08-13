@@ -1,37 +1,40 @@
 /* A pausa — a hora virando entre dois ambientes.
 
-   ── O problema ─────────────────────────────────────────────────────────
+   ── O papel ────────────────────────────────────────────────────────────
 
-   Eram duas fotos de tela cheia, paradas, sem nada dito. Uma imagem de
-   sangria total sem ideia atrás não é uma pausa: é um buraco. E as duas
-   melhores fotografias do site estavam nele.
-
-   ── O que a pausa passou a ser ─────────────────────────────────────────
-
-   Uma dobradiça. Cada pausa é a hora em que a noite muda de sala, e ela
-   diz o que está acontecendo do outro lado: às 20h "o salão enche sem que
+   Uma dobradiça. Cada pausa é a hora em que a noite muda de sala, e ela diz
+   o que está acontecendo do outro lado: às 20h "o salão enche sem que
    ninguém perceba" — e a próxima seção é o Salão. À 00h "a conversa baixa
    sozinha" — e a próxima é o Reservado, que se fecha em si mesmo. A pausa
-   deixa de mostrar alguém e passa a CAUSAR o capítulo seguinte. É
-   exatamente o papel que "A passagem" tentava cumprir entre a hero e o
-   Jardim e nunca cumpriu; ela saiu, e o papel dela mudou de lugar.
+   não mostra alguém: ela CAUSA o capítulo seguinte.
 
-   ── A montagem ─────────────────────────────────────────────────────────
-
-   Quatro coisas: uma pessoa, o copo dela, o algarismo da hora e uma frase.
+   ── A montagem, e o que mudou nela ─────────────────────────────────────
 
    É a única composição do site com bordas visíveis. Todas as outras seções
    sangram nos quatro lados; aqui dois quadros sangram por lados OPOSTOS
-   sobre carvão limpo, e o preto que sobra é metade do trabalho. A seção se
-   distingue das vizinhas pela moldura, antes de qualquer animação.
+   sobre carvão limpo, e o preto que sobra é metade do trabalho.
 
-   Os dois quadros andam lateralmente em sentidos contrários enquanto a
-   seção passa (pausa.js), com amplitudes diferentes: o retrato abre para
-   dentro, o detalhe corre para fora. Movimento contrário é o que faz duas
-   imagens lerem como uma composição em vez de duas camadas de paralaxe.
+   Três coisas foram empurradas nesta passada, e a das 00h — que já era a
+   melhor composição da página — foi a régua para a das 20h:
 
-   A segunda pausa é a primeira espelhada, com proporções trocadas: as duas
-   rimam sem se repetir. */
+   1. O ALGARISMO ENTROU NA SALA. O relógio da casa é fixo e vive na camada
+      3; os quadros da pausa subiram para a camada 4. A hora passa POR TRÁS
+      da fotografia em vez de flutuar por cima dela — e é a única
+      profundidade real do site. Por isso as duas composições foram
+      remontadas de modo que o quadro que sangra cruze mesmo o algarismo:
+      sem cruzamento não há profundidade nenhuma, só dois objetos em cantos
+      diferentes.
+
+   2. O RETRATO GANHOU ALTURA E ÂNCORA. Na pausa das 20h ele era um bloco de
+      44svh flutuando no terço alto: quatro objetos em quatro alturas
+      diferentes lêem como lista, não como composição. Agora ele sangra
+      também pelo TOPO, o que o transforma em ancoragem em vez de peça
+      solta, e a frase ganha a faixa livre inteira ao lado dele.
+
+   3. AS BORDAS PASSARAM A ABRIR. Cada quadro nasce como um filete na
+      própria borda de sangria e se desdobra até o formato cheio (pausa.js).
+      A moldura é o que distingue a seção; agora ela é um gesto e não só um
+      contorno. */
 
 .pausa {
   position: relative;
@@ -50,8 +53,11 @@
   position: absolute;
   margin: 0;
   overflow: hidden;
-  /* o deslocamento lateral vive aqui, escrito pelo JS */
-  will-change: transform;
+  /* acima do relógio fixo (camada 3): é o quadro que ocluí o algarismo, e
+     não o contrário */
+  z-index: 4;
+  /* o deslocamento lateral e a abertura da borda vivem aqui, escritos pelo JS */
+  will-change: transform, clip-path;
 }
 
 /* a foto é maior que o quadro: a sobra é o curso do movimento interno,
@@ -66,107 +72,85 @@
 
 /* ── Pausa 01 · 20h ────────────────────────────────────── */
 
-/* Lida de cima para baixo: retrato alto sangrando pela direita, a frase na
-   faixa livre logo abaixo dele, o detalhe sangrando pela esquerda no pé e
-   a hora no canto oposto ao detalhe. Nenhum dos quatro divide altura com
-   outro — numa tela de 414px não existe coluna lateral que caiba tipografia
-   de display ao lado de uma foto; o que existe é faixa horizontal. */
+/* Lida de cima para baixo: o retrato sangra pelo TOPO e pela DIREITA,
+   ocupando a metade alta inteira; a frase mora na faixa livre logo abaixo
+   dele; o detalhe sangra pela esquerda no pé. O algarismo fica no canto
+   direito baixo, e a quina inferior do retrato desce o suficiente para
+   passar na frente dele.
+
+   Antes o retrato começava a 5svh com 44svh de altura e não encostava em
+   borda nenhuma no alto: era um cartão pousado no meio do preto. Agora ele
+   é uma parede. */
 
 .pausa--um .pausa__quadro--retrato {
-  top: 5svh;
-  left: 32vw;
+  top: -6svh;
+  left: 30vw;
   right: -12vw;
-  height: 44svh;
+  height: 62svh;
 }
 
 .pausa--um .pausa__linha {
-  top: 53svh;
+  top: 62svh;
   left: var(--gutter-l);
 }
 
 .pausa--um .pausa__quadro--detalhe {
-  top: 73svh;
+  top: 76svh;
   left: -12vw;
-  width: 48vw;
+  width: 46vw;
   height: 22svh;
-}
-
-.pausa--um .pausa__hora {
-  bottom: 6svh;
-  right: var(--gutter-r);
-  text-align: right;
 }
 
 /* ── Pausa 02 · 00h ────────────────────────────────────── */
 
-/* A mesma gramática, espelhada e mais apertada: o detalhe sobe para o alto,
-   o retrato sangra pela esquerda no miolo, a frase cai no pé à direita e a
-   hora vai para o canto que sobrou. A noite fechou. */
+/* A mesma gramática, espelhada e mais apertada: o detalhe sobe para o alto
+   à direita, o retrato sangra pela esquerda e pelo PÉ, a frase cai no
+   miolo à direita. O algarismo mora no canto esquerdo baixo — atrás da
+   quina inferior do retrato, que agora desce até o rodapé da tela. A noite
+   fechou, e a composição fecha junto: nada mais flutua. */
 
 .pausa--dois .pausa__quadro--detalhe {
-  top: 3svh;
+  top: 4svh;
   right: -10vw;
-  width: 42vw;
+  width: 40vw;
   height: 20svh;
 }
 
+/* A quina de baixo pára em 89svh, e é uma medida, não um enquadramento: o
+   relógio da casa mora a 5svh do pé com 75px de altura, então a borda do
+   quadro cruza o terço alto do algarismo. Um pouco mais e a hora
+   desaparece; um pouco menos e os dois só ficam perto. É onde a fotografia
+   passa NA FRENTE do algarismo sem comê-lo — a única oclusão real do site,
+   e a razão de esta ser a composição que as outras copiam. */
 .pausa--dois .pausa__quadro--retrato {
-  top: 16svh;
+  top: 20svh;
   left: -14vw;
-  right: 32vw;
-  height: 48svh;
+  right: 38vw;
+  bottom: 11svh;
+  height: auto;
 }
 
 .pausa--dois .pausa__linha {
-  top: 67svh;
+  top: 34svh;
   right: var(--gutter-r);
   text-align: right;
-}
-
-.pausa--dois .pausa__hora {
-  bottom: 5svh;
-  left: var(--gutter-l);
-  text-align: left;
 }
 
 /* ── Enquadramento de cada foto ────────────────────────── */
 
 /* O rosto das duas retratadas está no terço alto do arquivo; centrado, o
    quadro corta na altura do ombro. */
-.pausa--um .pausa__quadro--retrato img { object-position: 52% 24%; }
-.pausa--dois .pausa__quadro--retrato img { object-position: 46% 30%; }
+.pausa--um .pausa__quadro--retrato img { object-position: 52% 26%; }
+.pausa--dois .pausa__quadro--retrato img { object-position: 46% 28%; }
 
 /* nos detalhes o assunto é o copo, e ele está no miolo */
 .pausa__quadro--detalhe img { object-position: 50% 46%; }
-
-/* ── A hora ────────────────────────────────────────────── */
-
-/* Mesmo objeto do relógio dos capítulos: mesma família, mesmo contorno,
-   mesma cor. É o relógio do site aparecendo entre dois capítulos — e é por
-   isso que o Salão pode contar 20h→23h em vez de 20h→00h: a hora que falta
-   passa aqui. Um degrau menor que o dos capítulos, porque aqui ela divide
-   a tela com uma frase. */
-.pausa__hora {
-  position: absolute;
-  z-index: 3;
-  /* estado de entrada no CSS, como no resto do site */
-  opacity: 0;
-  font-size: clamp(4rem, 22vw, 10rem);
-  font-weight: 200;
-  letter-spacing: -.03em;
-  line-height: .8;
-  color: rgba(200, 137, 46, .16);
-  -webkit-text-stroke: 1px rgba(200, 137, 46, .5);
-  font-variant-numeric: tabular-nums;
-  pointer-events: none;
-  white-space: nowrap;
-}
 
 /* ── A frase ───────────────────────────────────────────── */
 
 .pausa__linha {
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   opacity: 0;
   /* a faixa útil inteira menos as duas goteiras: a frase tem duas linhas
      desenhadas no HTML e precisa que elas caibam inteiras */
@@ -182,64 +166,70 @@
     0 1px 4px rgba(13, 13, 13, .8);
 }
 
+.pausa--dois .pausa__linha {
+  /* encostada na borda direita, e não numa largura fixa: é a única frase do
+     site que divide a linha do olho com uma fotografia sangrando */
+  width: min(52vw, 20rem);
+  left: auto;
+}
+
 /* ── Tela larga ────────────────────────────────────────── */
 
-/* Na horizontal existe coluna: o retrato ocupa uma metade inteira em
-   altura e a tipografia mora na outra, que é a composição que a montagem
-   estreita não pode ter. */
+/* Na horizontal existe coluna: o retrato ocupa uma metade inteira em altura
+   e a tipografia mora na outra, que é a composição que a montagem estreita
+   não pode ter. */
 
 @media (min-width: 900px) {
+  /* Na horizontal o retrato desce até 88svh e passa na frente do canto
+     superior do algarismo — a mesma oclusão da pausa das 00h, aplicada
+     aqui. Na vertical isso não cabe: descer o retrato até lá esmagaria a
+     frase e o detalhe, que dividem a coluna com ele. */
   .pausa--um .pausa__quadro--retrato {
-    top: 9svh;
-    left: 48vw;
+    top: -8svh;
+    left: 46vw;
     right: -5vw;
-    height: 78svh;
+    height: 96svh;
   }
 
   .pausa--um .pausa__quadro--detalhe {
-    top: 52svh;
+    top: 58svh;
     left: -3vw;
-    width: 24vw;
-    height: 36svh;
+    width: 22vw;
+    height: 34svh;
   }
 
   .pausa--um .pausa__linha {
-    top: 26svh;
+    top: 24svh;
   }
 
   .pausa--dois .pausa__quadro--retrato {
-    top: 11svh;
+    top: 8svh;
     left: -5vw;
-    right: 48vw;
-    height: 78svh;
+    right: 50vw;
+    bottom: 9svh;
+    height: auto;
   }
 
   .pausa--dois .pausa__quadro--detalhe {
-    top: 10svh;
+    top: 8svh;
     right: -3vw;
-    width: 24vw;
-    height: 32svh;
+    width: 22vw;
+    height: 30svh;
   }
 
   .pausa--dois .pausa__linha {
-    top: 54svh;
-  }
-
-  .pausa--dois .pausa__hora {
-    bottom: 8svh;
-    left: auto;
-    right: var(--gutter-r);
-    text-align: right;
+    top: 48svh;
+    width: min(34vw, 22rem);
   }
 }
 
 /* ── Sem movimento ─────────────────────────────────────── */
 
 /* A composição não depende de animação nenhuma: sem movimento ela fica
-   exatamente como está, parada. Só o deslocamento lateral desaparece. */
+   exatamente como está, parada. Só o deslocamento lateral e a abertura das
+   bordas desaparecem. */
 
 @media (prefers-reduced-motion: reduce) {
-  .pausa__hora,
   .pausa__linha {
     opacity: 1;
   }

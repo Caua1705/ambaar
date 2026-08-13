@@ -1,0 +1,144 @@
+/* A escuta — o centro filosófico do site, e a tela mais silenciosa dele.
+
+   ── O que saiu, e por quê ───────────────────────────────────────────────
+
+   O copo enchendo. Dezoito quadros de uma macro de líquido dourado, presos
+   ao dedo, ocupando a tela inteira, com três blocos de texto branco por
+   cima. Três problemas, e o terceiro é o que condenou a ideia:
+
+   1. A matéria não dava conta. O material é uma macro sem aresta de copo e
+      sem silhueta: em tela cheia ele não é "um copo enchendo", é uma
+      superfície dourada. Não havia versão da compressão que consertasse
+      isso, porque não era compressão — era enquadramento.
+
+   2. A tipografia perdia. Branco sobre dourado claro, com as três frases
+      disputando a mesma zona alta: no telefone, duas delas chegavam a se
+      sobrepor no meio da rolagem.
+
+   3. E este é o ponto: a seção que diz "música boa não precisa gritar para
+      ser ouvida" era a mais DENSA da página. A frase é a instrução de
+      projeto, e o projeto estava fazendo o contrário dela.
+
+   ── O que ela é agora ───────────────────────────────────────────────────
+
+   A única tela do site SEM fotografia. Depois de seis telas de sangria
+   total, carvão puro é um acontecimento — e é a coisa mais barata e mais
+   difícil de fazer num site que tem imagens boas.
+
+   Três elementos, nunca mais que dois ao mesmo tempo:
+
+     · uma frase por vez, revelada por um clipPath que abre da esquerda para
+       a direita — o sentido da leitura, e o gesto mais quieto que existe;
+     · um campo de filetes âmbar, de comprimentos desiguais, ancorado na
+       goteira esquerda;
+     · o controle de som, que nasce aqui e não sai mais (som.css).
+
+   ── O acontecimento único da seção ──────────────────────────────────────
+
+   O campo fica PARADO durante as duas primeiras frases. Ele só começa a
+   respirar quando a terceira chega — a que diz que música boa não precisa
+   gritar. O primeiro movimento não-rolado da página inteira acontece
+   exatamente na frase que fala de ser ouvido, e é ele que apresenta o
+   controle de som logo abaixo.
+
+   Uma seção, uma ideia: o silêncio, e então o primeiro som. */
+
+.escuta {
+  position: relative;
+  background: var(--carvao);
+  scroll-margin-top: 5rem;
+}
+
+.escuta__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--carvao);
+}
+
+/* ── As frases ─────────────────────────────────────────── */
+
+/* Todas na mesma coluna e na mesma zona ótica: a variação é de escala e de
+   voz, não de posição. O olho fica parado — que é o assunto. */
+.escuta__frase {
+  position: absolute;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  top: 30svh;
+  margin: 0;
+  color: rgba(255, 255, 255, .92);
+}
+
+/* Cada linha é a própria janela do clipPath. O respiro vertical existe para
+   o corte não passar rente aos acentos e às descidas, e o recuo negativo
+   devolve o espaço ao ritmo da entrelinha. */
+.escuta__frase span {
+  display: block;
+  padding-block: .18em;
+  margin-block: -.18em;
+  /* o estado fechado mora no CSS, como todo estado de entrada do site */
+  clip-path: inset(0% 100% 0% 0%);
+}
+
+/* (a) serifada, na escala média: a abertura */
+.escuta__frase--a {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 7vw, 3.1rem);
+  font-weight: 300;
+  line-height: 1.28;
+  letter-spacing: var(--track-display);
+}
+
+/* (b) a única das três que não é frase de efeito e sim informação: miúda,
+   em caixa alta, e no pé da coluna em vez do alto — a seção respira entre a
+   primeira e a segunda em vez de trocar um bloco por outro no mesmo lugar */
+.escuta__frase--b {
+  top: auto;
+  bottom: 32svh;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-mid);
+  line-height: 2.6;
+  color: rgba(255, 255, 255, .72);
+}
+
+/* (c) o fecho, na maior escala da seção — e em três linhas curtas, porque é
+   assim que ela pode ser a maior sem quebrar sozinha */
+.escuta__frase--c {
+  top: 26svh;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 10vw, 4.6rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: var(--track-display);
+  color: #fff;
+}
+
+@media (min-width: 900px) {
+  .escuta__frase--a { right: auto; max-width: 17ch; }
+  .escuta__frase--b { right: auto; max-width: 40ch; }
+  .escuta__frase--c { right: auto; max-width: 18ch; }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+/* Sem pin: as três frases viram uma lista legível, com o mesmo contraste
+   tipográfico entre elas que a versão animada tem no tempo. */
+.escuta.is-estatica .escuta__stage {
+  height: auto;
+  padding: 16svh var(--gutter-r) 16svh var(--gutter-l);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.escuta.is-estatica .escuta__frase {
+  position: static;
+  max-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .escuta__frase span {
+    clip-path: none;
+  }
+}

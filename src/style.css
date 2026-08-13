@@ -1,14 +1,17 @@
 @import './styles/tokens.css';
 @import './styles/base.css';
-@import './styles/preloader.css';
+@import './styles/abertura.css';
 @import './styles/hero.css';
 @import './styles/sections.css';
 @import './styles/pausa.css';
-@import './styles/sequencia.css';
+@import './styles/escuta.css';
 @import './styles/topbar.css';
 @import './styles/reservas.css';
 @import './styles/outro.css';
 /* âncoras fixas por último: elas reservam faixa nas seções acima */
+@import './styles/relogio.css';
+@import './styles/campo.css';
+@import './styles/som.css';
 @import './styles/vrail.css';
 @import './styles/spine.css';
 @import './styles/grain.css';

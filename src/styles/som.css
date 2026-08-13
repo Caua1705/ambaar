@@ -1,0 +1,125 @@
+/* O controle de som.
+
+   ── Onde ele mora, e por quê ────────────────────────────────────────────
+
+   Na goteira DIREITA, no pé. A direita é a faixa das âncoras do site — a
+   assinatura vertical já mora lá —, e a esquerda é a faixa do fio, que já
+   tem o losango descendo por ela. Mais importante: o relógio da casa ocupa
+   a faixa útil ENTRE as duas goteiras, e as duas goteiras são justamente as
+   duas faixas em que nenhum conteúdo entra. O controle não precisa negociar
+   espaço com nada — ele está na única coluna vazia da página.
+
+   ── Quando ele aparece ──────────────────────────────────────────────────
+
+   Não existe até "A escuta". Ele acende no instante em que a terceira frase
+   termina de dizer que música boa não precisa gritar para ser ouvida, e a
+   partir dali fica pelo resto da sessão, inclusive se o usuário voltar para
+   o topo.
+
+   Isso é o que faz ele não parecer aparafusado: seis telas sem controle
+   nenhum, e no minuto em que a casa se declara um clube de escuta, aparece
+   a coisa que se pode escutar. A descoberta não precisa de instrução porque
+   ela acontece no meio da frase que a explica.
+
+   ── O que ele é ─────────────────────────────────────────────────────────
+
+   Um anel de 30px, traço de 1px, com três filetes dentro — os mesmos de "A
+   escuta", em miniatura. Nada de ícone de alto-falante, nada de barra de
+   player. Desligado, o anel fica a 40% e os filetes derivam devagar.
+   Ligado, o anel sobe para 85%, um segundo anel se abre para fora e apaga a
+   cada 2,6s — o objeto passa a pulsar sozinho — e os filetes passam a ser o
+   espectro real da faixa.
+
+   A área de toque é de 44px; o desenho, de 30. */
+
+.som {
+  position: fixed;
+  right: calc(var(--gutter-r) / 2 - 22px);
+  bottom: 1.4rem;
+  z-index: 16;
+
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ambar);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  /* fora de cena até "A escuta" */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s var(--ease);
+}
+
+.som.is-visivel {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── O anel ────────────────────────────────────────────── */
+
+.som__anel,
+.som__pulso {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  pointer-events: none;
+}
+
+.som__anel {
+  opacity: .4;
+  transition: opacity .6s var(--ease);
+}
+
+.som[aria-pressed="true"] .som__anel {
+  opacity: .85;
+}
+
+/* O segundo anel só existe tocando: ele nasce no primeiro e se abre para
+   fora, devagar. É o que dá ao objeto uma pulsação própria — ele se move
+   sem o ponteiro e sem a rolagem. */
+.som__pulso {
+  opacity: 0;
+  transform: scale(1);
+}
+
+.som[aria-pressed="true"] .som__pulso {
+  animation: somPulso 2.6s var(--ease) infinite;
+}
+
+@keyframes somPulso {
+  0%   { opacity: .5; transform: scale(1); }
+  70%  { opacity: 0; transform: scale(1.9); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+/* ── Foco ──────────────────────────────────────────────── */
+
+.som:focus-visible {
+  outline: 1px solid var(--ambar);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+.som:hover .som__anel {
+  opacity: .85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .som,
+  .som__anel {
+    transition: none;
+  }
+
+  .som[aria-pressed="true"] .som__pulso {
+    animation: none;
+    opacity: .35;
+  }
+}

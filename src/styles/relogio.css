@@ -1,0 +1,90 @@
+/* O relógio da casa.
+
+   ── O que existia ───────────────────────────────────────────────────────
+
+   Cinco implementações do mesmo dispositivo. Três relógios de capítulo
+   (.chapter__clock), duas horas de pausa (.pausa__hora) e um rótulo de
+   texto nas reservas — cada um nascendo dentro da própria seção, contando
+   um pedaço da noite, apagando ao sair e nunca encontrando o seguinte. O
+   site DIZIA que um relógio atravessava a noite e na verdade tinha seis
+   relógios que se pareciam.
+
+   ── O que ele é agora ───────────────────────────────────────────────────
+
+   Um algarismo. Um só, fixo na tela, para a página inteira. Ele conta 17h →
+   03h de ponta a ponta e, a cada troca de ambiente, se reacomoda na posição
+   e na escala que a seção pede (data-hora-em no HTML) — canto esquerdo no
+   Jardim, centro no Salão, direita no Reservado, miúdo e no canto oposto
+   nas pausas.
+
+   Duas consequências, e a segunda é a que importa:
+
+   1. As seções param de repetir um objeto e passam a compartilhá-lo.
+   2. A noite avança ENTRE as seções, não só dentro delas. Quando o Jardim
+      acaba em 20h e a pausa continua em 20h e o Salão retoma dali, o que se
+      lê não é "três telas com relógios" — é uma noite só, vista em três
+      lugares.
+
+   ── Por que ele se move quieto ──────────────────────────────────────────
+
+   O algarismo NUNCA se desloca enquanto uma seção está sendo lida: ele só
+   muda de lugar na passagem de uma para a outra, uma vez por passagem, com
+   a curva mais longa do site. O que se percebe é um objeto fixo da página
+   que se reacomoda quando a noite muda de sala — e não um número voando
+   pela tela.
+
+   ── Camada ──────────────────────────────────────────────────────────────
+
+   z-index 3: acima da demão de céu de cada capítulo (2) e abaixo do texto
+   (4). As geometrias não se cruzam — o texto ancora no alto, o relógio no
+   pé —, mas nas pausas o cruzamento é PROPOSITAL: os quadros sobem para z-4
+   e o algarismo passa por trás deles. É a única profundidade real do site:
+   a hora está DENTRO da sala, atrás da fotografia, não numa etiqueta em
+   cima dela. */
+
+.relogio {
+  position: fixed;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 0;
+  /* altura zero: a faixa não é uma caixa, é só o sistema de coordenadas em
+     que o algarismo se posiciona — a largura útil entre as duas goteiras */
+  height: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Massa trocada por contorno: o preenchimento fica baixo e o desenho da
+   letra ganha um traço âmbar de 1px. O relógio tem a presença de um objeto
+   grande sem ter o peso de um bloco de texto, e a cor o filia à marca em
+   vez de competir com o branco do título. */
+.relogio__valor {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  font-size: var(--fs-numero);
+  font-weight: 200;
+  letter-spacing: -.03em;
+  line-height: .78;
+  color: rgba(200, 137, 46, .18);
+  -webkit-text-stroke: 1px rgba(200, 137, 46, .52);
+  white-space: nowrap;
+  /* o dígito troca a cada quadro: sem largura fixa o número treme */
+  font-variant-numeric: tabular-nums;
+  /* a barriga do algarismo tem folga própria: sem o recuo ele nasce
+     desalinhado da coluna de texto */
+  text-indent: -.06em;
+  /* o canto de ancoragem é o de baixo à esquerda: a escala encolhe na
+     direção do canto e não arrasta o algarismo pela tela */
+  transform-origin: left bottom;
+  will-change: transform;
+}
+
+/* Sem contagem (movimento reduzido) o relógio vira faixa: "17h — 20h" no
+   lugar de um horário só. Três vezes mais largo, então três vezes menor. */
+.relogio--faixa .relogio__valor {
+  font-size: var(--fs-grande);
+  -webkit-text-stroke-width: .5px;
+}

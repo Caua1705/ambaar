@@ -23,17 +23,20 @@
   --track-mid: .14em;
 
   /* ── Tratamento das fotos ────────────────────────────────
-     Não há mais correção de cor em tempo de execução. Ela morava aqui em
-     três formas — sete saturações diferentes, um brilho por papel e um
-     hue-rotate tentando levar luz vermelha de boate ao âmbar — e as três
-     saíram. As fotos novas já chegaram com a grade da marca feita, e a
-     exposição de cada uma é assada no arquivo, por imagem, em
-     scripts/fotos.mjs.
+     Não há mais correção de cor em tempo de execução, em lugar nenhum. Ela
+     morava aqui em três formas — sete saturações diferentes, um brilho por
+     papel e um hue-rotate tentando levar luz vermelha de boate ao âmbar —, e
+     depois sobrou num caso só, o cartão de reservas, que escurecia parado e
+     acendia no toque com um `filter` em transição.
 
-     Sobrou o único caso em que o filtro é estado e não correção: o cartão
-     de reservas, que escurece parado e acende no toque. */
-  --foto-sat: 1.05;
-  --foto-cartao: .82;
+     Esse último saiu também. Era a única coisa animada no site fora de
+     transform, opacity e clipPath, e a mais cara delas: um filtro sobre
+     fotografia de tela cheia repinta a camada inteira a cada quadro. O
+     cartão passou a escurecer com uma demão de carvão cuja OPACIDADE é o
+     que se move (reservas.css).
+
+     A exposição de cada foto continua sendo assada no arquivo, por imagem,
+     em scripts/fotos.mjs. Nenhum filtro em tempo de execução. */
 
   /* ── As duas demãos de céu ───────────────────────────────
      A base de cada capítulo: uma passagem para o carvão que costura o pé
@@ -106,8 +109,8 @@
      grande até a borda da faixa, e nem um pixel além. */
   --fs-mega: clamp(3rem, 18vw, 12rem);
 
-  /* Algarismo em fantasma atrás do conteúdo: o relógio dos capítulos e o
-     contador do preloader.
+  /* O algarismo em fantasma atrás do conteúdo: o relógio da casa, que
+     agora é um objeto só para a página inteira.
 
      A 40vw o valor mais largo que o site desenha ("20h", centrado) media
      251px numa faixa útil de 330 — 24% de folga, o suficiente para caber e

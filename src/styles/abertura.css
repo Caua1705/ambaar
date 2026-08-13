@@ -1,0 +1,58 @@
+/* A abertura.
+
+   ── O que saiu ──────────────────────────────────────────────────────────
+
+   O contador de 0 a 100. Ele media o progresso real de dois arquivos, o que
+   é honesto e ainda assim é teatro: dois arquivos chegam num piscar, e o
+   único jeito de o número ser lido era segurar a tela por 700ms de
+   propósito. Uma tela de espera fabricada para poder ser vista é uma tela
+   de espera a mais.
+
+   ── O que ficou no lugar ────────────────────────────────────────────────
+
+   Uma linha. A MESMA linha que a hero usa para parir a marca — o filete que
+   chega do horizonte, se recolhe até a largura do lockup e entrega o nome
+   de dentro dele.
+
+   Ela se desenha do centro para as bordas conforme os dois arquivos
+   críticos chegam (então continua medindo carga de verdade, só que sem
+   algarismo), e quando o carvão levanta ela NÃO SAI: o carvão dissolve em
+   volta dela e a hero recebe a linha já pronta, na mesma altura e na mesma
+   largura. O usuário nunca vê a troca.
+
+   É por isso que a abertura não pode parecer "um site que perdeu um passo":
+   o passo não foi removido, ele continua na tela seguinte, no mesmo objeto.
+   A carga deixou de ser uma tela ANTES do site e virou o primeiro gesto
+   DELE.
+
+   A altura da linha (--y) é medida no momento da entrega, a partir da
+   posição real do filete da hero — depois das fontes e das imagens, que é
+   quando a medida é verdadeira. */
+
+.abertura {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--carvao);
+}
+
+.abertura__linha {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* 50% é só o palpite de antes da medida: o JS escreve --y com a posição
+     real do filete da hero assim que ela existe */
+  top: var(--y, 50%);
+  height: 1px;
+  background: var(--ambar);
+  opacity: .55;
+  transform: scaleX(0);
+  /* do centro para as duas bordas, como uma linha que se abre */
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abertura__linha {
+    transform: scaleX(1);
+  }
+}

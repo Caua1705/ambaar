@@ -1,7 +1,21 @@
 /**
- * As duas sequências de quadros do site.
+ * A sequência de quadros do site.
  *
  *   npm run frames
+ *
+ * ── A sequência que saiu ──────────────────────────────────────────────
+ * `pour` — o copo enchendo, 18 quadros a 720px, 896 kB — foi apagada
+ * junto com a seção que a usava. "A escuta" era uma macro de líquido
+ * dourado em tela cheia com três blocos de texto por cima, e o problema
+ * nunca foi a compressão: o material é uma macro sem aresta de copo e sem
+ * silhueta, e em sangria total ele não lê como um copo enchendo, lê como
+ * uma superfície dourada. Não há qualidade de encode que conserte
+ * enquadramento.
+ *
+ * A seção passou a ser a única tela do site sem fotografia (escuta.css) e
+ * a sequência deixou de existir. São 896 kB devolvidos ao orçamento — um
+ * terço do teto —, e é com eles que o Salão pôde ganhar uma fotografia
+ * nova.
  *
  * ── dusk ──────────────────────────────────────────────────────────────
  * O entardecer do jardim, 17h → 20h, em plano fixo. É a única seção do
@@ -16,12 +30,6 @@
  * fechada. A curva CORTE concentra os quadros aí: o dia passa rápido, o
  * momento em que a luz vira recebe o dobro de quadros. Menos arquivo e
  * mais evento no lugar certo.
- *
- * ── pour ──────────────────────────────────────────────────────────────
- * O copo enchendo. Ao contrário do entardecer, esta sequência não é
- * presa ao dedo: ela dispara e corre sozinha, em tempo real, quando a
- * seção chega. Por isso pede taxa de quadros de vídeo (12/s) num curso
- * curto, e não amostragem esparsa num curso longo.
  *
  * Peso: cada quadro é reencodado com qualidade decrescente até caber no
  * teto. Quadro escuro fecha em 8 kB com qualidade alta; quadro claro e
@@ -79,40 +87,6 @@ const SEQUENCIAS = [
     // a demão da seção come de qualquer jeito
     desfoque: 0.6,
     denoise: 'hqdn3d=6:4:9:9'
-  },
-  {
-    nome: 'pour',
-    fonte: 'brand/originais/liquido.mp4',
-    // o primeiro segundo é o copo vazio antes de o fio chegar
-    janela: ['-ss', '0.8'],
-    saida: 'public/frames/pour',
-    prefixo: 'p',
-
-    /* ── Por que 18 quadros a 720px, e não 24 a 520 ──────────────────────
-
-       A passada anterior empilhou três degradações sobre uma fonte que só
-       tem 720px de largura: reduzi para 520 (perde 28% da resolução),
-       passei um gblur de 0.4 (tira a aresta do cristal, que é justamente o
-       que faz um copo parecer vidro) e depois cortei cada quadro em 20 kB
-       com qualidade decrescente. O resultado é o que o cliente viu — o
-       líquido sem definição e o copo sem borda.
-
-       Agora é o inverso, e a troca é a que o enunciado pede: menos
-       quadros, mais qualidade. Largura nativa, sem desfoque nenhum, teto
-       de 52 kB. O que sustenta 18 quadros é a seção mistura vizinhos
-       (frames.js) e o movimento ser quase monotônico: o fio de líquido
-       fica praticamente no mesmo lugar quadro a quadro — quem anda é o
-       nível e a linha de espuma, e nível interpola quase exato.
-
-       Amostragem levemente adiantada (u^0.85): o copo enche rápido no
-       começo e vai devagar no fim, então o começo precisa de mais
-       quadros. */
-    quadros: 18,
-    largura: 720,
-    teto: 52 * 1024,
-    curva: (u) => Math.pow(u, 0.85),
-    desfoque: 0,
-    denoise: null
   }
 ]
 

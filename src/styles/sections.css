@@ -71,68 +71,58 @@
   opacity: 1;
 }
 
-/* ── Os três planos do Salão ───────────────────────────── */
+/* ── Os dois planos do Salão ───────────────────────────── */
 
-/* Três fotografias diferentes, em três distâncias diferentes, e a luz cai
-   ao longo delas:
+/* Um plano vivo e um corte, e nada mais.
 
-     aberto   a cabine vista de cima: a pessoa chega, e a luz já é âmbar.
-     maos     as mãos nos faders. O corte fechado de verdade.
-     arrasto  o corpo desfeito pelo obturador. O mais escuro.
+   Eram três fotografias que passavam uma pela outra de lado. Saíram
+   inteiras, e o que as condenou não foi a transição: foi não terem nada em
+   comum. Uma cabine vista de cima, um par de mãos num mixer e um borrão de
+   obturador são três retângulos sem parentesco, e qualquer movimento que
+   os faça deslizar juntos só sublinha isso. Carrossel não conserta imagem
+   fraca — ele põe as fotos lado a lado e dá tempo de comparar.
 
-   O quarto plano — o bar visto de longe — saiu. Era o bar do JARDIM na
-   hora azul: o mesmo lugar e a mesma luz do capítulo 01, abrindo um
-   capítulo que o relógio marca como 20—23h. Um plano aberto que mostra o
-   ambiente ERRADO não abre nada.
+     sequência  a sala enchendo, 22 quadros, plano FIXO. A câmera não anda
+                em ponto nenhum do capítulo: o que muda dentro do quadro é
+                a sala. É a mesma matéria do Jardim, com gente no lugar de
+                luz.
+     pista      a fotografia. Fica fora de cena até 74% do curso e então
+                entra de uma vez.
 
-   Isso deixa o capítulo sem plano geral, e é assim que ele deve ficar até
-   o plano geral certo existir: o salão enchendo, em plano fixo, vivo. Uma
-   foto de outro cômodo não é um substituto para ele — é um curativo.
+   O corte é o único da página. Todo o resto do site dissolve, acende ou
+   deriva — e é justamente por ser o único que ele lê como acontecimento em
+   vez de defeito. */
 
-   As escalas se compõem com a da timeline (.chapter__media anda de 1.16 a
-   1.02), então o valor aqui é relativo ao plano de base, não absoluto. */
+/* A fotografia é o único quadro DEITADO do site (6000×4000) num lugar onde
+   todos os outros são retrato, e por isso é a única em que o enquadramento
+   por breakpoint não é ajuste fino: é escolha de assunto.
 
-.chapter__img--aberto {
-  object-position: center 42%;
+   Num telefone de 430px a imagem é exibida a 1397px de largura e só 430
+   entram — 31% do quadro. A âncora decide QUAL 31%. Em 8% a faixa visível
+   é a fatia esquerda: o console na quina de baixo e os corpos logo atrás
+   dele. É o que preserva o ponto de vista da foto, que é estar ATRÁS DA
+   CABINE — sem o equipamento em cena, sobra uma multidão genérica que
+   poderia ser de qualquer lugar.
+
+   O preço é a mulher que olha na lente (a 62% da largura) ficar de fora no
+   retrato. Vale: o ponto de vista é o que faz a foto significar alguma
+   coisa neste capítulo; o olhar é um bônus que a tela larga entrega. */
+.chapter__img--pista {
+  object-position: 8% 52%;
 }
 
-/* As mãos na mesa. Numa tela 9:19,5 a foto retrato entra inteira em altura
-   e o corte só acontece nas laterais — então object-position não tira o
-   alto do quadro, onde estão a parede clara e a estampa da camiseta. Quem
-   fecha o plano é a escala, com a origem nas mãos.
-
-   A escala subiu de 1,62 para 2,05: no valor antigo o torso e o logotipo da
-   camiseta continuavam em cena e o "corte fechado" fechava em nada. Agora o
-   quadro é o mixer, os faders e as duas mãos, e mais nada — que é o plano
-   que o capítulo pedia e a razão de a fotografia ter sido chamada de fraca:
-   ela é uma foto de detalhe sendo usada como plano médio. */
-.chapter__img--maos {
-  object-position: 60% 50%;
-  transform: scale(2.05);
-  transform-origin: 56% 72%;
-}
-
-/* E numa tela DEITADA a escala tem de cair quase toda.
-
-   O 2,05 acima foi medido num 9:19,5, onde a foto retrato entra inteira em
-   altura e o corte só acontece nas laterais: sem escala, o quadro mostra o
-   torso e a estampa da camiseta, e o corte fechado não fecha nada.
-
-   Numa tela deitada o object-fit já faz esse trabalho e faz muito mais — um
-   arquivo 900×1350 cobrindo 1912×948 é exibido a 2,1× e mostra um terço da
-   altura, que já é exatamente a faixa do mixer e das mãos. Os outros 2,05
-   entravam POR CIMA disso, e o resultado era um plano de botões: dava para
-   contar os potenciômetros e não dava para ver uma mão. */
 @media (min-width: 900px) {
-  .chapter__img--maos {
-    transform: scale(1.15);
-    transform-origin: center;
+  /* Deitada a foto entra quase inteira e a âncora pode voltar ao centro:
+     aí os CDJs ficam onde estavam no original, na quina. */
+  .chapter__img--pista {
+    object-position: 46% 50%;
   }
 }
 
-.chapter__img--arrasto {
-  object-position: center 46%;
-  transform: scale(1.12);
+/* O corte nasce fora de cena. Opacidade e não deslocamento: o plano não
+   chega de lugar nenhum, ele simplesmente passa a ser o que está lá. */
+.chapter__plano--corte {
+  opacity: 0;
 }
 
 /* O cartaz é o que segura a cena antes de o canvas ter o primeiro quadro,
@@ -144,7 +134,11 @@
   transition: opacity .6s var(--ease);
 }
 
-.chapter__media.is-pintado .chapter__poster {
+/* .is-pintado nasce no elemento que HOSPEDA a sequência, e ele não é o
+   mesmo nos dois capítulos: no Jardim é o .chapter__media inteiro (a
+   sequência É a tela), no Salão é um .chapter__plano (lá ela é um plano
+   entre dois). O seletor não nomeia nenhum dos dois. */
+.is-pintado > .chapter__poster {
   opacity: 0;
 }
 

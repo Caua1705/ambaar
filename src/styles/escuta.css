@@ -80,6 +80,38 @@
   background: var(--carvao);
 }
 
+/* ── O horizonte ───────────────────────────────────────── */
+
+/* A linha. Ela é o objeto da seção, e não é nova: é a MESMA que a abertura
+   desenha enquanto os arquivos críticos chegam e a mesma que a hero usa
+   para parir a marca. Terceira e última aparição, e é aqui que ela acaba —
+   partida nas sete linhas do campo.
+
+   Mora exatamente na altura do centro do campo, porque é de lá que as sete
+   saem: se ela estivesse em qualquer outro lugar, o que se veria seriam
+   duas coisas diferentes acontecendo, e não uma virando a outra.
+
+   Um pixel, e a mesma opacidade dos filetes: o objetivo é que ninguém
+   consiga dizer, no meio da transição, quantas linhas existem em cena. */
+.escuta__horizonte {
+  position: absolute;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: calc(10svh + 9svh);
+  height: 1px;
+  background: var(--ambar);
+  opacity: .5;
+  transform-origin: left center;
+}
+
+@media (min-width: 900px) {
+  .escuta__horizonte {
+    right: auto;
+    width: min(46vw, 34rem);
+    bottom: calc(12svh + 8svh);
+  }
+}
+
 /* ── As frases ─────────────────────────────────────────── */
 
 /* Todas na mesma coluna e na mesma zona ótica: a variação é de escala e de
@@ -113,7 +145,11 @@
 /* (a) serifada, na escala média: a abertura */
 .escuta__frase--a {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 7vw, 3.1rem);
+  /* piso em 1,45rem: a linha mais longa ("É o que está tocando.") sobrava
+     seis pixels num aparelho de 320px, e seis pixels não sobrevivem à
+     Georgia — que é a fonte de sistema desenhada enquanto a Cormorant
+     ainda chega, e é mais larga que ela */
+  font-size: clamp(1.45rem, 7vw, 3.1rem);
   font-weight: 300;
   line-height: 1.28;
   letter-spacing: var(--track-display);
@@ -172,7 +208,10 @@
 }
 
 @media (min-width: 900px) {
-  .escuta__frase--a { right: auto; max-width: 17ch; }
+  /* 22ch: cada <span> é a unidade que o clipPath abre, então uma linha que
+     quebra em duas é revelada de uma vez só e o ritmo de leitura se perde.
+     A medida é a da linha mais longa desta frase, não um valor de coluna. */
+  .escuta__frase--a { right: auto; max-width: 22ch; }
   .escuta__frase--b { right: auto; max-width: 40ch; }
   .escuta__frase--c { right: auto; max-width: 14ch; }
 }
@@ -193,6 +232,13 @@
   position: static;
   max-width: none;
   opacity: 1;
+}
+
+/* Sem movimento não há o que partir: a linha não vira o campo porque não há
+   percurso. Some, e o campo entra na fila da coluna já aberto — o estado
+   final, que é a regra para tudo nesta preferência. */
+.escuta.is-estatica .escuta__horizonte {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

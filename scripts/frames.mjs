@@ -1,40 +1,44 @@
 /**
- * A sequência de quadros do site.
+ * As sequências de quadros do site.
  *
  *   npm run frames
  *
- * ── A sequência que saiu ──────────────────────────────────────────────
- * `pour` — o copo enchendo, 18 quadros a 720px, 896 kB — foi apagada
- * junto com a seção que a usava. "A escuta" era uma macro de líquido
- * dourado em tela cheia com três blocos de texto por cima, e o problema
- * nunca foi a compressão: o material é uma macro sem aresta de copo e sem
- * silhueta, e em sangria total ele não lê como um copo enchendo, lê como
- * uma superfície dourada. Não há qualidade de encode que conserte
- * enquadramento.
+ * Duas, e as duas são a mesma ideia: um PLANO FIXO em que a posição da
+ * rolagem é literalmente o estado da cena. É o único lugar do site onde o
+ * dedo controla a matéria, e é o que separa esta página de uma pilha de
+ * slides com paralaxe.
  *
- * A seção passou a ser a única tela do site sem fotografia (escuta.css) e
- * a sequência deixou de existir. São 896 kB devolvidos ao orçamento — um
- * terço do teto —, e é com eles que o Salão pôde ganhar uma fotografia
- * nova.
+ *   dusk  o entardecer do jardim, 17h → 20h. As luzinhas acendem, a vela
+ *         aparece na mesa, o céu perde a luz.
+ *   sala  o salão enchendo, 20h → 23h. A sala está vazia e acesa; ao longo
+ *         do curso as pessoas entram, o movimento arrasta os contornos e a
+ *         cena satura.
  *
- * ── dusk ──────────────────────────────────────────────────────────────
- * O entardecer do jardim, 17h → 20h, em plano fixo. É a única seção do
- * site em que a posição da rolagem É o estado da cena, e por isso ela é
- * quadro a quadro: um crossfade entre duas fotos sob uma demão colorida
- * lê como troca de filtro, e não como o sol caindo. Aqui as luzinhas
- * acendem, a vela aparece na mesa e o céu perde a luz — três eventos
- * discretos que nenhuma interpolação inventa.
+ * Uma muda pela LUZ, a outra pela GENTE. Mesmo mecanismo, assuntos opostos,
+ * e é essa rima que dá forma à noite: o Jardim é o que o sol faz, o Salão é
+ * o que as pessoas fazem, e o Reservado (vídeo solto, sem scrub) é o que
+ * acontece quando ninguém faz mais nada.
  *
- * A amostragem não é uniforme. Os três primeiros segundos do original são
- * dia pleno e mudam pouco; o interesse está entre o dourado e a noite
- * fechada. A curva CORTE concentra os quadros aí: o dia passa rápido, o
- * momento em que a luz vira recebe o dobro de quadros. Menos arquivo e
- * mais evento no lugar certo.
+ * ── Por que quadro a quadro e não vídeo ────────────────────────────────
  *
- * Peso: cada quadro é reencodado com qualidade decrescente até caber no
- * teto. Quadro escuro fecha em 8 kB com qualidade alta; quadro claro e
- * detalhado precisa descer. Qualidade fixa ou estoura o teto no fim ou
- * destrói o começo à toa.
+ * Buscar quadro em <video> pelo scroll é caro e irregular no telefone, e
+ * pula. Um canvas com dois drawImage por quadro de tela não pula. O preço é
+ * peso de arquivo, e é por isso que este script existe: ele decide, por
+ * sequência, quantos quadros, de onde, e com que teto de bytes.
+ *
+ * ── A amostragem não é uniforme ────────────────────────────────────────
+ *
+ * Os dois originais têm trechos de custo e de interesse muito diferentes.
+ * A curva de cada sequência concentra os quadros onde a cena muda e passa
+ * batido onde ela está parada. Menos arquivo e mais acontecimento no lugar
+ * certo.
+ *
+ * ── Peso ───────────────────────────────────────────────────────────────
+ *
+ * Cada quadro é reencodado com qualidade decrescente até caber no teto.
+ * Quadro escuro fecha em 8 kB com qualidade alta; quadro claro e detalhado
+ * precisa descer. Qualidade fixa ou estoura o teto no fim ou destrói o
+ * começo à toa.
  */
 import { access, mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
@@ -47,22 +51,32 @@ const run = promisify(execFile)
 /* Amostragem do entardecer. Entrada 0→1 (posição na sequência final),
    saída 0→1 (posição na janela recortada do vídeo).
 
-   O original tem três trechos de custo e interesse muito diferentes: um
-   fim de tarde quase parado, a virada da luz (as luzinhas acendem, a vela
-   aparece, a parede fica quente) e uma noite igualmente parada. A virada
-   é 40% do tempo e recebe 55% dos quadros; os dois extremos, onde nada
-   acontece, entram só o suficiente para existirem.
+   O original tem três trechos: um fim de tarde quase parado, a virada da
+   luz (as luzinhas acendem, a vela aparece, a parede fica quente) e uma
+   noite igualmente parada. A virada é 40% do tempo e recebe 55% dos
+   quadros; os dois extremos entram só o suficiente para existirem.
 
-   Isso importa duas vezes. Narrativamente, o site demora no momento em
-   que a luz vira, que é o assunto do capítulo. Em peso, os quadros de
-   dia são os mais caros do site — folhagem em luz alta é ruído de alta
-   frequência puro, e nenhum ajuste de qualidade os faz caber; o barato é
-   pedir menos deles. */
+   Em peso isso importa duas vezes: os quadros de DIA são os mais caros do
+   site — folhagem em luz alta é ruído de alta frequência puro — e o barato
+   é pedir menos deles. */
 const VIRADA = (u) => {
   if (u < 0.3) return (u / 0.3) * 0.286
   if (u < 0.85) return 0.286 + ((u - 0.3) / 0.55) * 0.4
   return 0.686 + ((u - 0.85) / 0.15) * 0.314
 }
+
+/* Amostragem do salão enchendo. O original vai de sala vazia a pista cheia
+   em oito segundos, mas a mudança não é uniforme: tudo acontece nos
+   primeiros cinco. Depois disso são três segundos de multidão arrastada que
+   já não muda de estado — só de desenho.
+
+   Setenta e cinco por cento dos quadros cobrem os primeiros 60% do vídeo.
+   O que se ganha é o momento em que a sala ainda está VAZIA e a primeira
+   pessoa entra: é o quadro que conta a história, e numa amostragem linear
+   ele passava em dois frames. */
+const ENCHE = (u) => (u < 0.75
+  ? (u / 0.75) * 0.6
+  : 0.6 + ((u - 0.75) / 0.25) * 0.4)
 
 const SEQUENCIAS = [
   {
@@ -76,8 +90,8 @@ const SEQUENCIAS = [
     /* Vinte e dois quadros para três horas de luz caindo. O que sustenta um
        número tão baixo é o plano ser fixo: entre dois quadros vizinhos só a
        luz muda, e a seção mistura o par em vez de trocar de um para o outro
-       (sequencia.js). A interpolação linear entre dois estados de luz da
-       mesma cena é quase exata — é o resto do movimento que ela não saberia
+       (frames.js). A interpolação linear entre dois estados de luz da mesma
+       cena é quase exata — é o resto do movimento que ela não saberia
        inventar, e aqui não há resto. */
     quadros: 22,
     largura: 520,
@@ -89,48 +103,26 @@ const SEQUENCIAS = [
     denoise: 'hqdn3d=6:4:9:9'
   },
 
-  /* ── sala ─────────────────────────────────────────────────────────────
-   * O plano geral do Salão: a sala enchendo, 20h → 23h, em plano fixo. É o
-   * evento que falta ao capítulo 02 — hoje ele é o único dos três em que
-   * nada ACONTECE: o Jardim tem o sol caindo, o Reservado tem as chamas, e
-   * o Salão tem três fotografias paradas montadas em corte. Montagem é
-   * edição, não acontecimento, e o texto da seção promete que a noite
-   * encontra o próprio ritmo.
-   *
-   * A entrada já está declarada e o arquivo de origem ainda não existe:
-   * esta lista pula em silêncio o que não encontra (ver o laço abaixo), e
-   * é assim que a vaga fica pronta sem quebrar `npm run midia`.
-   *
-   * O que o vídeo precisa ser, e isto não é preferência — é o que faz 22
-   * quadros bastarem:
-   *
-   *   · CÂMERA TRAVADA. Sem pan, sem dolly, sem drone. A mistura entre
-   *     quadros vizinhos (frames.js) é quase exata num plano fixo porque
-   *     só a luz e os corpos mudam; com a câmera andando, tudo no quadro
-   *     se desloca e 22 quadros viram um soluço.
-   *   · 8 segundos bastam. O entardecer inteiro do site saiu de um clipe
-   *     de 8,000s — é o mesmo número, o mesmo pipeline, a mesma conta.
-   *   · A mudança tem de ser MOVIMENTO E LUZ, não contagem de gente.
-   *     Começa com poucos corpos, nítidos, luz mais alta; termina denso,
-   *     arrastado pelo obturador, luz baixa. Isso desemboca exatamente na
-   *     foto dj-blur, que passa a ser o fecho natural da montagem.
-   *
-   * Curva linear, ao contrário do entardecer: aqui não há um trecho morto
-   * no começo para pular — a sala muda o tempo todo. */
   {
     nome: 'sala',
-    fonte: 'brand/originais/salao-cheio.mp4',
+    fonte: 'brand/originais/salao-enchendo.mp4',
     janela: [],
     saida: 'public/frames/sala',
     prefixo: 's',
     quadros: 22,
-    largura: 520,
-    teto: 30 * 1024,
-    curva: (u) => u,
-    // cena escura com gente em movimento: menos folhagem que o jardim, mas
-    // grão de ISO alto, que o WebP também paga caro
-    desfoque: 0.5,
-    denoise: 'hqdn3d=5:3:8:8'
+    /* 560 e não 520 como o entardecer: esta sequência é o capítulo inteiro,
+       sem foto por baixo e sem demão de céu por cima para esconder degrau —
+       ela é a única coisa em cena durante uma tela e meia de rolagem. E
+       mesmo assim ela é MAIS BARATA que o entardecer, porque a cena é
+       escura, lisa e desfocada por natureza: o custo em WebP é quase todo
+       gradiente, que é o que ele comprime bem. */
+    largura: 560,
+    teto: 26 * 1024,
+    curva: ENCHE,
+    // sem desfoque: o arrasto das pessoas JÁ é o desfoque, e amaciar por
+    // cima disso apaga a única aresta viva do quadro (o filete de luz da
+    // cabine). Só um denoise leve, para o grão do gerador não virar bloco.
+    denoise: 'hqdn3d=3:2:5:5'
   }
 ]
 
@@ -139,14 +131,10 @@ const QUALIDADES = [76, 68, 60, 52, 44, 36, 28]
 
 const kb = (n) => (n / 1024).toFixed(1).padStart(7) + ' kB'
 
-let totalGeral = 0
-
 /* Uma sequência declarada cujo material ainda não chegou não é um erro: é
-   uma vaga. O site tem uma agora (sala), e ela precisa poder ficar no
-   código — com o enquadramento, o número de quadros e o teto de peso já
-   decididos — sem derrubar `npm run midia` todo dia até o vídeo existir.
-   Quando o arquivo aparecer na pasta, a linha muda de "faltando" para
-   quadros gerados sem que ninguém edite nada. */
+   uma vaga. A lista pula em silêncio o que não encontra, para que o
+   enquadramento, o número de quadros e o teto de peso possam ser decididos
+   no código antes de o arquivo existir. */
 const existe = async (caminho) => {
   try {
     await access(caminho)
@@ -155,6 +143,8 @@ const existe = async (caminho) => {
     return false
   }
 }
+
+let totalGeral = 0
 
 for (const seq of SEQUENCIAS) {
   if (!await existe(seq.fonte)) {

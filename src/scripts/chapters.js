@@ -21,19 +21,28 @@
    telas de rolagem para ~16: os cursos pinados existiam para dar tempo ao
    texto, e o texto não precisava deles.
 
-   ── Os três ambientes, três matérias diferentes ─────────────────────────
+   ── Os três ambientes, e a rima entre os dois primeiros ─────────────────
 
-     01 Jardim    22 quadros de um plano fixo, presos ao scroll: o
-                  entardecer acontece de verdade — as luzinhas acendem, a
-                  vela aparece na mesa. Antes eram duas fotos em crossfade
-                  sob uma demão colorida, que lia como troca de filtro.
-     02 Salão     três planos que trocam secos, com o intervalo encurtando:
-                  a cabine vista de cima, as mãos nos faders e o corpo
-                  arrastado pelo obturador. É o único capítulo em que nada
-                  ACONTECE — montagem é edição, não evento —, e é o que
-                  falta resolver nele.
+     01 Jardim    22 quadros de um plano fixo, presos ao dedo: o entardecer
+                  acontece de verdade — as luzinhas acendem, a vela aparece
+                  na mesa, o céu perde a luz.
+     02 Salão     22 quadros de um plano fixo, presos ao dedo: a sala
+                  começa vazia e acesa e ENCHE — uma silhueta atravessa,
+                  depois duas na cabine, depois o quadro inteiro arrastado
+                  pelo obturador. No fim, o único corte duro do site: uma
+                  fotografia de flash da pista real.
      03 Reservado vídeo em plano fixo a meia velocidade, só as chamas se
                   mexendo. É o fim da noite, não o clímax dela.
+
+   Os capítulos 01 e 02 são deliberadamente o MESMO mecanismo, e é isso que
+   dá forma à noite: um é o que o sol faz com um lugar, o outro é o que as
+   pessoas fazem com ele. Mesma câmera travada, mesmo scrub, assuntos
+   opostos — a repetição é o argumento, não uma economia.
+
+   O 03 é o contrário dos dois: movimento que corre no tempo dele e não no
+   do dedo. Depois de duas horas em que a rolagem controlava o mundo, a
+   última sala se mexe sozinha e não pede nada — que é literalmente o que o
+   texto dela diz.
 
    ── O relógio saiu daqui ────────────────────────────────────────────────
 
@@ -52,13 +61,19 @@ import { criarSequencia } from './frames.js'
 const NATURAL = { opacity: 1, y: 0, x: 0, scaleX: 1 }
 const OVERLAP = 0.3 // fatia da janela compartilhada com a vizinha
 
+/* janela: em que fatia do curso pinado a sequência é lida. Fora dela o
+   canvas fica no primeiro ou no último quadro — que é como se compra uma
+   batida de espera sem pagar um único byte a mais. */
 const SEQUENCIAS = {
-  dusk: { total: 22, caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp` },
-  /* O plano geral do Salão: a sala enchendo, em plano fixo. Declarada e
-     inerte — nenhum elemento do HTML pede 'sala' ainda. Ela acende sozinha
-     no dia em que o vídeo existir e o data-seq for posto no HTML (o
-     index.html diz onde). Ver scripts/frames.mjs para o outro lado. */
-  sala: { total: 22, caminho: (i) => `/frames/sala/s_${String(i + 1).padStart(3, '0')}.webp` }
+  dusk: {
+    total: 22,
+    caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp`
+  },
+  sala: {
+    total: 22,
+    janela: [0.08, 0.72],
+    caminho: (i) => `/frames/sala/s_${String(i + 1).padStart(3, '0')}.webp`
+  }
 }
 
 for (const chapter of document.querySelectorAll('.chapter')) {
@@ -146,74 +161,72 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        da primeira rolagem e tem a passagem inteira (uma tela) para chegar. */
     player.carregarPerto(chapter, '80%')
 
+    /* A janela do scrub não é o curso inteiro, e os dois capítulos usam a
+       folga de maneiras diferentes:
+
+         Jardim  0 → 1. O poente ocupa o capítulo todo; não há nada antes
+                 nem depois dele.
+         Salão   uma folga NO COMEÇO e outra NO FIM. A da frente é uma
+                 batida de sala vazia — a cabine acesa e ninguém dentro —,
+                 e ela é o que faz a primeira pessoa a entrar no quadro ser
+                 um acontecimento em vez do estado inicial. A de trás
+                 entrega a tela ao corte.
+
+       Fazer isso com a janela em vez de duplicar quadros no arquivo é de
+       graça: a sequência não fica maior, só é lida mais devagar. */
+    const janela = seq.janela ?? [0, 1]
     const quadro = { v: 0 }
+
     tl.to(quadro, {
       v: seq.total - 1,
-      duration: 1,
+      duration: janela[1] - janela[0],
       ease: 'none',
       onUpdate: () => player.desenhar(quadro.v)
-    }, 0)
+    }, janela[0])
   }
 
   /* ── Montagem ───────────────────────────────────────
 
      Duas gramáticas, e o data-montagem do HTML escolhe.
 
-     EMPURRA (Salão). Três enquadramentos que trocam SECOS — sem
-     dissolução, sem fade, opacidade nenhuma — e a troca acontece de lado:
-     o plano novo entra pela direita e empurra o anterior para fora.
+     CORTE (Salão), e é o único corte duro da página inteira.
 
-       1. a cabine vista de cima: a pessoa chega;
-       2. as mãos nos faders, em corte fechado de verdade;
-       3. o corpo arrastado pelo obturador.
+     O capítulo é um plano fixo vivo — a sala enchendo, quadro a quadro,
+     presa ao dedo. No fim do curso ele CORTA para uma fotografia: a pista
+     vista de trás da cabine, com flash e grão. Zero duração, zero
+     dissolução, zero deslocamento: num quadro a sala é gerada e silenciosa
+     e no seguinte ela é uma foto de uma noite que aconteceu.
 
-     Eram quatro. O primeiro plano era o bar do Jardim na hora azul, aberto
-     num capítulo que o relógio marca como 20—23h: o capítulo começava
-     mostrando o cômodo anterior, na hora anterior. Saiu.
+     O que se trocou aqui, e por quê. A versão anterior tinha três
+     fotografias que passavam uma pela outra de lado. Era feio, e o defeito
+     não estava na transição: estava em fazer três retângulos sem relação
+     nenhuma — uma cabine, um par de mãos, um borrão — deslizarem juntos.
+     Mover imagem que não se parece com a vizinha não cria montagem, cria
+     um carrossel, e o carrossel PIORA imagem fraca porque põe as duas lado
+     a lado e dá tempo de comparar.
 
-     Por que de lado, e por que aqui e em lugar nenhum mais. A saída deste
-     capítulo (data-saida="parte") já é horizontal — o título vai para um
-     lado e o texto para o outro. O eixo lateral já é a gramática do Salão;
-     a montagem passou a falar a mesma língua que a saída dele.
+     A correção foi parar de mover imagem. Agora a câmera não anda nunca: o
+     que muda dentro do quadro é a sala, e o único movimento lateral que
+     sobrou no capítulo é a saída dele.
 
-     O que sai anda a um terço do que entra. Duas camadas na mesma
-     velocidade leem como um slide trocando; em velocidades diferentes o
-     olho vê PROFUNDIDADE, e a troca lê como a sala girando em volta de
-     quem olha. É o mesmo princípio dos dois quadros da pausa, ao contrário.
-
-     E continua sendo um corte: 0.07 do curso, com ease de saída dura. Não
-     é uma transição que se assiste, é o instante em que o quadro já é
-     outro — só que com direção. Nada aqui anima opacidade: são dois
-     translates, que é o que o telefone sabe fazer de graça.
-
-     Os intervalos: 0.34, depois 0.26 — o corte acelera, que é o que o
-     texto do capítulo promete. O terceiro plano fica os 40% finais porque
-     é sobre ele que a saída acontece (o capítulo se parte ao meio em 84%
-     do curso), e a saída precisa de uma imagem já desfeita embaixo dela.
+     Um corte só, e no lugar certo. Cortes valem pela raridade — três
+     cortes num capítulo são uma montagem, um corte na página inteira é um
+     acontecimento.
 
      DISSOLUÇÃO (o resto). Janelas de crossfade, uma imagem entrando sobre
      a anterior. */
   if (camadas.length > 1) {
-    if (chapter.dataset.montagem === 'empurra') {
-      const cortes = [0.34, 0.6]
-      const TROCA = 0.07
+    gsap.set(camadas, { opacity: (i) => (i === 0 ? 1 : 0) })
 
-      /* Quem entra espera fora do palco, à direita. O palco tem
-         overflow:hidden, então "fora" é invisível sem custar opacidade —
-         e a ordem do DOM já põe cada plano acima do anterior, que é o que
-         faz o novo cobrir o velho sem uma linha de z-index. */
-      gsap.set(camadas, { xPercent: (i) => (i === 0 ? 0 : 100) })
-
-      camadas.forEach((plano, i) => {
-        const em = cortes[i - 1]
-        if (i === 0 || em === undefined) return
-
-        tl.to(plano, { xPercent: 0, duration: TROCA, ease: 'power4.out' }, em)
-          .to(camadas[i - 1], { xPercent: -34, duration: TROCA, ease: 'power4.out' }, em)
-      })
+    if (chapter.dataset.montagem === 'corte') {
+      /* 0.74 e não mais tarde: a saída do capítulo dispara em 84% do curso
+         e ela se desenha SOBRE o que estiver em cena. A fotografia precisa
+         de uma tela inteira de posse antes de o texto começar a se partir
+         em cima dela — senão o corte e a saída acontecem quase juntos e o
+         corte vira parte da saída em vez de um acontecimento próprio. */
+      tl.set(camadas[1], { opacity: 1 }, 0.74)
+        .set(camadas[0], { opacity: 0 }, 0.74)
     } else {
-      gsap.set(camadas, { opacity: (i) => (i === 0 ? 1 : 0) })
-
       const janela = 1 / camadas.length
       const cruzamento = OVERLAP * janela
 

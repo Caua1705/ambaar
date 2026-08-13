@@ -54,9 +54,10 @@ if (relogio && valor) {
     esq: { x: 0, pe: 4, escala: 1 },
     centro: { x: 0.5, pe: 4, escala: 1 },
     dir: { x: 1, pe: 4, escala: 1 },
-    // as pausas dividem a tela com uma frase: um degrau menor, e no canto
-    // oposto ao do quadro que sangra
-    'dir-baixo': { x: 1, pe: 5, escala: 0.66 },
+    // a pausa divide a tela com uma frase e com duas molduras: um degrau
+    // menor, e no canto oposto ao do quadro que sangra. Havia um par
+    // espelhado disto ('dir-baixo') para a pausa das 20h; a seção foi
+    // absorvida pelo capítulo 02 e o token saiu junto.
     'esq-baixo': { x: 0, pe: 5, escala: 0.66 }
   }
 

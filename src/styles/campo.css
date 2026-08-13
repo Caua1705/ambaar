@@ -60,16 +60,28 @@
 
 /* ── A deriva ──────────────────────────────────────────── */
 
-/* Em "A escuta" o campo fica imóvel durante as duas primeiras frases e só
-   começa a respirar na terceira — a que diz que música boa não precisa
-   gritar. É o único acontecimento da seção.
+/* Em "A escuta" o campo não existe até o horizonte se partir nele. Durante
+   as duas primeiras frases as sete linhas estão empilhadas na altura da
+   linha única, com comprimento zero; ao longo do curso elas se abrem, e só
+   quando terminam de abrir é que começam a respirar.
 
    No controle de som ele já nasce vivo: o controle só existe DEPOIS desse
    acontecimento, e um botão de som parado até alguém passar o ponteiro por
    cima não é um objeto vivo, é um ícone. Ele tem de respirar sozinho, e no
-   telefone não existe ponteiro para passar. */
-.campo.is-viva .campo__linha,
-.campo--mini .campo__linha {
+   telefone não existe ponteiro para passar.
+
+   ── Por que a deriva mora no <i> e não no invólucro ─────────────────────
+   O invólucro (.campo__linha) é do GSAP: é nele que a abertura escreve
+   scaleX e y, presos ao dedo. Uma animação de CSS no MESMO elemento
+   sobrescreveria esse transform em linha — animação ganha de estilo em
+   linha na cascata —, e a abertura simplesmente não aconteceria.
+
+   Os dois transforms se compõem porque estão em elementos aninhados: o
+   invólucro abre, o filete deriva dentro dele. E o filete continua sendo o
+   dono do comprimento (--n, escrito por som.js), com a transição de 90ms
+   que faz o espectro responder à música sem tremer. */
+.campo.is-viva .campo__linha i,
+.campo--mini .campo__linha i {
   animation: campoDeriva var(--d, 10s) ease-in-out var(--del, 0s) infinite;
 }
 
@@ -77,9 +89,12 @@
   --amp: 6px;
 }
 
+/* O scaleX entra nos dois quadros-chave porque a animação substitui o
+   transform inteiro do elemento: sem ele, o filete perderia o comprimento
+   no instante em que começasse a respirar. */
 @keyframes campoDeriva {
-  0%, 100% { transform: translateY(calc(var(--amp, 3px) * -1)); }
-  50%      { transform: translateY(var(--amp, 3px)); }
+  0%, 100% { transform: translateY(calc(var(--amp, 3px) * -1)) scaleX(var(--n, var(--w, 1))); }
+  50%      { transform: translateY(var(--amp, 3px)) scaleX(var(--n, var(--w, 1))); }
 }
 
 /* ── Em "A escuta" ─────────────────────────────────────── */

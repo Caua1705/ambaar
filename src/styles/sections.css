@@ -51,34 +51,26 @@
   opacity: 1;
 }
 
-/* ── Os quatro planos do Salão ─────────────────────────── */
+/* ── Os três planos do Salão ───────────────────────────── */
 
-/* Um corte que só troca a foto e mantém o enquadramento não é um corte, é
-   uma troca de slide. E um corte que VOLTA para a mesma fotografia não é
-   nem isso — era o caso do capítulo até agora, em que o primeiro e o
-   terceiro plano eram o mesmo arquivo em escalas diferentes.
+/* Três fotografias diferentes, em três distâncias diferentes, e a luz cai
+   ao longo delas:
 
-   São quatro fotografias diferentes, em quatro distâncias diferentes, e a
-   luz cai ao longo delas:
-
-     sala     o bar da casa, ainda vazio, com a rua acabando de escurecer
-              na porta. É o plano mais aberto e o mais claro do capítulo, e
-              a única foto do acervo que o site nunca tinha publicado.
      aberto   a cabine vista de cima: a pessoa chega, e a luz já é âmbar.
      maos     as mãos nos faders. O corte fechado de verdade.
      arrasto  o corpo desfeito pelo obturador. O mais escuro.
 
+   O quarto plano — o bar visto de longe — saiu. Era o bar do JARDIM na
+   hora azul: o mesmo lugar e a mesma luz do capítulo 01, abrindo um
+   capítulo que o relógio marca como 20—23h. Um plano aberto que mostra o
+   ambiente ERRADO não abre nada.
+
+   Isso deixa o capítulo sem plano geral, e é assim que ele deve ficar até
+   o plano geral certo existir: o salão enchendo, em plano fixo, vivo. Uma
+   foto de outro cômodo não é um substituto para ele — é um curativo.
+
    As escalas se compõem com a da timeline (.chapter__media anda de 1.16 a
    1.02), então o valor aqui é relativo ao plano de base, não absoluto. */
-
-/* O bar. Numa tela estreita a foto retrato entra inteira em altura e o
-   corte acontece nas laterais: a âncora baixa mantém o balcão, os bancos e
-   o canteiro no quadro, e deixa a copa das árvores sangrar por cima —
-   que é onde o título do capítulo vai cair. */
-.chapter__img--sala {
-  object-position: 46% 62%;
-  transform: scale(1.06);
-}
 
 .chapter__img--aberto {
   object-position: center 42%;

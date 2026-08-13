@@ -27,9 +27,11 @@
                   entardecer acontece de verdade — as luzinhas acendem, a
                   vela aparece na mesa. Antes eram duas fotos em crossfade
                   sob uma demão colorida, que lia como troca de filtro.
-     02 Salão     quatro planos que trocam secos, com os intervalos
-                  encurtando: o bar vazio, a cabine vista de cima, as mãos
-                  nos faders e o corpo arrastado pelo obturador.
+     02 Salão     três planos que trocam secos, com o intervalo encurtando:
+                  a cabine vista de cima, as mãos nos faders e o corpo
+                  arrastado pelo obturador. É o único capítulo em que nada
+                  ACONTECE — montagem é edição, não evento —, e é o que
+                  falta resolver nele.
      03 Reservado vídeo em plano fixo a meia velocidade, só as chamas se
                   mexendo. É o fim da noite, não o clímax dela.
 
@@ -140,25 +142,22 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
      Duas gramáticas, e o data-montagem do HTML escolhe.
 
-     CORTE (Salão). Quatro enquadramentos que trocam secos, sem dissolução.
+     CORTE (Salão). Três enquadramentos que trocam secos, sem dissolução.
      É a única seção do site que corta — todo o resto dissolve, acende ou
      deriva — e por isso o corte lê como montagem, não como defeito.
 
-     Os quatro planos passaram a ser quatro FOTOGRAFIAS diferentes. Antes o
-     primeiro e o terceiro eram o mesmo arquivo com escalas diferentes: um
-     corte que volta para a mesma imagem não é montagem, é repetição, e era
-     a coisa mais visível de errado no capítulo. A ordem agora vai de aberto
-     a desfeito, e a luz cai junto com ela:
+       1. a cabine vista de cima: a pessoa chega;
+       2. as mãos nos faders, em corte fechado de verdade;
+       3. o corpo arrastado pelo obturador.
 
-       1. o bar da casa, ainda vazio, com a rua acabando de escurecer na
-          porta — o plano aberto que o capítulo nunca teve, e a única foto
-          do acervo que o site jamais tinha usado;
-       2. a cabine vista de cima: a pessoa chega;
-       3. as mãos nos faders, agora em corte fechado de verdade;
-       4. o corpo arrastado pelo obturador.
+     Eram quatro. O primeiro plano era o bar do Jardim na hora azul, aberto
+     num capítulo que o relógio marca como 20—23h: o capítulo começava
+     mostrando o cômodo anterior, na hora anterior. Saiu.
 
-     Os intervalos ENCURTAM: 0.30, depois 0.22, depois 0.16. O capítulo diz
-     que a noite encontra o próprio ritmo, e a montagem acelera junto.
+     Os intervalos: 0.34, depois 0.26 — o corte acelera, que é o que o
+     texto do capítulo promete. O terceiro plano fica os 40% finais porque
+     é sobre ele que a saída acontece (o capítulo se parte ao meio em 84%
+     do curso), e a saída precisa de uma imagem já desfeita embaixo dela.
 
      Cada enquadramento tem escala e âncora próprias no CSS, então o corte
      troca de plano e não só de foto — que é o que um corte faz.
@@ -169,7 +168,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     gsap.set(imgs, { opacity: (i) => (i === 0 ? 1 : 0) })
 
     if (chapter.dataset.montagem === 'corte') {
-      const cortes = [0.3, 0.52, 0.68]
+      const cortes = [0.34, 0.6]
 
       imgs.forEach((img, i) => {
         if (i === 0) return

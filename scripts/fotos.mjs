@@ -35,23 +35,28 @@ const FOTOS = [
   // a hora dourada do jardim: é a hero, e é a foto mais nítida do site
   { saida: 'jardim-dourado', de: 'jardim-dourado.png', largura: 920, q: 70, luz: 1.06 },
 
-  /* O bar da casa, ainda vazio, com a rua acabando de escurecer na porta.
-     Estava fora do site inteiro até agora, e é o único plano ABERTO que o
-     Salão tem: é ele que abre a montagem do capítulo 02, no minuto em que
-     a pausa das 20h diz que "o salão enche sem que ninguém perceba".
+  /* O bar da casa na hora azul: balcão aceso, luzinhas na trepadeira, o
+     portão para a rua ainda claro ao fundo.
+
+     Ela entrou como o plano aberto do SALÃO e foi devolvida ao Jardim, de
+     onde é. O arquivo se chama salao.jpg, mas o que está no quadro é o
+     pátio: folhagem, canteiro, seixo, céu de fim de tarde na porta. Isso a
+     torna a mesma hora e o mesmo lugar do capítulo 01 — e ela abria o
+     capítulo 02, que o relógio da casa marca como 20—23h. O site inteiro é
+     um relógio andando; a foto o fazia voltar.
+
+     Agora é o cartão de reservas do Jardim, que até aqui usava d_022 — um
+     quadro do timelapse a 520px, denoised e desfocado, feito para viver
+     debaixo de uma demão de céu e não para ser olhado de perto.
 
      Uma pitada de tinta e meio ponto de saturação a menos: o original tem
-     verde de folhagem e azul de fim de tarde na porta, e os dois precisam
-     recuar meio passo para o quadro pertencer à mesma noite que os três
-     seguintes — sem apagar a luz azul, que é justamente o que faz esta ser
-     a hora em que a rua acaba. */
-  /* 820px e q66, e não 900/74 como as outras: é um plano de FUNDO que
-     entra em corte seco, fica três segundos em cena, é escalado 1,06 e
-     recebe a demão de céu noturno por cima. O original é folhagem em luz
-     baixa — ruído de alta frequência puro, o material mais caro que existe
-     em WebP —, e no degrau anterior este arquivo sozinho pesava mais que a
-     hero. Aqui ele cai 40% sem diferença visível em cena. */
-  { saida: 'salao-bar', de: 'salao.jpg', largura: 820, q: 66, luz: 1.04, sat: 0.88, tinta: 0.12 },
+     verde de folhagem e azul de fim de tarde, e ambos recuam meio passo
+     para dividir o viés de cor da casa — sem apagar a luz azul, que é
+     justamente o que faz esta ser a hora em que a rua acaba. */
+  /* 820px e q66: folhagem em luz baixa é ruído de alta frequência puro, o
+     material mais caro que existe em WebP. No degrau anterior este arquivo
+     sozinho pesava mais que a hero. */
+  { saida: 'jardim-bar', de: 'salao.jpg', largura: 820, q: 66, luz: 1.04, sat: 0.88, tinta: 0.12 },
 
   // a cabine, vista de cima, com o globo espelhado: o Salão
   { saida: 'dj-cabine', de: 'dj-cabine.png', largura: 900, q: 74, luz: 1.16 },

@@ -61,8 +61,12 @@
 }
 
 /* a foto é maior que o quadro: a sobra é o curso do movimento interno,
-   que corre ao contrário do quadro e é o que dá profundidade à dupla */
-.pausa__quadro img {
+   que corre ao contrário do quadro e é o que dá profundidade à dupla.
+
+   Vale para o laço de vídeo do detalhe das 20h também — o que anda dentro
+   da moldura é a matéria, seja ela um quadro parado ou um copo enchendo. */
+.pausa__quadro img,
+.pausa__quadro video {
   position: absolute;
   inset: -6% -10%;
   width: 120%;
@@ -144,7 +148,15 @@
 .pausa--dois .pausa__quadro--retrato img { object-position: 46% 28%; }
 
 /* nos detalhes o assunto é o copo, e ele está no miolo */
-.pausa__quadro--detalhe img { object-position: 50% 46%; }
+.pausa__quadro--detalhe img,
+.pausa__quadro--detalhe video { object-position: 50% 46%; }
+
+/* Nenhuma camada extra para o estado parado: quem segura o quadro antes de
+   o mp4 chegar é o atributo poster do próprio <video>, e o cartaz sai do
+   PRIMEIRO quadro do laço (scripts/fotos.mjs). Assim a moldura abre sobre
+   exatamente a imagem em que o vídeo vai começar, e a troca de um para o
+   outro não tem salto para esconder — não há nada a dissolver, porque as
+   duas imagens são a mesma. */
 
 /* ── A frase ───────────────────────────────────────────── */
 

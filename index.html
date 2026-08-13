@@ -107,8 +107,22 @@
           <figure class="pausa__quadro pausa__quadro--retrato">
             <img src="/img/perfil.webp" alt="" loading="lazy">
           </figure>
+          <!-- O único quadro VIVO do site fora dos capítulos: o copo
+               enchendo, em laço, dentro da moldura que abre.
+
+               É o material que foi expulso de "A escuta" — e o que o
+               condenava era o uso, não o arquivo. Em sangria total uma macro
+               de líquido perde a escala do copo e vira superfície dourada, e
+               tinha três blocos de texto branco brigando por cima. Aqui não
+               tem nenhum dos dois: o quadro é pequeno e tem borda (a aresta
+               devolve a escala), o fundo do vídeo é preto puro e compõe
+               direto no carvão, e não há uma letra em cima dele.
+
+               E é o único âmbar-sobre-preto do acervo — a marca em
+               movimento — caindo exatamente no minuto em que a hora vira. -->
           <figure class="pausa__quadro pausa__quadro--detalhe">
-            <img src="/img/copo-dourado.webp" alt="" loading="lazy">
+            <video data-src="/video/liquido.mp4" poster="/img/copo-liquido.webp"
+                   muted loop playsinline preload="none" aria-hidden="true"></video>
           </figure>
           <p class="pausa__linha">O salão enche sem<br>que ninguém perceba.</p>
         </div>
@@ -136,14 +150,36 @@
            plano que falta é o salão ENCHENDO, e ele é um vídeo. -->
 
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
-               data-nav="ambientes" data-run="130" data-montagem="corte"
+               data-nav="ambientes" data-run="130" data-montagem="empurra"
                data-saida="parte" data-choreo
                data-hora="20—23" data-hora-em="centro">
         <div class="chapter__stage">
+          <!-- Cada plano vem embrulhado. O quadro (.chapter__plano) é o que
+               ANDA; a fotografia (.chapter__img) é o que está enquadrado, e
+               guarda a escala e a âncora dela no CSS. Sem a separação, o
+               translate da montagem sobrescreveria o scale(2.05) das mãos —
+               é uma propriedade só, transform, e quem escreve por último
+               ganha.
+
+               O plano geral entra AQUI, como primeiro filho, quando o vídeo
+               do salão enchendo existir:
+
+                 <span class="chapter__plano" data-seq="sala">
+                   <canvas class="chapter__canvas" aria-hidden="true"></canvas>
+                 </span>
+
+               O resto já está pronto: a sequência 'sala' está declarada em
+               chapters.js e em scripts/frames.mjs. -->
           <div class="chapter__media">
-            <img class="chapter__img chapter__img--aberto" src="/img/dj-cabine.webp" alt="" loading="lazy">
-            <img class="chapter__img chapter__img--maos" src="/img/maos-mesa.webp" alt="" loading="lazy">
-            <img class="chapter__img chapter__img--arrasto" src="/img/dj-blur.webp" alt="" loading="lazy">
+            <span class="chapter__plano">
+              <img class="chapter__img chapter__img--aberto" src="/img/dj-cabine.webp" alt="" loading="lazy">
+            </span>
+            <span class="chapter__plano">
+              <img class="chapter__img chapter__img--maos" src="/img/maos-mesa.webp" alt="" loading="lazy">
+            </span>
+            <span class="chapter__plano">
+              <img class="chapter__img chapter__img--arrasto" src="/img/dj-blur.webp" alt="" loading="lazy">
+            </span>
           </div>
           <div class="chapter__content">
             <div class="chapter__meta">
@@ -163,21 +199,26 @@
       <!-- ── A escuta ───────────────────────────────────── -->
       <!-- O centro filosófico do site, e a única tela SEM fotografia.
 
-           O copo enchendo saiu inteiro. Era o clímax por decreto — uma
-           macro de líquido dourado ocupando a tela toda, sem aresta de
-           copo e sem silhueta, com tipografia branca por cima brigando com
-           ela. E, sobretudo, era a seção mais DENSA do site dizendo que
-           música boa não precisa gritar.
+           O copo enchendo saiu daqui. Em sangria total uma macro de
+           líquido perde a aresta do copo, e havia três blocos de texto
+           branco brigando por cima dela — a seção que fala de silêncio era
+           a mais DENSA do site. O material não era o problema: ele voltou
+           ao site na moldura da pausa das 20h, pequeno e sem uma letra em
+           cima.
 
-           A frase é a instrução de projeto. Esta passou a ser a tela mais
-           silenciosa da página: carvão puro, uma frase por vez, e um campo
-           de filetes âmbar que fica PARADO até a última frase chegar — e
-           só então começa a respirar. O primeiro som do site é o momento
-           em que ele diz que não precisa gritar.
+           Esta passou a ser a tela mais silenciosa da página: carvão puro,
+           uma frase por vez, batidas de nada entre elas, e um campo de
+           filetes âmbar que fica PARADO até a última frase chegar — e só
+           então começa a respirar.
 
-           É também a única coisa da página que se move sem o dedo, e é o
-           mesmo objeto que vai morar no controle de som pelo resto da
-           noite. -->
+           A última frase é a única coisa da página que aparece sem
+           animação nenhuma. Onde tudo limpa, dissolve ou é preso ao dedo,
+           a coisa parada é a que se ouve — e é por isso que a seção não
+           precisa mais DIZER que não precisa gritar.
+
+           O campo é também a única coisa da página que se move sem o dedo,
+           e é o mesmo objeto que vai morar no controle de som pelo resto
+           da noite. -->
       <!-- data-flat: sem fotografia competindo, o losango do fio acende.
            O atributo existia no CSS e no sections.js desde uma passada
            anterior e nenhuma seção o usava — porque até agora não havia
@@ -193,10 +234,22 @@
             <span>Organic house, downtempo,</span>
             <span>e o que existe entre os dois.</span>
           </p>
-          <p class="escuta__frase escuta__frase--c">
-            <span>Música boa</span>
-            <span>não precisa gritar</span>
-            <span>para ser ouvida.</span>
+          <!-- data-corte: esta é a única frase do site que não anima. Ela
+               não abre, não sobe, não desfoca — ela ESTÁ. Num site em que
+               tudo limpa, dissolve ou é preso ao dedo, a coisa parada é a
+               mais alta da página, e é assim que uma seção sobre não
+               precisar gritar consegue gritar sem se contradizer.
+
+               A frase anterior era "Música boa não precisa gritar para ser
+               ouvida". Verdadeira, e já escrita por todo mundo — e
+               defensiva: "não precisa" se justifica em vez de afirmar. Esta
+               diz o mesmo sobre as PESSOAS, cabe em três palavras (por isso
+               pode ser o maior tipo do site) e rima com o fecho, que promete
+               guardar uma noite. A tese de não gritar saiu do texto e ficou
+               no projeto: a seção é a mais silenciosa da página. -->
+          <p class="escuta__frase escuta__frase--c" data-corte>
+            <span>Quem <b>escuta</b>,</span>
+            <span>fica.</span>
           </p>
 
           <div class="campo" data-campo aria-hidden="true">
@@ -343,9 +396,9 @@
     </div>
 
     <!-- ── O som ──────────────────────────────────────────
-         Nasce no pé do fio, no instante em que "A escuta" termina de dizer
-         que música boa não precisa gritar — e fica até o fim da sessão.
-         Desligado por padrão, sempre.
+         Nasce no pé do fio, no instante exato em que "Quem escuta, fica."
+         aparece — e fica até o fim da sessão. Desligado por padrão,
+         sempre.
 
          Os três filetes de dentro do anel são o mesmo campo da seção "A
          escuta", em miniatura: parado, ele deriva sozinho; tocando, ele é

@@ -6,18 +6,24 @@
    ao dedo, ocupando a tela inteira, com três blocos de texto branco por
    cima. Três problemas, e o terceiro é o que condenou a ideia:
 
-   1. A matéria não dava conta. O material é uma macro sem aresta de copo e
-      sem silhueta: em tela cheia ele não é "um copo enchendo", é uma
-      superfície dourada. Não havia versão da compressão que consertasse
-      isso, porque não era compressão — era enquadramento.
+   1. O ENQUADRAMENTO não dava conta. Em sangria total a macro perde a
+      aresta do copo e a escala junto: o que se via não era um copo
+      enchendo, era uma superfície dourada. Nenhuma qualidade de encode
+      conserta enquadramento — mas uma MOLDURA conserta, e é por isso que
+      esse material voltou ao site, pequeno e emoldurado, na pausa das 20h.
 
    2. A tipografia perdia. Branco sobre dourado claro, com as três frases
       disputando a mesma zona alta: no telefone, duas delas chegavam a se
       sobrepor no meio da rolagem.
 
-   3. E este é o ponto: a seção que diz "música boa não precisa gritar para
-      ser ouvida" era a mais DENSA da página. A frase é a instrução de
-      projeto, e o projeto estava fazendo o contrário dela.
+   3. E este é o ponto: a seção que dizia "música boa não precisa gritar
+      para ser ouvida" era a mais DENSA da página. A frase era a instrução
+      de projeto, e o projeto estava fazendo o contrário dela.
+
+      A correção final foi tirar a frase, não obedecê-la melhor. Hoje o
+      fecho é "Quem escuta, fica." — uma afirmação sobre as pessoas, em
+      três palavras — e a tese de não gritar migrou do texto para o
+      comportamento da tela.
 
    ── O que ela é agora ───────────────────────────────────────────────────
 
@@ -33,13 +39,31 @@
        goteira esquerda;
      · o controle de som, que nasce aqui e não sai mais (som.css).
 
+   ── Por que ela lia como inacabada, e não como quieta ───────────────────
+
+   Silêncio e ausência não são a mesma coisa, e a diferença entre os dois é
+   PESO — não movimento. A seção estava certa em não se mexer e errada em
+   não pesar: a frase de fecho parava em 4,6rem, entrava com o mesmo gesto
+   das outras duas e começava a falar em 2% do curso, sem um instante de
+   escuridão antes. Era uma tela de texto médio, não um silêncio.
+
+   As três correções são todas subtrativas:
+
+     1. O fecho é o MAIOR tipo do site — maior que a marca na hora dourada.
+        Cabe porque a frase encolheu para três palavras.
+     2. O fecho NÃO ANIMA. Tudo nesta página limpa, dissolve, escala ou é
+        preso ao dedo; a coisa parada, num lugar assim, é a mais alta. É a
+        tese da seção dita em movimento em vez de em texto — e é por isso
+        que a frase deixou de precisar dizer que não grita.
+     3. Uma batida de carvão puro antes da primeira palavra. Silêncio é uma
+        duração; sem ela a seção só tinha fundo escuro.
+
    ── O acontecimento único da seção ──────────────────────────────────────
 
    O campo fica PARADO durante as duas primeiras frases. Ele só começa a
-   respirar quando a terceira chega — a que diz que música boa não precisa
-   gritar. O primeiro movimento não-rolado da página inteira acontece
-   exatamente na frase que fala de ser ouvido, e é ele que apresenta o
-   controle de som logo abaixo.
+   respirar no instante em que o fecho aparece — e é ele que apresenta o
+   controle de som logo abaixo. O primeiro movimento não-rolado da página
+   inteira acontece na frase que fala de quem escuta.
 
    Uma seção, uma ideia: o silêncio, e então o primeiro som. */
 
@@ -80,6 +104,12 @@
   clip-path: inset(0% 100% 0% 0%);
 }
 
+/* A frase de corte não tem janela: ela não é revelada, ela aparece. O
+   estado de entrada dela é a opacidade do bloco inteiro, e é binário. */
+.escuta__frase[data-corte] span {
+  clip-path: none;
+}
+
 /* (a) serifada, na escala média: a abertura */
 .escuta__frase--a {
   font-family: var(--font-display);
@@ -102,22 +132,49 @@
   color: rgba(255, 255, 255, .72);
 }
 
-/* (c) o fecho, na maior escala da seção — e em três linhas curtas, porque é
-   assim que ela pode ser a maior sem quebrar sozinha */
+/* (c) o fecho, e o maior tipo do site inteiro — maior que a marca na hero.
+
+   Três palavras é o que torna isso possível: a frase antiga tinha sete e
+   precisava de três linhas, e três linhas grandes não cabem em tela de
+   telefone. O impacto aqui vem de ESCALA, que é a única forma de uma seção
+   sobre silêncio ficar alta sem se contradizer — tipo grande continua
+   quieto, movimento é que faz barulho. */
 .escuta__frase--c {
-  top: 26svh;
+  top: 28svh;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 10vw, 4.6rem);
+  /* 12vw e não 13: medida na linha mais longa ("Quem escuta,") contra a
+     faixa útil real, que é a tela menos as duas goteiras. A 13vw um
+     aparelho de 360px sobrava seis pixels — dentro da conta e fora de
+     qualquer margem de segurança, porque basta a fonte de sistema entrar
+     no lugar da Cormorant enquanto ela carrega para a linha estourar. A
+     12vw sobram vinte e oito. */
+  /* O piso é 2,2rem porque as goteiras NÃO encolhem com a tela: abaixo de
+     ~340px a faixa útil é fixa em 236px e quem passa a mandar é o mínimo do
+     clamp, não o vw. A 2,4rem a linha empatava com a margem no zero. */
+  font-size: clamp(2.2rem, 12vw, 7.2rem);
   font-weight: 300;
-  line-height: 1.08;
+  line-height: .98;
   letter-spacing: var(--track-display);
   color: #fff;
+  /* ela não abre por clipPath: aparece inteira, de uma vez (escuta.js) */
+  opacity: 0;
+}
+
+/* A única palavra colorida da página inteira.
+
+   O site tem âmbar em filete, em losango, em demão de céu e em botão — em
+   nenhum lugar em TEXTO. Guardar a cor da marca para uma palavra só, e
+   para esta palavra, é o tipo de gasto que só funciona uma vez. Por isso
+   acontece aqui e em lugar nenhum mais. */
+.escuta__frase--c b {
+  font-weight: inherit;
+  color: var(--ambar);
 }
 
 @media (min-width: 900px) {
   .escuta__frase--a { right: auto; max-width: 17ch; }
   .escuta__frase--b { right: auto; max-width: 40ch; }
-  .escuta__frase--c { right: auto; max-width: 18ch; }
+  .escuta__frase--c { right: auto; max-width: 14ch; }
 }
 
 /* ── Sem movimento ─────────────────────────────────────── */
@@ -135,6 +192,7 @@
 .escuta.is-estatica .escuta__frase {
   position: static;
   max-width: none;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

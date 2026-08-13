@@ -42,12 +42,32 @@
   object-position: center 40%;
 }
 
+/* O plano é o que ANDA; a fotografia dentro dele é o que está enquadrado.
+
+   A separação existe por uma razão mecânica antes de qualquer outra:
+   transform é uma propriedade só. A montagem do Salão empurra os planos de
+   lado com translateX, e as fotos guardam a moldura delas em scale() e
+   transform-origin — no mesmo elemento, a última escrita apagaria a
+   primeira, e o corte fechado das mãos (scale 2.05) voltaria a ser o plano
+   médio frouxo que ele era.
+
+   overflow:hidden porque a foto pode ser maior que o plano: o que passa da
+   borda pertence ao enquadramento, não à tela. */
+.chapter__plano {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+
+/* Camadas empilhadas. Quando não há planos (capítulo de uma imagem só, ou
+   de dissolução), quem carrega o empilhamento é a própria fotografia. */
 .chapter__img {
-  /* camadas empilhadas: o progresso da rolagem controla a opacidade de cada uma */
   opacity: 0;
 }
 
-.chapter__img:first-of-type {
+.chapter__img:first-of-type,
+.chapter__plano .chapter__img {
   opacity: 1;
 }
 
@@ -90,6 +110,24 @@
   object-position: 60% 50%;
   transform: scale(2.05);
   transform-origin: 56% 72%;
+}
+
+/* E numa tela DEITADA a escala tem de cair quase toda.
+
+   O 2,05 acima foi medido num 9:19,5, onde a foto retrato entra inteira em
+   altura e o corte só acontece nas laterais: sem escala, o quadro mostra o
+   torso e a estampa da camiseta, e o corte fechado não fecha nada.
+
+   Numa tela deitada o object-fit já faz esse trabalho e faz muito mais — um
+   arquivo 900×1350 cobrindo 1912×948 é exibido a 2,1× e mostra um terço da
+   altura, que já é exatamente a faixa do mixer e das mãos. Os outros 2,05
+   entravam POR CIMA disso, e o resultado era um plano de botões: dava para
+   contar os potenciômetros e não dava para ver uma mão. */
+@media (min-width: 900px) {
+  .chapter__img--maos {
+    transform: scale(1.15);
+    transform-origin: center;
+  }
 }
 
 .chapter__img--arrasto {

@@ -36,7 +36,7 @@
  * detalhado precisa descer. Qualidade fixa ou estoura o teto no fim ou
  * destrói o começo à toa.
  */
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import { access, mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { join } from 'node:path'
@@ -87,6 +87,50 @@ const SEQUENCIAS = [
     // a demão da seção come de qualquer jeito
     desfoque: 0.6,
     denoise: 'hqdn3d=6:4:9:9'
+  },
+
+  /* ── sala ─────────────────────────────────────────────────────────────
+   * O plano geral do Salão: a sala enchendo, 20h → 23h, em plano fixo. É o
+   * evento que falta ao capítulo 02 — hoje ele é o único dos três em que
+   * nada ACONTECE: o Jardim tem o sol caindo, o Reservado tem as chamas, e
+   * o Salão tem três fotografias paradas montadas em corte. Montagem é
+   * edição, não acontecimento, e o texto da seção promete que a noite
+   * encontra o próprio ritmo.
+   *
+   * A entrada já está declarada e o arquivo de origem ainda não existe:
+   * esta lista pula em silêncio o que não encontra (ver o laço abaixo), e
+   * é assim que a vaga fica pronta sem quebrar `npm run midia`.
+   *
+   * O que o vídeo precisa ser, e isto não é preferência — é o que faz 22
+   * quadros bastarem:
+   *
+   *   · CÂMERA TRAVADA. Sem pan, sem dolly, sem drone. A mistura entre
+   *     quadros vizinhos (frames.js) é quase exata num plano fixo porque
+   *     só a luz e os corpos mudam; com a câmera andando, tudo no quadro
+   *     se desloca e 22 quadros viram um soluço.
+   *   · 8 segundos bastam. O entardecer inteiro do site saiu de um clipe
+   *     de 8,000s — é o mesmo número, o mesmo pipeline, a mesma conta.
+   *   · A mudança tem de ser MOVIMENTO E LUZ, não contagem de gente.
+   *     Começa com poucos corpos, nítidos, luz mais alta; termina denso,
+   *     arrastado pelo obturador, luz baixa. Isso desemboca exatamente na
+   *     foto dj-blur, que passa a ser o fecho natural da montagem.
+   *
+   * Curva linear, ao contrário do entardecer: aqui não há um trecho morto
+   * no começo para pular — a sala muda o tempo todo. */
+  {
+    nome: 'sala',
+    fonte: 'brand/originais/salao-cheio.mp4',
+    janela: [],
+    saida: 'public/frames/sala',
+    prefixo: 's',
+    quadros: 22,
+    largura: 520,
+    teto: 30 * 1024,
+    curva: (u) => u,
+    // cena escura com gente em movimento: menos folhagem que o jardim, mas
+    // grão de ISO alto, que o WebP também paga caro
+    desfoque: 0.5,
+    denoise: 'hqdn3d=5:3:8:8'
   }
 ]
 
@@ -97,7 +141,27 @@ const kb = (n) => (n / 1024).toFixed(1).padStart(7) + ' kB'
 
 let totalGeral = 0
 
+/* Uma sequência declarada cujo material ainda não chegou não é um erro: é
+   uma vaga. O site tem uma agora (sala), e ela precisa poder ficar no
+   código — com o enquadramento, o número de quadros e o teto de peso já
+   decididos — sem derrubar `npm run midia` todo dia até o vídeo existir.
+   Quando o arquivo aparecer na pasta, a linha muda de "faltando" para
+   quadros gerados sem que ninguém edite nada. */
+const existe = async (caminho) => {
+  try {
+    await access(caminho)
+    return true
+  } catch {
+    return false
+  }
+}
+
 for (const seq of SEQUENCIAS) {
+  if (!await existe(seq.fonte)) {
+    console.log(`${seq.nome.padEnd(6)} faltando · ${seq.fonte}`)
+    continue
+  }
+
   const temp = join(TEMP, seq.nome)
   await rm(temp, { recursive: true, force: true })
   await mkdir(temp, { recursive: true })

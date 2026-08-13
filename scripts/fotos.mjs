@@ -82,23 +82,49 @@ const FOTOS = [
      tingir a traz para dentro sem apagar a luz própria dela. É o mesmo
      método do antigo grade-faixa, agora com uma foto só — porque agora é
      uma foto só que precisa. */
-  { saida: 'copo-dourado', de: 'detalhe-01.jpg', largura: 560, q: 74, luz: 1.02, sat: 0.86, tinta: 0.14 },
+  /* copo-dourado (detalhe-01.jpg) saiu: o detalhe da pausa das 20h passou a
+     ser o vídeo do copo enchendo, e o cartaz dele vem do próprio vídeo (ver
+     CARTAZES). A foto era uma moça segurando a taça — a pausa tinha uma
+     pessoa no retrato E uma pessoa no detalhe, quando o que a composição
+     pede é uma pessoa e o COPO dela. Para trazê-la de volta basta uma
+     linha; o original continua em brand/originais. */
   { saida: 'copo-rubi', de: 'detalhe-02.jpg', largura: 560, q: 74, luz: 1.2, sat: 0.5, tinta: 0.34 },
   { saida: 'maos-mesa', de: 'detalhe-03.jpg', largura: 900, q: 72, luz: 1.34, sat: 0.72, tinta: 0.24 }
 ]
 
-/* O reservado não tem foto: tem um vídeo de velas. O cartaz dele sai do
-   próprio vídeo, para que o quadro parado e o quadro em movimento sejam o
-   mesmo enquadramento — é ele que aparece antes do vídeo tocar, sem
-   movimento nenhum e no cartão de reservas. */
-const CARTAZ = {
-  saida: 'reservado',
-  de: 'brand/originais/reservado-velas.mp4',
-  em: '2.0',
-  largura: 720,
-  q: 74,
-  luz: 1.2
-}
+/* Os dois lugares do site que são vídeo não têm foto: têm um cartaz tirado
+   do PRÓPRIO vídeo, no quadro em que ele vai estar quando começar a tocar.
+   É o que garante que o quadro parado e o quadro em movimento sejam o mesmo
+   enquadramento — sem isso, o momento em que o vídeo entra é um salto. */
+const CARTAZES = [
+  // o reservado: aparece antes do vídeo tocar e no cartão de reservas
+  {
+    saida: 'reservado',
+    de: 'brand/originais/reservado-velas.mp4',
+    em: '2.0',
+    largura: 720,
+    q: 74,
+    luz: 1.2
+  },
+  /* O copo da pausa das 20h, e aqui o quadro é o PRIMEIRO do laço, não um
+     do meio. Num vídeo que enche, um cartaz tirado do meio mostra o copo
+     pela metade e o laço começa vazio: a moldura abriria cheia e o vídeo
+     esvaziaria na cara do usuário. Em 0,4s o líquido já cobriu o fundo e as
+     facetas do cristal já leem — é imagem suficiente para segurar o quadro
+     e é onde o laço realmente começa. */
+  {
+    saida: 'copo-liquido',
+    de: 'brand/originais/liquido.mp4',
+    em: '0.4',
+    // o MESMO recorte que o encode aplica (scripts/video.mjs): o cartaz e o
+    // primeiro quadro do laço têm de ser o mesmo pixel, senão a troca de um
+    // para o outro é um pulo de enquadramento
+    corte: 'crop=720:828:0:175',
+    largura: 420,
+    q: 72,
+    luz: 1.04
+  }
+]
 
 const kb = (n) => (n / 1024).toFixed(0).padStart(5) + ' kB'
 
@@ -136,10 +162,19 @@ for (const { saida, de, ...opcoes } of FOTOS) {
   total += await gravar(saida, await readFile(`${ORIG}/${de}`), opcoes)
 }
 
-// o cartaz do vídeo passa pelo ffmpeg antes: sharp não lê mp4
-const tmp = 'node_modules/.cache/cartaz.png'
-await run('ffmpeg', ['-v', 'error', '-ss', CARTAZ.em, '-i', CARTAZ.de, '-frames:v', '1', '-y', tmp])
-total += await gravar(CARTAZ.saida, await readFile(tmp), CARTAZ)
+// os cartazes passam pelo ffmpeg antes: sharp não lê mp4
+for (const cartaz of CARTAZES) {
+  const tmp = `node_modules/.cache/cartaz-${cartaz.saida}.png`
+  await run('ffmpeg', [
+    '-v', 'error',
+    '-ss', cartaz.em,
+    '-i', cartaz.de,
+    ...(cartaz.corte ? ['-vf', cartaz.corte] : []),
+    '-frames:v', '1',
+    '-y', tmp
+  ])
+  total += await gravar(cartaz.saida, await readFile(tmp), cartaz)
+}
 
 console.log('─'.repeat(46))
 console.log(`${'total'.padEnd(16)} ${kb(total)}`)

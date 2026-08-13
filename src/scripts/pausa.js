@@ -27,6 +27,13 @@
 
    3. A frase entra por gatilho, no tempo dela — como todo texto do site.
 
+   E uma quarta, só na pausa das 20h: o quadro do detalhe está VIVO. É o
+   copo enchendo, em laço, e é o único movimento do site que não vem do
+   dedo nem de uma seção de capítulo. Cabe aqui porque a pausa é sobre a
+   hora virando, e porque é a única moldura pequena e sem texto por cima
+   que o site tem — que são exatamente as duas condições que faltavam
+   quando esse mesmo material ocupava "A escuta" em sangria total.
+
    A hora não está mais aqui: é o relógio da casa (relogio.js), que passa
    por TRÁS dos dois quadros. Era a última peça que faltava para a pausa
    deixar de ser uma montagem plana.
@@ -34,7 +41,7 @@
    Sem pin: uma passada de dedo atravessa a seção inteira, que é o que uma
    pausa tem de ser. O curso do deslocamento é a própria travessia. */
 
-import { gsap, reducedMotion, EASE, entrada } from './motion.js'
+import { gsap, ScrollTrigger, reducedMotion, EASE, entrada } from './motion.js'
 
 /* deslocamento em vw: [quadro, foto dentro do quadro] */
 const CURSO = {
@@ -93,13 +100,45 @@ for (const pausa of document.querySelectorAll('.pausa')) {
       { xPercent: -fora * 0.5 },
       { xPercent: fora * 0.5, ...comum })
 
-    gsap.fromTo(quadro.querySelector('img'),
+    // 'img, video': o detalhe das 20h é um laço de vídeo, e a foto que anda
+    // dentro do quadro pode ser qualquer uma das duas matérias
+    gsap.fromTo(quadro.querySelector('img, video'),
       { xPercent: -dentro * 0.5 },
       { xPercent: dentro * 0.5, ...comum })
   }
 
   deriva(retrato, curso.retrato)
   deriva(detalhe, curso.detalhe)
+
+  /* ── O laço do copo ──────────────────────────────────
+
+     A mesma regra do vídeo do Reservado: nada é baixado antes de a seção
+     se aproximar, e o laço para quando ela sai — um vídeo tocando fora de
+     cena é bateria e decodificação gastas em nada.
+
+     Sem barulho se falhar: autoplay recusado (economia de bateria, aba em
+     segundo plano) deixa o cartaz no lugar, e o cartaz é o primeiro quadro
+     do próprio laço. A pausa continua exatamente como era antes de o vídeo
+     existir. */
+  const laco = pausa.querySelector('video')
+
+  if (laco) {
+    ScrollTrigger.create({
+      trigger: pausa,
+      start: 'top bottom+=50%',
+      end: 'bottom top',
+      onEnter: () => {
+        if (!laco.src) {
+          laco.src = laco.dataset.src
+          laco.load()
+        }
+        laco.play().catch(() => {})
+      },
+      onEnterBack: () => { laco.play().catch(() => {}) },
+      onLeave: () => laco.pause(),
+      onLeaveBack: () => laco.pause()
+    })
+  }
 
   /* ── A abertura e a frase, por gatilho ───────────────── */
 

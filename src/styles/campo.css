@@ -104,6 +104,21 @@
   }
 }
 
+/* Sem movimento a seção deixa de ser uma tela de altura fixa e vira uma
+   coluna de blocos empilhados (escuta.css). Ancorar o campo a 10svh do pé
+   de um palco que não tem mais pé é ancorá-lo a lugar nenhum: ele caía por
+   cima da frase de fecho, que agora é o maior tipo do site e ocupa
+   exatamente a faixa onde ele aterrissava.
+
+   Aqui ele entra na fila como os outros: é o último filho do palco, então
+   vira o último bloco da coluna — que é a mesma leitura da versão animada,
+   o chão da sala embaixo de tudo. */
+.escuta.is-estatica .campo {
+  position: static;
+  width: auto;
+  height: 8rem;
+}
+
 /* ── No controle de som ────────────────────────────────── */
 
 /* Três linhas dentro do anel. A amplitude é proporcional: o mesmo gesto,

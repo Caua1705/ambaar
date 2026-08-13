@@ -53,13 +53,25 @@ const NATURAL = { opacity: 1, y: 0, x: 0, scaleX: 1 }
 const OVERLAP = 0.3 // fatia da janela compartilhada com a vizinha
 
 const SEQUENCIAS = {
-  dusk: { total: 22, caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp` }
+  dusk: { total: 22, caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp` },
+  /* O plano geral do Salão: a sala enchendo, em plano fixo. Declarada e
+     inerte — nenhum elemento do HTML pede 'sala' ainda. Ela acende sozinha
+     no dia em que o vídeo existir e o data-seq for posto no HTML (o
+     index.html diz onde). Ver scripts/frames.mjs para o outro lado. */
+  sala: { total: 22, caminho: (i) => `/frames/sala/s_${String(i + 1).padStart(3, '0')}.webp` }
 }
 
 for (const chapter of document.querySelectorAll('.chapter')) {
   const stage = chapter.querySelector('.chapter__stage')
   const media = chapter.querySelector('.chapter__media')
   const imgs = [...chapter.querySelectorAll('.chapter__img')]
+  /* As camadas da montagem são os PLANOS quando eles existem, e as fotos
+     quando não. O plano é um embrulho cuja única função é andar: a foto
+     dentro dele guarda a própria escala e âncora no CSS, e as duas coisas
+     precisam de transform ao mesmo tempo — o corte que empurra escreveria
+     por cima do scale(2.05) das mãos se fossem o mesmo elemento. */
+  const planos = [...chapter.querySelectorAll('.chapter__plano')]
+  const camadas = planos.length ? planos : imgs
   const canvas = chapter.querySelector('.chapter__canvas')
   const video = chapter.querySelector('.chapter__video')
   const dusk = chapter.querySelector('.chapter__dusk')
@@ -81,7 +93,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     // estado final legível: o cartaz parado do ambiente e o texto inteiro
     gsap.set([dash, labelText, title, text, ...chars], NATURAL)
     gsap.set(losango, { opacity: 0.5 })
-    gsap.set(imgs, { opacity: (i) => (i === imgs.length - 1 ? 1 : 0) })
+    gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
     if (video) video.remove()
@@ -112,11 +124,16 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   /* Quadro a quadro (Jardim). O canvas ocupa o mesmo lugar do cartaz que
      já está em cena; quando o primeiro quadro é pintado, o cartaz apaga por
      baixo dele. Assim a seção nunca é uma tela preta esperando arquivo. */
-  const seq = SEQUENCIAS[media?.dataset.seq]
+  /* Quem declara a sequência é o elemento que a HOSPEDA, não o capítulo: no
+     Jardim é o .chapter__media inteiro (a sequência É a tela); no Salão será
+     um .chapter__plano, porque lá ela é um plano entre outros e precisa
+     poder ser empurrada para fora como os vizinhos. */
+  const palcoSeq = chapter.querySelector('[data-seq]')
+  const seq = SEQUENCIAS[palcoSeq?.dataset.seq]
 
   if (seq && canvas) {
     const player = criarSequencia({
-      palco: media,
+      palco: palcoSeq,
       canvas,
       total: seq.total,
       caminho: seq.caminho
@@ -142,9 +159,9 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
      Duas gramáticas, e o data-montagem do HTML escolhe.
 
-     CORTE (Salão). Três enquadramentos que trocam secos, sem dissolução.
-     É a única seção do site que corta — todo o resto dissolve, acende ou
-     deriva — e por isso o corte lê como montagem, não como defeito.
+     EMPURRA (Salão). Três enquadramentos que trocam SECOS — sem
+     dissolução, sem fade, opacidade nenhuma — e a troca acontece de lado:
+     o plano novo entra pela direita e empurra o anterior para fora.
 
        1. a cabine vista de cima: a pessoa chega;
        2. as mãos nos faders, em corte fechado de verdade;
@@ -154,36 +171,55 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      num capítulo que o relógio marca como 20—23h: o capítulo começava
      mostrando o cômodo anterior, na hora anterior. Saiu.
 
+     Por que de lado, e por que aqui e em lugar nenhum mais. A saída deste
+     capítulo (data-saida="parte") já é horizontal — o título vai para um
+     lado e o texto para o outro. O eixo lateral já é a gramática do Salão;
+     a montagem passou a falar a mesma língua que a saída dele.
+
+     O que sai anda a um terço do que entra. Duas camadas na mesma
+     velocidade leem como um slide trocando; em velocidades diferentes o
+     olho vê PROFUNDIDADE, e a troca lê como a sala girando em volta de
+     quem olha. É o mesmo princípio dos dois quadros da pausa, ao contrário.
+
+     E continua sendo um corte: 0.07 do curso, com ease de saída dura. Não
+     é uma transição que se assiste, é o instante em que o quadro já é
+     outro — só que com direção. Nada aqui anima opacidade: são dois
+     translates, que é o que o telefone sabe fazer de graça.
+
      Os intervalos: 0.34, depois 0.26 — o corte acelera, que é o que o
      texto do capítulo promete. O terceiro plano fica os 40% finais porque
      é sobre ele que a saída acontece (o capítulo se parte ao meio em 84%
      do curso), e a saída precisa de uma imagem já desfeita embaixo dela.
 
-     Cada enquadramento tem escala e âncora próprias no CSS, então o corte
-     troca de plano e não só de foto — que é o que um corte faz.
-
      DISSOLUÇÃO (o resto). Janelas de crossfade, uma imagem entrando sobre
      a anterior. */
-  if (imgs.length > 1) {
-    gsap.set(imgs, { opacity: (i) => (i === 0 ? 1 : 0) })
-
-    if (chapter.dataset.montagem === 'corte') {
+  if (camadas.length > 1) {
+    if (chapter.dataset.montagem === 'empurra') {
       const cortes = [0.34, 0.6]
+      const TROCA = 0.07
 
-      imgs.forEach((img, i) => {
-        if (i === 0) return
+      /* Quem entra espera fora do palco, à direita. O palco tem
+         overflow:hidden, então "fora" é invisível sem custar opacidade —
+         e a ordem do DOM já põe cada plano acima do anterior, que é o que
+         faz o novo cobrir o velho sem uma linha de z-index. */
+      gsap.set(camadas, { xPercent: (i) => (i === 0 ? 0 : 100) })
+
+      camadas.forEach((plano, i) => {
         const em = cortes[i - 1]
-        if (em === undefined) return
-        tl.set(imgs[i - 1], { opacity: 0 }, em)
-        tl.set(img, { opacity: 1 }, em)
+        if (i === 0 || em === undefined) return
+
+        tl.to(plano, { xPercent: 0, duration: TROCA, ease: 'power4.out' }, em)
+          .to(camadas[i - 1], { xPercent: -34, duration: TROCA, ease: 'power4.out' }, em)
       })
     } else {
-      const janela = 1 / imgs.length
+      gsap.set(camadas, { opacity: (i) => (i === 0 ? 1 : 0) })
+
+      const janela = 1 / camadas.length
       const cruzamento = OVERLAP * janela
 
-      imgs.forEach((img, i) => {
+      camadas.forEach((camada, i) => {
         if (i === 0) return
-        tl.to(img, { opacity: 1, duration: cruzamento, ease: 'none' }, i * janela - cruzamento / 2)
+        tl.to(camada, { opacity: 1, duration: cruzamento, ease: 'none' }, i * janela - cruzamento / 2)
       })
     }
   }
@@ -299,6 +335,12 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   } else {
     saida.to(title, { xPercent: -14, opacity: 0, duration: 0.8, ease: EASE }, 0)
       .to(text, { xPercent: 14, opacity: 0, duration: 0.8, ease: EASE }, 0.08)
+      /* E a fotografia DRENA. O que vem depois do Salão é a única tela do
+         site sem imagem, e ela precisa de escuridão para existir: antes, o
+         arrasto ficava aceso até a seção rolar para fora e "A escuta"
+         chegava como o próximo slide. Agora o capítulo apaga a luz antes de
+         sair, e o silêncio começa aqui — na porta, não depois dela. */
+      .to(media, { opacity: 0, duration: 1.1, ease: EASE }, 0.2)
   }
 
   ScrollTrigger.create({

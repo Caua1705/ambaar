@@ -164,17 +164,49 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     }, 0)
   }
 
-  // janelas de crossfade entre fotos paradas (Salão)
+  /* ── Montagem ───────────────────────────────────────
+
+     Duas gramáticas, e o data-montagem do HTML escolhe.
+
+     CORTE (Salão). Quatro enquadramentos que trocam secos, sem
+     dissolução: o plano aberto da cabine, um corte fechado nas mãos sobre
+     a mesa, uma aproximação no mesmo plano aberto e o corpo arrastado pelo
+     obturador. É a única seção do site que corta — todo o resto dissolve,
+     acende ou deriva — e por isso o corte lê como montagem, não como
+     defeito.
+
+     Os intervalos ENCURTAM: 0.30, depois 0.22, depois 0.16. O capítulo diz
+     que a noite encontra o próprio ritmo, e a montagem acelera junto. Era
+     a ideia mais cinética do site entregue pela transição menos cinética
+     que existe, um crossfade.
+
+     Cada enquadramento tem escala e âncora próprias no CSS, então o corte
+     troca de plano e não só de foto — que é o que um corte faz.
+
+     DISSOLUÇÃO (o resto). Janelas de crossfade, uma imagem entrando sobre
+     a anterior. */
   if (imgs.length > 1) {
     gsap.set(imgs, { opacity: (i) => (i === 0 ? 1 : 0) })
 
-    const janela = 1 / imgs.length
-    const cruzamento = OVERLAP * janela
+    if (chapter.dataset.montagem === 'corte') {
+      const cortes = [0.3, 0.52, 0.68]
 
-    imgs.forEach((img, i) => {
-      if (i === 0) return
-      tl.to(img, { opacity: 1, duration: cruzamento, ease: 'none' }, i * janela - cruzamento / 2)
-    })
+      imgs.forEach((img, i) => {
+        if (i === 0) return
+        const em = cortes[i - 1]
+        if (em === undefined) return
+        tl.set(imgs[i - 1], { opacity: 0 }, em)
+        tl.set(img, { opacity: 1 }, em)
+      })
+    } else {
+      const janela = 1 / imgs.length
+      const cruzamento = OVERLAP * janela
+
+      imgs.forEach((img, i) => {
+        if (i === 0) return
+        tl.to(img, { opacity: 1, duration: cruzamento, ease: 'none' }, i * janela - cruzamento / 2)
+      })
+    }
   }
 
   /* O vídeo (Reservado) não é preso ao scroll: buscar quadro em vídeo no
@@ -259,15 +291,11 @@ for (const chapter of document.querySelectorAll('.chapter')) {
       // Jardim abrir, contando uma hora que ainda não era de ninguém
       .to(clock, { opacity: 1, duration: 0.9, ease: EASE }, 0.5)
   }, {
-    /* O Jardim é o único capítulo que começa coberto: ele sobe uma tela
-       inteira (a margem negativa que apaga a tela vazia do espaçador do
-       manifesto) e fica atrás do palco pinado até a fumaça se abrir. Se o
-       texto entrasse com a seção ainda escondida, a entrada aconteceria
-       atrás do manifesto e o capítulo estrearia já escrito. Nele o gatilho
-       é o topo; nos outros, a seção subindo. */
-    start: chapter.previousElementSibling?.classList.contains('manifesto')
-      ? 'top top'
-      : 'top 60%'
+    /* A seção já subiu 60% da tela quando o texto começa: a composição
+       anterior terminou de sair e a entrada não acontece por cima dela.
+       Quando o pin assume, a frase já está posta — uma passada de dedo
+       traz a seção E o texto. */
+    start: 'top 40%'
   })
 
   /* ── Saída ─────────────────────────────────────────── */

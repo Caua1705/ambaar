@@ -1,4 +1,4 @@
-/* Seção: .hero — a marca entrando e o bastão passado ao manifesto.
+/* Seção: .hero — a marca entrando e o bastão passado ao capítulo 01.
 
    ── A entrada, refeita para responder à saída ───────────────────────────
 
@@ -18,8 +18,8 @@
         como se as duas saíssem de dentro da linha.
 
    O filete deixa de ser um enfeite entre duas coisas e passa a ser aquilo
-   de que a marca é feita — e é o mesmo objeto que reaparece no manifesto e,
-   no fim do site, se recolhe até virar um ponto.
+   de que a marca é feita — e é o mesmo objeto que, no fim do site, se
+   recolhe até virar um ponto.
 
    Partir a palavra em caracteres continua fora de questão: criaria uma
    caixa por letra e o tracking largo se desfaria. */
@@ -34,6 +34,10 @@ if (hero && mark && !reducedMotion) {
   const rule = hero.querySelector('.hero__rule')
   const tag = hero.querySelector('.hero__tag')
   const bg = hero.querySelector('.hero__bg img')
+  // o scrim apaga junto com a foto: sozinho ele deixaria uma faixa opaca
+  // de carvão no pé da hero, e essa faixa é uma aresta dura contra o
+  // Jardim que sobe por baixo
+  const scrim = hero.querySelector('.hero__scrim')
   const cantos = [
     hero.querySelector('.hero__place'),
     hero.querySelector('.hero__scroll')
@@ -83,6 +87,14 @@ if (hero && mark && !reducedMotion) {
       // a foto recua enquanto o lockup fica: profundidade sem paralaxe de
       // duas velocidades brigando entre si
       .to(bg, { scale: 1.14, duration: 1, ease: 'none' }, 0)
+      /* E apaga no último quarto. Com "A passagem" removida, esta é a
+         emenda mais importante do site: uma foto parada do jardim
+         entregando o mesmo jardim em movimento. Duas fotografias de
+         sangria total encostando uma na outra deixam uma linha horizontal
+         dura no meio da tela; apagando a de cima antes do encontro, o que
+         o capítulo 01 sobe é carvão, e o corte ganha uma batida de preto —
+         que é como um corte se faz. */
+      .to([bg, scrim], { opacity: 0, duration: 0.26, ease: 'none', immediateRender: false }, 0.74)
       .to(cantos, { opacity: 0, duration: 0.3, ease: 'none', immediateRender: false }, 0)
       // nome e assinatura recolhem na direção do filete
       .to(mark, { y: 42, opacity: 0, duration: 0.45, ease: 'none', immediateRender: false }, 0.3)

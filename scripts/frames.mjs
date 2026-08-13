@@ -83,16 +83,35 @@ const SEQUENCIAS = [
   {
     nome: 'pour',
     fonte: 'brand/originais/liquido.mp4',
-    janela: [],
+    // o primeiro segundo é o copo vazio antes de o fio chegar
+    janela: ['-ss', '0.8'],
     saida: 'public/frames/pour',
     prefixo: 'p',
-    // esta não é presa ao dedo: corre sozinha a 12/s, então precisa de
-    // cadência de vídeo — 24 quadros em dois segundos
-    quadros: 24,
-    largura: 520,
-    teto: 20 * 1024,
-    curva: (u) => u,
-    desfoque: 0.4,
+
+    /* ── Por que 18 quadros a 720px, e não 24 a 520 ──────────────────────
+
+       A passada anterior empilhou três degradações sobre uma fonte que só
+       tem 720px de largura: reduzi para 520 (perde 28% da resolução),
+       passei um gblur de 0.4 (tira a aresta do cristal, que é justamente o
+       que faz um copo parecer vidro) e depois cortei cada quadro em 20 kB
+       com qualidade decrescente. O resultado é o que o cliente viu — o
+       líquido sem definição e o copo sem borda.
+
+       Agora é o inverso, e a troca é a que o enunciado pede: menos
+       quadros, mais qualidade. Largura nativa, sem desfoque nenhum, teto
+       de 52 kB. O que sustenta 18 quadros é a seção mistura vizinhos
+       (frames.js) e o movimento ser quase monotônico: o fio de líquido
+       fica praticamente no mesmo lugar quadro a quadro — quem anda é o
+       nível e a linha de espuma, e nível interpola quase exato.
+
+       Amostragem levemente adiantada (u^0.85): o copo enche rápido no
+       começo e vai devagar no fim, então o começo precisa de mais
+       quadros. */
+    quadros: 18,
+    largura: 720,
+    teto: 52 * 1024,
+    curva: (u) => Math.pow(u, 0.85),
+    desfoque: 0,
     denoise: null
   }
 ]
@@ -114,7 +133,7 @@ for (const seq of SEQUENCIAS) {
   const filtros = [
     `scale=${seq.largura}:-2`,
     seq.denoise,
-    `gblur=sigma=${seq.desfoque}`
+    seq.desfoque ? `gblur=sigma=${seq.desfoque}` : null
   ].filter(Boolean).join(',')
 
   await run('ffmpeg', [

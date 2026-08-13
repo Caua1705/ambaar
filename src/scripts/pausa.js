@@ -1,42 +1,56 @@
-/* Seção: .pausa — o que ficou no lugar das cortinas.
+/* Seção: .pausa — a hora virando entre dois ambientes.
 
-   ── Por que as cortinas saíram ──────────────────────────────────────────
+   A montagem e o porquê da seção estão em pausa.css. Aqui mora o que se
+   move, e são duas coisas:
 
-   Havia um painel sólido de tela cheia varrendo de cima para baixo em duas
-   emendas. Ele nunca funcionou, e a medida não era o problema: o gatilho
-   começava exatamente onde o pin do capítulo anterior soltava, ao pixel —
-   conferido. O problema é o mecanismo. Um retângulo opaco de tela cheia,
-   com aresta dura, atravessando na direção contrária à do conteúdo, entre
-   duas seções que já são quase pretas, não tem como ser lido como
-   transição: é lido como um painel. Pintá-lo de âmbar (a tentativa da
-   emenda com o Reservado) só troca a cor do retângulo — vira um painel
-   luminoso.
+   1. Os dois quadros correm lateralmente em SENTIDOS CONTRÁRIOS enquanto a
+      seção atravessa a tela, com amplitudes diferentes. É isso que faz a
+      dupla ler como composição em vez de duas camadas de paralaxe: quando
+      dois elementos andam juntos o olho vê profundidade, quando andam
+      contra o olho vê montagem. O retrato abre para dentro do quadro, o
+      detalhe corre para fora — no fim da seção a composição está mais
+      aberta do que começou.
 
-   ── O que ficou no lugar ────────────────────────────────────────────────
+      Cada foto ainda anda dentro do próprio quadro, ao contrário do
+      quadro, com um terço da amplitude. São três velocidades numa tela de
+      duas imagens.
 
-   Uma tela inteira de gente. O site não tinha uma pessoa legível em lugar
-   nenhum, numa casa cujo assunto é gente ouvindo junto — e o intervalo
-   entre dois ambientes é exatamente onde uma pessoa cabe sem disputar com
-   um capítulo. Sem título, sem legenda, sem relógio: uma imagem, e o rail
-   vertical dizendo a hora.
+   2. A hora e a frase entram por gatilho, no tempo delas — como todo texto
+      do site. O algarismo primeiro, a frase atrás: a pausa diz que horas
+      são e só então diz o que está acontecendo.
 
-   Não é pinada e não tem scrub de conteúdo — só a foto deriva devagar
-   dentro do quadro. É o oposto do capítulo vizinho por construção: uma
-   passada de dedo atravessa a seção inteira. */
+   Sem pin: uma passada de dedo atravessa a seção inteira, que é o que uma
+   pausa tem de ser. O curso do deslocamento é a própria travessia. */
 
-import { gsap, reducedMotion } from './motion.js'
+import { gsap, reducedMotion, EASE, entrada } from './motion.js'
+
+/* deslocamento em vw: [quadro, foto dentro do quadro] */
+const CURSO = {
+  um: { retrato: [-9, 4], detalhe: [13, -5] },
+  dois: { retrato: [8, -3], detalhe: [-12, 5] }
+}
 
 for (const pausa of document.querySelectorAll('.pausa')) {
-  if (reducedMotion) continue
+  const retrato = pausa.querySelector('.pausa__quadro--retrato')
+  const detalhe = pausa.querySelector('.pausa__quadro--detalhe')
+  const hora = pausa.querySelector('.pausa__hora')
+  const linha = pausa.querySelector('.pausa__linha')
 
-  const img = pausa.querySelector('.pausa__img')
+  const curso = CURSO[pausa.classList.contains('pausa--dois') ? 'dois' : 'um']
 
-  // a foto é maior que a janela: a sobra é o curso da deriva
-  gsap.fromTo(img,
-    { yPercent: -6, scale: 1.12 },
-    {
-      yPercent: 6,
-      scale: 1.12,
+  if (reducedMotion) {
+    gsap.set([hora, linha], { opacity: 1, y: 0 })
+    continue
+  }
+
+  gsap.set([hora, linha], { opacity: 0, y: 20 })
+
+  /* ── Os quadros, presos ao dedo ──────────────────────── */
+
+  const deriva = (quadro, [fora, dentro]) => {
+    if (!quadro) return
+
+    const comum = {
       ease: 'none',
       scrollTrigger: {
         trigger: pausa,
@@ -44,5 +58,24 @@ for (const pausa of document.querySelectorAll('.pausa')) {
         end: 'bottom top',
         scrub: 1
       }
-    })
+    }
+
+    gsap.fromTo(quadro,
+      { xPercent: -fora * 0.5 },
+      { xPercent: fora * 0.5, ...comum })
+
+    gsap.fromTo(quadro.querySelector('img'),
+      { xPercent: -dentro * 0.5 },
+      { xPercent: dentro * 0.5, ...comum })
+  }
+
+  deriva(retrato, curso.retrato)
+  deriva(detalhe, curso.detalhe)
+
+  /* ── O algarismo e a frase, por gatilho ──────────────── */
+
+  entrada(pausa, (t) => {
+    t.to(hora, { opacity: 1, y: 0, duration: 1.1, ease: EASE }, 0)
+      .to(linha, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 0.35)
+  }, { start: 'top 58%' })
 }

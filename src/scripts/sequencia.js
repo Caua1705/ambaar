@@ -1,21 +1,31 @@
-/* Seção: .sequencia — o copo enchendo.
+/* Seção: .sequencia — o copo enchendo. O clímax do site.
 
-   A segunda sequência de quadros do site, e o contrário da primeira. No
-   Jardim a rolagem É o tempo: cada posição corresponde a uma hora do
-   entardecer, e por isso lá o scrub é o efeito. Aqui não. O líquido tem o
-   tempo dele, e amarrá-lo ao dedo tinha duas consequências ruins:
+   ── O que estava errado ────────────────────────────────────────────────
 
-     · custava 4,2 telas de rolagem — a seção mais cara do site — para
-       entregar três frases curtas;
-     · quem parava de rolar parava o líquido no meio do copo, o que é
-       exatamente a leitura errada. Um líquido que para no ar é um defeito,
-       não uma pausa.
+   Três coisas, e todas eram minhas, não do material:
 
-   Agora ela dispara quando a seção chega e corre sozinha, em dois
-   segundos. Uma passada de dedo entrega o copo cheio. O curso caiu de 320%
-   para 110%, e as três frases entram por gatilho, uma por vez, sem nunca
-   coexistirem: a tela tem uma frase de cada vez, e a posição e a escala
-   mudam a cada uma para o olho não se acomodar.
+   1. Qualidade. Eu tinha empilhado três degradações sobre uma fonte de
+      720px: reduzi para 520, passei um desfoque antes de encodar e cortei
+      cada quadro em 20 kB. O líquido perdia definição e o copo perdia a
+      aresta. Agora são 18 quadros em resolução nativa, sem desfoque
+      nenhum, com teto de 52 kB (scripts/frames.mjs). Menos quadros, mais
+      quadro.
+
+   2. Ritmo. A sequência disparava sozinha e corria em dois segundos: o
+      acontecimento tinha relógio próprio e terminava antes de o leitor
+      olhar. Agora ela é presa à rolagem. Foi um erro meu na passada
+      anterior tirá-la do scrub com o argumento de que "líquido parado no
+      ar é defeito" — nos quadros reais o fio é uma fita contínua de luz,
+      e parado ele lê como fotografia de longa exposição, que é
+      exatamente o que a imagem é. Preso ao dedo, o acontecimento não pode
+      ser perdido: ele É a rolagem do leitor.
+
+   3. Apresentação. Eram três blocos de texto por cima de um vídeo. Agora a
+      tipografia tem a mesma mecânica da imagem: cada linha é REVELADA DE
+      BAIXO PARA CIMA, com um clipPath que sobe — a palavra enche como o
+      copo enche. É a relação entre texto e imagem que faltava, e ela
+      distingue esta seção do entardecer, onde o texto entra e fica
+      enquanto a imagem muda em volta.
 
    Sem movimento: nada disso roda. A seção vira os três blocos empilhados e
    legíveis, sem canvas e sem pin. */
@@ -23,10 +33,15 @@
 import { gsap, ScrollTrigger, reducedMotion, EASE, entrada, prioridadeRefresh } from './motion.js'
 import { criarSequencia } from './frames.js'
 
-const TOTAL = 24
-const CURSO = 0.95 // fração de tela do curso pinado
-const DURACAO = 2 // segundos de reprodução, ~12 quadros por segundo
+const TOTAL = 18
+const CURSO = 1.35 // frações de tela do curso pinado
 const caminho = (i) => `/frames/pour/p_${String(i + 1).padStart(3, '0')}.webp`
+
+/* estados do clipPath: fechado embaixo → aberto → fechado em cima.
+   Tudo sobe, sempre, como o líquido. */
+const FECHADO_BAIXO = 'inset(100% 0% 0% 0%)'
+const ABERTO = 'inset(0% 0% 0% 0%)'
+const FECHADO_CIMA = 'inset(0% 0% 100% 0%)'
 
 const secao = document.querySelector('.sequencia')
 
@@ -37,7 +52,7 @@ if (secao) {
 
   if (reducedMotion) {
     secao.classList.add('is-estatica')
-    gsap.set(blocos, { opacity: 1, y: 0 })
+    gsap.set(secao.querySelectorAll('.sequencia__bloco span'), { clipPath: ABERTO })
     canvas.remove()
   } else {
     const player = criarSequencia({
@@ -45,20 +60,18 @@ if (secao) {
       canvas,
       total: TOTAL,
       caminho,
-      // ela corre sozinha e não espera o dedo: os quadros precisam estar
-      // todos em casa antes do play, não chegando durante
-      frente: 8
+      frente: 6
     })
 
-    player.carregarPerto(secao, '200%')
+    player.carregarPerto(secao, '150%')
 
-    /* ── O pin: só para segurar a cena enquanto o texto passa ── */
+    /* ── O copo, preso ao dedo ───────────────────────── */
 
-    gsap.timeline({
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: secao,
         start: 'top top',
-        end: '+=95%',
+        end: `+=${CURSO * 100}%`,
         pin: stage,
         scrub: 1,
         anticipatePin: 1,
@@ -67,47 +80,40 @@ if (secao) {
       }
     })
 
-    /* ── O líquido, no tempo dele ────────────────────── */
-
+    /* O copo enche em 84% do curso e fica cheio no resto: a última frase
+       cai sobre o copo já cheio, que é onde ela quer cair. */
     const quadro = { v: 0 }
-    const correr = gsap.to(quadro, {
+    tl.to(quadro, {
       v: TOTAL - 1,
-      duration: DURACAO,
+      duration: 0.84,
       ease: 'none',
-      paused: true,
       onUpdate: () => player.desenhar(quadro.v)
-    })
+    }, 0)
 
-    ScrollTrigger.create({
-      trigger: secao,
-      start: 'top 70%',
-      once: true,
-      onEnter: () => correr.play()
-    })
+    /* ── As frases, subindo ──────────────────────────── */
 
-    /* ── As três frases, uma por vez ─────────────────── */
-
-    /* Cada bloco tem o seu gatilho dentro do curso pinado, medido em fração
-       de tela rolada. Entram e saem no tempo deles; o dedo escolhe quando,
-       não quanto. */
-    const momentos = [0.02, 0.4, 0.76]
+    /* Cada LINHA é revelada por conta própria, escalonada: revelando o
+       parágrafo inteiro de baixo para cima, a segunda linha apareceria
+       antes da primeira e a frase seria lida ao contrário. */
+    const momentos = [0.03, 0.36, 0.66]
+    const saidas = [0.3, 0.6, null]
 
     blocos.forEach((bloco, i) => {
-      gsap.set(bloco, { opacity: 0, y: 28 })
+      const linhas = [...bloco.querySelectorAll('span')]
+      gsap.set(linhas, { clipPath: FECHADO_BAIXO })
 
       entrada(secao, (t) => {
-        t.to(bloco, { opacity: 1, y: 0, duration: 0.8, ease: EASE }, 0)
+        t.to(linhas, { clipPath: ABERTO, duration: 1.1, ease: EASE, stagger: 0.16 }, 0)
       }, { start: () => `top top-=${Math.round(window.innerHeight * CURSO * momentos[i])}` })
 
-      // a saída de cada bloco é a entrada do seguinte: o último fica
-      if (i === blocos.length - 1) return
+      if (saidas[i] === null) return
 
       const sai = gsap.timeline({ paused: true })
-      sai.to(bloco, { opacity: 0, y: -22, duration: 0.6, ease: EASE })
+      sai.to(linhas, { clipPath: FECHADO_CIMA, duration: 0.8, ease: EASE, stagger: 0.08 })
 
       ScrollTrigger.create({
         trigger: secao,
-        start: () => `top top-=${Math.round(window.innerHeight * CURSO * (momentos[i + 1] - 0.06))}`,
+        start: () => `top top-=${Math.round(window.innerHeight * CURSO * saidas[i])}`,
         invalidateOnRefresh: true,
         onEnter: () => sai.play(),
         onLeaveBack: () => sai.reverse()

@@ -1,7 +1,7 @@
 /* Seção: a cortina de carregamento (#preloader).
 
    Segura a página enquanto as duas imagens que abrem o site chegam — a hero
-   e o jardim, que é o fundo do capítulo 01 e também o que o manifesto revela.
+   e o primeiro quadro do entardecer, que é o fundo do capítulo 01.
    O contador segue o progresso real desses dois arquivos, não um relógio.
 
    Ao terminar, sobe e resolve `preloaded`; a timeline da hero espera por essa
@@ -10,9 +10,8 @@
 import { gsap, reducedMotion, lenis, refresh, EASE } from './motion.js'
 
 /* As duas imagens que abrem o site: a hero e o primeiro quadro do
-   entardecer — que é a mesma foto que o manifesto revela no fim da
-   passagem e o cartaz do capítulo 01. Nenhuma terceira: o resto chega
-   depois da cortina, e chega tarde de propósito. */
+   entardecer, que é o cartaz do capítulo 01. Nenhuma terceira: o resto
+   chega depois da cortina, e chega tarde de propósito. */
 const CRITICAS = ['/img/jardim-dourado.webp', '/frames/dusk/d_001.webp']
 const MIN_EM_CENA = 700 // ms: em cache o contador passaria rápido demais para ser lido
 const LIMITE = 6000 // ms: uma imagem travada não pode prender o site

@@ -26,11 +26,6 @@
   opacity: 0;
 }
 
-/* A faixa que este texto ocupa é reservada por --gutter-r, e agora todas as
-   seções recuam por esse token direto no arquivo delas. As exceções que
-   moravam aqui (um recuo à parte para experiências, reservas, manifesto,
-   rodapé e um .interlude que já não existe) viraram repetição e saíram. */
-
 @media (prefers-reduced-motion: reduce) {
   .vrail {
     transition: none;

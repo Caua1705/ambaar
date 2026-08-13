@@ -26,9 +26,9 @@
         do documento É o fechamento: aqui a posição corresponde mesmo a um
         estado.
 
-     3. O nome se escreve, e a frase que estava no manifesto — dita duas
-        vezes no site antigo — fica só aqui, que é onde ela fecha alguma
-        coisa em vez de apenas passar.
+     3. O nome se escreve, e a frase da resina fica só aqui — no site antigo
+        ela era dita duas vezes, e aqui é onde ela fecha alguma coisa em
+        vez de apenas passar.
 
      4. O grão sai. A camada de ruído que esteve sobre todos os quadros do
         site levanta na última tela: a imagem deixa de ser filme correndo e

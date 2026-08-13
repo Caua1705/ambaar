@@ -47,8 +47,21 @@ const FOTOS = [
   // o fecho: âmbar dentro de um copo, que é a marca em uma imagem
   { saida: 'mao-copo', de: 'mao-copo.png', largura: 900, q: 74, luz: 1.14 },
 
-  // fumaça do manifesto: textura, não cena
-  { saida: 'textura-fumaca', de: 'textura-fumaca.png', largura: 900, q: 70, luz: 1 }
+  /* ── As três que estavam fora ────────────────────────────────────────
+     Sobraram da faixa horizontal apagada numa passada anterior. Duas são
+     copos na mão — o mesmo gesto das fotos que já entraram, e por isso
+     elas emparelham: cada pausa passa a ser uma pessoa E o copo dela.
+     A terceira são as mãos na mesa, e é o corte fechado que faltava ao
+     Salão.
+
+     tinta: quanto de âmbar é composto por cima. A vermelha vem de luz de
+     boate carmim e é a única foto do site fora da paleta; dessaturar e
+     tingir a traz para dentro sem apagar a luz própria dela. É o mesmo
+     método do antigo grade-faixa, agora com uma foto só — porque agora é
+     uma foto só que precisa. */
+  { saida: 'copo-dourado', de: 'detalhe-01.jpg', largura: 560, q: 74, luz: 1.02, sat: 0.86, tinta: 0.14 },
+  { saida: 'copo-rubi', de: 'detalhe-02.jpg', largura: 560, q: 74, luz: 1.2, sat: 0.5, tinta: 0.34 },
+  { saida: 'maos-mesa', de: 'detalhe-03.jpg', largura: 900, q: 72, luz: 1.34, sat: 0.72, tinta: 0.24 }
 ]
 
 /* O reservado não tem foto: tem um vídeo de velas. O cartaz dele sai do
@@ -66,11 +79,26 @@ const CARTAZ = {
 
 const kb = (n) => (n / 1024).toFixed(0).padStart(5) + ' kB'
 
-const gravar = async (nome, entrada, { largura, q, luz }) => {
-  const { data, info } = await sharp(entrada)
+const AMBAR = '#C8892E'
+
+const gravar = async (nome, entrada, { largura, q, luz, sat = 1, tinta = 0 }) => {
+  const base = sharp(entrada)
     .rotate()
     .resize({ width: largura, withoutEnlargement: true })
-    .modulate({ brightness: luz })
+    .modulate({ brightness: luz, saturation: sat })
+
+  let saida = base
+
+  if (tinta > 0) {
+    // uma cópia tingida de âmbar, composta por cima com alfa parcial: a
+    // foto mantém a própria luz mas passa a dividir o viés de cor do site
+    const { data, info } = await base.toBuffer({ resolveWithObject: true })
+    const camada = await sharp(data).tint(AMBAR).ensureAlpha(tinta).png().toBuffer()
+    saida = sharp(data).composite([{ input: camada, blend: 'over' }])
+    void info
+  }
+
+  const { data, info } = await saida
     .webp({ quality: q, effort: 6 })
     .toBuffer({ resolveWithObject: true })
 

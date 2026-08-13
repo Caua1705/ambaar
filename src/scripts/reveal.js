@@ -1,6 +1,6 @@
 /* Seção: entradas genéricas (.reveal) — hoje só as reservas.
 
-   As seções coreografadas (hero, manifesto, capítulos, cartaz, fechamento)
+   As seções coreografadas (hero, capítulos, pausas, escuta, fechamento)
    trazem [data-choreo] e são puladas aqui: quem anima o conteúdo delas é a
    timeline da própria seção. As variantes continuam existindo com os mesmos
    tempos — o que muda é quem dispara.

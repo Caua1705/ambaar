@@ -99,8 +99,8 @@
     0 1px 12px rgba(13, 13, 13, .7);
 }
 
-/* O filete que a hero entrega ao manifesto: é a última coisa a sair daqui e
-   a primeira a aparecer lá. */
+/* O filete: a marca nasce de dentro dele e ele é a última coisa a sair
+   daqui. O mesmo objeto fecha o site, recolhendo-se até virar um ponto. */
 .hero__rule {
   display: block;
   width: min(62%, 22rem);

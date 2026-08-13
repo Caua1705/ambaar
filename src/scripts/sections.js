@@ -44,7 +44,7 @@ const aplicar = (secao) => {
   if (!secao || secao === atual) return
   atual = secao
 
-  // seções sem rótulo próprio (manifesto, interlúdio) herdam o texto anterior
+  // seção sem rótulo próprio herda o texto da anterior
   if (secao.dataset.vrail) trocarVrail(secao.dataset.vrail)
 
   const nav = secao.dataset.nav

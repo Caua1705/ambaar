@@ -45,17 +45,31 @@
      vez de uma reta, e a dissolução ocupa o terço final da tela em vez do
      último quinto.
 
-     A demão também tem um degrau escuro no topo, curto. Cada seção deste
-     site termina em carvão sólido e a seguinte começava em foto aberta: a
-     emenda entre as duas era uma linha horizontal dura no meio da tela. Com
-     os primeiros 12% escurecidos, o pé de uma seção encontra o topo da
-     outra no mesmo tom e o corte deixa de ter aresta. */
+     A passada anterior pôs também um degrau escuro no TOPO destas demãos,
+     para costurar a emenda entre duas seções de sangria total. Ele saiu, e
+     é a causa da sombra que chegava com aresta dura pouco antes do título
+     do capítulo 01: uma faixa de 125px a 50% de preto atravessando o alto
+     da tela, que ainda por cima ACENDIA (a passagem levava a mesma demão
+     de 0 a 1 no fim do percurso, e as duas se somavam). Uma faixa escura
+     que aparece não é luz, é um painel — o mesmo erro das cortinas, em
+     escala menor.
+
+     A emenda voltou a ser resolvida onde ela existe: as pausas passaram a
+     ter fundo de carvão com moldura, então nenhum capítulo encosta em
+     foto, e a hero apaga a própria foto antes de entregar o Jardim.
+
+     O que sobrou do degrau de topo é uma queda longa e rasa — 30% caindo a
+     zero em quase um terço da tela, sem parada intermediária forte. Ela
+     não tem aresta para o olho encontrar, e por isso escurece o alto do
+     quadro (onde o rótulo mora) sem nunca ler como painel. */
   --ceu-dia: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .5) 0%,
-    rgba(13, 13, 13, .16) 7%,
-    rgba(200, 137, 46, .06) 14%,
-    rgba(13, 13, 13, .07) 36%,
+    rgba(13, 13, 13, .3) 0%,
+    rgba(13, 13, 13, .2) 9%,
+    rgba(13, 13, 13, .11) 18%,
+    rgba(13, 13, 13, .05) 26%,
+    rgba(200, 137, 46, .05) 32%,
+    rgba(13, 13, 13, .07) 46%,
     rgba(13, 13, 13, .18) 58%,
     rgba(13, 13, 13, .36) 73%,
     rgba(13, 13, 13, .58) 84%,
@@ -65,10 +79,12 @@
 
   --ceu-noite: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .55) 0%,
-    rgba(13, 13, 13, .2) 7%,
-    rgba(13, 13, 13, .08) 14%,
-    rgba(13, 13, 13, .1) 36%,
+    rgba(13, 13, 13, .34) 0%,
+    rgba(13, 13, 13, .23) 9%,
+    rgba(13, 13, 13, .14) 18%,
+    rgba(13, 13, 13, .08) 26%,
+    rgba(13, 13, 13, .07) 32%,
+    rgba(13, 13, 13, .1) 46%,
     rgba(13, 13, 13, .2) 58%,
     rgba(13, 13, 13, .38) 73%,
     rgba(13, 13, 13, .6) 84%,
@@ -90,14 +106,19 @@
      grande até a borda da faixa, e nem um pixel além. */
   --fs-mega: clamp(3rem, 18vw, 12rem);
 
-  /* algarismo em fantasma atrás do conteúdo: o relógio dos capítulos e o
-     contador do preloader */
-  --fs-numero: clamp(7.5rem, 40vw, 19rem);
+  /* Algarismo em fantasma atrás do conteúdo: o relógio dos capítulos e o
+     contador do preloader.
+
+     A 40vw o valor mais largo que o site desenha ("20h", centrado) media
+     251px numa faixa útil de 330 — 24% de folga, o suficiente para caber e
+     pouco para respirar. A 34vw a folga passa a 37% e o relógio continua
+     sendo, de longe, o maior objeto de qualquer tela. */
+  --fs-numero: clamp(6.5rem, 34vw, 17rem);
 
   /* título de seção */
   --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
 
-  /* display discreto: manifesto, aberturas, fecho */
+  /* display discreto: pausas, escuta, fecho */
   --fs-quieto: clamp(1.8rem, 8vw, 4.25rem);
 
   /* nome de cartão grande */

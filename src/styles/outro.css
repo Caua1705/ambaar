@@ -93,8 +93,8 @@
   white-space: nowrap;
 }
 
-/* a frase de fecho: serifada, quieta, na escala do manifesto — é o eco
-   dele, e a única frase do site que fala da marca em vez da casa */
+/* a frase de fecho: serifada, quieta — a única do site que fala da marca
+   em vez da casa */
 .outro__line {
   margin-top: 2.5rem;
   font-family: var(--font-display);

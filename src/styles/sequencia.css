@@ -1,13 +1,14 @@
-/* A escuta — a sequência de quadros.
+/* A escuta — o copo enchendo, e o clímax do site.
 
-   Substitui a antiga seção "Sobre o som", que era três telas de texto sobre
-   preto. O assunto é o mesmo; o que mudou é que agora ele acontece sobre
-   imagem em movimento, e passa a ser o momento mais denso do site em vez do
-   mais vazio.
+   A mecânica está em sequencia.js. Aqui: onde o texto mora e como a imagem
+   é protegida.
 
-   Uma frase por tela, cada uma num canto e numa escala diferentes: se as três
-   entrassem centradas e do mesmo tamanho, a seção teria a duração de três
-   telas e a informação de uma. */
+   As três frases ocupam a MESMA zona alta da tela, uma por vez. A variação
+   deixou de ser a posição — que é o que a imagem agora faz, enchendo — e
+   passou a ser a escala e o eixo: serifada grande à esquerda, informação
+   miúda em caixa alta à direita, e o fecho na maior escala da seção. O
+   contraste tipográfico é o mesmo de antes, concentrado num lugar só, para
+   que o olho fique parado enquanto o copo enche. */
 
 .sequencia {
   position: relative;
@@ -32,24 +33,36 @@
   background: var(--carvao);
 }
 
-/* O líquido é âmbar puro e ocupa a tela inteira: sem esta demão o texto
-   branco cairia sobre um fundo tão claro quanto ele. Escurece o suficiente
-   para a tipografia existir, sem apagar o movimento por trás. */
+/* Demão de topo, não vinheta geral. O quadro já é escuro em cima e o
+   líquido é a coisa mais clara do site: o que a seção precisa é de um teto
+   escuro onde a tipografia mora, e de deixar o miolo em paz para o copo
+   ser visto. A demão anterior escurecia a tela inteira e era o que fazia a
+   sequência parecer mais suja do que ela é. */
 .sequencia__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(to bottom, rgba(13, 13, 13, .72) 0%, rgba(13, 13, 13, .52) 38%, rgba(13, 13, 13, .78) 100%),
-    radial-gradient(ellipse 90% 60% at 50% 50%, transparent 0%, rgba(13, 13, 13, .5) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, .9) 0%,
+    rgba(13, 13, 13, .78) 22%,
+    rgba(13, 13, 13, .34) 42%,
+    rgba(13, 13, 13, .08) 58%,
+    transparent 72%,
+    rgba(13, 13, 13, .28) 88%,
+    rgba(13, 13, 13, .62) 100%
+  );
 }
 
-/* ── Os três blocos ────────────────────────────────────── */
+/* ── As três frases ────────────────────────────────────── */
 
 .sequencia__bloco {
   position: absolute;
   z-index: 2;
+  top: 13svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
   margin: 0;
   color: #fff;
   text-shadow:
@@ -57,56 +70,67 @@
     0 1px 6px rgba(13, 13, 13, .85);
 }
 
-/* (a) alto e à esquerda, na escala de display discreto */
+/* Cada linha é uma janela própria: é ela que o clipPath revela de baixo
+   para cima. O respiro vertical existe para o corte não passar rente aos
+   acentos e às descidas — e o recuo negativo devolve o espaço ao ritmo da
+   entrelinha. */
+.sequencia__bloco span {
+  display: block;
+  padding-block: .16em;
+  margin-block: -.16em;
+  /* o estado fechado mora no CSS, como todo estado de entrada do site: no
+     JS haveria um quadro de texto visível antes de o script rodar */
+  clip-path: inset(100% 0% 0% 0%);
+}
+
+/* (a) serifada, grande, à esquerda.
+
+   As escalas destes três blocos não vêm dos degraus globais: as quebras de
+   linha são desenhadas no HTML e uma linha que ainda assim quebra sozinha
+   parte a janela do clipPath em duas, e a revelação deixa de subir linha a
+   linha. Cada bloco é dimensionado para que a linha mais longa dele caiba
+   na faixa útil de 330px de um telefone de 414. */
 .sequencia__bloco--a {
-  top: 16svh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
   font-family: var(--font-display);
-  font-size: var(--fs-quieto);
+  font-size: clamp(1.5rem, 6.6vw, 3.2rem);
   font-weight: 300;
   line-height: 1.24;
   letter-spacing: var(--track-display);
 }
 
-/* (b) no miolo e à direita, miúda e em caixa alta: é a única das três que
-   não é frase de efeito, e sim informação — e a escala diz isso */
+/* (b) a única das três que não é frase de efeito, e sim informação: miúda,
+   em caixa alta, no eixo oposto */
 .sequencia__bloco--b {
-  top: 46svh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
+  top: 15svh;
   text-align: right;
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-mid);
-  line-height: 2.2;
+  line-height: 2.4;
   color: rgba(255, 255, 255, .92);
 }
 
-/* (c) embaixo e grande: é o fecho, e por isso a maior das três */
+/* (c) o fecho, na maior escala da seção — e em três linhas curtas, porque
+   é assim que ela pode ser a maior sem quebrar sozinha */
 .sequencia__bloco--c {
-  bottom: 14svh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
   font-family: var(--font-display);
-  font-size: var(--fs-grande);
+  font-size: clamp(1.9rem, 9.6vw, 4.6rem);
   font-weight: 300;
-  line-height: 1.05;
+  line-height: 1.06;
   letter-spacing: var(--track-display);
 }
 
 @media (min-width: 900px) {
-  /* na tela larga as três deixam de ocupar a faixa inteira: cada uma fica
-     numa coluna própria, e o vazio em volta é o que dá a elas a escala */
-  .sequencia__bloco--a { right: auto; max-width: 15ch; }
+  .sequencia__bloco--a { right: auto; max-width: 16ch; }
   .sequencia__bloco--b { left: auto; max-width: 34ch; }
   .sequencia__bloco--c { right: auto; max-width: 18ch; }
 }
 
 /* ── Sem movimento ─────────────────────────────────────── */
 
-/* Sem canvas e sem pin: as três frases viram uma lista legível, com o mesmo
-   contraste tipográfico entre elas que a versão animada tem no tempo. */
+/* Sem canvas e sem pin: as três frases viram uma lista legível, com o
+   mesmo contraste tipográfico entre elas que a versão animada tem no
+   tempo. */
 .sequencia.is-estatica .sequencia__stage {
   height: auto;
   padding: 14svh var(--gutter-r) 14svh var(--gutter-l);
@@ -115,7 +139,6 @@
   gap: 4rem;
 }
 
-.sequencia.is-estatica .sequencia__canvas,
 .sequencia.is-estatica .sequencia__scrim {
   display: none;
 }
@@ -127,4 +150,10 @@
 
 .sequencia.is-estatica .sequencia__bloco--b {
   text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sequencia__bloco span {
+    clip-path: none;
+  }
 }

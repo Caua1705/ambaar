@@ -28,13 +28,14 @@
 
     <div id="app">
       <!-- ── A marca ────────────────────────────────────── -->
-      <!-- A foto é o jardim na hora dourada: são 17h, o café acabou de
-           fechar. A hero antiga mostrava a cabine do DJ à noite e
-           contradizia a premissa do próprio site na primeira tela.
+      <!-- O jardim na hora dourada: são 17h, o café acabou de fechar. E é
+           uma foto PARADA — o site inteiro é o tempo passando e a marca é o
+           tempo parado, então a abertura é o instante guardado e a primeira
+           rolagem é o que põe a noite em movimento.
 
-           O lockup é o da identidade: sans geométrica leve, tracking largo,
-           assinatura logo abaixo de um filete. A serifada não entra aqui —
-           ela é a voz dos capítulos, não a da marca. -->
+           A tela seguinte é o MESMO jardim, num plano aberto, já andando.
+           Havia uma seção entre as duas; ela saiu, e a razão está no
+           comentário do capítulo 01. -->
       <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-choreo>
         <picture class="hero__bg">
           <img src="/img/jardim-dourado.webp" alt="" fetchpriority="high" decoding="async">
@@ -52,36 +53,24 @@
         </div>
       </section>
 
-      <!-- ── A passagem ─────────────────────────────────── -->
-      <!-- Uma tela, uma ideia, uma passada de dedo. A fumaça se abre sobre
-           a frase e entrega o jardim por baixo — o último quadro daqui é o
-           primeiro quadro do capítulo 01, mesma foto e mesmo enquadramento,
-           então a emenda não existe. O relógio não está mais aqui: a hora
-           pertence ao capítulo que a conta. -->
-      <section class="manifesto" id="manifesto" data-flat data-choreo>
-        <div class="manifesto__stage">
-          <img class="manifesto__jardim" src="/frames/dusk/d_001.webp" alt="" loading="lazy">
-          <img class="manifesto__smoke manifesto__smoke--soft" src="/img/textura-fumaca.webp" alt="" loading="lazy">
-          <img class="manifesto__smoke manifesto__smoke--sharp" src="/img/textura-fumaca.webp" alt="" loading="lazy">
-          <span class="manifesto__luz" aria-hidden="true"></span>
-          <span class="manifesto__ceu" aria-hidden="true"></span>
-
-          <div class="manifesto__bloco">
-            <span class="manifesto__rule" aria-hidden="true"></span>
-            <p class="manifesto__line">A música não é fundo.</p>
-            <p class="manifesto__line manifesto__line--accent">É o motivo.</p>
-          </div>
-        </div>
-      </section>
-
       <!-- ── 01 · O entardecer acontecendo ───────────────── -->
-      <!-- A única seção do site em que a posição da rolagem é o estado da
-           cena: 22 quadros de um plano fixo, do fim de tarde à noite, com o
-           relógio contando 17h→20h amarrado ao mesmo curso. As luzinhas
-           acendem e a vela aparece porque estão nos quadros — nenhuma
-           demão colorida inventa isso. -->
+      <!-- Havia aqui, antes, "A passagem": uma tela preta com uma frase e
+           uma fumaça abrindo. Ela saiu inteira. Três razões:
+
+           1. Ela separava as duas únicas imagens do site que se explicam
+              uma à outra — a foto parada do jardim e o mesmo jardim em
+              movimento. O corte entre elas É a ideia da casa (âmbar é o
+              instante guardado; a noite é o instante correndo), e a frase
+              no meio quebrava exatamente esse corte.
+           2. A frase dizia o que "A escuta" já diz melhor três seções
+              adiante: a música é o motivo, não o fundo.
+           3. A fumaça era textura, não acontecimento. Nada acontecia lá.
+
+           O que ela tentava ser — uma dobradiça — passou a existir de
+           verdade nas duas pausas, que agora entregam a noite de um
+           ambiente para o outro. -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="170" data-saida="luz" data-choreo>
+               data-nav="ambientes" data-run="150" data-saida="luz" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media" data-seq="dusk">
             <img class="chapter__poster" src="/frames/dusk/d_001.webp" alt="">
@@ -105,30 +94,45 @@
       </section>
 
       <!-- ── Pausa · 20h ────────────────────────────────── -->
-      <!-- Sem título, sem legenda, sem relógio: uma pessoa em tela cheia
-           entre dois ambientes. É o que ficou no lugar do painel preto que
-           varria a tela nas emendas — uma imagem que pertence à noite em vez
-           de um retângulo que não pertence a nada. -->
-      <section class="pausa" data-vrail="20H">
+      <!-- Não é mais uma foto de tela cheia parada. É a hora virando entre
+           dois ambientes, e ela tem quatro coisas: uma pessoa, o copo dela,
+           o algarismo da hora e uma frase que causa o capítulo seguinte.
+
+           A montagem é a única do site com bordas visíveis: dois quadros
+           sangrando por lados opostos sobre carvão limpo. Todas as outras
+           seções são de sangria total, então a pausa se distingue pela
+           moldura antes de qualquer animação — e o preto em volta é o que
+           dá a ela o silêncio que o nome promete. -->
+      <section class="pausa pausa--um" data-choreo>
         <div class="pausa__stage">
-          <img class="pausa__img" src="/img/perfil.webp" alt="" loading="lazy">
-          <span class="pausa__scrim" aria-hidden="true"></span>
+          <figure class="pausa__quadro pausa__quadro--retrato">
+            <img src="/img/perfil.webp" alt="" loading="lazy">
+          </figure>
+          <figure class="pausa__quadro pausa__quadro--detalhe">
+            <img src="/img/copo-dourado.webp" alt="" loading="lazy">
+          </figure>
+          <span class="pausa__hora" aria-hidden="true">20h</span>
+          <p class="pausa__linha">O salão enche sem<br>que ninguém perceba.</p>
         </div>
       </section>
 
       <!-- ── 02 · O salão ───────────────────────────────── -->
-      <!-- Duas fotos do mesmo DJ: a cabine vista de cima e o mesmo corpo
-           arrastado pelo obturador. A segunda entra sobre a primeira no
-           miolo do capítulo — é a noite perdendo o contorno, que é
-           literalmente o que o texto diz. -->
+      <!-- O capítulo é sobre a noite encontrar o próprio ritmo, e até agora
+           entregava isso com um crossfade — a coisa menos rítmica que
+           existe. Agora ele CORTA: quatro enquadramentos que trocam secos,
+           e os intervalos entre os cortes encurtam. É a única seção do site
+           que corta, e é montagem, não transição. -->
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
-               data-nav="ambientes" data-run="140" data-saida="parte" data-choreo>
+               data-nav="ambientes" data-run="150" data-montagem="corte"
+               data-saida="parte" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
-            <img class="chapter__img" src="/img/dj-cabine.webp" alt="" loading="lazy">
-            <img class="chapter__img" src="/img/dj-blur.webp" alt="" loading="lazy">
+            <img class="chapter__img chapter__img--aberto" src="/img/dj-cabine.webp" alt="" loading="lazy">
+            <img class="chapter__img chapter__img--maos" src="/img/maos-mesa.webp" alt="" loading="lazy">
+            <img class="chapter__img chapter__img--fechado" src="/img/dj-cabine.webp" alt="" loading="lazy">
+            <img class="chapter__img chapter__img--arrasto" src="/img/dj-blur.webp" alt="" loading="lazy">
           </div>
-          <span class="chapter__clock" aria-hidden="true" data-clock="20—00">20h</span>
+          <span class="chapter__clock" aria-hidden="true" data-clock="20—23">20h</span>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
@@ -145,40 +149,51 @@
       </section>
 
       <!-- ── A escuta ───────────────────────────────────── -->
-      <!-- A outra sequência de quadros, e o contrário da primeira: esta não
-           é presa ao dedo. Ela dispara quando a seção chega e corre sozinha,
-           em tempo real. Uma passada de dedo entrega o copo cheio. -->
+      <!-- O clímax. O copo enche ao longo da rolagem, em resolução nativa,
+           e as frases são reveladas de baixo para cima — a tipografia sobe
+           como o líquido sobe. É a relação entre palavra e imagem que
+           faltava: antes eram três blocos de texto por cima de um vídeo. -->
       <section class="sequencia" id="som" data-vrail="A ESCUTA" data-nav="escuta">
         <div class="sequencia__stage">
           <canvas class="sequencia__canvas" aria-hidden="true"></canvas>
           <span class="sequencia__scrim" aria-hidden="true"></span>
 
           <p class="sequencia__bloco sequencia__bloco--a">
-            Não trabalhamos com pista, trabalhamos com escuta.
+            <span>Não trabalhamos com pista,</span>
+            <span>trabalhamos com escuta.</span>
           </p>
           <p class="sequencia__bloco sequencia__bloco--b">
-            Organic house, downtempo,<br>e o que existe entre os dois.
+            <span>Organic house, downtempo,</span>
+            <span>e o que existe entre os dois.</span>
           </p>
           <p class="sequencia__bloco sequencia__bloco--c">
-            Música boa não precisa gritar para ser ouvida.
+            <span>Música boa</span>
+            <span>não precisa gritar</span>
+            <span>para ser ouvida.</span>
           </p>
         </div>
       </section>
 
       <!-- ── Pausa · 00h ────────────────────────────────── -->
-      <section class="pausa" data-vrail="00H">
+      <!-- A mesma gramática da pausa das 20h — hora, pessoa, copo, frase —
+           com a montagem espelhada e proporções diferentes: as duas rimam
+           sem se repetir. E como a anterior, ela causa o que vem depois. -->
+      <section class="pausa pausa--dois" data-choreo>
         <div class="pausa__stage">
-          <img class="pausa__img" src="/img/rosto.webp" alt="" loading="lazy">
-          <span class="pausa__scrim" aria-hidden="true"></span>
+          <figure class="pausa__quadro pausa__quadro--retrato">
+            <img src="/img/rosto.webp" alt="" loading="lazy">
+          </figure>
+          <figure class="pausa__quadro pausa__quadro--detalhe">
+            <img src="/img/copo-rubi.webp" alt="" loading="lazy">
+          </figure>
+          <span class="pausa__hora" aria-hidden="true">00h</span>
+          <p class="pausa__linha">A conversa baixa<br>sozinha.</p>
         </div>
       </section>
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
-      <!-- Vídeo em plano fixo: só as chamas se mexem, a meia velocidade. É o
-           fim da noite, não o clímax dela — o movimento tem de estar no
-           limiar do perceptível. -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
-               data-nav="ambientes" data-run="115" data-saida="fecha" data-choreo>
+               data-nav="ambientes" data-run="105" data-saida="fecha" data-choreo>
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__poster" src="/img/reservado.webp" alt="" loading="lazy">
@@ -246,15 +261,6 @@
       </section>
 
       <!-- ── O fecho: o tempo para ──────────────────────── -->
-      <!-- O site inteiro foi uma noite passando. Aqui ela para de passar.
-
-           O filete que a hero entregou ao manifesto volta uma última vez e
-           faz o caminho inverso do da abertura: lá ele veio do horizonte e
-           abriu a marca; aqui ele se recolhe até virar um ponto — e o ponto
-           é o losango. A resina fechando em volta do instante.
-
-           Atrás, âmbar dentro de um copo: a única foto do site em que a
-           marca aparece como matéria. -->
       <footer class="outro" data-vrail="@AMBAR.BAR" data-choreo>
         <img class="outro__bg" src="/img/mao-copo.webp" alt="" loading="lazy">
         <span class="outro__resina" aria-hidden="true"></span>

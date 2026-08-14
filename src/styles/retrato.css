@@ -1,0 +1,153 @@
+/* A hora sem nome · 01h — seção nova.
+
+   ── Por que ela existe ──────────────────────────────────────────────────
+
+   Uma fotografia do acervo descartado: uma mulher sentada, cabeça baixa, o
+   cabelo caindo, contra tijolo, sob tungstênio rasante. Ela foi triada para
+   fora junto com o lote de flash direto — e nunca teve flash. A luz dela já
+   É a luz da casa, o que a torna a única fotografia do acervo que não
+   precisou ser reconciliada com a paleta: a paleta foi encontrada nela.
+
+   Ela não cabia em nenhuma seção existente. Enfiá-la numa delas seria
+   decoração — e a regra desta passada é que toda imagem pertence a uma HORA
+   ou a uma IDEIA, nunca a uma galeria. Então ela ganhou a hora: 01h.
+
+   ── A ideia, e ela é uma só ─────────────────────────────────────────────
+
+   Das 17h até aqui o site fala de AMBIENTES: o jardim, o salão, a mesa, a
+   conversa. Esta tela fala de uma PESSOA. É a única da página em que
+   alguém está sozinho e à vontade, e a uma da manhã é exatamente quando
+   isso acontece — quem ia embora já foi.
+
+   A frase fecha o arco que "A escuta" abre na segunda tela do site. Lá o
+   site promete: "Quem escuta, fica." Aqui, doze telas e cinco horas depois,
+   ele mostra: "Ninguém está indo embora."
+
+   ── Por que ela não se parece com nenhuma vizinha ───────────────────────
+
+   A pausa (00h), logo acima, é a única composição do site com MOLDURA:
+   dois quadros sangrando por lados opostos sobre carvão limpo. Se esta
+   tela também fosse emoldurada, as duas juntas virariam um formato — que é
+   exatamente o defeito que fez a pausa das 20h ser eliminada na passada
+   anterior.
+
+   Então esta sangra nos quatro lados, e a diferença fica no ENQUADRAMENTO:
+   é o único retrato de tela cheia da página. Depois de uma composição de
+   pedaços, uma imagem inteira.
+
+   E a entrada é um dispositivo que não aparece em nenhum outro lugar: uma
+   FRESTA horizontal no meio da tela que se abre para cima e para baixo ao
+   mesmo tempo. O site abre coisas da esquerda para a direita (o texto), das
+   bordas para dentro (as molduras da pausa), de baixo para cima (o
+   poente) — nunca do centro para fora. Uma vez só, aqui.
+
+   ── Sem título, sem rótulo, sem numeral ─────────────────────────────────
+
+   Não é um ambiente: é uma hora. O relógio da casa é o único rótulo, e ele
+   já está na tela. */
+
+.retrato {
+  position: relative;
+  background: var(--carvao);
+}
+
+.retrato__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ── A fotografia ──────────────────────────────────────── */
+
+.retrato__quadro {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  z-index: 1;
+  /* a fresta: fechada no meio da tela, abre para os dois lados (retrato.js) */
+  clip-path: inset(50% 0% 50% 0%);
+}
+
+.retrato__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ela está sentada no terço direito do arquivo e a cabeça, que é o
+     assunto, no terço alto. Numa tela estreita entra pouco mais de metade
+     da largura: a âncora à direita do centro é o que garante que o que
+     sobra seja ELA e não a parede de tijolo. */
+  object-position: 62% 32%;
+}
+
+@media (min-width: 900px) {
+  /* Deitada, o quadro inteiro entra em largura e o corte passa a ser
+     VERTICAL — e severo: num monitor de 2:1 a faixa visível é um terço da
+     altura do arquivo. A 26% essa faixa começava na testa dela e a cabeça
+     saía cortada pela borda de cima, que é o pior corte possível num
+     retrato. A 12% a faixa abre acima do cabelo e o que fica no alto do
+     quadro é o tijolo iluminado, que é o fundo. */
+  .retrato__quadro img {
+    object-position: 58% 12%;
+  }
+}
+
+/* A demão. A fotografia é a mais clara do site depois da hero — tungstênio
+   direto sobre pele — e a frase mora em cima dela. O passe de luminância da
+   casa vale aqui como em toda parte: a foto não desce inteira, o que desce
+   é o canto onde o texto está. */
+.retrato__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 42% at 18% 84%, rgba(13, 13, 13, .82) 0%, rgba(13, 13, 13, .4) 52%, transparent 80%),
+    var(--ceu-noite);
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+/* No pé, à esquerda, e é a única frase do site ancorada no rodapé da tela.
+   As duas vizinhas põem texto no alto (a pausa) e no meio (o capítulo 03);
+   esta cai — como a cabeça da fotografia cai. */
+.retrato__linha {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 12svh;
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: var(--track-display);
+  color: #fff;
+  text-shadow:
+    0 2px 24px rgba(13, 13, 13, .95),
+    0 1px 4px rgba(13, 13, 13, .8);
+}
+
+@media (min-width: 900px) {
+  .retrato__linha {
+    right: auto;
+    max-width: 16ch;
+    bottom: 16svh;
+  }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .retrato__quadro {
+    clip-path: none;
+  }
+
+  .retrato__linha {
+    opacity: 1;
+  }
+}

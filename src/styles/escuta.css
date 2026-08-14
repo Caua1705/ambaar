@@ -1,126 +1,115 @@
-/* A escuta — o centro filosófico do site, e a tela mais silenciosa dele.
+/* A escuta — a tese da casa, e a seção que mais mudou nesta passada.
 
-   ── O que saiu, e por quê ───────────────────────────────────────────────
+   ── O que ela custava, e o que ela entregava ────────────────────────────
 
-   O copo enchendo. Dezoito quadros de uma macro de líquido dourado, presos
-   ao dedo, ocupando a tela inteira, com três blocos de texto branco por
-   cima. Três problemas, e o terceiro é o que condenou a ideia:
+   2,40 telas de rolagem: a segunda seção mais longa do site, atrás só dos
+   dois capítulos com sequência de quadros. Em troca disso ela entregava
+   três frases que apareciam e sumiam uma de cada vez, separadas por telas
+   de carvão puro, ao longo de um curso pinado.
 
-   1. O ENQUADRAMENTO não dava conta. Em sangria total a macro perde a
-      aresta do copo e a escala junto: o que se via não era um copo
-      enchendo, era uma superfície dourada. Nenhuma qualidade de encode
-      conserta enquadramento — mas uma MOLDURA conserta, e é por isso que
-      esse material voltou ao site, pequeno e emoldurado, na pausa das 20h.
+   A defesa da versão anterior era que silêncio é uma DURAÇÃO — que sem uma
+   batida de nada antes da primeira palavra a seção não seria quieta, seria
+   só escura. Isso continua verdade. O que estava errado era quem pagava a
+   duração: o dedo. Uma seção sobre não precisar se esforçar para ouvir
+   pedia três passadas de polegar para ser lida até o fim, e a última
+   passada — a que entrega "Quem escuta, fica." — chegava a uma tela e meia
+   de distância da primeira.
 
-   2. A tipografia perdia. Branco sobre dourado claro, com as três frases
-      disputando a mesma zona alta: no telefone, duas delas chegavam a se
-      sobrepor no meio da rolagem.
-
-   3. E este é o ponto: a seção que dizia "música boa não precisa gritar
-      para ser ouvida" era a mais DENSA da página. A frase era a instrução
-      de projeto, e o projeto estava fazendo o contrário dela.
-
-      A correção final foi tirar a frase, não obedecê-la melhor. Hoje o
-      fecho é "Quem escuta, fica." — uma afirmação sobre as pessoas, em
-      três palavras — e a tese de não gritar migrou do texto para o
-      comportamento da tela.
+   E havia um problema de leitura antes do problema de esforço. As três
+   frases não são três ideias: são um parágrafo. Apresentadas em sequência,
+   com escuridão entre elas, cada uma virava um slide, e o site passava a
+   ter três teses em vez de uma. A regra da casa — uma seção, uma ideia —
+   estava sendo quebrada pela própria seção que a enuncia.
 
    ── O que ela é agora ───────────────────────────────────────────────────
 
-   A única tela do site SEM fotografia. Depois de seis telas de sangria
-   total, carvão puro é um acontecimento — e é a coisa mais barata e mais
-   difícil de fazer num site que tem imagens boas.
+   UMA TELA. UM GESTO. As três frases chegam JUNTAS, numa só respiração,
+   como o parágrafo que elas sempre foram — e ficam. O que era sequência
+   virou composição: três vozes tipográficas numa coluna só, crescendo de
+   escala de cima para baixo, e nada mais na tela além da linha.
 
-   Três elementos, nunca mais que dois ao mesmo tempo:
+   O silêncio não sumiu, mudou de eixo. Antes era tempo entre frases (e
+   custava rolagem); agora é ESPAÇO entre elas, e o vazio de uma tela
+   inteira sem fotografia depois de seis telas de sangria total continua
+   sendo o acontecimento que sempre foi. Espaço é de graça; tempo de dedo
+   não é.
 
-     · uma frase por vez, revelada por um clipPath que abre da esquerda para
-       a direita — o sentido da leitura, e o gesto mais quieto que existe;
-     · um campo de filetes âmbar, de comprimentos desiguais, ancorado na
-       goteira esquerda;
-     · o controle de som, que nasce aqui e não sai mais (som.css).
+   E o gesto passou inteiro para a classe 2 (motion.js): dispara na entrada,
+   corre na velocidade dele e termina, com o dedo parado ou não. Esta era a
+   tela mais presa ao polegar do site e virou a menos.
 
-   ── Por que ela lia como inacabada, e não como quieta ───────────────────
+   ── O acontecimento ─────────────────────────────────────────────────────
 
-   Silêncio e ausência não são a mesma coisa, e a diferença entre os dois é
-   PESO — não movimento. A seção estava certa em não se mexer e errada em
-   não pesar: a frase de fecho parava em 4,6rem, entrava com o mesmo gesto
-   das outras duas e começava a falar em 2% do curso, sem um instante de
-   escuridão antes. Era uma tela de texto médio, não um silêncio.
+   A linha — a mesma da abertura, a mesma que pare a marca na hero, terceira
+   e última aparição — atravessa a tela, o parágrafo se escreve por cima
+   dela, e no instante EXATO em que "fica." existe, ela se parte nas sete
+   linhas do campo. Um objeto vira outro no mesmo quadro em que a frase que
+   fala de ficar aparece.
 
-   As três correções são todas subtrativas:
+   O campo então começa a respirar, e é a primeira coisa da página que se
+   move sem o dedo. É dele que nasce o controle de som, dois centímetros
+   abaixo, no mesmo segundo.
 
-     1. O fecho é o MAIOR tipo do site — maior que a marca na hora dourada.
-        Cabe porque a frase encolheu para três palavras.
-     2. O fecho NÃO ANIMA. Tudo nesta página limpa, dissolve, escala ou é
-        preso ao dedo; a coisa parada, num lugar assim, é a mais alta. É a
-        tese da seção dita em movimento em vez de em texto — e é por isso
-        que a frase deixou de precisar dizer que não grita.
-     3. Uma batida de carvão puro antes da primeira palavra. Silêncio é uma
-        duração; sem ela a seção só tinha fundo escuro.
+   ── Cinco elementos, e nem um a mais ────────────────────────────────────
 
-   ── O acontecimento único da seção ──────────────────────────────────────
+     · o parágrafo (três blocos, uma coluna)
+     · a linha, que vira o campo
+     · o controle de som, que nasce daqui
 
-   O campo fica PARADO durante as duas primeiras frases. Ele só começa a
-   respirar no instante em que o fecho aparece — e é ele que apresenta o
-   controle de som logo abaixo. O primeiro movimento não-rolado da página
-   inteira acontece na frase que fala de quem escuta.
-
-   Uma seção, uma ideia: o silêncio, e então o primeiro som. */
+   Nenhuma fotografia. Foi considerada — há material âmbar e escuro no
+   acervo que caberia — e recusada: a única tela do site sem imagem vale
+   mais como ausência do que qualquer imagem valeria como presença. É a
+   respiração entre a marca e a primeira hora, e respiração não tem
+   assunto. */
 
 .escuta {
   position: relative;
   background: var(--carvao);
   scroll-margin-top: 5rem;
+  /* 1,35 tela: uma para a composição e um terço de silêncio depois dela.
+     A cauda não é enfeite — é o que garante que o parágrafo termine de se
+     escrever ANTES de a seção começar a sair, mesmo para quem rola
+     depressa. É a única duração que a seção ainda compra, e ela é curta. */
+  height: 135svh;
 }
 
+/* Sticky, e não pin de ScrollTrigger.
+
+   O efeito é o mesmo — a composição segura a tela enquanto a seção passa —
+   mas o custo não: sticky é layout do navegador, não tem espaçador, não
+   precisa de recálculo, não entra na fila de prioridade de refresh e não
+   pode nascer deslocado. A seção não anima nada preso ao dedo, então não
+   havia por que pagar um pin para ter o único efeito dele que interessa. */
 .escuta__stage {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100svh;
   overflow: hidden;
   background: var(--carvao);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* O recuo de pé é o que empurra o parágrafo para CIMA do eixo óptico: o
+     campo mora no terço baixo e a coluna de texto tem de terminar antes
+     dele. 22svh é a conta do bloco mais alto (a frase de fecho a 7,2rem em
+     duas linhas) contra a menor tela em que o site é lido. */
+  padding: 0 var(--gutter-r) 22svh var(--gutter-l);
 }
 
-/* ── O horizonte ───────────────────────────────────────── */
+/* ── O parágrafo ───────────────────────────────────────── */
 
-/* A linha. Ela é o objeto da seção, e não é nova: é a MESMA que a abertura
-   desenha enquanto os arquivos críticos chegam e a mesma que a hero usa
-   para parir a marca. Terceira e última aparição, e é aqui que ela acaba —
-   partida nas sete linhas do campo.
-
-   Mora exatamente na altura do centro do campo, porque é de lá que as sete
-   saem: se ela estivesse em qualquer outro lugar, o que se veria seriam
-   duas coisas diferentes acontecendo, e não uma virando a outra.
-
-   Um pixel, e a mesma opacidade dos filetes: o objetivo é que ninguém
-   consiga dizer, no meio da transição, quantas linhas existem em cena. */
-.escuta__horizonte {
-  position: absolute;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
-  bottom: calc(10svh + 9svh);
-  height: 1px;
-  background: var(--ambar);
-  opacity: .5;
-  transform-origin: left center;
+/* Uma coluna, três vozes, e a ordem de grandeza cresce para baixo: o olho
+   entra na frase média, atravessa a informação miúda e cai no fecho, que é
+   o maior tipo do site. A leitura desce como a noite desce. */
+.escuta__bloco {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-@media (min-width: 900px) {
-  .escuta__horizonte {
-    right: auto;
-    width: min(46vw, 34rem);
-    bottom: calc(12svh + 8svh);
-  }
-}
-
-/* ── As frases ─────────────────────────────────────────── */
-
-/* Todas na mesma coluna e na mesma zona ótica: a variação é de escala e de
-   voz, não de posição. O olho fica parado — que é o assunto. */
 .escuta__frase {
-  position: absolute;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
-  top: 30svh;
   margin: 0;
   color: rgba(255, 255, 255, .92);
 }
@@ -153,45 +142,49 @@
   font-weight: 300;
   line-height: 1.28;
   letter-spacing: var(--track-display);
+  max-width: 22ch;
 }
 
 /* (b) a única das três que não é frase de efeito e sim informação: miúda,
-   em caixa alta, e no pé da coluna em vez do alto — a seção respira entre a
-   primeira e a segunda em vez de trocar um bloco por outro no mesmo lugar */
+   em caixa alta. Ela é o rodapé da primeira e o degrau para a terceira —
+   e é por ser pequena que a queda de escala para o fecho tem altura. */
 .escuta__frase--b {
-  top: auto;
-  bottom: 32svh;
+  margin-top: 2.2rem;
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-mid);
-  line-height: 2.6;
-  color: rgba(255, 255, 255, .72);
+  line-height: 2.2;
+  color: rgba(255, 255, 255, .62);
+  max-width: 40ch;
 }
 
 /* (c) o fecho, e o maior tipo do site inteiro — maior que a marca na hero.
 
-   Três palavras é o que torna isso possível: a frase antiga tinha sete e
-   precisava de três linhas, e três linhas grandes não cabem em tela de
-   telefone. O impacto aqui vem de ESCALA, que é a única forma de uma seção
-   sobre silêncio ficar alta sem se contradizer — tipo grande continua
-   quieto, movimento é que faz barulho. */
+   Três palavras é o que torna isso possível. O impacto vem de ESCALA, que
+   é a única forma de uma seção sobre silêncio ficar alta sem se
+   contradizer: tipo grande continua quieto, movimento é que faz barulho. */
 .escuta__frase--c {
-  top: 28svh;
+  /* O maior intervalo da coluna, e o menor que cabe. É a batida antes do
+     fecho — o equivalente em espaço da tela de carvão que a versão pinada
+     gastava em rolagem — e ele é medido contra a tela mais BAIXA em que o
+     site é lido de pé (801px de altura útil num monitor de 16:10 com
+     barra), onde a coluna inteira mais o campo mal cabem. */
+  margin-top: 2.6rem;
   font-family: var(--font-display);
   /* 12vw e não 13: medida na linha mais longa ("Quem escuta,") contra a
      faixa útil real, que é a tela menos as duas goteiras. A 13vw um
      aparelho de 360px sobrava seis pixels — dentro da conta e fora de
      qualquer margem de segurança, porque basta a fonte de sistema entrar
-     no lugar da Cormorant enquanto ela carrega para a linha estourar. A
-     12vw sobram vinte e oito. */
+     no lugar da Cormorant enquanto ela carrega para a linha estourar. */
   /* O piso é 2,2rem porque as goteiras NÃO encolhem com a tela: abaixo de
      ~340px a faixa útil é fixa em 236px e quem passa a mandar é o mínimo do
-     clamp, não o vw. A 2,4rem a linha empatava com a margem no zero. */
+     clamp, não o vw. */
   font-size: clamp(2.2rem, 12vw, 7.2rem);
   font-weight: 300;
   line-height: .98;
   letter-spacing: var(--track-display);
   color: #fff;
+  max-width: 14ch;
   /* ela não abre por clipPath: aparece inteira, de uma vez (escuta.js) */
   opacity: 0;
 }
@@ -207,42 +200,105 @@
   color: var(--ambar);
 }
 
+/* ── O horizonte ───────────────────────────────────────── */
+
+/* A linha. Ela é o objeto da seção, e não é nova: é a MESMA que a abertura
+   desenha enquanto os arquivos críticos chegam e a mesma que a hero usa
+   para parir a marca. Terceira e última aparição, e é aqui que ela acaba —
+   partida nas sete linhas do campo.
+
+   Mora exatamente na altura do centro do campo, porque é de lá que as sete
+   saem: se ela estivesse em qualquer outro lugar, o que se veria seriam
+   duas coisas diferentes acontecendo, e não uma virando a outra. */
+.escuta__horizonte {
+  position: absolute;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: calc(10svh + 9svh);
+  height: 1px;
+  background: var(--ambar);
+  opacity: .5;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
 @media (min-width: 900px) {
-  /* 22ch: cada <span> é a unidade que o clipPath abre, então uma linha que
-     quebra em duas é revelada de uma vez só e o ritmo de leitura se perde.
-     A medida é a da linha mais longa desta frase, não um valor de coluna. */
-  .escuta__frase--a { right: auto; max-width: 22ch; }
-  .escuta__frase--b { right: auto; max-width: 40ch; }
-  .escuta__frase--c { right: auto; max-width: 14ch; }
+  .escuta__horizonte {
+    right: auto;
+    width: min(46vw, 34rem);
+    bottom: calc(12svh + 8svh);
+  }
+
+  /* Na tela larga o fecho é um tipo de 115px em duas linhas e o campo sobe
+     de 10 para 12svh: a coluna e o campo passam a disputar a mesma faixa.
+     O recuo maior devolve o intervalo entre os dois — sem ele, "fica."
+     encosta nos filetes, e o que era um fecho seguido de um espectro vira
+     um bloco só. */
+  .escuta__stage {
+    padding-bottom: 26svh;
+  }
 }
 
 /* ── Sem movimento ─────────────────────────────────────── */
 
-/* Sem pin: as três frases viram uma lista legível, com o mesmo contraste
-   tipográfico entre elas que a versão animada tem no tempo. */
+/* Sem sticky e sem clipPath: a seção vira exatamente o que ela já é com
+   movimento — uma coluna de três blocos legíveis — só que rolando junto
+   com a página, e com a altura encolhida ao conteúdo.
+
+   Duas portas para o mesmo estado, e as duas precisam existir:
+
+     .is-estatica     posta por escuta.js. É por onde o ?reduce=1 de
+                      desenvolvimento chega, e ele não aciona media query
+                      nenhuma — sem esta porta, conferir o caminho sem
+                      movimento exigiria trocar a preferência do sistema.
+     @media           a preferência real do usuário. Ela também precisa
+                      valer sozinha, porque o CSS chega antes do JS: sem
+                      ela, quem pediu menos movimento veria a composição
+                      pinada por uma fração de segundo. */
+.escuta.is-estatica,
 .escuta.is-estatica .escuta__stage {
   height: auto;
-  padding: 16svh var(--gutter-r) 16svh var(--gutter-l);
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
 }
 
-.escuta.is-estatica .escuta__frase {
+.escuta.is-estatica .escuta__stage {
   position: static;
-  max-width: none;
+  padding-block: 18svh;
+}
+
+.escuta.is-estatica .escuta__frase span {
+  clip-path: none;
+}
+
+.escuta.is-estatica .escuta__frase--c {
   opacity: 1;
 }
 
-/* Sem movimento não há o que partir: a linha não vira o campo porque não há
-   percurso. Some, e o campo entra na fila da coluna já aberto — o estado
-   final, que é a regra para tudo nesta preferência. */
+/* sem percurso não há o que partir: a linha some e o campo entra na fila
+   da coluna já aberto, que é a regra para tudo nesta preferência */
 .escuta.is-estatica .escuta__horizonte {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .escuta,
+  .escuta .escuta__stage {
+    height: auto;
+  }
+
+  .escuta__stage {
+    position: static;
+    padding-block: 18svh;
+  }
+
   .escuta__frase span {
     clip-path: none;
+  }
+
+  .escuta__frase--c {
+    opacity: 1;
+  }
+
+  .escuta__horizonte {
+    display: none;
   }
 }

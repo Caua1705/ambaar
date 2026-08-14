@@ -1,36 +1,33 @@
 /* Seção: .chapter (Jardim, Salão, Reservado) — a timeline de cada ambiente.
 
-   ── A divisão que reorganizou o site ────────────────────────────────────
+   ── As três classes de movimento, aplicadas ─────────────────────────────
 
-   Cada capítulo passou a ter DUAS timelines, e a fronteira entre elas é a
-   regra de leitura da página inteira:
+   A regra do site está em motion.js. Aqui está como ela cai nos capítulos, e
+   nesta passada ela ficou mais estrita em um ponto e mais solta em outro:
 
-     · presa ao dedo (scrub) fica só a matéria que É o efeito — os quadros
-       do entardecer, o relógio contando, a foto respirando, a demão de céu
-       ganhando corpo. Casos em que a posição da rolagem corresponde
-       literalmente a um estado da cena;
+     CLASSE 1 · preso ao dedo
+       os quadros do entardecer, os quadros da sala enchendo, a foto
+       respirando, a demão de céu ganhando corpo, o relógio contando, e —
+       novo — o poente subindo em cima do Jardim. Em todos, a posição da
+       rolagem corresponde literalmente a um estado da cena.
 
-     · o texto entra por gatilho, corre na velocidade dele e fica. Antes o
-       rótulo, o título e o parágrafo eram três alvos do mesmo scrub: para
-       ler uma frase de duas linhas era preciso passar o dedo cinco vezes,
-       porque a rolagem entregava a animação em fatias proporcionais. Agora
-       uma passada entrega a frase inteira, e a seção pode encolher sem que
-       nada fique ilegível.
+     CLASSE 2 · disparado
+       todo o texto, todas as entradas, todas as saídas. Corre na velocidade
+       dele e termina com o dedo parado.
 
-   Foi essa divisão, e não corte de conteúdo, que fez o site cair de ~25
-   telas de rolagem para ~16: os cursos pinados existiam para dar tempo ao
-   texto, e o texto não precisava deles.
+     CLASSE 3 · ambiente
+       o vídeo do Reservado — e, novo, a SALA DO SALÃO depois de o dedo
+       soltá-la. Ver "a soltura", abaixo.
 
-   ── Os três ambientes, e a rima entre os dois primeiros ─────────────────
+   ── Os três ambientes ───────────────────────────────────────────────────
 
      01 Jardim    22 quadros de um plano fixo, presos ao dedo: o entardecer
                   acontece de verdade — as luzinhas acendem, a vela aparece
-                  na mesa, o céu perde a luz.
-     02 Salão     22 quadros de um plano fixo, presos ao dedo: a sala
-                  começa vazia e acesa e ENCHE — uma silhueta atravessa,
-                  depois duas na cabine, depois o quadro inteiro arrastado
-                  pelo obturador. No fim, o único corte duro do site: uma
-                  fotografia de flash da pista real.
+                  na mesa, o céu perde a luz. E no fim o poente ENGOLE a
+                  tela (ver .poente, no HTML).
+     02 Salão     34 quadros de um plano fixo. A sala começa vazia e ENCHE,
+                  e a certa altura o dedo a SOLTA: ela passa a correr
+                  sozinha. Depois, o único corte duro do site.
      03 Reservado vídeo em plano fixo a meia velocidade, só as chamas se
                   mexendo. É o fim da noite, não o clímax dela.
 
@@ -42,39 +39,79 @@
    O 03 é o contrário dos dois: movimento que corre no tempo dele e não no
    do dedo. Depois de duas horas em que a rolagem controlava o mundo, a
    última sala se mexe sozinha e não pede nada — que é literalmente o que o
-   texto dela diz.
-
-   ── O relógio saiu daqui ────────────────────────────────────────────────
-
-   Cada capítulo tinha o seu, e as pausas tinham os delas: seis objetos que
-   se pareciam e nunca se encontravam. Agora é um algarismo só para a página
-   inteira (relogio.js), e o que o capítulo declara é apenas a faixa de
-   horas dele e onde o algarismo deve se acomodar — data-hora e data-hora-em
-   no HTML. A noite passou a avançar entre as seções, e não só dentro
-   delas. */
+   texto dela diz. */
 
 import {
-  gsap, ScrollTrigger, reducedMotion, EASE, entrada, splitChars, splitLine, prioridadeRefresh
+  gsap, ScrollTrigger, reducedMotion, EASE, entrada, autonomo, laco,
+  splitChars, splitLine, prioridadeRefresh
 } from './motion.js'
 import { criarSequencia } from './frames.js'
 
 const NATURAL = { opacity: 1, y: 0, x: 0, scaleX: 1 }
 const OVERLAP = 0.3 // fatia da janela compartilhada com a vizinha
 
+/* Onde a saída de cada capítulo dispara, em fração do curso pinado. Não é
+   um número só porque as três saídas têm durações diferentes de gesto: o
+   poente do Jardim precisa de um quarto do curso para subir, o Salão se
+   parte em um segundo. */
+const SAIDA_EM = { engolir: 0.72, parte: 0.9, fecha: 0.84 }
+
 /* janela: em que fatia do curso pinado a sequência é lida. Fora dela o
-   canvas fica no primeiro ou no último quadro — que é como se compra uma
-   batida de espera sem pagar um único byte a mais. */
+   canvas fica no primeiro ou no último quadro pedido — que é como se compra
+   uma batida de espera sem pagar um único byte a mais.
+
+   ate: o último quadro que o DEDO alcança. Quando é menor que o total, o
+   que sobra é o material do laço livre (ver "a soltura").
+   laco: o trecho que corre sozinho depois da soltura, em vaivém.
+   fps: a velocidade do laço. Ver a conta no comentário da soltura. */
 const SEQUENCIAS = {
   dusk: {
     total: 22,
     caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp`
   },
+  /* O mapa do curso do Salão, e ele tem quatro tempos:
+
+       0.05 — 0.52   o dedo enche a sala (quadros 0 → 26)
+       0.56          o dedo SOLTA: a sala passa a correr sozinha
+       0.78          CORTE para a fotografia de flash
+       0.90          a saída do capítulo
+
+     A folga entre a soltura e o corte é deliberada e é a maior do site:
+     um quinto do curso pinado, e mais o tempo que o usuário quiser passar
+     parado ali — porque parado é justamente onde este trecho recompensa.
+     Se ele colar no corte, a sala corre livre por meio segundo e o gesto
+     não chega a ser lido; e a fotografia, por sua vez, precisa de posse do
+     quadro antes de o texto começar a se partir por cima dela, senão o
+     corte vira parte da saída em vez de um acontecimento próprio. */
   sala: {
-    total: 22,
-    janela: [0.08, 0.72],
+    total: 34,
+    janela: [0.05, 0.52],
+    ate: 26,
+    laco: [24, 33],
+    fps: 6,
     caminho: (i) => `/frames/sala/s_${String(i + 1).padStart(3, '0')}.webp`
   }
 }
+
+/* `y: 0` junto com `yPercent: 50`, e sem ele o poente não sobe.
+
+   O CSS declara `transform: translate3d(0, 50%, 0)` para que o elemento
+   esteja fora de cena antes de o JavaScript existir. O GSAP, ao tocar num
+   elemento pela primeira vez, LÊ o transform computado — e o navegador
+   devolve percentagem de translate já resolvida em pixels, num matrix().
+   O GSAP interpreta esse valor como `y` em pixels e o mantém.
+
+   O resultado é que `gsap.set(el, { yPercent: 50 })` compõe y(950px) +
+   yPercent(50%), e o `.to({ yPercent: -50 })` seguinte anima só a segunda
+   metade: o elemento termina o percurso em y = +950px − 950px = 0, ou seja
+   com o topo na borda de cima da tela e o âmbar sólido inteiro fora dela.
+   O poente subia meia tela e parava.
+
+   Zerar `y` explicitamente descarta o valor lido e deixa a posição inteira
+   nas mãos da percentagem, que é a única unidade que sobrevive a uma troca
+   de altura de tela. */
+const poente = document.querySelector('.poente')
+if (poente && !reducedMotion) gsap.set(poente, { y: 0, yPercent: 50, opacity: 1 })
 
 for (const chapter of document.querySelectorAll('.chapter')) {
   const stage = chapter.querySelector('.chapter__stage')
@@ -83,8 +120,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   /* As camadas da montagem são os PLANOS quando eles existem, e as fotos
      quando não. O plano é um embrulho cuja única função é andar: a foto
      dentro dele guarda a própria escala e âncora no CSS, e as duas coisas
-     precisam de transform ao mesmo tempo — o corte que empurra escreveria
-     por cima do scale(2.05) das mãos se fossem o mesmo elemento. */
+     precisam de transform ao mesmo tempo. */
   const planos = [...chapter.querySelectorAll('.chapter__plano')]
   const camadas = planos.length ? planos : imgs
   const canvas = chapter.querySelector('.chapter__canvas')
@@ -99,6 +135,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   const { dash, text: labelText } = splitLine(label)
   const chars = splitChars(title)
   const curso = Number(chapter.dataset.run) || 180
+  const tipoSaida = chapter.dataset.saida
 
   gsap.set(label, NATURAL)
 
@@ -136,13 +173,11 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     { scale: 1.16, rotate: 0.4 },
     { scale: 1.02, rotate: 0, duration: 1, ease: 'none' }, 0)
 
-  /* Quadro a quadro (Jardim). O canvas ocupa o mesmo lugar do cartaz que
-     já está em cena; quando o primeiro quadro é pintado, o cartaz apaga por
-     baixo dele. Assim a seção nunca é uma tela preta esperando arquivo. */
+  /* ── Quadro a quadro ───────────────────────────────── */
+
   /* Quem declara a sequência é o elemento que a HOSPEDA, não o capítulo: no
-     Jardim é o .chapter__media inteiro (a sequência É a tela); no Salão será
-     um .chapter__plano, porque lá ela é um plano entre outros e precisa
-     poder ser empurrada para fora como os vizinhos. */
+     Jardim é o .chapter__media inteiro (a sequência É a tela); no Salão é um
+     .chapter__plano, porque lá ela é um plano entre dois. */
   const palcoSeq = chapter.querySelector('[data-seq]')
   const seq = SEQUENCIAS[palcoSeq?.dataset.seq]
 
@@ -155,10 +190,9 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     })
 
     /* Oitenta por cento de tela de antecedência, e não mais: o Jardim é a
-       terceira seção da página, então uma antecedência maior põe os 22
-       quadros na fila junto com a foto da hero — que é a única imagem que
-       o usuário está esperando nesse momento. Assim a fila começa depois
-       da primeira rolagem e tem a passagem inteira (uma tela) para chegar. */
+       terceira seção da página, então uma antecedência maior põe os quadros
+       na fila junto com a foto da hero — que é a única imagem que o usuário
+       está esperando nesse momento. */
     player.carregarPerto(chapter, '80%')
 
     /* A janela do scrub não é o curso inteiro, e os dois capítulos usam a
@@ -166,23 +200,107 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
          Jardim  0 → 1. O poente ocupa o capítulo todo; não há nada antes
                  nem depois dele.
-         Salão   uma folga NO COMEÇO e outra NO FIM. A da frente é uma
-                 batida de sala vazia — a cabine acesa e ninguém dentro —,
-                 e ela é o que faz a primeira pessoa a entrar no quadro ser
-                 um acontecimento em vez do estado inicial. A de trás
-                 entrega a tela ao corte.
+         Salão   folga na frente (uma batida de sala vazia, que é o que faz
+                 a primeira pessoa a entrar ser um acontecimento em vez do
+                 estado inicial) e folga atrás — e a de trás não é espera:
+                 é o trecho em que a sala corre sozinha.
 
        Fazer isso com a janela em vez de duplicar quadros no arquivo é de
        graça: a sequência não fica maior, só é lida mais devagar. */
     const janela = seq.janela ?? [0, 1]
+    const ate = seq.ate ?? seq.total - 1
     const quadro = { v: 0 }
 
+    // quem está desenhando: o dedo ou o relógio. Declarado antes da
+    // timeline porque o onUpdate dela consulta a variável.
+    let livre = false
+
     tl.to(quadro, {
-      v: seq.total - 1,
+      v: ate,
       duration: janela[1] - janela[0],
       ease: 'none',
-      onUpdate: () => player.desenhar(quadro.v)
+      onUpdate: () => { if (!livre) player.desenhar(quadro.v) }
     }, janela[0])
+
+    /* ── A soltura ───────────────────────────────────────
+
+       O momento em que o site devolve o controle, e é o único da página.
+
+       Durante todo o capítulo a sala enche porque o dedo empurra. A certa
+       altura do curso o scrub é DESLIGADO e a mesma sequência passa a
+       correr num relógio próprio (classe 3, motion.js): o usuário pode
+       parar o polegar, e a sala continua se mexendo.
+
+       É o argumento inteiro do site dito em um gesto. O dedo faz a noite
+       CHEGAR; a casa faz a noite ACONTECER. E é a resposta direta ao pior
+       defeito da versão anterior — um lugar cheio de gente que congelava no
+       instante em que o usuário parava de rolar, que não lê como pausa, lê
+       como travamento.
+
+       ── A velocidade ─────────────────────────────────────────────────────
+
+       6 quadros por segundo, e o número não é estético: é o tempo real. O
+       original tem 8s; a curva de amostragem (scripts/frames.mjs) põe os
+       quadros 12 a 33 sobre os últimos 5,6s de vídeo, o que dá 3,9 quadros
+       por segundo de tempo REAL. A 6 a sala corre a uma vez e meia a
+       velocidade original — depressa o bastante para ser inequivocamente
+       movimento, devagar o bastante para o arrasto de obturador continuar
+       fazendo sentido como arrasto.
+
+       E o canvas mistura quadros vizinhos por alfa fracionário (frames.js),
+       então o que se vê a 6/s não são seis imagens por segundo: é uma
+       interpolação contínua entre elas.
+
+       ── O vaivém ─────────────────────────────────────────────────────────
+
+       O laço não volta ao começo: ele vai e volta dentro dos últimos nove
+       quadros. Voltar ao começo esvaziaria a sala — a sequência é
+       monotônica, ela CONTA uma coisa — e um corte de volta ao quadro 24
+       seria visível. O vaivém, em quadros de multidão arrastada, lê como
+       agitação contínua: em plano longo com obturador aberto, o olho não
+       distingue direção.
+
+       Subindo de volta, o cabo é cortado e o dedo recebe o desenho de
+       volta exatamente no quadro em que o largou. */
+    const solta = Number(chapter.dataset.solta)
+
+    if (solta && seq.laco) {
+      const [de, para] = seq.laco
+      const fps = seq.fps ?? 6
+
+      let v = ate
+      let sentido = 1
+      let cabo = null
+
+      const soltar = () => {
+        if (livre) return
+        livre = true
+        v = Math.max(de, Math.min(para, quadro.v))
+
+        cabo = laco(chapter, (dt) => {
+          v += dt * fps * sentido
+          if (v >= para) { v = para; sentido = -1 }
+          else if (v <= de) { v = de; sentido = 1 }
+          player.desenhar(v)
+        })
+      }
+
+      const prender = () => {
+        if (!livre) return
+        livre = false
+        cabo?.parar()
+        cabo = null
+        player.desenhar(quadro.v)
+      }
+
+      ScrollTrigger.create({
+        trigger: chapter,
+        start: () => `top top-=${Math.round(window.innerHeight * (curso / 100) * solta)}`,
+        invalidateOnRefresh: true,
+        onEnter: soltar,
+        onLeaveBack: prender
+      })
+    }
   }
 
   /* ── Montagem ───────────────────────────────────────
@@ -191,27 +309,18 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
      CORTE (Salão), e é o único corte duro da página inteira.
 
-     O capítulo é um plano fixo vivo — a sala enchendo, quadro a quadro,
-     presa ao dedo. No fim do curso ele CORTA para uma fotografia: a pista
-     vista de trás da cabine, com flash e grão. Zero duração, zero
-     dissolução, zero deslocamento: num quadro a sala é gerada e silenciosa
-     e no seguinte ela é uma foto de uma noite que aconteceu.
+     No fim do curso o capítulo CORTA para uma fotografia: a pista vista de
+     trás da cabine, com flash e grão. Zero duração, zero dissolução, zero
+     deslocamento.
 
-     O que se trocou aqui, e por quê. A versão anterior tinha três
-     fotografias que passavam uma pela outra de lado. Era feio, e o defeito
-     não estava na transição: estava em fazer três retângulos sem relação
-     nenhuma — uma cabine, um par de mãos, um borrão — deslizarem juntos.
-     Mover imagem que não se parece com a vizinha não cria montagem, cria
-     um carrossel, e o carrossel PIORA imagem fraca porque põe as duas lado
-     a lado e dá tempo de comparar.
+     E ele corta MOVIMENTO VIVO. Antes o corte trocava um quadro parado por
+     uma foto parada, o que é uma troca de imagem; agora ele interrompe uma
+     sala que está se mexendo sozinha, o que é uma troca de REGISTRO — num
+     quadro a sala é gerada, lisa e silenciosa e no seguinte ela é uma
+     fotografia de flash de uma noite que aconteceu.
 
-     A correção foi parar de mover imagem. Agora a câmera não anda nunca: o
-     que muda dentro do quadro é a sala, e o único movimento lateral que
-     sobrou no capítulo é a saída dele.
-
-     Um corte só, e no lugar certo. Cortes valem pela raridade — três
-     cortes num capítulo são uma montagem, um corte na página inteira é um
-     acontecimento.
+     Cortes valem pela raridade: três cortes num capítulo são uma montagem,
+     um corte na página inteira é um acontecimento.
 
      DISSOLUÇÃO (o resto). Janelas de crossfade, uma imagem entrando sobre
      a anterior. */
@@ -219,13 +328,8 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     gsap.set(camadas, { opacity: (i) => (i === 0 ? 1 : 0) })
 
     if (chapter.dataset.montagem === 'corte') {
-      /* 0.74 e não mais tarde: a saída do capítulo dispara em 84% do curso
-         e ela se desenha SOBRE o que estiver em cena. A fotografia precisa
-         de uma tela inteira de posse antes de o texto começar a se partir
-         em cima dela — senão o corte e a saída acontecem quase juntos e o
-         corte vira parte da saída em vez de um acontecimento próprio. */
-      tl.set(camadas[1], { opacity: 1 }, 0.74)
-        .set(camadas[0], { opacity: 0 }, 0.74)
+      tl.set(camadas[1], { opacity: 1 }, 0.78)
+        .set(camadas[0], { opacity: 0 }, 0.78)
     } else {
       const janela = 1 / camadas.length
       const cruzamento = OVERLAP * janela
@@ -237,10 +341,10 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     }
   }
 
-  /* O vídeo (Reservado) não é preso ao scroll: buscar quadro em vídeo no
-     telefone é caro e irregular, e a seção pede movimento contínuo e quase
-     imperceptível, não um estado por posição de rolagem. Ele só entra em
-     cena quando a seção se aproxima, e para quando ela sai. */
+  /* O vídeo (Reservado) é classe 3 e nunca foi outra coisa: buscar quadro
+     em vídeo no telefone é caro e irregular, e a seção pede movimento
+     contínuo e quase imperceptível, não um estado por posição de rolagem.
+     Ele entra em cena quando a seção se aproxima e para quando ela sai. */
   if (video) {
     ScrollTrigger.create({
       trigger: chapter,
@@ -268,30 +372,17 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        A emenda hero → Jardim é a única do site em que duas fotografias de
        sangria total se encontram, e são fotografias DO MESMO LUGAR: uma
        parada, na hora dourada, e a mesma em movimento. O corte entre as
-       duas é a ideia da casa (âmbar é o instante guardado, a noite é o
-       instante correndo), e o corte tem de ser preto no meio.
+       duas é a ideia da casa, e o corte tem de ser preto no meio.
 
-       A versão anterior apagava só a foto de CIMA, no último quarto do
-       percurso — e a de baixo subia acesa desde o primeiro pixel. O
-       resultado era uma linha horizontal dura atravessando a tela durante
-       toda a saída da hero: o corte que o comentário descrevia nunca
-       chegava a existir.
-
-       Agora as duas pontas se apagam contra o mesmo carvão. A hero some no
-       meio do percurso dela (hero.js) e o Jardim sobe do preto enquanto
-       ainda está na metade de baixo da tela: onde as duas se cruzam não há
+       As duas pontas se apagam contra o mesmo carvão: a hero some no meio
+       do percurso dela (hero.js) e o Jardim sobe do preto enquanto ainda
+       está na metade de baixo da tela. Onde as duas se cruzam não há
        fotografia nenhuma, só o fundo da página. */
     gsap.fromTo(media, { opacity: 0 }, {
       opacity: 1,
       ease: 'none',
       scrollTrigger: {
         trigger: chapter,
-        /* A janela é tardia de propósito: enquanto o topo do capítulo está
-           na metade de baixo da tela ele é quase carvão puro, e a
-           fotografia só toma corpo quando a seção já é dona do quadro.
-           Numa janela larga as duas fotos ficam meio visíveis ao mesmo
-           tempo e o que se vê é uma dissolução — que é justamente a
-           gramática que este join não pode ter. */
         start: 'top 62%',
         end: 'top 6%',
         scrub: true
@@ -299,10 +390,70 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     })
   }
 
-  /* ── O texto: gatilho, não dedo ────────────────────── */
+  /* ── O poente engolindo o Jardim ────────────────────
 
-  /* Começa antes de a seção prender, enquanto ela ainda sobe: quando o pin
-     assume, a frase já está posta. Uma passada de dedo, uma frase. */
+     Preso ao dedo, e é a única transição do site que é. O motivo está em
+     poente.css: isto não é uma transição entre seções, é o último quarto do
+     mesmo sol que o capítulo inteiro vem baixando. Trocar de motor no meio
+     de um movimento contínuo seria a costura que o gesto existe para
+     evitar.
+
+     `power2.in`: um nível que sobe acelera. Começa a se insinuar no pé da
+     tela e chega de uma vez — que é a diferença entre uma luz que aumenta e
+     uma coisa que ENGOLE.
+
+     A fotografia apaga por baixo dele, no último décimo. É invisível — está
+     debaixo de âmbar sólido — e é o que garante que, quando o pin soltar e
+     o palco rolar para fora, não haja um jardim aceso passando por trás da
+     seção que chega. */
+  if (tipoSaida === 'engolir' && poente) {
+    /* Gatilho PRÓPRIO, e não uma faixa dentro de `tl`, por causa do atraso
+       do scrub.
+
+       A timeline do capítulo corre com `scrub: 1` — um segundo de inércia,
+       que é o que dá ao entardecer a maciez de uma luz mudando. Aplicado ao
+       poente, esse mesmo segundo é um risco: se o usuário atravessar o fim
+       do capítulo depressa, o âmbar ainda estará a caminho quando a emenda
+       entre as duas seções passar, e a emenda é justamente o que ele existe
+       para cobrir.
+
+       Aqui a inércia é 0,3s: o suficiente para o movimento não ser digital,
+       curto o bastante para o âmbar nunca chegar atrasado ao próprio
+       compromisso. Duas velocidades de scrub na mesma seção não é
+       inconsistência — é a diferença entre uma luz e uma cortina. */
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: chapter,
+        start: () => `top top-=${Math.round(window.innerHeight * (curso / 100) * 0.66)}`,
+        end: () => `top top-=${Math.round(window.innerHeight * (curso / 100) * 0.99)}`,
+        scrub: 0.3,
+        invalidateOnRefresh: true
+      }
+    })
+      // um nível que sobe acelera: começa a se insinuar no pé da tela e
+      // chega de uma vez, que é a diferença entre uma luz que aumenta e uma
+      // coisa que ENGOLE
+      .to(poente, { yPercent: -50, duration: 1, ease: 'power2.in' }, 0)
+      /* A fotografia apaga por baixo dele, no fim. É invisível — está sob
+         âmbar sólido — e é o que garante que, quando o pin soltar e o palco
+         rolar para fora, não haja um jardim aceso passando por trás da
+         seção que chega: o que sobra acima do Salão é carvão. */
+      .to(media, { opacity: 0, duration: 0.12, ease: 'none' }, 0.88)
+  }
+
+  /* O drenar. Classe 2, e pertence à seção que CHEGA.
+
+     Dispara quando o topo do Salão cruza 26% da tela: a essa altura ele
+     ocupa quase todo o quadro e o que o âmbar levanta de cima é a sala já
+     posta, e não uma sala entrando. Levantar antes disso mostraria a
+     emenda, que é justamente a coisa que o poente existe para esconder. */
+  if (poente && chapter.dataset.montagem === 'corte') {
+    autonomo(chapter, (t) => {
+      t.to(poente, { opacity: 0, duration: 1.3, ease: 'power2.out' })
+    }, { start: 'top 26%' })
+  }
+
+  /* ── O texto: gatilho, não dedo ────────────────────── */
 
   entrada(chapter, (t) => {
     t.to(dash, { scaleX: 1, duration: 0.7, ease: EASE }, 0)
@@ -324,43 +475,81 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      seção. Cada um sai como o seu assunto pede, e o data-saida do HTML é
      quem escolhe:
 
-       luz   — o Jardim não se apaga, ele é engolido pelo entardecer;
-       parte — o Salão se parte ao meio, título para um lado e texto para o
-               outro, como a pista abrindo;
-       fecha — o Reservado contrai para o centro e escurece: a noite se
-               fecha em si mesma, que é literalmente o que o texto diz.
+       engolir — o Jardim não se apaga nem sai: ele é COMIDO. O texto se
+                 recolhe na direção da luz que sobe, e o resto do gesto é
+                 do poente, que é um objeto da página e não da seção.
+       parte   — o Salão se parte ao meio, título para um lado e texto para
+                 o outro, como a pista abrindo. E a fotografia FICA ACESA
+                 (ver abaixo).
+       fecha   — o Reservado contrai para o centro e escurece: a noite se
+                 fecha em si mesma, que é literalmente o que o texto diz.
 
-     Também por gatilho, e no fim do curso pinado: a saída é um gesto, e um
-     gesto entregue em fatias proporcionais ao dedo deixa de ser gesto. */
+     Classe 2: a saída é um gesto, e um gesto entregue em fatias
+     proporcionais ao dedo deixa de ser gesto. */
 
   const saida = gsap.timeline({ paused: true })
 
   saida.to(meta, { opacity: 0, duration: 0.6, ease: 'none' }, 0)
 
-  if (chapter.dataset.saida === 'luz') {
-    saida.to([title, text], { y: -70, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.06 }, 0)
-      // o céu já está cheio: o que cresce agora é a mancha de luz dentro
-      // dele, e a última coisa do capítulo passa a ser o próprio poente
-      .to(dusk, { scale: 1.4, duration: 1.2, ease: EASE }, 0)
-  } else if (chapter.dataset.saida === 'fecha') {
+  if (tipoSaida === 'engolir') {
+    /* O texto sobe e some — na direção contrária à da luz que vem subindo,
+       de modo que os dois se cruzam. Antes ele apenas subia e a "luz" era
+       um gradiente escalando de 1 para 1,4, que não produz movimento
+       visível nenhum. */
+    saida.to([title, text], { y: -80, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.06 }, 0)
+      .to(dusk, { opacity: 0.7, duration: 0.9, ease: 'none' }, 0)
+  } else if (tipoSaida === 'fecha') {
     saida.to([title, text], { scale: 0.94, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.08 }, 0)
       .to(media, { opacity: 0.18, duration: 1, ease: EASE }, 0.1)
   } else {
+    /* ── A causa da imagem órfã, e o conserto ───────────
+
+       A pausa das 00h chegava do nada, e a causa não estava nela: estava
+       AQUI. Esta saída apagava a fotografia do Salão até a opacidade zero e
+       então soltava o pin. O que o usuário via era uma tela preta sem dono
+       e, no meio dela, duas fotografias subindo por rolagem crua — a única
+       entrada do site que não era um acontecimento. Uma seção que chega
+       sobre o nada não tem como não parecer órfã: não há de onde ela venha.
+
+       O drenar existia por um motivo que deixou de valer. Quando "A escuta"
+       vinha depois do Salão, a tela seguinte era a única sem imagem e
+       precisava de escuridão para existir. "A escuta" mudou de lugar duas
+       passadas atrás; o drenar ficou.
+
+       Agora a fotografia FICA ACESA e SAI. Ela desliza para cima mais
+       depressa do que a rolagem a levaria — a foto abandona o quadro — e a
+       pausa aparece por baixo dela em vez de depois dela. É deslocamento,
+       não dissolução: nenhuma outra emenda do site usa este dispositivo, e
+       a de cima (o poente) usa o oposto exato dele. */
+    /* O empurrão vai no PLANO DO CORTE, não no .chapter__media — e a
+       distinção não é de gosto, é de propriedade disputada.
+
+       O .chapter__media é escrito a cada quadro pela timeline pinada, que o
+       leva de scale(1.16) a scale(1.02) ao longo do capítulo inteiro. Uma
+       segunda timeline escrevendo escala no MESMO elemento perde sempre: o
+       scrub reescreve o transform no próximo evento de rolagem e a saída é
+       apagada quadro a quadro. Foi por isso que a primeira versão disto
+       deixava a fotografia subir sem crescer — e uma foto que sobe sem
+       crescer descobre a própria borda de baixo, que é a aresta horizontal
+       dura que esta saída existe para não cometer.
+
+       O plano do corte não é tocado por ninguém além daqui. A 1,22 de
+       escala sobram 11% de folga de cada lado, e os 12% de subida cabem
+       dentro deles: a foto sai inteira, e o que aparece por baixo dela é a
+       pausa, não carvão. */
+    const alvoSaida = camadas[1] ?? media
+
     saida.to(title, { xPercent: -14, opacity: 0, duration: 0.8, ease: EASE }, 0)
       .to(text, { xPercent: 14, opacity: 0, duration: 0.8, ease: EASE }, 0.08)
-      /* E a fotografia DRENA. O que vem depois do Salão é a única tela do
-         site sem imagem, e ela precisa de escuridão para existir: antes, o
-         arrasto ficava aceso até a seção rolar para fora e "A escuta"
-         chegava como o próximo slide. Agora o capítulo apaga a luz antes de
-         sair, e o silêncio começa aqui — na porta, não depois dela. */
-      .to(media, { opacity: 0, duration: 1.1, ease: EASE }, 0.2)
+      .to(alvoSaida, { yPercent: -12, scale: 1.22, duration: 1.4, ease: EASE }, 0.1)
   }
 
   ScrollTrigger.create({
     trigger: chapter,
-    // 84% do curso pinado: o gesto de saída cabe inteiro antes de o pin
-    // soltar, e não é o dedo que o desenha
-    start: () => `top top-=${Math.round(window.innerHeight * (curso / 100) * 0.84)}`,
+    start: () => {
+      const em = SAIDA_EM[tipoSaida] ?? 0.84
+      return `top top-=${Math.round(window.innerHeight * (curso / 100) * em)}`
+    },
     invalidateOnRefresh: true,
     onEnter: () => saida.play(),
     onLeaveBack: () => saida.reverse()

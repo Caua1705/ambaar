@@ -1,52 +1,68 @@
-/* Seção: .outro — o fecho, refeito.
+/* Seção: .outro — o fecho, e é aqui que o tempo para.
 
-   Era o pior lugar do site: uma lista centrada e parada — losango, nome,
-   frase, horários, @ — com o mesmo peso em tudo. A última coisa que alguém
-   vê, e a menos pensada. E o rodapé de qualquer site.
+   ── A ideia, e ela é a da marca ─────────────────────────────────────────
 
-   ── A ideia ─────────────────────────────────────────────────────────────
+   O site inteiro é o tempo passando: um relógio o atravessa de 17h a 03h e
+   a noite avança conforme o dedo. Âmbar é o contrário — resina que
+   endureceu em volta de um instante e o guardou por milhões de anos. As
+   duas ideias precisavam se encontrar em algum lugar, e o lugar é este.
 
-   O site inteiro é o tempo passando: um relógio atravessa os capítulos,
-   17h → 20h → 00h → 03h, e a noite avança conforme o dedo. A marca é o
-   contrário — âmbar é resina que endureceu em volta de um instante e o
-   guardou por milhões de anos. As duas ideias precisavam se encontrar em
-   algum lugar, e o lugar é este: o fim, onde o tempo para de passar.
+   A passada anterior dizia isso em TEXTO ("o âmbar guarda um instante por
+   milhões de anos") e o fecho continuava sendo, mecanicamente, mais uma
+   seção que animava e terminava. A frase afirmava uma coisa que a tela não
+   fazia.
 
-   Quatro gestos, nessa ordem:
+   Agora a tela faz. No último pixel do documento, TUDO o que se move
+   sozinho na página para no mesmo quadro — não desacelera, não some: para.
+   O motor ambiente do site (motion.js) existe em parte por isto: para que
+   "tudo o que se move sozinho" seja uma lista que alguém possa desligar.
 
-     1. O filete volta. Na hero ele chegou do horizonte e a marca nasceu de
-        dentro dele; aqui ele faz o caminho inverso e se recolhe até virar
-        um ponto — e o ponto é o losango. É a mesma linha, e ela abre e
-        fecha o site.
+   ── Os cinco gestos, nesta ordem ────────────────────────────────────────
 
-     2. A resina fecha. Um campo âmbar cresce das bordas para o centro
-        enquanto a página termina, e a foto — âmbar dentro de um copo, a
-        marca como matéria — encolhe dentro dele. Este é o único movimento
-        do fecho preso ao dedo, e é preso porque a rolagem chegando ao fim
-        do documento É o fechamento: aqui a posição corresponde mesmo a um
-        estado.
+     1. O PÓ ANDA. Uma camada de partículas em suspensão num facho âmbar
+        deriva devagar — classe 3, sozinha, desde que a seção entra em
+        cena. Ela é o relógio visível do fecho: é preciso haver uma coisa
+        andando para que parar signifique alguma coisa.
 
-     3. O nome se escreve, e a frase da resina fica só aqui — no site antigo
-        ela era dita duas vezes, e aqui é onde ela fecha alguma coisa em
-        vez de apenas passar.
+     2. O FILETE VOLTA. Na hero ele chegou do horizonte e a marca nasceu de
+        dentro dele; aqui faz o caminho inverso e se recolhe até virar um
+        ponto — e o ponto é o losango. É a mesma linha, e ela abre e fecha
+        o site.
 
-     4. O grão sai. A camada de ruído que esteve sobre todos os quadros do
-        site levanta na última tela: a imagem deixa de ser filme correndo e
-        vira a coisa guardada. É o gesto mais silencioso da página, e é o
-        que faz o fim parecer fim em vez de fim de conteúdo. */
+     3. A RESINA FECHA. Um campo âmbar cresce das bordas para o centro
+        enquanto a página termina, e a foto encolhe dentro dele. É o único
+        movimento do fecho preso ao dedo, e é preso porque a rolagem
+        chegando ao fim do documento É o fechamento: aqui a posição
+        corresponde mesmo a um estado.
 
-import { gsap, ScrollTrigger, reducedMotion, EASE, entrada, splitChars } from './motion.js'
+     4. O NOME SE ESCREVE, e a frase da resina fica só aqui.
+
+     5. E ENTÃO PARA. No pé do documento: o pó congela no meio da deriva, o
+        grão levanta, a vinheta abre e a composição assenta 1,5% — a resina
+        endurecendo em volta do que ficou dentro. A imagem deixa de ser
+        filme correndo e vira a coisa guardada.
+
+   O quinto gesto é o único da página que não tem duração nem volta: é um
+   estado. E ele se desfaz se o usuário rolar para cima, porque o tempo não
+   acabou — está guardado. */
+
+import {
+  gsap, ScrollTrigger, reducedMotion, EASE, entrada, splitChars,
+  laco, congelarAmbiente
+} from './motion.js'
 
 const outro = document.querySelector('.outro')
 
 if (outro) {
   const bg = outro.querySelector('.outro__bg')
+  const po = outro.querySelector('.outro__po')
   const resina = outro.querySelector('.outro__resina')
   const rule = outro.querySelector('.outro__rule')
   const marca = outro.querySelector('.outro__mark')
   const nome = outro.querySelector('.outro__name')
   const linhas = [...outro.querySelectorAll('.outro__line')]
   const pe = outro.querySelector('.outro__foot')
+  const conteudo = outro.querySelector('.outro__content')
 
   const chars = splitChars(nome)
 
@@ -54,13 +70,42 @@ if (outro) {
     gsap.set([...chars, ...linhas, marca, pe], { opacity: 1, y: 0, scale: 1 })
     gsap.set(rule, { scaleX: 0.04, opacity: 0.14 })
     gsap.set(resina, { opacity: 1 })
+    gsap.set(po, { opacity: 0.5 })
   } else {
     gsap.set(chars, { opacity: 0, y: 16 })
     gsap.set([...linhas, pe], { opacity: 0, y: 14 })
     gsap.set(marca, { opacity: 0, scale: 0.3 })
     gsap.set(rule, { scaleX: 1, opacity: 0 })
 
-    /* ── A resina, presa ao fim do documento ─────────── */
+    /* ── 1 · O pó, classe 3 ──────────────────────────
+
+       Quatro senoides de períodos primos entre si (9,1s, 12,0s, 16,4s e
+       21,3s): o desenho nunca fecha o ciclo, então nunca se repete
+       visivelmente. É o mesmo princípio dos filetes do campo, aplicado a
+       uma imagem.
+
+       A amplitude é minúscula de propósito. Isto não é uma paralaxe: é uma
+       coisa que não está PARADA. A diferença entre 2% de deriva e zero é a
+       diferença entre um fecho vivo e um cartaz — e é o que faz o congelar
+       do fim ser perceptível.
+
+       Um gsap.set por quadro num elemento só, escrevendo transform: é a
+       coisa mais barata que se pode animar, e ela só roda com a seção em
+       cena (o observador vive dentro do laco). */
+    if (po) {
+      let t = 0
+      laco(outro, (dt) => {
+        t += dt
+        gsap.set(po, {
+          xPercent: Math.sin(t * 0.110) * 2.2,
+          yPercent: Math.cos(t * 0.083) * 1.7,
+          rotation: Math.sin(t * 0.047) * 1.1,
+          scale: 1.06 + Math.sin(t * 0.061) * 0.03
+        })
+      })
+    }
+
+    /* ── 3 · A resina, presa ao fim do documento ─────── */
 
     gsap.timeline({
       scrollTrigger: {
@@ -76,8 +121,11 @@ if (outro) {
       .fromTo(resina,
         { opacity: 0 },
         { opacity: 1, duration: 1, ease: 'none' }, 0)
+      .fromTo(po,
+        { opacity: 0 },
+        { opacity: 0.62, duration: 1, ease: 'none' }, 0)
 
-    /* ── O gesto de fechar ───────────────────────────── */
+    /* ── 2 e 4 · O gesto de fechar ───────────────────── */
 
     entrada(outro, (t) => {
       // a linha atravessa a tela...
@@ -92,13 +140,30 @@ if (outro) {
         .to(pe, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 2.9)
     }, { start: 'top 72%', uma: true })
 
+    /* ── 5 · E então para ────────────────────────────── */
+
+    /* A resina assenta: a composição inteira encolhe 1,5% e fica. É pouco
+       de propósito — não é um zoom, é uma coisa acomodando dentro de outra
+       que endureceu em volta dela. Numa tela que acabou de ficar imóvel,
+       1,5% é visível; numa tela que ainda se mexe, não seria. */
+    const assentar = gsap.timeline({ paused: true })
+    assentar.to(conteudo, { scale: 0.985, duration: 2.2, ease: EASE }, 0)
+
     ScrollTrigger.create({
       trigger: outro,
       // o pé do documento, 40px antes: 'bottom bottom-=40' seria 40px DEPOIS
       // do fim da rolagem, e o gatilho nunca chegaria a disparar
       start: 'bottom bottom+=40',
-      onEnter: () => document.documentElement.classList.add('is-guardado'),
-      onLeaveBack: () => document.documentElement.classList.remove('is-guardado')
+      onEnter: () => {
+        document.documentElement.classList.add('is-guardado')
+        congelarAmbiente(true)
+        assentar.play()
+      },
+      onLeaveBack: () => {
+        document.documentElement.classList.remove('is-guardado')
+        congelarAmbiente(false)
+        assentar.reverse()
+      }
     })
   }
 }

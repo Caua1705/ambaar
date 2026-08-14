@@ -45,6 +45,19 @@
       </nav>
     </header>
 
+    <!-- ═══════════════════════════════════════════════════════════════════
+         data-som — o volume que cada seção pede.
+
+         O controle de áudio não tem um nível só: o volume segue a NARRATIVA.
+         O jardim às 17h é ambiente de fundo, o salão às 22h é a casa cheia,
+         o reservado às 02h é quase silêncio. O valor é lido pelo observador
+         de seções (sections.js) e a mudança leva 2s em rampa (som.js) —
+         nunca por progresso de rolagem, para que rolar depressa não faça o
+         volume pulsar.
+
+         Nenhum valor é zero: uma página que fica muda no meio da visita lê
+         como defeito, não como intenção.
+         ═══════════════════════════════════════════════════════════════════ -->
     <div id="app">
       <!-- ── A marca ────────────────────────────────────── -->
       <!-- O jardim na hora dourada: são 17h, o café acabou de fechar. E é
@@ -58,7 +71,7 @@
            que se via ATRAVÉS das letras fica DENTRO delas. É a tese da casa
            dita no primeiro gesto, quinze telas antes de o fecho escrevê-la:
            o âmbar guarda um instante. -->
-      <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-hora="off" data-choreo>
+      <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-hora="off" data-som=".15" data-choreo>
         <picture class="hero__bg">
           <img src="/img/jardim-dourado.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
@@ -79,61 +92,55 @@
       </section>
 
       <!-- ── A escuta ───────────────────────────────────────
-           A tese, e ela mudou de LUGAR.
+           A tese, e ela é UMA TELA E UM GESTO.
 
-           Esta seção vivia entre o Salão e a pausa das 00h, e era o único
-           ponto do site em que uma seção contradizia a anterior. O capítulo
-           02 mostra a casa lotada, som alto, "House All Night" — e a tela
-           seguinte dizia "não trabalhamos com pista". O usuário via a festa
-           e lia a negação da festa. Não era um problema de transição: era o
-           site discordando de si mesmo em duas telas seguidas.
+           Custava 2,40 telas de rolagem — a segunda seção mais longa do
+           site — para entregar três frases que apareciam e sumiam uma de
+           cada vez ao longo de um curso pinado. A defesa era que silêncio é
+           uma duração; o problema é quem pagava a duração, e era o dedo.
+           Uma seção sobre não precisar de esforço para ouvir pedia três
+           passadas de polegar para ser lida.
 
-           Aqui em cima ela é o contrário disso. Vem depois da marca e antes
-           da primeira hora: é a promessa que os três capítulos passam a
-           NOITE INTEIRA cumprindo. Uma tese antes da prova é um convite;
-           depois de uma prova que a contradiz é uma desculpa.
+           E as três frases nunca foram três ideias: são um parágrafo. Em
+           sequência, com escuridão entre elas, cada uma virava um slide e o
+           site passava a ter três teses em vez de uma — a regra da casa
+           (uma seção, uma ideia) quebrada justamente pela seção que a diz.
 
-           Muda também o que ela faz com o silêncio. Antes ela era um vazio
-           no meio da noite; agora é o vazio ANTES da noite — a respiração
-           que se toma antes de a primeira hora começar a contar. É a única
-           tela do site sem fotografia e sem relógio, e as duas ausências
-           passaram a significar a mesma coisa: aqui ainda não são horas.
+           Agora chegam JUNTAS, numa respiração, e ficam. O silêncio não
+           sumiu: mudou de eixo — era tempo entre frases e virou ESPAÇO
+           entre elas. Espaço é de graça; tempo de dedo não é.
 
            data-flat: sem fotografia competindo, o losango do fio acende. -->
       <section class="escuta" id="som" data-vrail="A ESCUTA" data-nav="escuta"
-               data-hora="off" data-flat data-choreo>
+               data-hora="off" data-som=".15" data-flat data-choreo>
         <div class="escuta__stage">
+          <div class="escuta__bloco">
+            <p class="escuta__frase escuta__frase--a">
+              <span>Não é o volume.</span>
+              <span>É o que está tocando.</span>
+            </p>
+            <p class="escuta__frase escuta__frase--b">
+              <span>Organic house, downtempo,</span>
+              <span>e o que existe entre os dois.</span>
+            </p>
+            <!-- data-corte: a única frase do site que não anima. Ela não
+                 abre, não sobe, não desfoca — ela ESTÁ. Num site em que tudo
+                 limpa, dissolve ou é preso ao dedo, a coisa parada é a mais
+                 alta da página. É a tese dita em movimento em vez de em
+                 texto, e é o motivo de ela não precisar DIZER que não grita. -->
+            <p class="escuta__frase escuta__frase--c" data-corte>
+              <span>Quem <b>escuta</b>,</span>
+              <span>fica.</span>
+            </p>
+          </div>
+
           <!-- O horizonte. É a MESMA linha que a abertura desenha enquanto
                os arquivos críticos chegam, e a mesma que a hero usa para
                parir a marca. Aqui ela reaparece pela terceira e última vez,
-               e é aqui que ela se desfaz: no fim da seção ela se parte nos
-               sete filetes do campo, que a partir daí não param mais.
-
-               Isso resolve o que havia de errado com a seção: ela era três
-               blocos de texto aparecendo e sumindo sobre preto — inerte, e
-               inerte não lê como silêncio deliberado, lê como página
-               inacabada. Agora existe UM objeto em cena do primeiro ao
-               último quadro, e ele tem um destino. O silêncio passou a ser
-               a espera de alguma coisa em vez da ausência de tudo. -->
+               e é aqui que ela se desfaz: no instante exato em que "fica."
+               existe, ela se parte nos sete filetes do campo, que a partir
+               daí não param mais. -->
           <span class="escuta__horizonte" aria-hidden="true"></span>
-
-          <p class="escuta__frase escuta__frase--a">
-            <span>Não é o volume.</span>
-            <span>É o que está tocando.</span>
-          </p>
-          <p class="escuta__frase escuta__frase--b">
-            <span>Organic house, downtempo,</span>
-            <span>e o que existe entre os dois.</span>
-          </p>
-          <!-- data-corte: a única frase do site que não anima. Ela não abre,
-               não sobe, não desfoca — ela ESTÁ. Num site em que tudo limpa,
-               dissolve ou é preso ao dedo, a coisa parada é a mais alta da
-               página. É a tese dita em movimento em vez de em texto, e é o
-               motivo de ela não precisar mais DIZER que não grita. -->
-          <p class="escuta__frase escuta__frase--c" data-corte>
-            <span>Quem <b>escuta</b>,</span>
-            <span>fica.</span>
-          </p>
 
           <!-- O campo nasce colapsado em cima do horizonte: as sete linhas
                começam empilhadas na mesma altura, com comprimento zero. -->
@@ -153,10 +160,13 @@
       <!-- Vinte e dois quadros de um plano fixo presos ao dedo: o poente
            acontece de verdade — as luzinhas acendem, a vela aparece na
            mesa. O relógio da casa nasce aqui, às 17h, e não sai mais até o
-           fim da noite. -->
+           fim da noite.
+
+           data-saida="engolir": e é a maior mudança de transição do site.
+           Ver a nota do .poente, no pé deste arquivo. -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="150" data-saida="luz" data-choreo
-               data-hora="17—20" data-hora-em="esq">
+               data-nav="ambientes" data-run="150" data-saida="engolir" data-choreo
+               data-hora="17—20" data-hora-em="esq" data-som=".30">
         <div class="chapter__stage">
           <div class="chapter__media" data-seq="dusk">
             <img class="chapter__poster" src="/frames/dusk/d_001.webp" alt="">
@@ -179,63 +189,56 @@
       </section>
 
       <!-- ── 02 · O salão ───────────────────────────────────
-           O capítulo foi refeito inteiro, e é a maior mudança do site.
-
-           ── O que ele era ──────────────────────────────────────────────
-           Três fotografias paradas montadas em corte. O Jardim tinha o sol
-           caindo e o Reservado tinha as chamas; o Salão tinha MONTAGEM —
-           que é edição, não acontecimento. Era o único dos três capítulos
-           em que nada acontecia, e o texto dele promete exatamente o
-           contrário: "a noite encontra o próprio ritmo".
-
-           E as fotos não se davam. Eram três retângulos sem relação — uma
-           cabine, um par de mãos, um borrão — e qualquer transição que as
-           fizesse passar uma pela outra só sublinhava que não tinham nada
-           em comum. O empurra lateral que estava aqui era bonito de
-           descrever e feio de ver, porque o defeito não era a transição.
-
-           ── O que ele é ────────────────────────────────────────────────
            Um PLANO FIXO preso ao dedo, exatamente como o Jardim — e é essa
            rima que dá forma à noite: o capítulo 01 é o que o SOL faz com a
            sala, o 02 é o que as PESSOAS fazem com ela. Mesma câmera, mesmo
            enquadramento, mesmo mecanismo; assuntos opostos.
 
-           A sala começa vazia e acesa, com a cabine ligada e ninguém
-           dentro. Rolar traz gente: primeiro uma silhueta atravessando,
-           depois duas na cabine, depois o quadro inteiro arrastado pelo
-           obturador. A luz cai junto. Não há corte nenhum nisso — é uma
-           coisa só acontecendo, e a rolagem é o tempo.
+           ── A passagem, refeita ────────────────────────────────────────
 
-           A pausa das 20h foi ABSORVIDA aqui. Ela existia para dizer "o
-           salão enche sem que ninguém perceba" com duas fotos e uma frase;
-           agora o salão enche na tela, e uma seção inteira que descrevia o
-           que a seção seguinte ia mostrar deixou de ter função. Menos uma
-           tela de rolagem, e a frase deixou de ser necessária porque a
-           imagem passou a dizê-la.
+           A sala enchendo estava lá desde a passada anterior e não lia. O
+           defeito não era a coreografia: era a AMOSTRAGEM. Vinte e dois
+           quadros para oito segundos de timelapse são 2,75 por segundo, e a
+           essa taxa uma pessoa que atravessa o quadro aparece em três
+           posições distantes — que o olho lê como três vultos piscando, não
+           como alguém passando. Pior: a curva antiga gastava 75% dos
+           quadros na parte VAZIA do vídeo, então três quartos do dedo eram
+           uma sala sem ninguém.
+
+           Agora são 34 quadros com o peso na parte cheia, e o recorte da
+           fonte joga fora o teto e o mármore em primeiro plano — a faixa em
+           que as pessoas cruzam passou a ocupar a tela em vez de uma tarja
+           no meio dela (scripts/frames.mjs).
+
+           ── E o dedo SOLTA ─────────────────────────────────────────────
+
+           No fim do curso a sequência é liberada e passa a correr sozinha, a
+           24 quadros por segundo. O usuário traz a noite até as 23h e então
+           a noite continua sem ele — é a única vez na página em que o
+           controle é devolvido, e é o argumento inteiro do site dito em um
+           gesto: o dedo faz a noite chegar, a casa faz a noite acontecer.
 
            ── O único corte do site ──────────────────────────────────────
-           No fim do curso, corte seco para uma FOTOGRAFIA: a pista vista de
-           trás da cabine, flash, grão, uma pessoa olhando na lente. Todo o
-           resto do capítulo é um plano gerado — liso, âmbar, silencioso — e
-           o corte é uma troca de registro, não de plano: é o site dizendo
-           "e foi assim de verdade".
 
-           É o único corte duro da página inteira. Todo o resto dissolve,
-           acende ou deriva, e é por isso que este corta. -->
+           Sobre a sala JÁ EM MOVIMENTO LIVRE, corte seco para uma
+           FOTOGRAFIA: a pista vista de trás da cabine, flash, grão, uma
+           pessoa olhando na lente. É o único corte duro da página inteira,
+           e ele corta movimento vivo em vez de um quadro parado — que é o
+           que faz dele um acontecimento. -->
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
                data-nav="ambientes" data-run="150" data-montagem="corte"
-               data-saida="parte" data-choreo
-               data-hora="20—23" data-hora-em="centro">
+               data-saida="parte" data-solta="0.56" data-choreo
+               data-hora="20—23" data-hora-em="centro" data-som=".70">
         <div class="chapter__stage">
           <div class="chapter__media">
-            <!-- O plano vivo: 22 quadros da sala enchendo, presos ao dedo.
-                 O cartaz é o primeiro quadro da própria sequência, então a
-                 seção nunca é um retângulo preto esperando arquivo. -->
+            <!-- O plano vivo: 34 quadros da sala enchendo. O cartaz é o
+                 primeiro quadro da própria sequência, então a seção nunca é
+                 um retângulo preto esperando arquivo. -->
             <span class="chapter__plano" data-seq="sala">
               <img class="chapter__poster" src="/frames/sala/s_001.webp" alt="">
               <canvas class="chapter__canvas" aria-hidden="true"></canvas>
             </span>
-            <!-- O corte. Fica fora de cena até 82% do curso. -->
+            <!-- O corte. Fica fora de cena até 78% do curso. -->
             <span class="chapter__plano chapter__plano--corte">
               <img class="chapter__img chapter__img--pista" src="/img/salao-pista.webp" alt="" loading="lazy">
             </span>
@@ -256,31 +259,31 @@
       </section>
 
       <!-- ── A pausa · 00h ──────────────────────────────────
-           A única dobradiça que sobrou, e agora ela é única de verdade.
+           A única dobradiça do site, e a única composição da página com
+           BORDAS. Todas as outras telas sangram nos quatro lados; esta tem
+           moldura, e o preto em volta é metade do trabalho.
 
-           Havia duas pausas com a mesma gramática — dois quadros sangrando
-           por lados opostos, uma frase, a hora atrás da fotografia —, uma
-           às 20h e outra às 00h. Duas ocorrências do mesmo dispositivo em
-           dezesseis telas fazem dele um TEMPLATE: na segunda vez o usuário
-           já sabe o que vai acontecer, e a composição deixa de ser um
-           acontecimento para virar um formato. A das 20h foi absorvida pelo
-           capítulo 02, onde a sala agora enche de verdade.
+           ── A imagem órfã, e a causa dela ──────────────────────────────
 
-           O que sobra é a meia-noite: a única vez que o site pára entre
-           dois ambientes, e a única composição da página com BORDAS. Todas
-           as outras telas sangram nos quatro lados; esta tem moldura, e o
-           preto em volta é metade do trabalho.
+           Esta seção chegava do nada. A causa não estava nela: estava na
+           saída do capítulo 02, que APAGAVA a própria fotografia até o
+           preto e então soltava o pin. O que o usuário via era uma tela
+           preta sem dono, e no meio dessa tela preta duas fotografias
+           subindo por rolagem crua, sem gesto nenhum — a única entrada do
+           site que não era um acontecimento.
 
-           As duas fotografias foram trocadas. O retrato era uma mulher
-           posando sozinha contra uma parede de tijolo; agora são duas
-           pessoas no sofá, uma falando no ouvido da outra, com a cidade
-           acesa na janela atrás. A frase é "A conversa baixa sozinha" — a
-           foto nova É a frase, a antiga apenas convivia com ela.
+           Duas coisas mudaram, e as duas estão do lado de FORA desta seção:
 
-           O detalhe era mais um copo na mão. Agora é a rodela de limão
-           sendo posta na borda com a colher: o único gesto de BAR do site
-           inteiro, numa casa que se chama cocktail bar. -->
-      <section class="pausa" data-choreo data-hora="00" data-hora-em="esq-baixo">
+           1. O capítulo 02 não drena mais. Ele termina segurando a
+              fotografia de flash, acesa, e é ELA que sai — deslizando para
+              cima enquanto a pausa sobe por baixo, no mesmo curso.
+           2. As molduras não esperam mais a seção estar centrada para
+              abrir: elas abrem cedo, enquanto a composição ainda sobe, de
+              modo que o que entra na tela já está acontecendo.
+
+           A pausa deixou de ser um slide que chega e passou a ser o que a
+           fotografia anterior descobre por baixo dela. -->
+      <section class="pausa" data-choreo data-hora="00" data-hora-em="esq-baixo" data-som=".40">
         <div class="pausa__stage">
           <figure class="pausa__quadro pausa__quadro--retrato">
             <img src="/img/conversa.webp" alt="" loading="lazy">
@@ -292,10 +295,46 @@
         </div>
       </section>
 
+      <!-- ── A hora sem nome · 01h ──────────────────────────
+           SEÇÃO NOVA.
+
+           O acervo tinha uma fotografia que o site não estava usando e que
+           é melhor que metade das que ele usa: uma mulher sentada, cabeça
+           baixa, o cabelo caindo, contra uma parede de tijolo, sob a mesma
+           luz de tungstênio rasante que é a paleta da casa. Ela estava na
+           pasta das descartadas — triada junto com o lote de "flash direto"
+           que ela nunca teve.
+
+           Ela não cabia em nenhuma seção existente, e forçá-la para dentro
+           de uma delas teria sido decoração. Então ganhou uma, e a seção
+           tem uma ideia só, que é a razão de a fotografia existir aqui:
+
+             das 00h em diante o site vinha falando de ambientes. Esta tela
+             fala de UMA PESSOA. É a única da página em que alguém está
+             sozinho e à vontade, e é a hora em que isso acontece de
+             verdade — a uma da manhã, quando quem ia embora já foi.
+
+           A frase fecha o arco que "A escuta" abre na segunda tela. Lá o
+           site promete: "Quem escuta, fica." Aqui, cinco horas depois, ele
+           mostra: "Ninguém está indo embora." Uma é a tese e a outra é a
+           prova, e há doze telas entre as duas de propósito.
+
+           Sem título, sem rótulo, sem numeral de capítulo. Não é um
+           ambiente — é uma hora. -->
+      <section class="retrato" data-vrail="01H" data-choreo
+               data-hora="01" data-hora-em="dir-baixo" data-som=".30">
+        <div class="retrato__stage">
+          <figure class="retrato__quadro">
+            <img src="/img/retrato.webp" alt="" loading="lazy">
+          </figure>
+          <p class="retrato__linha">Ninguém está<br>indo embora.</p>
+        </div>
+      </section>
+
       <!-- ── 03 · O reservado ───────────────────────────── -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
                data-nav="ambientes" data-run="105" data-saida="fecha" data-choreo
-               data-hora="00—03" data-hora-em="dir">
+               data-hora="01—03" data-hora-em="dir" data-som=".25">
         <div class="chapter__stage">
           <div class="chapter__media">
             <img class="chapter__poster" src="/img/reservado.webp" alt="" loading="lazy">
@@ -321,8 +360,14 @@
            O relógio da casa entrega o bastão aqui: ele para em 03h no fim
            do Reservado e apaga no instante exato em que o rótulo "São 03h"
            se escreve. O algarismo que atravessou a noite vira a frase que
-           pede a escolha. -->
-      <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas" data-hora="off">
+           pede a escolha.
+
+           Os três cartazes foram trocados por fotografias que estavam na
+           pasta das descartadas e que vendem melhor o que se está
+           reservando: uma MESA no jardim à noite em vez do jardim ao longe,
+           e as MÃOS tocando em vez da cabine vista de cima. -->
+      <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas"
+               data-hora="off" data-som=".15">
         <p class="reservas__eyebrow reveal reveal--line">São 03h</p>
         <h2 class="reservas__title reveal">A noite acabou de passar.<br>Escolha onde recomeçar.</h2>
 
@@ -365,9 +410,24 @@
         <p class="reservas__text reveal">Lugares limitados nas noites de sexta e sábado. A confirmação chega na hora, pelo WhatsApp.</p>
       </section>
 
-      <!-- ── O fecho: o tempo para ──────────────────────── -->
-      <footer class="outro" data-vrail="@AMBAR.BAR" data-hora="off" data-choreo>
+      <!-- ── O fecho: o tempo para ────────────────────────
+           A última tela, e a única do site em que NADA se move.
+
+           O site inteiro é o tempo passando: um relógio o atravessa de 17h a
+           03h e a noite avança conforme o dedo. A marca é o contrário —
+           âmbar é resina que endureceu em volta de um instante e o guardou
+           por milhões de anos. As duas ideias se encontram aqui, e o
+           encontro é literal: no último pixel do documento TUDO o que se
+           move sozinho na página para no mesmo quadro (motion.js).
+
+           O pó em suspensão é a peça nova. É a única imagem do site que não
+           mostra lugar nenhum — matéria, não fotografia —, e ela existe
+           porque "instante guardado" precisa de alguma coisa DENTRO do
+           âmbar para ser guardada. Um gradiente fecha em volta do nada;
+           isto fecha em volta de uma poeira que, no fim, deixa de cair. -->
+      <footer class="outro" data-vrail="@AMBAR.BAR" data-hora="off" data-som=".15" data-choreo>
         <img class="outro__bg" src="/img/mao-copo.webp" alt="" loading="lazy">
+        <img class="outro__po" src="/img/particulas.webp" alt="" aria-hidden="true" loading="lazy">
         <span class="outro__resina" aria-hidden="true"></span>
         <div class="outro__content">
           <span class="outro__rule" aria-hidden="true"></span>
@@ -386,12 +446,50 @@
       </footer>
     </div>
 
+    <!-- ── O poente ───────────────────────────────────────
+         A emenda 17h → 20h, e a única transição do site que é um objeto
+         próprio em vez de uma propriedade de uma seção.
+
+         ── O que estava errado ────────────────────────────────────────────
+
+         A ideia — "o jardim engolido pelo próprio poente" — sempre foi a
+         melhor do site e nunca esteve na tela. O que existia era: o título
+         subia 70px, o texto subia junto, e a demão de céu do capítulo
+         escalava de 1 para 1,4. Escalar um gradiente que já está a cheio
+         não produz movimento visível nenhum; o que se via era o texto
+         saindo, e depois um CORTE HORIZONTAL DURO — a fotografia do jardim
+         rolando para cima enquanto a do salão subia por baixo, com a
+         costura atravessando a tela.
+
+         Dois defeitos com a mesma causa: o gesto morava DENTRO da seção que
+         estava saindo, e uma seção que sai não pode cobrir a que entra.
+
+         ── O que é agora ──────────────────────────────────────────────────
+
+         Uma camada fixa, do tamanho da tela, acima de tudo — inclusive do
+         menu, do fio e do relógio. Ela faz três coisas, uma vez só, no
+         site inteiro:
+
+           1. INUNDA. O âmbar sobe do pé da tela e come o quadro de baixo
+              para cima, no eixo em que o sol se põe dentro da própria
+              fotografia. Não é um fade: é um nível subindo.
+           2. SEGURA. Um instante de âmbar sólido — a única vez que a
+              página não é carvão. O dia acabou de morrer e ainda não há
+              onde estar.
+           3. DRENA. E o que aparece por baixo não é mais o jardim: é o
+              salão, já aceso, já com gente.
+
+         A emenda entre as duas seções acontece INTEIRA dentro do âmbar
+         sólido. Não há costura porque não há nada visível para costurar —
+         que é o único jeito honesto de encostar duas fotografias de sangria
+         total uma na outra.
+
+         É classe 2 (motion.js): dispara e corre. O sol não espera o dedo. -->
+    <div class="poente" id="poente" aria-hidden="true"></div>
+
     <!-- ── O relógio da casa ──────────────────────────────
-         Um algarismo só, fixo, para a página inteira. Antes eram cinco
-         implementações do mesmo dispositivo — três relógios de capítulo,
-         duas horas de pausa — que nasciam e morriam dentro das respectivas
-         seções e nunca se encontravam. Agora é um objeto: ele conta 17h →
-         03h de ponta a ponta, e a cada troca de ambiente se reacomoda na
+         Um algarismo só, fixo, para a página inteira. Ele conta 17h → 03h
+         de ponta a ponta, e a cada troca de ambiente se reacomoda na
          posição e na escala que a seção pede (data-hora-em no HTML).
 
          O efeito é o que o site sempre disse que fazia e não fazia: a noite
@@ -410,20 +508,42 @@
 
     <!-- ── O som ──────────────────────────────────────────
          Nasce no pé do fio, no instante exato em que "Quem escuta, fica."
-         aparece — e fica até o fim da sessão. Desligado por padrão,
-         sempre.
+         aparece — e fica até o fim da sessão. Desligado por padrão, sempre.
 
-         Os três filetes de dentro do anel são o mesmo campo da seção "A
-         escuta", em miniatura: parado, ele deriva sozinho; tocando, ele é
-         o espectro real da faixa. -->
+         ── O desenho, refeito ─────────────────────────────────────────────
+
+         Era um anel de 30px a 40% de opacidade num canto. Lia como um
+         resíduo de interface: nem se via, nem pertencia a nada. E era o
+         único objeto de marca do site desenhado com uma forma que a marca
+         não usa — a casa tem um LOSANGO, não um círculo.
+
+         Agora é um lockup, e ele é tipografado como um rótulo de capítulo:
+         um traço, uma palavra em caixa alta com o mesmo tracking dos
+         rótulos, e o losango da casa no fim da linha. Quem já leu
+         "01 — JARDIM" três vezes reconhece a gramática antes de entender o
+         que o objeto faz — que é exatamente o que faz um controle
+         PERTENCER a uma marca em vez de flutuar sobre ela.
+
+         Os três filetes de dentro do losango são o mesmo campo de "A
+         escuta", em miniatura: parado, ele deriva sozinho; tocando, ele é o
+         espectro real da faixa. -->
     <button class="som" id="som-toggle" type="button" aria-pressed="false"
             aria-label="Ligar o som da casa">
-      <span class="som__anel" aria-hidden="true"></span>
-      <span class="som__pulso" aria-hidden="true"></span>
-      <span class="campo campo--mini" data-campo aria-hidden="true">
-        <span class="campo__linha" style="--w:.5;--d:9s;--del:-1.1s"><i></i></span>
-        <span class="campo__linha" style="--w:.9;--d:7s;--del:-3.4s"><i></i></span>
-        <span class="campo__linha" style="--w:.65;--d:11s;--del:-5.8s"><i></i></span>
+      <span class="som__rotulo" aria-hidden="true">
+        <span class="som__dash"></span>
+        <span class="som__palavra">
+          <span class="som__estado som__estado--off">Silêncio</span>
+          <span class="som__estado som__estado--on">No ar</span>
+        </span>
+      </span>
+      <span class="som__marca" aria-hidden="true">
+        <span class="som__losango"></span>
+        <span class="som__pulso"></span>
+        <span class="campo campo--mini" data-campo>
+          <span class="campo__linha" style="--w:.5;--d:9s;--del:-1.1s"><i></i></span>
+          <span class="campo__linha" style="--w:.9;--d:7s;--del:-3.4s"><i></i></span>
+          <span class="campo__linha" style="--w:.65;--d:11s;--del:-5.8s"><i></i></span>
+        </span>
       </span>
     </button>
 

@@ -1,52 +1,81 @@
-/* O controle de som.
+/* O controle de som — refeito.
 
-   ── Onde ele mora, e por quê ────────────────────────────────────────────
+   ── O que ele era ───────────────────────────────────────────────────────
 
-   Na goteira DIREITA, no pé. A direita é a faixa das âncoras do site — a
-   assinatura vertical já mora lá —, e a esquerda é a faixa do fio, que já
-   tem o losango descendo por ela. Mais importante: o relógio da casa ocupa
-   a faixa útil ENTRE as duas goteiras, e as duas goteiras são justamente as
-   duas faixas em que nenhum conteúdo entra. O controle não precisa negociar
-   espaço com nada — ele está na única coluna vazia da página.
+   Um anel de 30px, traço de 1px, a 40% de opacidade, num canto. Três
+   problemas, e o terceiro é o que condenava o desenho:
 
-   ── Quando ele aparece ──────────────────────────────────────────────────
-
-   Não existe até "A escuta". Ele acende no instante exato em que a terceira
-   frase — "Quem escuta, fica." — aparece, e a partir dali fica pelo resto da
-   sessão, inclusive se o usuário voltar para o topo.
-
-   O instante é literalmente o mesmo: aquela frase não anima, ela é um corte,
-   então o controle nasce no mesmo quadro em que ela existe. Antes ele
-   esperava a revelação da última linha terminar.
-
-   Isso é o que faz ele não parecer aparafusado: seis telas sem controle
-   nenhum, e no minuto em que a casa se declara um clube de escuta, aparece
-   a coisa que se pode escutar. A descoberta não precisa de instrução porque
-   ela acontece no meio da frase que a explica.
+   1. Não se via. Quarenta por cento de âmbar sobre carvão, em 30px, é
+      quase o limiar do perceptível — e o site inteiro é escuro. Um objeto
+      que precisa ser procurado não é discreto, é ausente.
+   2. Não pertencia. Era a única forma do site que a marca não usa. A casa
+      tem um LOSANGO — ele está no favicon, no fio que desce pela goteira
+      esquerda, no rótulo de cada capítulo e no fecho. Um círculo ali era
+      um objeto de outro projeto.
+   3. Não dizia nada. Um anel sem palavra é um enigma: quem descobre o que
+      ele faz, descobre clicando.
 
    ── O que ele é ─────────────────────────────────────────────────────────
 
-   Um anel de 30px, traço de 1px, com três filetes dentro — os mesmos de "A
-   escuta", em miniatura. Nada de ícone de alto-falante, nada de barra de
-   player. Desligado, o anel fica a 40% e os filetes derivam devagar.
-   Ligado, o anel sobe para 85%, um segundo anel se abre para fora e apaga a
-   cada 2,6s — o objeto passa a pulsar sozinho — e os filetes passam a ser o
-   espectro real da faixa.
+   Um LOCKUP, e ele é tipografado exatamente como um rótulo de capítulo:
 
-   A área de toque é de 44px; o desenho, de 30. */
+       ────────  SILÊNCIO  ◆
+
+   O traço, a palavra em caixa alta com o tracking largo dos rótulos, e o
+   losango da casa fechando a linha. Quem já leu "◇ ─── 01 — JARDIM" três
+   vezes reconhece a gramática antes de entender o que o objeto faz — e é
+   isso que faz um controle PERTENCER a uma marca em vez de flutuar sobre
+   ela. A forma não é nova: é a assinatura da página, aplicada a uma coisa
+   que se pode tocar.
+
+   Discreto continua sendo o requisito. O que mudou é que discrição virou
+   uma escolha de PESO e de COR — hairline, âmbar rebaixado, tipo de 10px —
+   em vez de uma escolha de opacidade, que é como se esconde um erro.
+
+   ── Os três estados ─────────────────────────────────────────────────────
+
+   PARADO      losango em contorno, vazio. A palavra diz "Silêncio". Os três
+               filetes dentro do losango derivam devagar, sozinhos: o objeto
+               está vivo antes de alguém tocar nele.
+   APONTADO    tudo sobe um degrau de opacidade. Nada se move.
+   TOCANDO     o losango GANHA MATÉRIA — um âmbar fraco preenche o
+               contorno, que é a única superfície colorida sólida da página
+               fora do poente. Um segundo losango se abre para fora e apaga
+               a cada 2,8s. A palavra vira "No ar", em âmbar. E os filetes
+               deixam de derivar e passam a ser o espectro real da faixa.
+
+   O preenchimento é o que faz o estado ser legível de relance: opacidade
+   distingue mal a 30px, matéria distingue sempre.
+
+   ── Onde ele mora ───────────────────────────────────────────────────────
+
+   Canto inferior direito. A goteira direita é a faixa das âncoras (o texto
+   vertical já mora lá, centrado na altura) e o pé da tela é a única faixa
+   em que nenhuma seção põe conteúdo. O relógio da casa ocupa a faixa entre
+   as goteiras e sobe a partir de 7svh justamente para não encostar aqui
+   (relogio.js).
+
+   ── Quando ele aparece ──────────────────────────────────────────────────
+
+   Não existe até "A escuta". Acende no instante em que "Quem escuta, fica."
+   aparece — a frase que não anima — e a partir dali fica pelo resto da
+   sessão, inclusive se o usuário voltar ao topo. Seis telas sem controle
+   nenhum, e no minuto em que a casa se declara um clube de escuta, aparece
+   a coisa que se pode escutar. */
 
 .som {
   position: fixed;
-  right: calc(var(--gutter-r) / 2 - 22px);
-  bottom: 1.4rem;
+  right: 1.25rem;
+  bottom: .9rem;
   z-index: 16;
 
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
 
-  padding: 0;
+  /* a área de toque vive no padding: o desenho tem 34px de altura e o alvo
+     tem 44 nos dois eixos, sem que o desenho precise crescer */
+  padding: .35rem .3rem;
   border: 0;
   background: none;
   color: var(--ambar);
@@ -64,65 +93,173 @@
   pointer-events: auto;
 }
 
-/* ── O anel ────────────────────────────────────────────── */
+/* ── O rótulo ──────────────────────────────────────────── */
 
-.som__anel,
+.som__rotulo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+/* O mesmo traço dos rótulos de capítulo (.reveal__dash), na mesma
+   espessura. Ele encolhe um pouco no telefone, onde a linha inteira precisa
+   caber sem chegar perto do relógio. */
+.som__dash {
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  opacity: .3;
+  transition: opacity .5s var(--ease), width .5s var(--ease);
+}
+
+/* Os dois estados ocupam a MESMA célula de grade: a caixa fica com a
+   largura da palavra mais longa e nada dança quando o texto troca. O
+   alinhamento é à direita porque o que tem de ficar parado é a borda que
+   encosta no losango. */
+.som__palavra {
+  display: grid;
+  justify-items: end;
+  font-size: var(--fs-label);
+  font-weight: 300;
+  letter-spacing: var(--track-wide);
+  text-indent: var(--track-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.som__estado {
+  grid-area: 1 / 1;
+  transition: opacity .5s var(--ease);
+}
+
+.som__estado--off {
+  color: rgba(119, 115, 110, .82);
+  opacity: 1;
+}
+
+.som__estado--on {
+  color: var(--ambar);
+  opacity: 0;
+}
+
+.som[aria-pressed="true"] .som__estado--off { opacity: 0; }
+.som[aria-pressed="true"] .som__estado--on { opacity: 1; }
+
+/* ── O losango ─────────────────────────────────────────── */
+
+.som__marca {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+/* Um quadrado de 1px girado 45°, e não um SVG: são 24px de lado, 34 de
+   diagonal — exatamente a altura da caixa —, e a rotação é transform, que
+   é de graça. O losango do fio e o do fecho são o desenho completo da
+   marca (dois losangos encaixados); este é o miolo dele, que é a forma que
+   sobrevive a 34px. */
+.som__losango,
 .som__pulso {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   border: 1px solid currentColor;
+  transform: rotate(45deg);
   pointer-events: none;
 }
 
-.som__anel {
-  opacity: .4;
-  transition: opacity .6s var(--ease);
+.som__losango {
+  opacity: .55;
+  background: transparent;
+  transition: opacity .5s var(--ease), background-color .7s var(--ease);
 }
 
-.som[aria-pressed="true"] .som__anel {
-  opacity: .85;
+/* Tocando, o contorno GANHA MATÉRIA. É a leitura de estado mais barata e
+   mais legível que existe a este tamanho: vazio/cheio se distingue de
+   relance, dois degraus de opacidade não. */
+.som[aria-pressed="true"] .som__losango {
+  opacity: 1;
+  background-color: rgba(200, 137, 46, .16);
 }
 
-/* O segundo anel só existe tocando: ele nasce no primeiro e se abre para
+/* O segundo losango só existe tocando: nasce no primeiro e se abre para
    fora, devagar. É o que dá ao objeto uma pulsação própria — ele se move
-   sem o ponteiro e sem a rolagem. */
+   sem o ponteiro e sem a rolagem, que é a definição de classe 3. */
 .som__pulso {
   opacity: 0;
-  transform: scale(1);
 }
 
 .som[aria-pressed="true"] .som__pulso {
-  animation: somPulso 2.6s var(--ease) infinite;
+  animation: somPulso 2.8s var(--ease) infinite;
 }
 
 @keyframes somPulso {
-  0%   { opacity: .5; transform: scale(1); }
-  70%  { opacity: 0; transform: scale(1.9); }
-  100% { opacity: 0; transform: scale(1.9); }
+  0%   { opacity: .45; transform: rotate(45deg) scale(1); }
+  70%  { opacity: 0; transform: rotate(45deg) scale(1.85); }
+  100% { opacity: 0; transform: rotate(45deg) scale(1.85); }
 }
 
-/* ── Foco ──────────────────────────────────────────────── */
+/* Os três filetes ficam por cima do losango, no meio dele. Na cintura da
+   forma há 34px de largura útil; 14 é o que cabe sem encostar nas arestas
+   quando a linha mais longa está a cheio. */
+.som .campo--mini {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Apontado e foco ───────────────────────────────────── */
+
+.som:hover .som__losango,
+.som:focus-visible .som__losango {
+  opacity: .95;
+}
+
+.som:hover .som__dash,
+.som:focus-visible .som__dash {
+  opacity: .55;
+  width: 34px;
+}
+
+.som:hover .som__estado--off,
+.som:focus-visible .som__estado--off {
+  color: rgba(200, 137, 46, .9);
+}
 
 .som:focus-visible {
-  outline: 1px solid var(--ambar);
-  outline-offset: 2px;
-  border-radius: 50%;
+  outline: 1px solid rgba(200, 137, 46, .6);
+  outline-offset: 4px;
 }
 
-.som:hover .som__anel {
-  opacity: .85;
+/* ── Estreito ──────────────────────────────────────────── */
+
+/* Abaixo de 420px a linha inteira (traço + palavra + losango) chega perto
+   do algarismo do relógio. O traço sai; a palavra e o losango, que são o
+   que identifica o objeto, ficam. */
+@media (max-width: 420px) {
+  .som {
+    gap: .55rem;
+  }
+
+  .som__dash {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .som,
-  .som__anel {
+  .som__dash,
+  .som__losango,
+  .som__estado {
     transition: none;
   }
 
   .som[aria-pressed="true"] .som__pulso {
     animation: none;
-    opacity: .35;
+    opacity: .3;
   }
 }

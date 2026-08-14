@@ -65,18 +65,44 @@ const VIRADA = (u) => {
   return 0.686 + ((u - 0.85) / 0.15) * 0.314
 }
 
-/* Amostragem do salão enchendo. O original vai de sala vazia a pista cheia
-   em oito segundos, mas a mudança não é uniforme: tudo acontece nos
-   primeiros cinco. Depois disso são três segundos de multidão arrastada que
-   já não muda de estado — só de desenho.
+/* Amostragem do salão enchendo — e a curva foi INVERTIDA nesta passada.
 
-   Setenta e cinco por cento dos quadros cobrem os primeiros 60% do vídeo.
-   O que se ganha é o momento em que a sala ainda está VAZIA e a primeira
-   pessoa entra: é o quadro que conta a história, e numa amostragem linear
-   ele passava em dois frames. */
-const ENCHE = (u) => (u < 0.75
-  ? (u / 0.75) * 0.6
-  : 0.6 + ((u - 0.75) / 0.25) * 0.4)
+   ── Por que a passagem não lia ─────────────────────────────────────────
+
+   O original é um timelapse honesto: aos 0s a sala está vazia, aos 8s ela
+   está cheia, e no meio as pessoas atravessam o quadro arrastadas pelo
+   obturador. A matéria sempre esteve certa. O que estava errado era a
+   amostragem.
+
+   Vinte e dois quadros para oito segundos são 2,75 por segundo. A essa
+   taxa uma pessoa que atravessa a tela em um segundo aparece em três
+   quadros, em três lugares distantes — e três posições distantes do mesmo
+   corpo não são uma travessia, são três pessoas parecidas piscando. O
+   arrasto do obturador, que é o assunto, virava ruído.
+
+   Pior: a curva antiga dava 75% dos quadros aos primeiros 60% do vídeo,
+   isto é, à parte VAZIA. O capítulo gastava três quartos do dedo mostrando
+   uma sala sem ninguém e resolvia a chegada da multidão nos últimos cinco
+   quadros. A seção que devia ser a mais cinética do site era, em tempo de
+   tela, a mais parada dele.
+
+   ── A curva nova ───────────────────────────────────────────────────────
+
+   O peso foi para onde há gente. Os primeiros 12% da sequência cobrem os
+   primeiros 30% do vídeo (a sala vazia existe, mas como batida de espera,
+   não como assunto), e os 88% restantes cobrem os 70% em que as pessoas
+   entram e cruzam. Combinado com 34 quadros em vez de 22, a taxa efetiva
+   na parte cheia sobe de 2,7 para cerca de 5,4 por segundo — e a essa taxa
+   o mesmo corpo aparece em posições vizinhas, que é o que o olho lê como
+   ALGUÉM PASSANDO.
+
+   E há um segundo consumidor destes quadros que a curva antiga também
+   estragava: no fim do capítulo a sequência é solta do dedo e passa a
+   correr sozinha (chapters.js). Uma sequência que roda a 24/s com quadros
+   amostrados de 2,7/s é um stop-motion; com esta curva, é um plano. */
+const ENCHE = (u) => (u < 0.12
+  ? (u / 0.12) * 0.3
+  : 0.3 + ((u - 0.12) / 0.88) * 0.7)
 
 const SEQUENCIAS = [
   {
@@ -94,8 +120,15 @@ const SEQUENCIAS = [
        cena é quase exata — é o resto do movimento que ela não saberia
        inventar, e aqui não há resto. */
     quadros: 22,
-    largura: 520,
-    teto: 34 * 1024,
+    /* 480 e teto de 26 kB, contra 520 e 34 kB. A sequência do entardecer é
+       o arquivo mais caro do site (folhagem em luz alta é ruído de alta
+       frequência puro) e nesta passada ela deixou de precisar de tanto:
+       o último quarto do capítulo é engolido pelo poente (o campo âmbar de
+       chapters.js), e resolução debaixo de uma demão opaca é peso que
+       ninguém vê. O que se ganha em bytes paga a seção nova e a passagem
+       do Salão, que é onde o pixel faz falta. */
+    largura: 480,
+    teto: 26 * 1024,
     curva: VIRADA,
     // a folhagem gera ruído de alta frequência que o WebP paga caro e que
     // a demão da seção come de qualquer jeito
@@ -109,15 +142,70 @@ const SEQUENCIAS = [
     janela: [],
     saida: 'public/frames/sala',
     prefixo: 's',
-    quadros: 22,
-    /* 560 e não 520 como o entardecer: esta sequência é o capítulo inteiro,
-       sem foto por baixo e sem demão de céu por cima para esconder degrau —
-       ela é a única coisa em cena durante uma tela e meia de rolagem. E
-       mesmo assim ela é MAIS BARATA que o entardecer, porque a cena é
-       escura, lisa e desfocada por natureza: o custo em WebP é quase todo
-       gradiente, que é o que ele comprime bem. */
-    largura: 560,
-    teto: 26 * 1024,
+    /* Trinta e quatro. O número não é uma folga de qualidade, é o que
+       separa "gente passando" de "vultos piscando" — ver a nota da curva
+       ENCHE acima. */
+    quadros: 34,
+
+    /* ── O recorte, e é ele que entrega o capítulo ──────────────────────
+
+       O original é 1080×1920 e tem três faixas horizontais:
+
+         topo      o teto e a luminária. Bonito, e absolutamente parado.
+         miolo     a cabine, a parede, o quadro — e a FAIXA EM QUE AS
+                   PESSOAS ATRAVESSAM.
+         pé        a mesa de mármore em primeiro plano, que ocupa o terço
+                   inferior e esconde as pernas de todo mundo.
+
+       Publicando o quadro inteiro, o `cover` do canvas ainda cortava por
+       cima e por baixo — mas cortava SIMÉTRICO, o que significa que numa
+       tela larga entravam metade da luminária e metade da mesa, e a faixa
+       das pessoas ficava espremida no meio, pequena.
+
+       Recortando na fonte, os 1250px que sobram são quase só a faixa do
+       meio: a proporção passa de 9:16 para ~7:8, o `cover` tem muito menos
+       o que jogar fora, e a multidão passa a ocupar a tela em vez de uma
+       tarja no centro dela. É o mesmo material com o dobro do assunto por
+       pixel — e ainda sai mais barato, porque 35% dos pixels que saíram
+       eram teto liso e mármore em foco.
+
+       ── E a altura do recorte é medida na TELA LARGA ────────────────────
+
+       O `y` não é o centro do assunto: é o valor que põe o assunto no
+       centro do que a tela larga vai mostrar.
+
+       Num monitor de ~2:1 o `cover` de um quadro 7:8 exibe só a faixa
+       central — 42% da altura, e joga 29% fora em cima e 29% embaixo. Com
+       o recorte começando em 430, essa faixa caía em 795–1315 do original,
+       que é EXATAMENTE a altura dos ombros para baixo: a tela larga
+       mostrava pernas, torsos e mármore, e cortava todas as cabeças fora.
+       Uma multidão sem cabeça não lê como multidão, lê como sombra.
+
+       Em 285 a faixa da tela larga vira 650–1170, que é onde as pessoas
+       estão inteiras. O telefone, que exibe o recorte quase todo em altura,
+       perde 145px de mármore no pé e não sente falta — ali o mármore era
+       barra de primeiro plano, não assunto. */
+    corte: { x: 0, y: 285, w: 1080, h: 1250 },
+
+    /* O recorte cobra uma conta de EXPOSIÇÃO, e ela precisa ser paga aqui.
+
+       A luminária do teto era a fonte de luz do quadro e também o objeto
+       mais claro dele: ela sozinha segurava a média do fotograma. Cortada
+       fora, o que sobra é a faixa da parede e das pessoas — que é mais
+       escura —, e a mesma imagem passa a chegar na tela um passo abaixo,
+       antes ainda de receber a demão de céu da seção e a vinheta global.
+
+       Meio passo de brilho e um toque de saturação devolvem o que o corte
+       levou. É assado no arquivo, como toda correção deste projeto: nenhum
+       filter em tempo de execução, em lugar nenhum. */
+    luz: 'eq=brightness=0.055:saturation=1.08',
+
+    /* 620 sobre um quadro 35% menor: a densidade de pixel na faixa das
+       pessoas sobe ~30% contra os 560 anteriores, e é onde ela importa —
+       esta é a única sequência do site em que o assunto tem contorno de
+       corpo humano. */
+    largura: 620,
+    teto: 19 * 1024,
     curva: ENCHE,
     // sem desfoque: o arrasto das pessoas JÁ é o desfoque, e amaciar por
     // cima disso apaga a única aresta viva do quadro (o filete de luz da
@@ -156,10 +244,16 @@ for (const seq of SEQUENCIAS) {
   await rm(temp, { recursive: true, force: true })
   await mkdir(temp, { recursive: true })
 
-  // todos os quadros do original, para que a seleção seja feita por índice
-  // e não por uma segunda passada de decodificação
+  /* Todos os quadros do original, para que a seleção seja feita por índice
+     e não por uma segunda passada de decodificação.
+
+     O recorte vem ANTES da escala: recortar depois seria escalar 1080×1920
+     inteiros para jogar 35% fora — decodificação e reamostragem pagas em
+     pixel que não vai para lugar nenhum. */
   const filtros = [
+    seq.corte ? `crop=${seq.corte.w}:${seq.corte.h}:${seq.corte.x}:${seq.corte.y}` : null,
     `scale=${seq.largura}:-2`,
+    seq.luz,
     seq.denoise,
     seq.desfoque ? `gblur=sigma=${seq.desfoque}` : null
   ].filter(Boolean).join(',')

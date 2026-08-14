@@ -4,7 +4,44 @@
    caracteres, montar o traço do rótulo) que antes moravam no reveal.
 
    Com movimento reduzido o Lenis nem chega a ser criado: a rolagem fica
-   nativa e cada script desenha seu estado final sem pin nem scrub. */
+   nativa e cada script desenha seu estado final sem pin nem scrub.
+
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ AS TRÊS CLASSES DE MOVIMENTO                                         ║
+   ║                                                                      ║
+   ║ Esta é a regra que governa o site inteiro, e ela existe porque a     ║
+   ║ passada anterior tinha só duas categorias na cabeça — "preso ao      ║
+   ║ dedo" e "não preso ao dedo" — e na prática quase tudo caía na        ║
+   ║ primeira. Uma página em que TODO movimento responde à rolagem é      ║
+   ║ cansativa e, paradoxalmente, sem impacto: quando tudo obedece ao     ║
+   ║ dedo, nada parece ter acontecido sozinho.                            ║
+   ║                                                                      ║
+   ║ 1. PRESO (scrub) — a posição da rolagem É um estado da cena, e o     ║
+   ║    usuário controla o tempo. É caro em atenção e por isso é raro:    ║
+   ║    três momentos no site, mais o fechamento do documento.            ║
+   ║                                                                      ║
+   ║       · o entardecer do Jardim (17h → 20h)                           ║
+   ║       · o salão enchendo (20h → 23h)                                 ║
+   ║       · o relógio da casa, dentro dos dois acima                     ║
+   ║       · a resina do fecho — chegar ao fim do documento É fechar      ║
+   ║                                                                      ║
+   ║    Nada mais. Se um elemento não puder responder à pergunta "que     ║
+   ║    ESTADO da cena esta posição de rolagem representa?", ele não      ║
+   ║    pertence a esta classe.                                           ║
+   ║                                                                      ║
+   ║ 2. DISPARADO (`entrada`, `autonomo`) — a rolagem só dá a partida.    ║
+   ║    A animação corre na velocidade dela e termina, mesmo que o dedo   ║
+   ║    tenha parado. É onde mora quase todo o site: texto, entradas,     ║
+   ║    saídas, aberturas de moldura, o engolir do poente.                ║
+   ║                                                                      ║
+   ║ 3. AMBIENTE (`laco`) — não pergunta nada a ninguém. Corre desde que  ║
+   ║    esteja em cena e para quando sai. Vídeo em laço, o campo          ║
+   ║    respirando, o pó do fecho, a sala do capítulo 02 depois de o      ║
+   ║    dedo soltá-la.                                                    ║
+   ║                                                                      ║
+   ║ O teste que separa a 1 da 3: um vídeo que PARA no meio do movimento  ║
+   ║ porque o usuário parou o polegar é um defeito, não uma pausa.        ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 
 import Lenis from 'lenis'
 import gsap from 'gsap'
@@ -159,6 +196,142 @@ export const entrada = (trigger, montar, { start = 'top 62%', uma = false } = {}
   })
 
   return tl
+}
+
+/* Classe 2, variante sem volta. `entrada` rebobina ao subir, para que a
+   seção possa ser lida duas vezes; há gestos que não podem rebobinar
+   porque são uma PASSAGEM e não um estado — o poente engolindo o jardim,
+   o corte do Salão. Um gesto de passagem tocado ao contrário vira um
+   desfazer, e desfazer não é um movimento que exista na natureza da cena.
+
+   Aqui a timeline toca uma vez por chegada e, subindo de volta, é
+   REBOBINADA sem tocar (progress 0), pronta para acontecer de novo na
+   próxima descida. */
+export const autonomo = (trigger, montar, { start = 'top 62%', rearmar = true } = {}) => {
+  const tl = gsap.timeline({ paused: true })
+  montar(tl)
+
+  if (reducedMotion) {
+    tl.progress(1)
+    return tl
+  }
+
+  ScrollTrigger.create({
+    trigger,
+    start,
+    onEnter: () => tl.play(),
+    onLeaveBack: rearmar ? () => tl.pause(0) : undefined
+  })
+
+  return tl
+}
+
+/* ── Classe 3: o motor ambiente ────────────────────────── */
+
+/* Um único rAF para todos os laços do site, e ele existe por três razões
+   que um `requestAnimationFrame` solto por seção não daria:
+
+   1. Um relógio só. Cinco laços independentes são cinco callbacks por
+      quadro e cinco leituras de `performance.now()` que podem divergir.
+
+   2. Pausa por visibilidade. Um laço fora de cena não desenha nada e
+      continua acordando o telefone. Aqui cada laço declara o elemento a que
+      pertence e é observado: fora da tela, ele simplesmente não é chamado —
+      e quando NENHUM está em cena, o rAF é desligado inteiro.
+
+   3. E a razão de projeto: o fecho precisa PARAR o site.
+
+      A página é sobre o tempo passando; o âmbar é sobre o tempo parado. No
+      último pixel do documento tudo o que se move sozinho — o pó, o campo,
+      o grão — para no mesmo quadro. Isso só é possível se houver um lugar
+      onde "tudo o que se move sozinho" seja uma lista. É esta.
+
+   O passo recebe o delta em segundos, limitado a 1/20s: voltando de uma aba
+   em segundo plano o delta seria de vários segundos e todo laço daria um
+   salto — que é justamente o tipo de tranco que o site não pode ter. */
+
+const laços = new Set()
+let quadroAmbiente = null
+let congelado = false
+
+const observadorAmbiente = typeof IntersectionObserver !== 'undefined'
+  ? new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      const laço = [...laços].find((l) => l.el === entry.target)
+      if (laço) laço.visivel = entry.isIntersecting
+    }
+    bombear()
+  }, { rootMargin: '10% 0px' })
+  : null
+
+let anterior = 0
+
+const correr = (agora) => {
+  const dt = Math.min((agora - anterior) / 1000, 0.05)
+  anterior = agora
+
+  let vivos = 0
+  for (const laço of laços) {
+    if (!laço.visivel) continue
+    vivos++
+    if (!congelado) laço.passo(dt)
+  }
+
+  quadroAmbiente = vivos ? requestAnimationFrame(correr) : null
+}
+
+function bombear () {
+  if (quadroAmbiente || document.hidden) return
+  if (![...laços].some((l) => l.visivel)) return
+  anterior = performance.now()
+  quadroAmbiente = requestAnimationFrame(correr)
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (quadroAmbiente) cancelAnimationFrame(quadroAmbiente)
+    quadroAmbiente = null
+  } else bombear()
+})
+
+/* Devolve um cabo: `.parar()` para tirar o laço da lista de vez (o Salão
+   usa para devolver o canvas ao dedo quando o usuário sobe de volta). */
+export const laco = (el, passo) => {
+  if (reducedMotion) return { parar: () => {} }
+
+  /* Nasce VISÍVEL, e o observador só serve para desligar.
+
+     O contrário — nascer parado e esperar o observador dizer que apareceu —
+     tem duas falhas, e as duas são silenciosas:
+
+       · num navegador sem IntersectionObserver não existe quem ligue, e o
+         laço fica morto para sempre sem erro nenhum;
+       · o observador entrega a primeira leitura de forma assíncrona, então
+         um laço criado com o elemento JÁ em cena perde o primeiro punhado
+         de quadros — e o do fecho, que é o objeto cuja parada é o assunto
+         da última tela, é justamente um que pode nascer em cena.
+
+     Ligado por padrão, o pior caso é um elemento fora da tela animando por
+     um quadro até a primeira leitura chegar. */
+  const laço = { el, passo, visivel: true }
+  laços.add(laço)
+  observadorAmbiente?.observe(el)
+  bombear()
+
+  return {
+    parar: () => {
+      laços.delete(laço)
+      observadorAmbiente?.unobserve(el)
+    }
+  }
+}
+
+/* O interruptor do fecho. Não remove nada da lista: os laços continuam
+   inscritos e voltam a andar se o usuário rolar para cima — o tempo não
+   acabou, ele está guardado. */
+export const congelarAmbiente = (v) => {
+  congelado = v
+  if (!v) bombear()
 }
 
 /* ── Utilidades de texto ───────────────────────────────── */

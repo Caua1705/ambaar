@@ -13,7 +13,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8svh var(--gutter-r) 22svh var(--gutter-l);
+  /* 26svh no pé, e não 22: o controle de som virou um lockup com palavra e
+     o rodapé subiu para não dividir a mesma faixa com ele */
+  padding: 8svh var(--gutter-r) 26svh var(--gutter-l);
   overflow: hidden;
 }
 
@@ -29,12 +31,46 @@
   z-index: 0;
 }
 
+/* ── O pó ──────────────────────────────────────────────── */
+
+/* Partículas em suspensão num facho âmbar. É a única imagem do site que não
+   mostra lugar nenhum: matéria, não fotografia.
+
+   Ela existe por uma razão de mecanismo antes de qualquer razão de beleza.
+   O fecho é "o tempo parando", e parar só significa alguma coisa se houver
+   algo andando. O pó é o relógio visível desta tela: deriva sozinho,
+   devagar, em quatro senoides de períodos primos entre si (outro.js) — e no
+   último pixel do documento congela no meio do movimento.
+
+   `screen` porque o assunto é luz sobre preto: em `normal` a moldura preta
+   do arquivo cobriria a fotografia do copo; em `screen` só o que é mais
+   claro que o fundo sobrevive, e o que sobrevive é exatamente o facho e as
+   partículas. Nenhum recorte, nenhum alfa, nenhum filtro.
+
+   A escala de 106% dá folga para a deriva: sem ela, 2% de translação
+   descobririam a borda do arquivo. */
+.outro__po {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  z-index: 1;
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: scale(1.06);
+}
+
 /* A resina. Cresce das bordas para o centro enquanto a página termina: o
    âmbar endurecendo em volta do que ficou dentro. */
 .outro__resina {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  /* acima do pó: a resina fecha EM VOLTA das partículas, elas não flutuam
+     por cima dela */
+  z-index: 2;
   pointer-events: none;
   /* o miolo não fica transparente: é justamente onde a frase cai, e é onde
      o brilho do copo estava comendo o texto. A leitura do gesto vem do
@@ -46,11 +82,13 @@
 
 .outro__content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* a resina assentando encolhe o bloco 1,5% a partir do centro (outro.js) */
+  transform-origin: center center;
 }
 
 /* ── O selo: o filete se recolhendo até o losango ──────── */
@@ -120,12 +158,17 @@
 
 /* Horário e perfil saíram da coluna central: são serviço, não composição,
    e presos ao rodapé da tela eles param de disputar peso com o fecho. */
+/* 8svh e não 3,5: o controle de som deixou de ser um anel de 30px e virou
+   um lockup com traço e palavra, ancorado no canto inferior direito. O
+   rodapé subiu para que os dois não dividam a mesma faixa — e o @ do
+   Instagram, que na tela larga fica justamente à direita, não encoste no
+   losango do controle. */
 .outro__foot {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  bottom: 3.5svh;
+  bottom: 8svh;
   display: flex;
   flex-direction: column;
   align-items: center;

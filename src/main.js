@@ -6,9 +6,10 @@ import './scripts/abertura.js'
 
 // uma seção por arquivo, na ordem em que aparecem na página
 import './scripts/hero.js'
+import './scripts/escuta.js'
 import './scripts/chapters.js'
 import './scripts/pausa.js'
-import './scripts/escuta.js'
+import './scripts/retrato.js'
 import './scripts/outro.js'
 
 /* Transversais: entradas genéricas e as âncoras fixas.

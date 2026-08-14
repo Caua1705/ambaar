@@ -34,6 +34,27 @@
  *     escuta — o registro briga com a tese antes de qualquer legenda.
  *   · marca de terceiro legível no vidro. Um site que é a identidade da
  *     casa não publica o logotipo de um destilado.
+ *
+ * ── A segunda triagem ──────────────────────────────────────────────────
+ *
+ * A pasta foi revista uma vez mais, e o erro da primeira passada não foi
+ * nenhum dos três critérios acima: foi tê-los aplicado a CONJUNTOS. "As
+ * fotos de flash" saíram juntas, "as de luz vermelha" saíram juntas — e
+ * dentro de cada conjunto havia uma ou duas que nunca tiveram o defeito do
+ * grupo. Quatro voltaram, uma a uma:
+ *
+ *   retrato    a mulher sentada, cabeça baixa, contra o tijolo. Já é âmbar
+ *              — a luz da foto é a luz do site — e é a única fotografia do
+ *              acervo em que alguém está SOZINHO e à vontade. Ganhou seção
+ *              própria, 01h.
+ *   jardim-som o jardim à noite com as luzinhas acesas e a vela na mesa.
+ *              Estava fora por ser "mais uma do jardim"; é a única que
+ *              mostra o ambiente na hora em que ele é reservado.
+ *   salao-alto as mãos no mixer, recorte fechado, contraluz âmbar. Estava
+ *              fora com o resto do material de cabine; é a única do lote
+ *              que não tem rosto, não tem flash e não tem marca legível.
+ *   particulas pó em suspensão num facho âmbar. Não é fotografia da casa —
+ *              é matéria. Vai para o fecho, onde a resina fecha.
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
@@ -77,14 +98,52 @@ const FOTOS = [
      de ler em 33svh de altura com texto por cima. Por isso são os únicos
      arquivos do site abaixo de 800px: eles nunca são vistos grandes. */
 
-  // Jardim: a única foto do acervo em que o jardim aparece À NOITE e com
-  // a cabine acesa. Estava na pasta desde o começo, sem uso nenhum —
-  // vendia melhor o ambiente do que o quadro de timelapse que estava lá.
-  { saida: 'jardim-som', de: 'hero.jpg', largura: 760, q: 72, luz: 1.1 },
+  /* Jardim: o jardim À NOITE, luzinhas acesas, cadeiras vazias e uma vela
+     na mesa. Trocou a foto da cabine acesa vista de longe, e a troca é de
+     ASSUNTO: o cartão não vende o jardim, vende a MESA no jardim — que é
+     literalmente o que se reserva. Um cartão de reserva com uma cadeira
+     vazia é um convite; com uma cabine de som é um cartaz. */
+  { saida: 'jardim-som', de: 'nao-usadas/jardim-noite.png', largura: 760, q: 72, luz: 1.06 },
 
-  // Salão: a cabine vista de cima, com as pernas da pista em volta. Diz
-  // "equipamento" e "gente" no mesmo quadro, que é o que o cartão vende.
-  { saida: 'salao-alto', de: 'salao-alto.jpg', largura: 760, q: 70, luz: 1.12, sat: 0.8, tinta: 0.2 },
+  /* Salão: as mãos no mixer, recorte fechado, contraluz âmbar. Trocou a
+     cabine vista de cima com as pernas da pista em volta.
+     A anterior dizia "tem DJ e tem gente" — informação de cartaz de festa.
+     Esta diz uma coisa só e diz melhor: alguém está TOCANDO. Num clube de
+     escuta o produto é o gesto, não a multidão, e é a única foto do acervo
+     de cabine que não tem rosto, nem flash, nem marca legível. */
+  { saida: 'salao-alto', de: 'nao-usadas/salao-maos.png', largura: 760, q: 72, luz: 1.04 },
+
+  /* ── A hora sem nome · 01h ───────────────────────────────────────────
+     A mulher sentada, cabeça baixa, o cabelo caindo, contra o tijolo. É a
+     fotografia que este site estava devendo: todas as outras têm um
+     assunto (o jardim, a cabine, a conversa, o copo) e esta tem uma
+     PESSOA, sozinha, na hora em que já não se está esperando ninguém.
+
+     Ela vem da pasta das descartadas e não precisou de quase nada: a luz
+     dela já é a luz da casa — tungstênio quente rasante, sombra fechada,
+     tijolo cor de bronze. É o caso raro em que a paleta não foi imposta à
+     foto, foi encontrada nela. A tinta é a mais baixa do site (.08),
+     só para o tijolo não puxar para o rosa; a saturação desce um passo
+     porque o vermelho do tijolo é a única cor que compete com o âmbar.
+
+     880px: é a segunda maior do site depois da hero. Ela é tela cheia numa
+     seção de uma ideia só, e a ideia é o rosto. */
+  { saida: 'retrato', de: 'nao-usadas/rosto.png', largura: 880, q: 72, luz: 1.02, sat: 0.88, tinta: 0.08 },
+
+  /* ── A resina · o fecho ──────────────────────────────────────────────
+     Pó em suspensão num facho de luz âmbar sobre preto. Não é fotografia
+     da casa: é MATÉRIA, e é a única imagem do site que não mostra lugar
+     nenhum.
+
+     Ela existe porque o fecho precisava de uma coisa que o gradiente de
+     CSS não sabe fazer — partícula suspensa. O site inteiro é o tempo
+     passando; o fecho é o tempo parando, e o desenho de "instante
+     guardado" é literalmente uma poeira que não cai. Um radial-gradient
+     fecha em volta do nada; isto fecha em volta de alguma coisa.
+
+     640px e qualidade baixa de propósito: é um borrão sobre preto composto
+     em `screen` a 40% — resolução aqui é peso sem imagem. */
+  { saida: 'particulas', de: 'nao-usadas/textura-particulas.png', largura: 640, q: 58, luz: 1.0 },
 
   /* ── A pausa das 00h ─────────────────────────────────────────────────
      Duas pessoas no sofá, uma falando no ouvido da outra, a cidade

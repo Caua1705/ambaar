@@ -132,15 +132,23 @@
   position: static;
   width: auto;
   height: 8rem;
+  /* o intervalo que a versão animada tem em svh: sem ele a primeira linha
+     nasce colada na base de "fica." e o espectro lê como sublinhado */
+  margin-top: 3rem;
 }
 
 /* ── No controle de som ────────────────────────────────── */
 
 /* Três linhas dentro do anel. A amplitude é proporcional: o mesmo gesto,
    numa caixa doze vezes menor. */
+/* Três linhas dentro do losango do controle. A largura é medida na CINTURA
+   da forma, não na caixa dela: um losango de 24px de lado tem 34 de
+   diagonal no meio e quase nada nas pontas, e a linha mais longa (--w:.9)
+   a 12px sobra folga suficiente para nunca encostar nas arestas quando o
+   espectro a leva a cheio. */
 .campo--mini {
   --amp: 1.5px;
-  width: 13px;
+  width: 12px;
   height: 9px;
 }
 

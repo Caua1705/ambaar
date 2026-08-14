@@ -1,10 +1,18 @@
 /* Sequências de quadros em canvas — o mecanismo, sem opinião de seção.
-   Duas seções usam este arquivo com intenções opostas:
 
-     · o entardecer do Jardim, preso ao scroll, porque ali a posição da
-       rolagem É a hora do dia;
-     · o copo enchendo na Escuta, que dispara e corre sozinho, porque ali
-       o tempo é o do líquido e não o do dedo.
+   Ele é usado por dois capítulos, e o Salão o usa das DUAS maneiras
+   possíveis dentro de uma mesma seção:
+
+     · o entardecer do Jardim, preso ao dedo do começo ao fim, porque ali a
+       posição da rolagem É a hora do dia;
+     · o Salão enchendo, preso ao dedo até certo ponto do curso e SOLTO
+       depois dele — a partir daí o mesmo canvas é alimentado por um laço
+       de tempo real (chapters.js), e a sala continua se mexendo com o
+       polegar parado.
+
+   Isso é possível porque este arquivo não conhece scroll nenhum: ele expõe
+   `desenhar(v)` com v fracionário e não faz ideia de quem escreve v. Trocar
+   o dedo pelo relógio é trocar quem chama a função.
 
    Quatro decisões sustentam os dois casos:
 

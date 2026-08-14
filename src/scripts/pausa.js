@@ -110,10 +110,28 @@ for (const pausa of document.querySelectorAll('.pausa')) {
 
   /* O retrato abre primeiro e devagar; o detalhe entra atrás dele, mais
      curto — é o mesmo intervalo de uma respiração. A frase fecha o grupo:
-     a pausa mostra a sala e só então diz o que está acontecendo nela. */
+     a pausa mostra a sala e só então diz o que está acontecendo nela.
+
+     ── Por que o gatilho subiu de 72% para 94% ───────────────────────────
+
+     Metade do conserto da imagem órfã, e a outra metade está na saída do
+     capítulo 02 (chapters.js).
+
+     A 72% as molduras só começavam a abrir quando a seção já ocupava um
+     terço da tela. O que subia por baixo da fotografia do Salão, portanto,
+     eram dois retângulos FECHADOS — nada, em cima de nada —, e a abertura
+     acontecia depois, com a composição já parada no meio do quadro. A
+     entrada era um evento que chegava atrasado em relação à própria
+     chegada, e uma seção que se monta depois de já ter chegado parece ter
+     caído ali.
+
+     A 94% as molduras abrem enquanto a seção ainda está entrando pelo pé da
+     tela. O que o usuário vê aparecer por baixo da fotografia que sai é uma
+     coisa JÁ ACONTECENDO — e é isso que faz a diferença entre uma seção que
+     chega e uma seção que é descoberta. */
   entrada(pausa, (t) => {
     t.to(retrato, { clipPath: ABERTO, duration: 1.5, ease: EASE }, 0)
       .to(detalhe, { clipPath: ABERTO, duration: 1.2, ease: EASE }, 0.28)
       .to(linha, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 0.62)
-  }, { start: 'top 72%' })
+  }, { start: 'top 94%' })
 }

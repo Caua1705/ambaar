@@ -6,28 +6,76 @@
    aparece, acende, pulsa, alterna e guarda a escolha — só não produz som.
 
    ┌──────────────────────────────────────────────────────────────────────┐
-   │ PARA ENTREGAR O ÁUDIO                                                │
+   │ PARA ENTREGAR O ÁUDIO — um passo                                     │
    │                                                                      │
-   │   1. ponha o arquivo em  public/audio/ambar.mp3                      │
+   │   crie a pasta e ponha o arquivo em:                                 │
    │                                                                      │
-   │ Só isso. A constante FAIXA abaixo já aponta para lá. Se o nome for    │
-   │ outro, troque a linha da constante — é a única linha a mudar.         │
+   │       public/audio/ambar.mp3                                         │
+   │                                                                      │
+   │ Só isso. Nada mais muda: a constante FAIXA abaixo já aponta para lá,  │
+   │ o Vite copia public/ inteiro para o build, e o mecanismo já está      │
+   │ ligado — o controle aparece, acende, pulsa, alterna, guarda a         │
+   │ escolha e persegue o volume de cada seção HOJE, sem arquivo nenhum.   │
+   │ O que falta é só o que sai do alto-falante.                          │
+   │                                                                      │
+   │ Se o nome do arquivo for outro, troque a linha da constante — é a     │
+   │ única linha a mudar em todo o projeto.                               │
    │                                                                      │
    │ Recomendação de material: um loop de 60 a 120s, organic house/        │
    │ downtempo, normalizado a −16 LUFS e com fade nas duas pontas para o   │
    │ laço não estalar. 128 kbps mono resolve; o áudio é ambiente, não é o  │
    │ acervo do clube.                                                     │
+   │                                                                      │
+   │ Para conferir sem ouvir: em dev, `__som.estado()` no console devolve  │
+   │ o estado do grafo, o ganho instantâneo, o nível que a seção atual     │
+   │ pede e o pico do analisador.                                         │
    └──────────────────────────────────────────────────────────────────────┘
 
    ── As regras ───────────────────────────────────────────────────────────
 
    · Desligado por padrão, sempre. Nunca toca sozinho — o navegador
      bloquearia, e mesmo que não bloqueasse seria hostil.
-   · O ganho sobe e desce em rampa de 1s. Nenhum corte seco.
+   · Ao ligar, o som ENTRA em 1,5s. Nenhum corte seco, em lugar nenhum.
    · A escolha sobrevive à navegação dentro da sessão (sessionStorage, não
      localStorage: a preferência é desta visita, não uma configuração
      permanente que o usuário não sabe que deu).
    · Sem arquivo, tudo acima continua valendo, sem som.
+
+   ── O volume segue a narrativa ──────────────────────────────────────────
+
+   Um clube de escuta não tem um volume só, e o site também não tem: a casa
+   às 17h no jardim não soa como a casa às 22h no salão. Cada seção declara
+   o nível que pede (data-som, no HTML) e o ganho persegue esse valor em
+   2 segundos.
+
+       A escuta  .15    o silêncio antes da noite
+       Jardim    .30    som lá fora, entre as plantas
+       Salão     .70    a casa cheia — o pico da página
+       Pausa 00h .40    a conversa baixando
+       01h       .30    a hora sem nome, entre a pausa e o reservado
+       Reservado .25    poucas mesas, o som no ponto exato
+       Reservas  .15
+       Fecho     .15    o tempo parando
+
+   Duas decisões dentro disso:
+
+   1. O nível é ligado à SEÇÃO ATIVA, nunca ao progresso da rolagem. O
+      observador que já decide o texto vertical, o menu e o relógio
+      (sections.js) decide também o volume: ele muda uma vez por seção, no
+      mesmo ponto em que o site troca de assinatura. Amarrado ao progresso,
+      uma rolagem rápida faria o ganho subir e descer várias vezes por
+      segundo — e um volume que pulsa é a coisa mais barata que um site
+      pode fazer com áudio.
+
+      Quem rola depressa e atravessa quatro seções em dois segundos não
+      ouve quatro rampas: `setTargetAtTime` é uma perseguição exponencial e
+      cada alvo novo redireciona a curva de onde ela está. O que se ouve é
+      um movimento só, na direção da seção em que a pessoa parou.
+
+   2. Nenhum nível é zero. O menor é .15, e ele é audível. Uma faixa que
+      some no meio da visita não lê como intenção, lê como o arquivo tendo
+      acabado — e o usuário vai ao controle conferir se quebrou. Silêncio
+      total é um estado que só o botão pode produzir.
 
    ── Por que Web Audio e não .volume ─────────────────────────────────────
 
@@ -49,8 +97,16 @@ import { gsap, reducedMotion, EASE } from './motion.js'
 const FAIXA = '/audio/ambar.mp3'
 
 const CHAVE = 'ambar:som'
-const RAMPA = 1.0 // s: a subida e a descida do ganho
-const VOLUME = 0.55 // teto: som de sala, não de fone
+
+const ENTRADA = 1.5 // s: o som entrando quando alguém liga
+const SAIDA = 1.0 // s: o som saindo quando alguém desliga
+const NARRATIVA = 2.0 // s: a troca de nível entre duas seções
+
+/* O piso, e ele é uma regra de projeto e não uma salvaguarda de código:
+   ligado, o site nunca fica mudo. Uma seção que esquecesse de declarar
+   data-som herdaria isto em vez de silêncio. */
+const PISO = 0.15
+
 const BANDAS = [3, 6, 11, 19, 32, 52, 84] // limites de bin do analisador
 
 const botao = document.querySelector('#som-toggle')
@@ -162,22 +218,44 @@ if (botao) {
 
      setTargetAtTime e não linearRamp: a constante de tempo dá uma subida
      que começa depressa e assenta devagar, que é como o volume de uma sala
-     sobe. O cancelAndHold evita o estalo quando o usuário alterna duas
-     vezes seguidas — a rampa nova parte de onde a anterior estava. */
-  const rampa = (alvo) => {
+     sobe. E ela é uma PERSEGUIÇÃO, não um agendamento — cada alvo novo
+     redireciona a curva de onde ela está, sem estalo e sem fila. É o que
+     faz uma rolagem rápida por quatro seções soar como um movimento só em
+     vez de quatro rampas empilhadas.
+
+     A constante é a duração dividida por três: a essa taxa o ganho chega a
+     95% do alvo no tempo pedido, que é o que o ouvido lê como "chegou". */
+  const rampa = (alvo, dur) => {
     if (ganho && ctx) {
       const agora = ctx.currentTime
       ganho.gain.cancelScheduledValues(agora)
       ganho.gain.setValueAtTime(ganho.gain.value, agora)
-      ganho.gain.setTargetAtTime(alvo, agora, RAMPA / 3)
+      ganho.gain.setTargetAtTime(alvo, agora, dur / 3)
       return
     }
 
     // sem Web Audio o fade volta para o rAF do GSAP sobre .volume: pior
     // (engasga com a rolagem, para em aba oculta), mas continua sendo um
     // fade — o requisito é não haver corte seco, e ele vale em toda parte
-    if (audio) gsap.to(audio, { volume: alvo, duration: RAMPA, ease: 'power2.out', overwrite: true })
+    if (audio) gsap.to(audio, { volume: alvo, duration: dur, ease: 'power2.out', overwrite: true })
   }
+
+  /* ── O nível que a seção pede ────────────────────────
+
+     A seção ativa é publicada por sections.js — o mesmo evento que move o
+     relógio e troca a assinatura vertical. Aqui ele vira volume.
+
+     O valor é guardado mesmo com o som desligado: se o usuário ligar no
+     meio do Salão, o som entra JÁ no nível do Salão em vez de entrar no
+     nível de abertura e subir depois. Ligar o som não pode ser um segundo
+     acontecimento sonoro depois do primeiro. */
+  let nivel = PISO
+
+  document.addEventListener('secao:ativa', (evento) => {
+    const pedido = Number(evento.detail.secao.dataset.som)
+    nivel = Number.isFinite(pedido) && pedido > 0 ? Math.max(pedido, PISO) : PISO
+    if (ligado) rampa(nivel, NARRATIVA)
+  })
 
   /* ── Alternar ────────────────────────────────────────── */
 
@@ -193,10 +271,10 @@ if (botao) {
     }
 
     if (!ligado) {
-      rampa(0)
+      rampa(0, SAIDA)
       // o áudio só para depois da rampa: parar junto seria o corte seco que
       // a rampa existe para evitar
-      setTimeout(() => { if (!ligado) audio?.pause() }, RAMPA * 1000 + 120)
+      setTimeout(() => { if (!ligado) audio?.pause() }, SAIDA * 1000 + 120)
       soltar()
       return
     }
@@ -213,7 +291,8 @@ if (botao) {
       temSinal = false
     })
 
-    rampa(VOLUME)
+    // entra no nível da seção em que o usuário está, não num teto fixo
+    rampa(nivel, ENTRADA)
   }
 
   botao.addEventListener('click', () => aplicar(!ligado))
@@ -249,6 +328,7 @@ if (botao) {
       estado: () => ({
         ligado,
         temSinal,
+        nivel, // o que a seção atual pede
         ctx: ctx?.state ?? null,
         ganho: ganho?.gain.value ?? null,
         pronto: audio?.readyState ?? null,

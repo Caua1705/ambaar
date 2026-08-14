@@ -53,12 +53,20 @@ if (relogio && valor) {
   const LUGARES = {
     esq: { x: 0, pe: 4, escala: 1 },
     centro: { x: 0.5, pe: 4, escala: 1 },
-    dir: { x: 1, pe: 4, escala: 1 },
-    // a pausa divide a tela com uma frase e com duas molduras: um degrau
-    // menor, e no canto oposto ao do quadro que sangra. Havia um par
-    // espelhado disto ('dir-baixo') para a pausa das 20h; a seção foi
-    // absorvida pelo capítulo 02 e o token saiu junto.
-    'esq-baixo': { x: 0, pe: 5, escala: 0.66 }
+
+    /* 7svh, e não 4 como os dois de cima. O controle de som virou um lockup
+       de traço, palavra e losango ancorado no canto inferior DIREITO, e um
+       algarismo alinhado à direita a 4svh do pé cruzava a faixa dele — dois
+       objetos âmbar de contorno fino no mesmo lugar viram sujeira. Os
+       lugares da esquerda e do centro não têm o problema e não pagam o
+       recuo. */
+    dir: { x: 1, pe: 7, escala: 1 },
+
+    // as duas telas de composição — a pausa das 00h e a hora sem nome —
+    // dividem o quadro com uma frase e com fotografia: um degrau menor, e
+    // no canto oposto ao do assunto. Uma de cada lado.
+    'esq-baixo': { x: 0, pe: 5, escala: 0.66 },
+    'dir-baixo': { x: 1, pe: 7.5, escala: 0.66 }
   }
 
   /* "20—00" atravessa a meia-noite e conta 20, 21, 22, 23, 00. */

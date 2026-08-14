@@ -140,9 +140,12 @@
 .hero__mark-layer--foto {
   background-image:
     linear-gradient(rgba(200, 137, 46, .52), rgba(200, 137, 46, .52)),
-    url('/img/jardim-dourado.webp');
+    url('/img/hero.webp');
   background-size: cover;
-  background-position: 50% 30%;
+  /* 50% 40%: o recorte novo tira o terço de baixo do arquivo (as cadeiras),
+     então o miolo do quadro passou a ser a mancha de luz na parede — que é
+     justamente o que deve preencher as seis letras. */
+  background-position: 50% 40%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

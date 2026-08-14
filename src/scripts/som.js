@@ -49,13 +49,17 @@
    2 segundos.
 
        Hero      .15    o instante guardado, antes de tudo
-       A escuta  .15    o silêncio antes da noite
-       A troca   .20    o café acabou de fechar; a casa liga o som
        Jardim    .30    som lá fora, entre as plantas
-       Salão     .70    a casa cheia — o pico da página
-       Pausa 00h .40    a conversa baixando
-       01h       .30    a hora sem nome, entre a pausa e o reservado
+       19h copo  .34    a casa começou a servir
+       20h cabine .50   alguém escolhendo o que vai tocar
+       Salão     .70    a casa cheia
+       22h pista .80    o pico da página
+       23h brinde .78
+       00h passagem .62 a câmera entrando
+       01h pausa .40    a conversa baixando
+       02h retrato .30
        Reservado .25    poucas mesas, o som no ponto exato
+       03h quem fica .18
        Reservas  .15
        Fecho     .15    o tempo parando
 
@@ -98,7 +102,7 @@
    navegadores e também a mais educada: quem nunca ligar o som não paga
    contexto de áudio nenhum. */
 
-import { gsap, reducedMotion, EASE } from './motion.js'
+import { gsap, ScrollTrigger, reducedMotion, EASE } from './motion.js'
 
 /* ↓↓↓ A ÚNICA LINHA A MUDAR PARA ENTREGAR O ÁUDIO ↓↓↓ */
 const FAIXA = '/audio/ambar.mp3'
@@ -118,7 +122,12 @@ const BANDAS = [3, 6, 11, 19, 32, 52, 84] // limites de bin do analisador
 
 const botao = document.querySelector('#som-toggle')
 const campos = [...document.querySelectorAll('[data-campo]')]
-const escuta = document.querySelector('.escuta')
+
+/* Onde o controle nasce. Era "A escuta" — a tela de tese —, que saiu do
+   site; agora é o PRIMEIRO CAPÍTULO, e o gatilho passou a ser a chegada
+   dele em vez de um evento publicado por outra seção. Ver a nota da
+   entrada, no pé deste arquivo. */
+const berco = document.querySelector('.chapter')
 
 if (botao) {
   const linhas = campos.map((campo) => [...campo.querySelectorAll('.campo__linha i')])
@@ -306,10 +315,30 @@ if (botao) {
 
   /* ── A entrada ───────────────────────────────────────
 
-     O controle acende quando "A escuta" termina de dizer a última frase, e
-     não sai mais — inclusive subindo de volta. A escolha guardada só é
-     reaplicada depois disso: um som que volta a tocar antes de o controle
-     estar na tela seria som sem origem visível. */
+     ╔══════════════════════════════════════════════════════════════════╗
+     ║ O CONTROLE MUDOU DE BERÇO                                        ║
+     ║                                                                  ║
+     ║ Ele acendia quando "A escuta" terminava de dizer a última frase,  ║
+     ║ e ouvia um evento (`escuta:fecho`) publicado por aquela seção.    ║
+     ║ A seção saiu do site.                                            ║
+     ║                                                                  ║
+     ║ Sem o gatilho, o ramo que sobrava era `acender()` na carga — o    ║
+     ║ controle apareceria em cima da marca, na primeira tela, antes de  ║
+     ║ existir qualquer razão para alguém querer ligar um som.          ║
+     ║                                                                  ║
+     ║ Agora ele nasce com o PRIMEIRO CAPÍTULO, e o lugar é melhor do    ║
+     ║ que o anterior por uma razão de assunto: o capítulo 01 é a tela   ║
+     ║ em que a cabine acende no jardim. O botão que liga o som da casa  ║
+     ║ aparece no instante em que a casa liga o som dela.               ║
+     ║                                                                  ║
+     ║ E o mecanismo ficou mais barato: um ScrollTrigger local em vez    ║
+     ║ de um evento entre dois arquivos. Nenhuma seção precisa mais      ║
+     ║ saber que este controle existe.                                  ║
+     ╚══════════════════════════════════════════════════════════════════╝
+
+     Uma vez aceso, não sai mais — inclusive subindo de volta. A escolha
+     guardada só é reaplicada depois disso: um som que volta a tocar antes
+     de o controle estar na tela seria som sem origem visível. */
   if (!reducedMotion) gsap.set(botao, { y: 10 })
 
   const acender = () => {
@@ -324,8 +353,14 @@ if (botao) {
     } catch { /* modo privado */ }
   }
 
-  if (!escuta || reducedMotion) acender()
-  else document.addEventListener('escuta:fecho', acender, { once: true })
+  if (!berco || reducedMotion) acender()
+  else {
+    /* `top 55%`: o capítulo já tomou quase metade da tela e o título dele
+       terminou de se escrever. Mais cedo e o botão chega junto com a
+       fotografia, disputando a mesma entrada; mais tarde e ele aparece
+       depois de a pessoa já ter decidido que o site é mudo. */
+    ScrollTrigger.create({ trigger: berco, start: 'top 55%', once: true, onEnter: acender })
+  }
 
   /* Em dev, o grafo à mão. O estado do áudio é invisível por natureza —
      sem faixa e com faixa produzem exatamente a mesma tela —, e sem isto a

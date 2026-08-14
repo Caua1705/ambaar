@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&amp;family=Jost:wght@200;300;400&amp;display=swap" />
 
-    <link rel="preload" as="image" href="/img/jardim-dourado.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/img/hero.webp" fetchpriority="high" />
   </head>
   <body>
     <!-- ── A abertura ─────────────────────────────────────
@@ -33,9 +33,12 @@
 
     <header class="topbar" id="topbar">
       <span class="topbar__mark">ÂMBAR</span>
+      <!-- Duas entradas, e não três. A terceira apontava para "A escuta", a
+           tela de tese em tipo sobre carvão, que saiu do site nesta passada
+           (ver a nota logo abaixo, em #app). Um menu com um item a menos é
+           melhor que um menu com um item que não vai a lugar nenhum. -->
       <nav class="topbar__nav">
         <a class="topbar__link" data-nav="ambientes" href="#cap-jardim">Ambientes</a>
-        <a class="topbar__link" data-nav="escuta" href="#som">A escuta</a>
         <a class="topbar__link topbar__link--cta" data-nav="reservas" href="#reservas">Reservas</a>
       </nav>
     </header>
@@ -56,8 +59,7 @@
 
          E o relógio da casa passou a contar sem repetir e sem pular:
 
-           17h  a troca          o café fecha
-           17—19h  o Jardim      o sol cai, e a casa acende no lugar dele
+           17—19h  o Jardim      o sol cai e a cabine acende no lugar dele
            19h  o primeiro copo  o que a casa serve
            20h  a cabine         alguém escolhe o que vai tocar
            20—22h  o Salão       a sala enche
@@ -69,6 +71,44 @@
            02—03h  o Reservado   a noite se fecha em si mesma
            03h  quem fica        a tese da segunda tela, seis horas depois
 
+         ╔════════════════════════════════════════════════════════════════╗
+         ║ DUAS TELAS SAÍRAM DO ALTO DO SITE                              ║
+         ║                                                                ║
+         ║ "A ESCUTA" — a tese em tipo grande sobre carvão, sem            ║
+         ║ fotografia: "Não é o volume. É o que está tocando. / Organic    ║
+         ║ house, downtempo… / Quem escuta, fica."                         ║
+         ║                                                                ║
+         ║ "A TROCA · 17h" — a premissa do prédio: o café fecha às 17h e   ║
+         ║ o Âmbar abre no mesmo lugar.                                    ║
+         ║                                                                ║
+         ║ As duas eram boas telas e as duas custavam o mesmo: o usuário   ║
+         ║ pagava DUAS telas de rolagem entre a marca e o primeiro         ║
+         ║ ambiente. Somadas à hero, eram três telas antes de a casa       ║
+         ║ aparecer.                                                       ║
+         ║                                                                ║
+         ║ A troca saiu por decisão de negócio, e ela manda: a casa não    ║
+         ║ quer falar do café na própria página. Uma premissa que o dono   ║
+         ║ não quer contar não é uma premissa, é uma nota de rodapé.        ║
+         ║                                                                ║
+         ║ A escuta saiu junto porque, sem a troca, ela ficaria sendo a    ║
+         ║ única coisa entre a marca e o Jardim — uma tela de texto puro   ║
+         ║ segurando sozinha a porta de entrada do site.                   ║
+         ║                                                                ║
+         ║ O QUE ELA DIZIA NÃO SE PERDEU, e isso importa mais que a tela:  ║
+         ║                                                                ║
+         ║   · os gêneros ("organic house, downtempo, e o que existe      ║
+         ║     entre os dois") foram para o parágrafo do capítulo 01, que  ║
+         ║     é agora a primeira copy do site;                            ║
+         ║   · "Quem escuta, fica." continua na página, às 03h, com uma    ║
+         ║     mulher de perfil ouvindo ao lado — que era a PROVA da tese  ║
+         ║     e agora é a tese inteira. Ela deixou de ser uma promessa    ║
+         ║     feita no começo e virou a regra da casa dita no fim, em     ║
+         ║     cima de alguém que a está cumprindo.                        ║
+         ║                                                                ║
+         ║ O site foi de 18,4 para 16,4 telas e a casa aparece na segunda  ║
+         ║ em vez de na quarta.                                            ║
+         ╚════════════════════════════════════════════════════════════════╝
+
          data-som — o volume que cada seção pede. O controle de áudio não tem
          um nível só: o volume segue a NARRATIVA. O valor é lido pelo
          observador de seções (sections.js) e a mudança leva 2s em rampa
@@ -76,19 +116,46 @@
          não faça o volume pulsar.
          ═══════════════════════════════════════════════════════════════════ -->
     <div id="app">
-      <!-- ── A marca ────────────────────────────────────── -->
-      <!-- O jardim na hora dourada: são 17h, o café acabou de fechar. E é
-           uma foto PARADA — o site inteiro é o tempo passando e a marca é o
-           tempo parado, então a abertura é o instante guardado e a primeira
-           rolagem é o que põe a noite em movimento.
+      <!-- ── A marca ──────────────────────────────────────
+           A hora dourada no jardim. É uma foto PARADA — o site inteiro é o
+           tempo passando e a marca é o tempo parado, então a abertura é o
+           instante guardado e a primeira rolagem é o que põe a noite em
+           movimento.
 
            O wordmark tem duas camadas no mesmo lugar: uma preenchida com a
-           própria fotografia do jardim e outra em âmbar chapado. A primeira
-           rolagem apaga a foto por trás e troca uma pela outra — o jardim
-           que se via ATRAVÉS das letras fica DENTRO delas. -->
+           própria fotografia e outra em âmbar chapado. A primeira rolagem
+           apaga a foto por trás e troca uma pela outra — a luz que se via
+           ATRAVÉS das letras fica DENTRO delas.
+
+           ╔════════════════════════════════════════════════════════════════╗
+           ║ A FOTOGRAFIA ERA A MESMA DO CAPÍTULO 01                        ║
+           ║                                                                ║
+           ║ Literalmente a mesma: mesma mesa, mesmas cadeiras, mesma        ║
+           ║ parede, mesma parreira, mesmo ângulo. O arquivo da hero é um    ║
+           ║ quadro do timelapse de 22 quadros que o Jardim usa, com outra   ║
+           ║ correção de cor. Duas telas de distância entre uma e outra, e   ║
+           ║ o efeito era o que o usuário descreveu: "ficou meio estranho".  ║
+           ║                                                                ║
+           ║ O conserto não foi trocar de fotografia, foi trocar de ESCALA.  ║
+           ║ O recorte tira o terço de baixo — a mesa e as cadeiras, que     ║
+           ║ são o assunto reconhecível — e deixa luz rasante numa parede,   ║
+           ║ folha de bananeira e uma parreira caindo do alto. A hero deixou ║
+           ║ de mostrar um LUGAR e passou a mostrar uma HORA; o capítulo 01  ║
+           ║ mostra o lugar, e mostra o tempo passando nele.                 ║
+           ║                                                                ║
+           ║ Mesmo pátio, duas distâncias. É a mesma relação que a página    ║
+           ║ usa às 19h entre o copo no jardim e o copo na mão — e ela é     ║
+           ║ mais forte que duas fotografias diferentes seriam, porque o     ║
+           ║ usuário reconhece a parede quando chega no capítulo.            ║
+           ║                                                                ║
+           ║ E há uma razão mecânica junto: esta imagem vive ATRÁS do        ║
+           ║ wordmark e é recortada por ele. Uma textura de luz enche as     ║
+           ║ seis letras de ouro; uma cadeira dentro de uma letra é um       ║
+           ║ acidente. Ver a nota do recorte em scripts/fotos.mjs.           ║
+           ╚════════════════════════════════════════════════════════════════╝ -->
       <section class="hero" data-vrail="ÂMBAR · MMXXVI" data-hora="off" data-som=".15" data-choreo>
         <picture class="hero__bg">
-          <img src="/img/jardim-dourado.webp" alt="" fetchpriority="high" decoding="async">
+          <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
         <span class="hero__scrim" aria-hidden="true"></span>
         <p class="hero__place">Fortaleza · Ceará</p>
@@ -103,114 +170,6 @@
         <div class="hero__scroll" aria-hidden="true">
           <span class="hero__scroll-line"></span>
           <span class="hero__scroll-word">Rolar</span>
-        </div>
-      </section>
-
-      <!-- ── A escuta ───────────────────────────────────────
-           A tese, e ela é UMA TELA E UM GESTO.
-
-           ── O que mudou nesta passada ───────────────────────────────────
-
-           A queixa era exata: "«Quem escuta, fica» aparece do nada, sem
-           apresentação nenhuma". E era literal — a frase entrava com um
-           `set` de opacidade, zero de duração, num site em que tudo o mais
-           tem gesto. A defesa antiga (num site onde tudo se move, a coisa
-           parada é a mais alta) é boa em teoria e, medida na tela, produzia
-           exatamente o que o usuário viu: um bloco de texto que pisca.
-
-           O erro estava em confundir NÃO GRITAR com NÃO ACONTECER. A frase
-           agora tem a entrada mais lenta e mais preparada da página, e ela é
-           construída em três tempos que nenhuma outra tela usa:
-
-             1. a tela ESCURECE um degrau antes dela — as duas frases de
-                cima recuam para 40% de branco e a terceira nasce no vazio
-                que elas abrem;
-             2. ela sobe por baixo de uma máscara, palavra a palavra, com a
-                letra crescendo 4% enquanto sobe — não é um fade, é uma coisa
-                que EMERGE;
-             3. e só então a linha se desenha por baixo de "escuta", que é a
-                única palavra âmbar da tela.
-
-           Continua sem barulho: nada voa, nada gira, nada pisca. Mas a
-           palavra que é a tese da casa deixou de chegar sem ser anunciada. -->
-      <section class="escuta" id="som" data-vrail="A ESCUTA" data-nav="escuta"
-               data-hora="off" data-som=".15" data-flat data-choreo>
-        <div class="escuta__stage">
-          <div class="escuta__bloco">
-            <p class="escuta__frase escuta__frase--a">
-              <span>Não é o volume.</span>
-              <span>É o que está tocando.</span>
-            </p>
-            <p class="escuta__frase escuta__frase--b">
-              <span>Organic house, downtempo,</span>
-              <span>e o que existe entre os dois.</span>
-            </p>
-            <!-- Três palavras, o maior tipo do site, e a única palavra
-                 âmbar desta tela. A linha para debaixo dela e não sai mais:
-                 o mesmo objeto que se desenha na abertura, pare a marca na
-                 hero e se recolhe até virar o losango no fecho passa a
-                 sublinhar, no meio do caminho, a tese da casa. -->
-            <p class="escuta__frase escuta__frase--c">
-              <span class="escuta__linha-mask"><span>Quem <b class="ouro">escuta</b>,</span></span>
-              <span class="escuta__linha-mask"><span>fica.</span></span>
-            </p>
-          </div>
-
-          <span class="escuta__horizonte" aria-hidden="true"></span>
-        </div>
-      </section>
-
-      <!-- ── A troca · 17h ──────────────────────────────────
-           A premissa da casa, e ela é a coisa mais incomum que o Âmbar tem:
-           não é um bar, é uma HORA. Ele acontece dentro de um café que já
-           existe — às 17h o café fecha e o Âmbar abre, no mesmo lugar, com
-           as mesmas cadeiras.
-
-           ╔════════════════════════════════════════════════════════════════╗
-           ║ A FRESTA SAIU, E ELA ERA O DEFEITO                             ║
-           ║                                                                ║
-           ║ A fotografia morava numa tarja horizontal de 22svh com carvão   ║
-           ║ em volta, e a defesa era de composição: depois de nove telas de ║
-           ║ sangria total, um assunto isolado no vazio devolve peso aos     ║
-           ║ dois modos.                                                     ║
-           ║                                                                ║
-           ║ Medido na tela, a 414×896, o que havia era: 30svh de preto em   ║
-           ║ cima, uma tarja em que não se enxergava o balcão nem o portão   ║
-           ║ nem a calçada, e 25svh de preto embaixo. Setenta por cento da   ║
-           ║ tela vazia para ilustrar a premissa mais importante do site com ║
-           ║ uma imagem ilegível. Vazio não é composição quando não sobrou   ║
-           ║ nada para ver.                                                  ║
-           ║                                                                ║
-           ║ Agora ela sangra nos quatro lados, como os capítulos — e o que  ║
-           ║ distingue esta tela deles não é mais a moldura, é o TEMPO: é a  ║
-           ║ única fotografia do site tirada com o sol ainda no céu, e a     ║
-           ║ única em que se vê a rua. O modo isolado no vazio não morreu;   ║
-           ║ ele vive na cabine e na pausa, que têm o que emoldurar.         ║
-           ╚════════════════════════════════════════════════════════════════╝
-
-           E é aqui que o relógio nasce. 17h. Ele assume nesta tela e conta a
-           noite inteira a partir daqui. -->
-      <section class="troca" data-vrail="A TROCA" data-choreo
-               data-hora="17" data-hora-em="dir-baixo" data-som=".20">
-        <div class="troca__stage">
-          <figure class="troca__quadro">
-            <img src="/img/casa-dia.webp" alt="O balcão do jardim aceso ao entardecer, com dois bancos vazios e o portão aberto para a rua." loading="lazy">
-          </figure>
-
-          <p class="troca__rotulo">
-            <span class="troca__dash" aria-hidden="true"></span>
-            <span>A troca</span>
-          </p>
-
-          <p class="troca__linha">O café fecha.<br>A casa <b class="ouro">continua aberta</b>.</p>
-
-          <!-- A voz de máquina. Não é copy: é o que o prédio informa.
-               Fonte de sistema, corpo mínimo, sem tracking de desenho — ver
-               a nota em tokens.css. -->
-          <dl class="maquina troca__dados">
-            <div><dt>café</dt><dd>08h — 17h</dd></div>
-            <div><dt>âmbar</dt><dd>17h — 03h</dd></div>
-          </dl>
         </div>
       </section>
 
@@ -234,28 +193,43 @@
            ║ assuntos opostos) é o que dá forma à noite: um é o que o SOL    ║
            ║ faz com um lugar, o outro é o que as PESSOAS fazem com ele.     ║
            ║                                                                ║
-           ║ O que o capítulo não tinha era um SEGUNDO ATO, e agora tem: no  ║
-           ║ instante em que o sol termina de cair, o plano dissolve numa    ║
-           ║ fotografia do mesmo jardim com as luzinhas da parreira ACESAS e ║
-           ║ uma vela na mesa. A luz que o dia levou é substituída pela que  ║
-           ║ a casa acendeu.                                                 ║
+           ║ ── O SEGUNDO ATO, E ELE MUDOU DE FOTOGRAFIA ─────────────────── ║
            ║                                                                ║
-           ║ O entardecer deixa de ser uma rampa e passa a ser uma TROCA DE  ║
-           ║ TURNO — que é a premissa da casa inteira, dita pela segunda vez ║
-           ║ e agora em imagem em vez de em texto. E a gente chega na tela   ║
-           ║ seguinte, às 19h, com um copo na mão: as pessoas entram na      ║
-           ║ história logo depois, sem que o capítulo precise copiar o       ║
-           ║ mecanismo do vizinho para colocá-las lá.                        ║
+           ║ A primeira versão dissolvia numa foto do mesmo jardim com as    ║
+           ║ luzinhas da parreira acesas e uma vela na mesa. Estava certa e  ║
+           ║ era pouco: a casa acendia a LUZ, e a casa é um clube de escuta. ║
+           ║                                                                ║
+           ║ Agora o plano dissolve na CABINE NO JARDIM — o balcão curvo     ║
+           ║ aceso por uma fita âmbar, o controlador em cima, duas caixas de ║
+           ║ som, as palmeiras atrás, uma vela na mesa em primeiro plano.    ║
+           ║ Estava em brand/originais desde a primeira passada, com o nome  ║
+           ║ `hero.jpg`, e nunca tinha sido publicada.                       ║
+           ║                                                                ║
+           ║ É exatamente a ideia que veio junto com a queixa — "o DJ        ║
+           ║ tocando lá fora de tarde" —, e ela já existia em arquivo.       ║
+           ║                                                                ║
+           ║ O capítulo passou a ter uma frase inteira em duas imagens: o    ║
+           ║ sol cai sobre as mesas vazias e, quando ele acaba, O SOM        ║
+           ║ COMEÇA. Não é uma troca de clima; é um acontecimento, e é a     ║
+           ║ causa de tudo o que vem depois — às 19h alguém já está com um   ║
+           ║ copo na mão, às 20h a cabine se muda para dentro, às 22h a sala ║
+           ║ está cheia. A noite tem um motivo para ter começado.            ║
            ║                                                                ║
            ║ A dissolução não é presa ao dedo nem ao relógio de rolagem: ela ║
-           ║ segue o PRÓPRIO progresso da sequência (chapters.js), então o   ║
-           ║ jardim acende exatamente quando o sol acaba, com o polegar      ║
+           ║ segue o PRÓPRIO progresso da sequência (chapters.js), então a   ║
+           ║ cabine acende exatamente quando o sol acaba, com o polegar      ║
            ║ parado ou correndo.                                             ║
            ╚════════════════════════════════════════════════════════════════╝
 
-           data-run 96: o curso de permanência do palco sticky. -->
+           data-run 130: o curso de permanência do palco sticky, e ele cresceu
+           de 96 nesta passada. As duas telas que saíram do alto do site
+           (a escuta e a troca) devolveram duas telas inteiras de orçamento
+           de rolagem, e o primeiro lugar onde elas fazem falta é aqui: o
+           capítulo agora tem DOIS atos e o segundo precisa de tela para
+           existir. A 96 a cabine acendia e a seção saía trinta por cento de
+           tela depois. -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="96" style="--run:96" data-saida="apaga" data-choreo
+               data-nav="ambientes" data-run="130" style="--run:130" data-saida="apaga" data-choreo
                data-hora="17—19" data-hora-em="esq" data-som=".30">
         <div class="chapter__stage">
           <div class="chapter__media">
@@ -263,10 +237,10 @@
               <img class="chapter__poster" src="/frames/dusk/d_001.webp" alt="">
               <canvas class="chapter__canvas" aria-hidden="true"></canvas>
             </span>
-            <!-- O segundo ato: o mesmo jardim com a luz da casa acesa. Ele
-                 acende sozinho quando a sequência termina de correr. -->
+            <!-- O segundo ato: a cabine no jardim, acesa. Ela acende sozinha
+                 quando a sequência do sol termina de correr. -->
             <span class="chapter__plano chapter__plano--noite">
-              <img src="/img/jardim-noite.webp" alt="O jardim à noite, com as luzinhas da parreira acesas e uma vela na mesa." loading="lazy">
+              <img src="/img/jardim-cabine.webp" alt="A cabine no jardim, acesa por uma fita âmbar, com as caixas de som e uma vela na mesa." loading="lazy">
             </span>
           </div>
           <span class="chapter__dusk" aria-hidden="true"></span>
@@ -277,8 +251,12 @@
               </span>
             </div>
             <div class="chapter__body">
+              <!-- A primeira copy do site, e ela absorveu os gêneros que a
+                   tela de tese dizia antes de sair. Não é uma sobra: uma
+                   casa que se vende como listening club precisa dizer O QUE
+                   toca antes da terceira tela, e agora ela diz na segunda. -->
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-              <p class="chapter__text reveal">O sol cai atrás da parreira e ninguém apaga a luz: a casa acende a dela. O som começa lá fora, entre as plantas, sem pressa.</p>
+              <p class="chapter__text reveal">O sol cai atrás da parreira e a cabine acende no lugar dele. Organic house, downtempo, e o que existe entre os dois.</p>
             </div>
           </div>
         </div>
@@ -592,10 +570,21 @@
 
            Uma mulher de perfil, olhos baixos, o brinco comprido pegando a
            luz. Ela não está posando, não está falando com ninguém e não está
-           olhando para a lente: está OUVINDO. É literalmente a frase da
-           segunda tela — "Quem escuta, fica." — fotografada seis horas
-           depois, e por isso a copy dela cita a promessa em vez de fazer
-           outra.
+           olhando para a lente: está OUVINDO.
+
+           ── A copy mudou de tempo verbal ────────────────────────────────
+
+           Ela era uma CITAÇÃO: "Dissemos lá em cima / Quem escuta, fica. /
+           São três da manhã e ela ainda está aqui." O "lá em cima" apontava
+           para a tela de tese que abria o site, e essa tela saiu.
+
+           Podia ter virado uma frase nova. Não virou, e a razão é que o
+           argumento fica MAIS forte assim: a tese da casa deixou de ser uma
+           promessa feita na segunda tela e passa a ser a regra dita no fim,
+           uma vez só, em cima de alguém que a está cumprindo há seis horas.
+           Uma casa que anuncia a própria regra na porta está se explicando;
+           uma que a diz depois de você ter visto a noite inteira está
+           concluindo.
 
            ── E ela é a única composição PARTIDA do site ───────────────────
 
@@ -613,7 +602,7 @@
             <img src="/img/perfil-brinco.webp" alt="Uma mulher de perfil, ouvindo." loading="lazy">
           </figure>
           <div class="quemfica__texto">
-            <p class="quemfica__eyebrow">Dissemos lá em cima</p>
+            <p class="quemfica__eyebrow">A casa tem uma regra só</p>
             <p class="quemfica__linha">Quem <b class="ouro">escuta</b>,<br>fica.</p>
             <p class="quemfica__nota">São três da manhã<br>e ela ainda está aqui.</p>
           </div>

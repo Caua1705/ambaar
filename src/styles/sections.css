@@ -109,16 +109,20 @@
 
 /* ── O segundo ato do Jardim ───────────────────────────── */
 
-/* O mesmo jardim com as luzinhas da parreira acesas e uma vela na mesa. Ele
-   está empilhado por cima da sequência de quadros, no mesmo embrulho, e
-   acende sozinho quando o sol termina de cair — quem escreve a opacidade
-   dele é o progresso da SEQUÊNCIA, não a rolagem (chapters.js).
+/* A CABINE NO JARDIM, acesa: o balcão curvo com a fita âmbar, as caixas de
+   som, as palmeiras e uma vela na mesa. Ela está empilhada por cima da
+   sequência de quadros, no mesmo embrulho, e acende sozinha quando o sol
+   termina de cair — quem escreve a opacidade dela é o progresso da
+   SEQUÊNCIA, não a rolagem (chapters.js).
 
    O porquê está no HTML: o capítulo era uma rampa de luz caindo e nada
    mais, e a queixa foi que o efeito estava básico. Ele não ganhou um
-   segundo efeito, ganhou um segundo ATO — a luz que o dia levou sendo
-   substituída pela que a casa acendeu, que é a premissa do Âmbar dita em
-   imagem em vez de em texto.
+   segundo efeito, ganhou um segundo ATO — o sol acaba e o SOM começa, que
+   é a causa de tudo o que vem depois na página.
+
+   (A classe se chama `--noite` desde a versão em que o segundo ato era uma
+   foto do jardim com as luzinhas acesas. O nome ficou porque o papel é o
+   mesmo: é a camada da noite, seja ela luz ou som.)
 
    A escala de 104% existe pela mesma razão que a do .chapter__media: a
    fotografia mora dentro de um plano que a timeline de permanência gira

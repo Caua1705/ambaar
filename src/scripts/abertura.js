@@ -17,7 +17,7 @@ import { gsap, reducedMotion, lenis, refresh, EASE } from './motion.js'
 
 /* As duas imagens que abrem o site. Nenhuma terceira: o resto chega depois
    da abertura, e chega tarde de propósito. */
-const CRITICAS = ['/img/jardim-dourado.webp', '/frames/dusk/d_001.webp']
+const CRITICAS = ['/img/hero.webp', '/frames/dusk/d_001.webp']
 const LIMITE = 6000 // ms: uma imagem travada não pode prender o site
 
 const abertura = document.querySelector('#abertura')

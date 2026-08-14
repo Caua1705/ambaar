@@ -8,8 +8,6 @@ import './scripts/abertura.js'
    ordem é a noite, hora a hora:
 
      hero       a marca
-     escuta     a tese
-     troca      17h   o café fecha
      chapters   17—19h · 20—22h · 02—03h   os três ambientes
      copo       19h   o primeiro copo
      cabine     20h   alguém escolhe o que vai tocar
@@ -18,12 +16,10 @@ import './scripts/abertura.js'
      passagem   00h   a câmera entra até achar uma pessoa
      pausa      01h   a conversa baixa
      retrato    02h   ninguém está indo embora
-     quemfica   03h   a tese da segunda tela, seis horas depois
+     quemfica   03h   a regra da casa, dita uma vez só e no fim
      reservas   a escolha
      outro      o fecho */
 import './scripts/hero.js'
-import './scripts/escuta.js'
-import './scripts/troca.js'
 import './scripts/chapters.js'
 import './scripts/copo.js'
 import './scripts/cabine.js'

@@ -110,8 +110,53 @@ const FOTOS = [
      O jardim na hora dourada. É o único plano do site que é uma foto
      PARADA de propósito: o site inteiro é o tempo passando e a marca é o
      tempo parado. Também é a foto mais nítida da página — ela vive atrás
-     do wordmark e é recortada por ele. */
-  { saida: 'jardim-dourado', de: 'jardim-dourado.png', largura: 920, q: 70, luz: 1.06 },
+     do wordmark e é recortada por ele.
+
+     ╔══════════════════════════════════════════════════════════════════╗
+     ║ O RECORTE, E POR QUE ELE EXISTE                                  ║
+     ║                                                                  ║
+     ║ Este arquivo é o MESMO enquadramento dos 22 quadros do capítulo   ║
+     ║ 01 — mesma mesa, mesmas cadeiras, mesma parede, mesma parreira.   ║
+     ║ Publicado inteiro, a primeira tela do site e a terceira eram a    ║
+     ║ mesma fotografia com duas cores diferentes, e o que o usuário     ║
+     ║ sentia era exatamente isso: "ficou estranho".                     ║
+     ║                                                                  ║
+     ║ O recorte tira o terço de baixo — a mesa e as cadeiras, que são   ║
+     ║ o assunto reconhecível — e deixa o que sobra: luz dourada         ║
+     ║ rasante numa parede, folha de bananeira, uma parreira caindo do   ║
+     ║ alto. Deixa de ser um LUGAR e passa a ser uma HORA.               ║
+     ║                                                                  ║
+     ║ E é o que esta imagem precisa ser, por uma razão mecânica: ela    ║
+     ║ vive atrás do wordmark e é recortada por ele (hero.css). Uma      ║
+     ║ textura de luz enche as seis letras de ouro; uma cadeira dentro   ║
+     ║ de uma letra é um acidente.                                       ║
+     ║                                                                  ║
+     ║ Mesmo lugar, outra escala. É a mesma relação que a página usa     ║
+     ║ entre o copo no jardim e o copo na mão.                           ║
+     ╚══════════════════════════════════════════════════════════════════╝ */
+  { saida: 'hero', de: 'jardim-dourado.png', corte: { left: 70, top: 0, width: 880, height: 950 }, largura: 1000, q: 72, luz: 1.06 },
+
+  /* ── O segundo ato do capítulo 01 ────────────────────────────────────
+     A CABINE NO JARDIM: o balcão curvo aceso por uma fita âmbar, o
+     controlador em cima, duas caixas de som, as palmeiras atrás, uma vela
+     na mesa em primeiro plano e as luzinhas cruzando o alto do quadro.
+
+     Ela estava em brand/originais desde a primeira passada, com o nome
+     `hero.jpg`, e nunca foi publicada. Era a fotografia mais valiosa da
+     pasta e ninguém tinha olhado para ela.
+
+     É o que o capítulo 01 estava devendo. A queixa foi que o entardecer
+     era "só um vídeo entardecendo" — uma rampa de luz caindo sobre um
+     pátio vazio —, e a ideia que veio junto com a queixa foi "o DJ tocando
+     lá fora de tarde". Esta fotografia É isso, e ela já existia.
+
+     Agora o capítulo tem uma frase inteira: o sol cai sobre as mesas
+     vazias e, quando ele acaba, A CABINE ACENDE. Não é uma transição de
+     clima, é um acontecimento — a casa ligando o som.
+
+     900px: tela cheia. Sem tinta: a luz dela já é âmbar de fita de LED
+     sobre reboco, que é a paleta inteira do site em um objeto. */
+  { saida: 'jardim-cabine', de: 'hero.jpg', largura: 900, q: 74, luz: 1.06 },
 
   /* ══════════════════════════════════════════════════════════════════
      A QUARTA TRIAGEM — e ela responde à pergunta que faltava
@@ -295,46 +340,26 @@ const FOTOS = [
      900px: tela cheia. */
   { saida: 'dourada', de: 'nao-usadas/DSC02228.jpeg', corte: { left: 250, top: 1980, width: 3500, height: 4020 }, largura: 1100, q: 72, luz: 1.04, sat: 0.8, tinta: 0.16 },
 
-  /* ── O jardim à noite · dentro do capítulo 01 ────────────────────────
-     O mesmo jardim do entardecer com as luzinhas da parreira acesas e uma
-     vela na mesa. Ela existe para consertar a queixa mais direta desta
-     passada: o capítulo 01 era "básico" — vinte e dois quadros de luz
-     caindo e nada mais acontecendo.
+  /* ── A TROCA E O JARDIM À NOITE SAÍRAM DAQUI ─────────────────────────
+     Duas fotografias publicadas na passada anterior deixaram de ter
+     endereço nesta, e as duas por decisão de NARRATIVA e não de imagem:
 
-     Agora ele tem um segundo ato. Quando o sol termina de cair, o plano
-     dissolve NESTA fotografia: o mesmo lugar, com a luz que a casa acendeu
-     no lugar da que o dia levou. O entardecer deixa de ser uma rampa e
-     passa a ser uma troca de turno — que é a premissa da casa inteira.
+       casa-dia      o balcão do jardim com o portão aberto para a rua. Ela
+                     existia para a seção das 17h — "o café fecha, a casa
+                     continua aberta" —, e a seção inteira foi removida: a
+                     casa não quer falar do café na própria página. Sem a
+                     premissa, a fotografia é um balcão bonito sem assunto.
+       jardim-noite  o jardim com as luzinhas acesas e a vela na mesa. Era
+                     o segundo ato do capítulo 01 e perdeu o posto para
+                     `jardim-cabine`, que diz a mesma coisa e mais uma: lá
+                     a casa acendeu a luz, aqui ela ligou o SOM.
 
-     900px: tela cheia. */
-  { saida: 'jardim-noite', de: 'nao-usadas/jardim-noite.png', largura: 900, q: 72, luz: 1.12 },
+     Nenhuma das duas volta por outro caminho. Elas continuam em
+     brand/originais/nao-usadas — a que serve à lista de reservas é a do
+     jardim à noite, e ela é republicada em 420px lá embaixo, no tamanho de
+     um selo, que é o único papel que ainda lhe cabe.
 
-  /* ── A troca · 17h ───────────────────────────────────────────────────
-     SEÇÃO NOVA, e a imagem que a paga.
-
-     O jardim ao entardecer com o balcão aceso, os dois bancos vazios, as
-     luzinhas no chão e o portão aberto para a rua. É a casa no minuto
-     entre os dois negócios — o café acabou de fechar e ninguém chegou
-     ainda —, e é a única fotografia do acervo em que se vê a CALÇADA.
-
-     Ela estava na pasta das descartadas por causa da luz do portão: o fim
-     de tarde na rua é cinza-azulado e o resto do quadro é tungstênio. O
-     que a salvou foi medir a mancha em vez de julgar o lote — são 6% do
-     quadro, na quina, e ela é o ASSUNTO: a rua é o lado de fora, e o lado
-     de fora é o que ainda não entrou. Dessaturar um passo e tingir de
-     âmbar puxa o cinza para o bronze sem tocar no tungstênio, que já é a
-     paleta. Correção moderada numa mancha pequena; nada de refazer a foto.
-
-     ── E ela cresceu, porque a seção mudou de modo ──────────────────────
-
-     Ela morava numa FRESTA de 22svh de altura com carvão em volta, e a
-     fresta era o defeito: a premissa mais importante da casa — o café
-     fecha, o Âmbar abre — era ilustrada por uma tarja em que não se
-     enxergava o balcão, o portão nem a calçada. Uma tela com 70% de preto
-     vazio não é composição, é um buraco.
-
-     Agora ela sangra nos quatro lados, como os capítulos. 900px. */
-  { saida: 'casa-dia', de: 'nao-usadas/salao.jpg', largura: 900, q: 74, luz: 1.02, sat: 0.8, tinta: 0.14 },
+     −250 kB. */
 
   /* ── O arrasto · e ele mudou de endereço ─────────────────────────────
      Um corpo dissolvido por um giro de obturador, parede âmbar, os LEDs da
@@ -377,7 +402,7 @@ const FOTOS = [
 
      +54 kB, e a seção que pede a reserva deixa de pedir um voto de
      confiança. */
-  { saida: 'sala-jardim', de: 'nao-usadas/salao.jpg', largura: 420, q: 70, luz: 1.0, sat: 0.8, tinta: 0.14 },
+  { saida: 'sala-jardim', de: 'nao-usadas/jardim-noite.png', largura: 420, q: 70, luz: 1.06, sat: 0.9, tinta: 0.1 },
   { saida: 'sala-salao', de: 'nao-usadas/salao-vazio.png', largura: 420, q: 70, luz: 1.35, sat: 0.9, tinta: 0.1 },
   { saida: 'sala-reservado', de: 'nao-usadas/reservado.png', largura: 420, q: 70, luz: 1.4, sat: 0.9, tinta: 0.1 },
 

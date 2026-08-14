@@ -112,15 +112,20 @@ const SEQUENCIAS = {
 
        Com o piso de rolagem, quem não tiver nove segundos empurra. */
     dur: 9,
-    /* [0.02, 0.86] → [0.02, 0.72]. A janela é o trecho do curso em que a
+    /* [0.02, 0.86] → [0.02, 0.60]. A janela é o trecho do curso em que a
        rolagem EMPURRA a sequência; fora dela o piso satura. Encurtá-la faz
        o sol acabar mais cedo para quem rola depressa, e o que sobra do
-       curso é o segundo ato: o jardim já aceso, com a vela na mesa.
+       curso é o segundo ato: a cabine acesa no jardim.
+
+       O curso do capítulo cresceu de 96% para 130% na mesma passada, então
+       encurtar a janela em proporção NÃO encurta o sol em pixels — 0,60 de
+       130 é mais rolagem do que 0,86 de 96. O que muda é quanto sobra
+       depois dele: 0,42 tela de cabine acesa em vez de 0,05.
 
        Para quem NÃO rola depressa nada disso muda — o relógio de 9s
        continua mandando, e a janela só existe para o caso em que o dedo é
        mais rápido que a luz. */
-    janela: [0.02, 0.72],
+    janela: [0.02, 0.6],
     /* O jardim também respira no fim: os últimos quadros são a noite já
        posta, e o vaivém entre eles é o piscar das luzinhas na parreira. */
     laco: [19, 21],
@@ -427,11 +432,14 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        ║ travada, mesmo mecanismo, assuntos opostos) é o que dá forma à  ║
        ║ noite.                                                         ║
        ║                                                                ║
-       ║ O que faltava era um SEGUNDO ATO, e ele é a premissa da casa    ║
-       ║ dita em imagem: quando o sol termina de cair, o plano dissolve  ║
-       ║ numa fotografia do mesmo jardim com as luzinhas da parreira     ║
-       ║ ACESAS e uma vela na mesa. A luz que o dia levou é substituída  ║
-       ║ pela que a casa acendeu. Troca de turno, não fim de tarde.      ║
+       ║ O que faltava era um SEGUNDO ATO: quando o sol termina de cair,  ║
+       ║ o plano dissolve na CABINE NO JARDIM — o balcão curvo aceso por  ║
+       ║ uma fita âmbar, as caixas de som, uma vela na mesa. O sol acaba  ║
+       ║ e o SOM começa.                                                 ║
+       ║                                                                ║
+       ║ É a ideia que veio junto com a queixa ("o DJ tocando lá fora de  ║
+       ║ tarde") e ela já existia em arquivo: a fotografia estava em      ║
+       ║ brand/originais com o nome `hero.jpg` e nunca fora publicada.    ║
        ║                                                                ║
        ║ ── E a dissolução segue a SEQUÊNCIA, não a rolagem ──────────── ║
        ║                                                                ║
@@ -538,8 +546,22 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     })
   }
 
-  // a luz caindo: a demão de céu ganha corpo no miolo (só o Jardim)
-  if (dusk) tl.fromTo(dusk, { opacity: 0 }, { opacity: 1, duration: 0.55, ease: 'none' }, 0.2)
+  /* A luz caindo: a demão de céu ganha corpo no miolo (só o Jardim) — e
+     depois RECUA.
+
+     Ela é um campo âmbar-bronze de tela cheia, e existe para costurar a luz
+     da sequência à paleta da marca enquanto o sol cai. No fim do curso a
+     sequência já não é mais o que está na tela: é a cabine acesa, que já é
+     âmbar de fita de LED sobre reboco. Uma demão âmbar a cheio por cima de
+     uma fotografia âmbar não acrescenta paleta, tira contraste — a fita de
+     luz do balcão, que é o assunto, some dentro do próprio tempero.
+
+     Sobe até 0,55 do curso e volta a 0,3 até 0,82, que é onde a cabine
+     assume. O que fica por cima dela é um véu, não uma demão. */
+  if (dusk) {
+    tl.fromTo(dusk, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'none' }, 0.2)
+      .to(dusk, { opacity: 0.3, duration: 0.27, ease: 'none' }, 0.55)
+  }
 
   /* ── A batida de preto ────────────────────────────────
 

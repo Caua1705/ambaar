@@ -38,23 +38,29 @@
    corre na velocidade dele e termina, com o dedo parado ou não. Esta era a
    tela mais presa ao polegar do site e virou a menos.
 
-   ── O acontecimento ─────────────────────────────────────────────────────
+   ── O acontecimento, refeito nesta passada ──────────────────────────────
 
-   A linha — a mesma da abertura, a mesma que pare a marca na hero, terceira
-   e última aparição — atravessa a tela, o parágrafo se escreve por cima
-   dela, e no instante EXATO em que "fica." existe, ela se parte nas sete
-   linhas do campo. Um objeto vira outro no mesmo quadro em que a frase que
-   fala de ficar aparece.
+   A linha — a mesma da abertura, a mesma que pare a marca na hero — é a
+   ÚLTIMA coisa que acontece nesta tela. O parágrafo se escreve, "Quem
+   escuta, fica." aparece inteira e sem gesto nenhum, e só então uma linha
+   se desenha por baixo de uma palavra e não sai mais.
 
-   O campo então começa a respirar, e é a primeira coisa da página que se
-   move sem o dedo. É dele que nasce o controle de som, dois centímetros
-   abaixo, no mesmo segundo.
+   O que havia antes era a mesma linha caindo até o terço baixo da tela e
+   se partindo nos sete filetes do campo. A ideia era boa e o resultado,
+   medido quadro a quadro, não existia: o sublinhado nunca chegava a ser
+   visto (o gesto dispara antes de a seção estar na tela) e as sete linhas
+   liam como equalizador decorativo. Ver a nota em escuta.js.
 
-   ── Cinco elementos, e nem um a mais ────────────────────────────────────
+   ── Quatro elementos, e nem um a mais ───────────────────────────────────
 
      · o parágrafo (três blocos, uma coluna)
-     · a linha, que vira o campo
+     · a linha, sob a palavra
      · o controle de som, que nasce daqui
+
+   O campo saiu. Ele continua vivo dentro do controle de som, em
+   miniatura — que é onde ele tem função, porque lá ele é o espectro real
+   da faixa. Aqui era ornamento, e ornamento numa tela sobre silêncio é a
+   contradição mais cara que a página podia cometer.
 
    Nenhuma fotografia. Foi considerada — há material âmbar e escuro no
    acervo que caberia — e recusada: a única tela do site sem imagem vale
@@ -103,10 +109,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* O recuo de pé é o que empurra o parágrafo para CIMA do eixo óptico: o
-     campo mora no terço baixo e a coluna de texto tem de terminar antes
-     dele. 22svh é a conta do bloco mais alto (a frase de fecho a 7,2rem em
-     duas linhas) contra a menor tela em que o site é lido. */
+  /* O recuo de pé empurra o parágrafo para CIMA do eixo óptico, e ele fica
+     mesmo depois de o campo ter saído do terço baixo: o vazio embaixo da
+     última frase é agora vazio de verdade, e é ele que faz a tela ser
+     quieta em vez de só escura. */
   padding: 0 var(--gutter-r) 22svh var(--gutter-l);
 }
 
@@ -302,12 +308,6 @@
 
 .escuta.is-estatica .escuta__frase--c {
   opacity: 1;
-}
-
-/* sem percurso não há o que partir: a linha some e o campo entra na fila
-   da coluna já aberto, que é a regra para tudo nesta preferência */
-.escuta.is-estatica .escuta__horizonte {
-  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

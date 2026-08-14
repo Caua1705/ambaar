@@ -258,6 +258,84 @@ export const autonomo = (trigger, montar, { start = 'top 62%', volta = 'reverter
   return tl
 }
 
+/* ── Classe 3½: o relógio com piso de rolagem ───────────── */
+
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A SEQUÊNCIA CORRE SOZINHA, E A ROLAGEM SÓ PODE EMPURRÁ-LA           ║
+   ║                                                                      ║
+   ║ As duas sequências do site — o entardecer e a sala enchendo — eram   ║
+   ║ presas ao dedo, e as duas tinham o mesmo defeito medido na tela:     ║
+   ║                                                                      ║
+   ║   · o entardecer: 130 unidades de mudança visível espalhadas por     ║
+   ║     1100px de curso. Com a inércia do Lenis, uma passada de polegar  ║
+   ║     de 400px salta oito quadros de uma vez — o que devia ser luz     ║
+   ║     caindo vira um corte. "Passa depressa demais para ser            ║
+   ║     apreciado" E "exige rolagem sustentada" ao mesmo tempo, que      ║
+   ║     parece contraditório e não é: cada passada entrega demais, e     ║
+   ║     são muitas passadas.                                            ║
+   ║   · a sala: 320px de mudança dentro de 1926px de seção. O dedo       ║
+   ║     trabalhava 5 passadas e a matéria respondia em 1.                ║
+   ║                                                                      ║
+   ║ Tempo conserta os dois. Uma sequência que corre no relógio dela      ║
+   ║ entrega a mudança numa taxa constante — sem saltos — e não cobra     ║
+   ║ nada do polegar.                                                    ║
+   ║                                                                      ║
+   ║ ── O risco, e o piso ────────────────────────────────────────────── ║
+   ║                                                                      ║
+   ║ Uma timeline autônoma tem um problema conhecido: quem rola depressa  ║
+   ║ vê 20% dela. A resposta usual é pinar e fazer scrub, que é           ║
+   ║ exatamente o que causou o defeito.                                   ║
+   ║                                                                      ║
+   ║ A resposta daqui é um PISO. A sequência avança por tempo; a posição  ║
+   ║ de rolagem dentro da seção calcula uma posição mínima; o que se      ║
+   ║ desenha é o MAIOR dos dois.                                         ║
+   ║                                                                      ║
+   ║   parado      o tempo manda. A sala enche sozinha, a luz cai         ║
+   ║               sozinha, e o dedo não precisa fazer nada.             ║
+   ║   depressa    o piso manda. Quem atravessa a seção em duas passadas  ║
+   ║               não deixa a sequência para trás: ela é empurrada até   ║
+   ║               o fim, e o que ele vê é o fim, não um quadro parado.   ║
+   ║                                                                      ║
+   ║ Nunca há um quadro congelado esperando o dedo, e nunca há um dedo    ║
+   ║ obrigado a trabalhar. É a única combinação em que as duas queixas    ║
+   ║ desta passada não podem voltar.                                     ║
+   ║                                                                      ║
+   ║ Reversibilidade: é classe 3, e classe 3 não é presa à rolagem — o    ║
+   ║ contrato de "subir desfaz" não se aplica. Ao sair da seção por       ║
+   ║ qualquer lado o relógio é rebobinado, e reentrar toca de novo, que   ║
+   ║ é o que um vídeo faz.                                               ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   `piso` recebe uma função que devolve 0..1 (o progresso de rolagem dentro
+   da seção) e `passo(v)` com v em 0..1. Devolve um cabo com `.parar()`. */
+export const relogioComPiso = (el, { dur, piso, passo }) => {
+  if (reducedMotion) { passo(1); return { parar: () => {}, rebobinar: () => {} } }
+
+  let t = 0
+  let ultimo = -1
+
+  const cabo = laco(el, (dt) => {
+    t = Math.min(t + dt, dur)
+    const v = Math.max(t / dur, Math.min(1, Math.max(0, piso())))
+    if (Math.abs(v - ultimo) > 0.0008) { passo(v); ultimo = v }
+  })
+
+  return {
+    parar: cabo.parar,
+    /* Rebobinar é OBRIGATÓRIO, e a primeira versão disto não o fazia.
+
+       Sem rebobinar, `t` só cresce. Uma pessoa que desce até o Salão, vê a
+       sala encher, continua até o fecho e depois volta encontra a sala JÁ
+       CHEIA — a seção mais cinética do site vira um cartaz na segunda
+       visita, e não há gesto nenhum que a devolva, porque o relógio já
+       chegou ao fim e o piso não puxa para trás.
+
+       É o preço de a sequência ser classe 3: ela não é presa à rolagem, e
+       por isso "subir desfaz" não acontece de graça — tem de ser dito. */
+    rebobinar: () => { t = 0; ultimo = -1; passo(0) }
+  }
+}
+
 /* ── Classe 3: o motor ambiente ────────────────────────── */
 
 /* Um único rAF para todos os laços do site, e ele existe por três razões
@@ -364,6 +442,24 @@ export const laco = (el, passo) => {
 export const congelarAmbiente = (v) => {
   congelado = v
   if (!v) bombear()
+}
+
+/* Em dev, o motor ambiente à mão.
+
+   Os laços correm num rAF próprio, e rAF é estrangulado a zero quando a
+   aba não está em foco — o que torna impossível MEDIR uma sequência
+   autônoma com a página sob instrumentação. E medir é o que decide o
+   ritmo desta passada: as duas queixas que a motivaram ("passa depressa
+   demais", "cinco passadas") só puderam ser respondidas com números
+   tirados da tela.
+
+   `__ambiente(dt)` avança todos os laços visíveis em dt segundos, uma vez.
+   Some do bundle de produção junto com a condição. */
+if (import.meta.env.DEV) {
+  window.__ambiente = (dt = 1 / 60) => {
+    for (const laço of laços) if (laço.visivel && !congelado) laço.passo(dt)
+    return laços.size
+  }
 }
 
 /* ── Utilidades de texto ───────────────────────────────── */

@@ -9,9 +9,12 @@ import './scripts/hero.js'
 import './scripts/escuta.js'
 import './scripts/troca.js'
 import './scripts/chapters.js'
+import './scripts/cabine.js'
+import './scripts/passagem.js'
 import './scripts/pausa.js'
 import './scripts/retrato.js'
 import './scripts/reservas.js'
+import './scripts/fica.js'
 import './scripts/outro.js'
 
 /* Transversais: entradas genéricas e as âncoras fixas.

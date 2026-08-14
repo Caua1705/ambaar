@@ -170,7 +170,19 @@
      ele já está em .17, que é praticamente o valor que estava lá antes.
 
      Cinco por cento da altura da tela um pouco mais escuros, e as três
-     emendas entre capítulos deixam de existir. */
+     emendas entre capítulos deixam de existir.
+
+     ── E o PÉ ganhou o mesmo tratamento ─────────────────────────────────
+
+     A borda de cima resolvia a seção que CHEGA; a que SAI tinha o defeito
+     espelhado. Enquanto os capítulos eram pinados o palco saía por baixo do
+     seguinte e ninguém via; com o palco sticky (sections.css) ele sai
+     rolando, e a aresta de baixo da fotografia atravessa a tela.
+
+     O pé passou a alcançar carvão sólido a 97% em vez de exatamente a
+     100%, com a queda começando um pouco antes e mais funda. São mais três
+     por cento de tela escurecidos, e a última aresta horizontal da página
+     desaparece. */
   --ceu-dia: linear-gradient(
     to bottom,
     rgba(13, 13, 13, .92) 0%,
@@ -182,9 +194,10 @@
     rgba(200, 137, 46, .05) 32%,
     rgba(13, 13, 13, .07) 46%,
     rgba(13, 13, 13, .18) 58%,
-    rgba(13, 13, 13, .36) 73%,
-    rgba(13, 13, 13, .58) 84%,
-    rgba(13, 13, 13, .83) 93%,
+    rgba(13, 13, 13, .42) 73%,
+    rgba(13, 13, 13, .68) 83%,
+    rgba(13, 13, 13, .9) 91%,
+    var(--carvao) 97%,
     var(--carvao) 100%
   );
 
@@ -199,9 +212,10 @@
     rgba(13, 13, 13, .08) 32%,
     rgba(13, 13, 13, .1) 46%,
     rgba(13, 13, 13, .2) 58%,
-    rgba(13, 13, 13, .38) 73%,
-    rgba(13, 13, 13, .6) 84%,
-    rgba(13, 13, 13, .84) 93%,
+    rgba(13, 13, 13, .44) 73%,
+    rgba(13, 13, 13, .7) 83%,
+    rgba(13, 13, 13, .91) 91%,
+    var(--carvao) 97%,
     var(--carvao) 100%
   );
 

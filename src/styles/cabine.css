@@ -1,0 +1,162 @@
+/* A cabine · 20h — seção nova.
+
+   O porquê está no HTML. Aqui está a composição.
+
+   ── O díptico ───────────────────────────────────────────────────────────
+
+   Dois quadros encostados um no outro, separados por um único filete
+   tracejado, ocupando juntos uma faixa deitada no meio da tela. À esquerda
+   a sala VAZIA; à direita a CABINE.
+
+   É a única composição do site em que duas fotografias se tocam. Todas as
+   outras ou sangram nos quatro lados, ou moram em molduras separadas por
+   carvão. Aqui a ausência de intervalo é o argumento: as duas imagens são
+   uma frase, e uma frase não tem espaço no meio.
+
+   ── E não se confunde com a pausa das 00h ───────────────────────────────
+
+   A pausa também tem dois quadros. Lá eles sangram por lados OPOSTOS sobre
+   carvão limpo, em formatos diferentes, e derivam em sentidos contrários:
+   é montagem, e o preto em volta é metade do trabalho. Aqui eles são
+   idênticos em tamanho, encostados, imóveis: é comparação.
+
+   Duas seções com duas fotografias não viram um template quando o que elas
+   fazem com as duas é oposto.
+
+   ── A proporção ─────────────────────────────────────────────────────────
+
+   Cada metade é um retrato estreito — 1:1,5 —, e as duas juntas formam um
+   quadrado deitado no meio da tela. O formato importa: um retrato pede que
+   se olhe DENTRO dele, e as duas imagens são sobre o que há dentro de uma
+   sala. Um par deitado leria como um panorama partido. */
+
+.cabine {
+  position: relative;
+  background: var(--carvao);
+}
+
+.cabine__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  padding: 0 var(--gutter-r) 0 var(--gutter-l);
+}
+
+/* ── O rótulo ──────────────────────────────────────────── */
+
+/* Mesma gramática do rótulo de capítulo — traço, caixa alta, tracking
+   largo. Esta é uma hora da noite e tem de pertencer à mesma série que
+   "01 — JARDIM" mesmo não sendo um capítulo. */
+.cabine__rotulo {
+  position: absolute;
+  top: 13svh;
+  left: var(--gutter-l);
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(255, 255, 255, .68);
+}
+
+.cabine__dash {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: .55;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ── O par ─────────────────────────────────────────────── */
+
+.cabine__par {
+  position: absolute;
+  top: 27svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  height: 34svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* o filete tracejado entre os dois quadros é o único divisor desta tela,
+     e ele carrega estrutura: separa o antes do depois */
+  gap: 0;
+}
+
+.cabine__quadro {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.cabine__quadro--fonte {
+  border-left: 1px dashed rgba(107, 74, 46, .7);
+}
+
+.cabine__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A mesa de mármore acesa está no miolo baixo do arquivo, e é ela que diz
+   "sala vazia" — as cadeiras em volta dela estão ausentes de propósito. */
+.cabine__quadro--antes img {
+  object-position: 52% 62%;
+}
+
+/* Ele está no terço alto e à esquerda, curvado sobre a mesa de som. A
+   âncora um pouco à esquerda do centro mantém as mãos e o equipamento no
+   quadro quando a moldura estreita corta as laterais. */
+.cabine__quadro--fonte img {
+  object-position: 42% 34%;
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+.cabine__linha {
+  position: absolute;
+  top: 66svh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: rgba(255, 255, 255, .92);
+}
+
+@media (min-width: 900px) {
+  .cabine__par {
+    top: 24svh;
+    left: 22%;
+    right: 22%;
+    height: 46svh;
+  }
+
+  .cabine__linha {
+    top: 76svh;
+    left: 22%;
+    max-width: 24ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cabine__quadro {
+    clip-path: none;
+  }
+
+  .cabine__linha {
+    opacity: 1;
+  }
+
+  .cabine__dash {
+    transform: scaleX(1);
+  }
+}

@@ -37,9 +37,14 @@
    salas com três horários —, e é isso que o tracejado diz antes de qualquer
    palavra ser lida. */
 
+/* 6svh e não 8: a 360px de largura as três linhas quebram (a chamada
+   "Reservar" desce para a linha do horário) e a seção cresce de 1,04 para
+   1,15 tela. Com treze seções, essa diferença é o que põe o documento em
+   16,01 telas — um centésimo acima do teto. Dois por cento de folga
+   vertical de cada lado devolvem a conta sem tocar em nenhuma composição. */
 .reservas {
   background: var(--fume);
-  padding: 8svh var(--gutter-r) 8svh var(--gutter-l);
+  padding: 6svh var(--gutter-r) 6svh var(--gutter-l);
   /* o link do cabeçalho fixo aponta para cá: compensa a altura da barra */
   scroll-margin-top: 5rem;
 }

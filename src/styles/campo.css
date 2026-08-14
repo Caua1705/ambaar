@@ -97,45 +97,11 @@
   50%      { transform: translateY(var(--amp, 3px)) scaleX(var(--n, var(--w, 1))); }
 }
 
-/* ── Em "A escuta" ─────────────────────────────────────── */
-
-/* Ancorado na goteira esquerda, no terço baixo da tela, abaixo de qualquer
-   frase. Não é um rodapé: é o chão da sala. */
-.escuta .campo {
-  position: absolute;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
-  bottom: 10svh;
-  height: 18svh;
-  z-index: 1;
-}
-
-@media (min-width: 900px) {
-  .escuta .campo {
-    right: auto;
-    width: min(46vw, 34rem);
-    bottom: 12svh;
-    height: 16svh;
-  }
-}
-
-/* Sem movimento a seção deixa de ser uma tela de altura fixa e vira uma
-   coluna de blocos empilhados (escuta.css). Ancorar o campo a 10svh do pé
-   de um palco que não tem mais pé é ancorá-lo a lugar nenhum: ele caía por
-   cima da frase de fecho, que agora é o maior tipo do site e ocupa
-   exatamente a faixa onde ele aterrissava.
-
-   Aqui ele entra na fila como os outros: é o último filho do palco, então
-   vira o último bloco da coluna — que é a mesma leitura da versão animada,
-   o chão da sala embaixo de tudo. */
-.escuta.is-estatica .campo {
-  position: static;
-  width: auto;
-  height: 8rem;
-  /* o intervalo que a versão animada tem em svh: sem ele a primeira linha
-     nasce colada na base de "fica." e o espectro lê como sublinhado */
-  margin-top: 3rem;
-}
+/* O campo saiu de "A escuta" nesta passada. Ele era sete filetes no
+   terço baixo da tela, e medido quadro a quadro lia como equalizador
+   decorativo em vez de como uma coisa respirando — ver a nota em
+   escuta.js. Ficou onde ele tem função: dentro do controle de som, onde é
+   o espectro real da faixa. */
 
 /* ── No controle de som ────────────────────────────────── */
 

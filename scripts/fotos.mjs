@@ -113,6 +113,95 @@ const FOTOS = [
      do wordmark e é recortada por ele. */
   { saida: 'jardim-dourado', de: 'jardim-dourado.png', largura: 920, q: 70, luz: 1.06 },
 
+  /* ══════════════════════════════════════════════════════════════════
+     A QUARTA TRIAGEM — e ela responde à pergunta que faltava
+
+     As três triagens anteriores perguntaram "esta fotografia pertence à
+     paleta?". Esta perguntou outra coisa: "o que a HISTÓRIA não está
+     mostrando?". As respostas apareceram em três buracos:
+
+       1. Um clube de escuta sem FONTE. O site diz "O DJ entra. A luz
+          baixa." por cima de uma fotografia de uma sala vazia. A coisa que
+          está sendo escutada não aparece em nenhuma das dez telas.
+       2. A sala do Salão só existe CHEIA. A premissa da casa é "a mesma
+          sala, as mesmas cadeiras" — e a sala vazia, o minuto antes, é
+          mostrada para o café (17h) e nunca para o salão.
+       3. A noite acaba e não SOBRA nada. Depois de "escolha onde
+          recomeçar" o site fecha na marca. Ninguém vai embora, ninguém
+          apaga a luz, nada fica em cima da mesa.
+
+     Três fotografias que estavam na pasta das descartadas respondem às
+     três, e as três já são âmbar — nenhuma precisou de correção pesada.
+     ══════════════════════════════════════════════════════════════════ */
+
+  /* ── A cabine · 20h ──────────────────────────────────────────────────
+     O DJ visto DE CIMA, cabeça baixa sobre os CDJs, fitas espelhadas na
+     parede e a bola de espelhos na quina. Luz de tungstênio, sem flash.
+
+     Ela é a resposta ao buraco nº 1, e é a única fotografia do acervo de
+     cabine que passa nos três critérios de recusa do projeto ao mesmo
+     tempo: não tem luz vermelha (é âmbar), não tem flash (é contínua) e
+     não tem marca de terceiro legível — a camiseta mostra três letras
+     soltas e o equipamento aparece de cima, sem logotipo no quadro.
+
+     E não tem ROSTO, que é o que a faz caber aqui. A seção não é sobre um
+     DJ; é sobre a noite ter um autor. Uma cara reconhecível transformaria
+     a ideia num retrato e a casa num cartaz de line-up.
+
+     880px: é tela cheia dentro de uma moldura, e o assunto é o gesto das
+     mãos sobre a mesa. A saturação desce um passo porque as fitas
+     espelhadas devolvem um verde-azulado que não é da casa. */
+  { saida: 'cabine', de: 'nao-usadas/dj-cabine.png', largura: 880, q: 70, luz: 1.02, sat: 0.86, tinta: 0.08 },
+
+  /* ── A sala antes · 20h ──────────────────────────────────────────────
+     O salão vazio: a mesa redonda de mármore acesa por baixo dos dois
+     pendentes, o quadro na parede, a cabine encostada no fundo. É
+     exatamente o mesmo lugar dos 34 quadros do capítulo 02, visto de outro
+     ângulo e sem uma única pessoa.
+
+     Buraco nº 2. Ela divide a tela com a cabine na mesma seção: à
+     esquerda a sala sem ninguém, à direita quem vai enchê-la. A seção
+     inteira é essa frase em duas imagens.
+
+     760px: ela nunca é vista maior que meia tela. */
+  { saida: 'salao-antes', de: 'nao-usadas/salao-som.png', largura: 760, q: 72, luz: 1.04 },
+
+  /* ── O que fica · 04h ────────────────────────────────────────────────
+     Um anel esquecido em cima de uma bancada de mármore rachado, atravessada
+     por uma réstia de luz. Buraco nº 3, e a fotografia é literalmente um
+     TRAÇO: alguém estava aqui e não está mais.
+
+     É a única imagem do site em que há evidência de uma pessoa sem haver
+     uma pessoa. Depois de treze telas de gente, o silêncio de um objeto
+     esquecido é o que fecha a noite — e é o contrário exato do fecho, que
+     é a marca guardando um instante. Aqui a casa não guarda nada: só
+     sobrou.
+
+     Sem tinta. A luz dela já é a réstia âmbar sobre pedra escura que a
+     paleta inteira do site persegue; tingir seria pintar por cima do
+     acerto. */
+  { saida: 'fica', de: 'nao-usadas/textura-marmore.png', largura: 780, q: 70, luz: 1.06 },
+
+  /* ── A bruma · dentro do poente ──────────────────────────────────────
+     Fumaça atravessada por um facho âmbar sobre preto. Não é fotografia de
+     lugar nenhum: é MATÉRIA, irmã do pó do fecho.
+
+     Ela existe para consertar um defeito, e o defeito é o assunto de
+     src/styles/poente.css: a faixa de luz que faz a emenda 17h → 20h
+     chegava, no pico, a um campo de âmbar CHAPADO — uma tela inteira de
+     uma cor só, sem nada dentro. Um retângulo de #C8892E não lê como luz,
+     lê como erro de renderização, e a duração não muda isso: 225px de nada
+     são tão defeituosos quanto 677.
+
+     Luz precisa de alguma coisa suspensa nela para ser lida como luz. A
+     bruma é essa coisa: composta em `screen` dentro da faixa, derivando
+     devagar, ela dá ao pico do poente textura, direção e movimento — três
+     coisas que uma cor sólida não tem.
+
+     640px e qualidade baixa: é um borrão sobre preto composto a 55%.
+     Resolução aqui é peso sem imagem. */
+  { saida: 'bruma', de: 'nao-usadas/textura-fumaca.png', largura: 640, q: 58, luz: 1.0 },
+
   /* ── A troca · 17h ───────────────────────────────────────────────────
      SEÇÃO NOVA, e a imagem que a paga.
 

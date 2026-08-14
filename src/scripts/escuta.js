@@ -44,8 +44,6 @@ const secao = document.querySelector('.escuta')
 if (secao) {
   const horizonte = secao.querySelector('.escuta__horizonte')
   const frases = [...secao.querySelectorAll('.escuta__frase')]
-  const campo = secao.querySelector('.campo')
-  const linhas = campo ? [...campo.querySelectorAll('.campo__linha')] : []
 
   const avisarFecho = () => document.dispatchEvent(new CustomEvent('escuta:fecho'))
 
@@ -96,26 +94,8 @@ if (secao) {
     secao.classList.add('is-estatica')
     gsap.set(secao.querySelectorAll('.escuta__frase span'), { clipPath: ABERTO })
     gsap.set(frases, { opacity: 1 })
-    gsap.set(linhas, { scaleX: 1, y: 0 })
     avisarFecho()
   } else {
-    /* O estado inicial das sete linhas: empilhadas em cima do horizonte,
-       com comprimento zero.
-
-       Cada uma vai para o CENTRO do campo, não todas para o mesmo
-       deslocamento. O `y` do GSAP é relativo à posição natural de cada
-       elemento, e as sete têm posições naturais diferentes (o campo é um
-       flex column com space-between) — um valor único as empurraria todas
-       para baixo mantendo o leque aberto, que é o oposto de colapsar. A
-       conta é por linha: quanto falta, a partir de onde ela nasce, para o
-       centro dela coincidir com o centro do campo. */
-    const colapso = (_, el) =>
-      campo.offsetHeight / 2 - el.offsetTop - el.offsetHeight / 2
-
-    if (campo && linhas.length) {
-      gsap.set(linhas, { scaleX: 0, y: colapso, transformOrigin: 'left center' })
-    }
-
     // as duas frases que abrem por janela; a terceira é o corte
     for (const frase of frases) {
       if (frase.hasAttribute('data-corte')) continue
@@ -125,64 +105,65 @@ if (secao) {
     const corte = frases.find((f) => f.hasAttribute('data-corte'))
     const abrem = frases.filter((f) => !f.hasAttribute('data-corte'))
 
-    /* Quanto o filete tem de descer para chegar ao centro do campo. É
-       medido no momento em que a timeline é montada, e é relativo — o
-       filete já está na altura da palavra, então o que se anima é a
-       diferença. */
-    const queda = () => {
-      if (!campo || !horizonte) return 0
-      const de = horizonte.getBoundingClientRect().top
-      const para = campo.getBoundingClientRect()
-      return Math.round(para.top + para.height / 2 - de)
-    }
-
+    /* ╔══════════════════════════════════════════════════════════════════╗
+       ║ O FILETE FICA. E O CAMPO SAIU DAQUI.                             ║
+       ║                                                                  ║
+       ║ O mecanismo anterior: o filete se desenhava sob a palavra         ║
+       ║ "escuta", se soltava, CAÍA até o terço baixo da tela e ali se     ║
+       ║ partia nos sete filetes do campo. A história era boa — o          ║
+       ║ sublinhado da tese virando o som.                                ║
+       ║                                                                  ║
+       ║ Olhado na tela, quadro a quadro, ele não acontecia:               ║
+       ║                                                                  ║
+       ║  1. O SUBLINHADO NUNCA ERA VISTO. O gesto dispara em `top 85%`,  ║
+       ║     isto é, antes de a seção estar na tela, e a queda começava    ║
+       ║     aos 1,45s. Quando a composição tomava o quadro, o filete já   ║
+       ║     tinha caído. A peça que justificava a disciplina do acento    ║
+       ║     era invisível.                                                ║
+       ║  2. A QUEDA NÃO SE LIA. Um filete de 1px atravessando 250px de    ║
+       ║     carvão em 0,85s é, num telefone, nada.                        ║
+       ║  3. E O CAMPO NÃO HERDAVA NADA. As sete linhas no pé da tela      ║
+       ║     liam como um equalizador decorativo — que é exatamente o que  ║
+       ║     a nota de campo.css dizia que elas não deviam ser.            ║
+       ║                                                                  ║
+       ║ Somando: sete filetes âmbar num canto, um oitavo invisível, e     ║
+       ║ seis elementos numa tela cuja regra é cinco.                      ║
+       ║                                                                  ║
+       ║ ── O que ficou ───────────────────────────────────────────────── ║
+       ║                                                                  ║
+       ║ O filete é a ÚLTIMA coisa a acontecer, e ele acontece DEPOIS da   ║
+       ║ frase: "Quem escuta, fica." aparece inteira, sem gesto, e só      ║
+       ║ então uma linha se desenha por baixo de uma palavra e fica lá.    ║
+       ║                                                                  ║
+       ║ É o contrário do que havia: em vez de um objeto que passa por     ║
+       ║ aqui a caminho de outro lugar, um objeto que chega e permanece.   ║
+       ║ Num site em que tudo limpa, dissolve ou atravessa, a coisa que    ║
+       ║ fica é a mais alta da página — e a frase diz literalmente isso.   ║
+       ║                                                                  ║
+       ║ O campo saiu da seção. Ele não desapareceu do site: vive no       ║
+       ║ controle de som, três filetes dentro do losango, respirando o     ║
+       ║ resto da noite. Lá ele tem função (é o espectro da faixa); aqui   ║
+       ║ era ornamento. A tela caiu de seis elementos para quatro.         ║
+       ╚══════════════════════════════════════════════════════════════════╝ */
     autonomo(secao, (t) => {
-      t.to(horizonte, { scaleX: 1, duration: 1.2, ease: EASE }, 0)
-
       abrem.forEach((frase, i) => {
         t.to(frase.querySelectorAll('span'), {
           clipPath: ABERTO,
           duration: 1.1,
           ease: EASE,
           stagger: 0.16
-        }, 0.45 + i * 0.5)
+        }, i * 0.5)
       })
 
-      /* ── O corte, e a linha indo embora ────────────────
+      /* `set` e não `to` na frase: ela não tem duração. É o único elemento
+         da página que aparece sem gesto, e é o motivo de ela não precisar
+         DIZER que não grita. */
+      t.set(corte, { opacity: 1 }, 1.0)
+        /* E então, e só então, a linha. Da esquerda para a direita, na
+           velocidade de uma frase sendo sublinhada à mão. */
+        .to(horizonte, { scaleX: 1, duration: 0.9, ease: EASE }, 1.25)
 
-         `set` e não `to` na frase: ela não tem duração.
-
-         E no MESMO quadro o filete se solta da palavra. Ele não encolhe no
-         lugar como antes — ele CAI: desce até o centro do campo e ali se
-         parte nas sete linhas, que crescem de dentro dele.
-
-         É a diferença entre um objeto que some e um objeto que vira outro.
-         O sublinhado da palavra "escuta" desce e vira o som — e é o que
-         faz o campo, que até então era um enfeite no pé da tela, ter uma
-         procedência. Ele veio de uma palavra.
-
-         `power2.in` na queda: uma coisa que se solta acelera. */
-      t.set(corte, { opacity: 1 }, 1.45)
-        .to(horizonte, { y: queda, duration: 0.85, ease: 'power2.in' }, 1.45)
-        .to(horizonte, { scaleX: 0, opacity: 0, duration: 0.5, ease: EASE }, 2.0)
-        .to(linhas, {
-          scaleX: 1,
-          y: 0,
-          duration: 0.9,
-          ease: EASE,
-          stagger: { each: 0.045, from: 'center' }
-        }, 2.05)
-
-      /* E então elas começam a respirar. A deriva é keyframe de CSS — custo
-         zero de JavaScript, nenhum rAF ligado — e ela sobrescreve o
-         transform em linha que a timeline escreve. Isso só é seguro porque
-         no ponto de troca os dois estados COINCIDEM: a timeline termina em
-         scaleX(1) y(0) e o keyframe desenha translateY(±amp) com scaleX
-         implícito em 1. Não há salto para esconder. */
-      t.add(() => {
-        campo?.classList.add('is-viva')
-        avisarFecho()
-      }, 2.9)
+      t.add(avisarFecho, 2.0)
     }, {
       /* Cedo. A seção tem 1,35 tela e o gesto dura 2,6 segundos: disparando
          quando o topo dela cruza 85% da tela, o parágrafo termina de se

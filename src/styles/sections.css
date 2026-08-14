@@ -1,19 +1,55 @@
 /* ── Capítulo ──────────────────────────────────────────── */
 
-/* O palco é uma tela só, pinada pelo ScrollTrigger. Cada capítulo tem seu
-   próprio curso de rolagem (data-run) — três capítulos com a mesma duração
-   são o que faz uma peça parecer template. */
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O PALCO É STICKY, NÃO É MAIS UM PIN                                  ║
+   ║                                                                      ║
+   ║ Os três capítulos eram pinados pelo ScrollTrigger. Agora a seção     ║
+   ║ mede 100svh + `--run`% e o palco fica colado no topo enquanto os     ║
+   ║ run% passam. Na tela é indistinguível; por baixo, some tudo o que    ║
+   ║ um pin arrasta consigo:                                              ║
+   ║                                                                      ║
+   ║   · o espaçador, que precisa ser medido e remedido                   ║
+   ║   · a fila de prioridade de recálculo (`prioridadeRefresh`), que     ║
+   ║     existia só porque um pin criado antes de outro acima dele nasce  ║
+   ║     deslocado pela altura do espaçador que ainda não existe          ║
+   ║   · `anticipatePin`, e o quadro de salto que ele existe para tapar   ║
+   ║                                                                      ║
+   ║ A troca ficou possível porque as sequências deixaram de ser presas   ║
+   ║ ao dedo (chapters.js): o pin existia para dar CURSO ao scrub. Sem    ║
+   ║ scrub, o que se quer do pin é só a permanência — e permanência é     ║
+   ║ layout do navegador, não trabalho de biblioteca.                     ║
+   ║                                                                      ║
+   ║ "A escuta" já usava sticky pelo mesmo motivo, e desde a passada em   ║
+   ║ que ela virou classe 2. Agora a página inteira é coerente.           ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   Cada capítulo tem seu próprio curso (`--run`, no HTML) — três capítulos
+   com a mesma duração são o que faz uma peça parecer template. */
 
 .chapter {
   --scrim-x: 15%; /* centro horizontal do scrim, segue o alinhamento do texto */
+  --run: 100;
   position: relative;
   background: var(--carvao);
+  height: calc(100svh + var(--run) * 1svh);
 }
 
 .chapter__stage {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100svh;
   overflow: hidden;
+}
+
+/* Sem movimento não há permanência: cada capítulo vira uma tela e sai. */
+@media (prefers-reduced-motion: reduce) {
+  .chapter {
+    height: auto;
+  }
+
+  .chapter__stage {
+    position: relative;
+  }
 }
 
 .chapter__media {

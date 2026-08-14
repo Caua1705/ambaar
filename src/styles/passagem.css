@@ -1,0 +1,122 @@
+/* A passagem · 23h — seção nova, e ela era o fim do capítulo 02.
+
+   O porquê está no HTML e o tempo em passagem.js. Aqui está a construção,
+   e ela é a mais simples do site: três planos empilhados no mesmo lugar,
+   sangrando nos quatro lados, e uma frase no pé.
+
+   Simples porque a seção inteira é UM movimento — a câmera indo para
+   dentro. Qualquer moldura, qualquer recuo, qualquer composição, e o
+   movimento passaria a acontecer dentro de uma caixa em vez de acontecer
+   com o espectador.
+
+   ── A altura ────────────────────────────────────────────────────────────
+
+   80% de permanência: o gesto dura 3,4 segundos e a frase entra aos 2,6, e
+   depois disso o rosto precisa de posse do quadro — que é a única coisa que
+   esta seção existe para dar a ele. Meia tela de permanência não bastava: a
+   saída disparava com a seção ainda 78% na tela e a fotografia ia embora
+   antes de ter sido olhada.
+   Com o palco sticky, quem lê em ritmo normal atravessa a seção em algo
+   entre quatro e seis segundos — o suficiente para o rosto ter posse do
+   quadro antes de a seção sair. */
+
+.passagem {
+  position: relative;
+  background: var(--carvao);
+  height: 180svh;
+}
+
+.passagem__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.passagem__plano {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.passagem__plano img,
+.passagem__plano canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* O borrão não tem assunto localizável: qualquer recorte serve, e o centro
+   é o que mantém o facho de luz na diagonal do quadro. */
+.passagem__plano--luz img {
+  object-position: 50% 46%;
+}
+
+/* Ela está no terço direito do arquivo e o rosto no terço alto. Numa tela
+   estreita entra pouco mais de metade da largura: a âncora à direita do
+   centro é o que garante que o que sobra seja ELA, e não o mural. */
+.passagem__plano--rosto img {
+  object-position: 64% 30%;
+}
+
+@media (min-width: 900px) {
+  /* Deitada, o corte passa a ser vertical e severo: a âncora sobe para o
+     quadro abrir acima do cabelo em vez de cortar a testa. */
+  .passagem__plano--rosto img {
+    object-position: 58% 14%;
+  }
+}
+
+/* A demão. O passe de luminância da casa: a fotografia inteira um degrau
+   abaixo, e um segundo degrau embaixo, onde a frase cai. Nenhuma sombra. */
+.passagem__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 110% 40% at 30% 92%, rgba(13, 13, 13, .9) 0%, rgba(13, 13, 13, .55) 45%, rgba(13, 13, 13, .18) 70%, transparent 86%),
+    var(--ceu-noite);
+}
+
+.passagem__linha {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 13svh;
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #fff;
+}
+
+@media (min-width: 900px) {
+  .passagem__linha {
+    right: auto;
+    max-width: 18ch;
+    bottom: 16svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .passagem {
+    height: auto;
+  }
+
+  .passagem__stage {
+    position: relative;
+  }
+
+  .passagem__linha {
+    opacity: 1;
+  }
+}

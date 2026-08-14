@@ -4,7 +4,10 @@
 @import './styles/hero.css';
 @import './styles/troca.css';
 @import './styles/sections.css';
+@import './styles/cabine.css';
+@import './styles/passagem.css';
 @import './styles/pausa.css';
+@import './styles/fica.css';
 @import './styles/retrato.css';
 @import './styles/escuta.css';
 @import './styles/topbar.css';

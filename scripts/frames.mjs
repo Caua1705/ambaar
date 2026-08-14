@@ -147,45 +147,78 @@ const SEQUENCIAS = [
        ENCHE acima. */
     quadros: 34,
 
-    /* ── O recorte, e é ele que entrega o capítulo ──────────────────────
+    /* ── O recorte, e ele foi remedido NO TELEFONE ──────────────────────
 
        O original é 1080×1920 e tem três faixas horizontais:
 
-         topo      o teto e a luminária. Bonito, e absolutamente parado.
+         topo      o teto e as duas luminárias. Bonito, e absolutamente
+                   parado.
          miolo     a cabine, a parede, o quadro — e a FAIXA EM QUE AS
                    PESSOAS ATRAVESSAM.
-         pé        a mesa de mármore em primeiro plano, que ocupa o terço
-                   inferior e esconde as pernas de todo mundo.
+         pé        a mesa de mármore redonda em primeiro plano.
 
-       Publicando o quadro inteiro, o `cover` do canvas ainda cortava por
-       cima e por baixo — mas cortava SIMÉTRICO, o que significa que numa
-       tela larga entravam metade da luminária e metade da mesa, e a faixa
-       das pessoas ficava espremida no meio, pequena.
+       A passada anterior recortou 1080×1250 e escreveu a conta para a TELA
+       LARGA. Para este site essa é a conta errada, e o erro custava a
+       seção inteira.
 
-       Recortando na fonte, os 1250px que sobram são quase só a faixa do
+       Um quadro de 1080×1250 tem proporção 0,86; a caixa de um telefone
+       tem 0,46. O `cover` do canvas preenche a ALTURA e joga fora a
+       LARGURA — e a 0,86 contra 0,46 ele jogava fora 47% dela. Metade da
+       multidão ficava nas bordas do arquivo, do lado de fora da tela, e o
+       que sobrava no meio era o quadro na parede, a cabine e uma pessoa. A
+       seção mais cinética do site chegava ao telefone como uma sala escura
+       onde alguém passa de vez em quando.
+
+       Quadro mais ALTO na fonte é mais LARGURA visível no telefone. A
+       1080×1310 (0,82) o telefone mostra 56% da largura, e a âncora
+       horizontal do canvas (0,58 — chapters.js) põe esses 56% em cima da
+       porta por onde as pessoas entram, e não em cima da parede.
+
+       Y em 240 e não 285: tira a segunda luminária de cena sem comer a
+       moldura do quadro, que é a única aresta clara e imóvel da cena — e
+       sem uma aresta parada o arrasto das pessoas não é lido como arrasto.
+
+       O texto abaixo é a conta antiga, mantida porque ela explica por que
+       o recorte existe:
+
+       Recortando na fonte, os 1310px que sobram são quase só a faixa do
        meio: a proporção passa de 9:16 para ~7:8, o `cover` tem muito menos
        o que jogar fora, e a multidão passa a ocupar a tela em vez de uma
        tarja no centro dela. É o mesmo material com o dobro do assunto por
        pixel — e ainda sai mais barato, porque 35% dos pixels que saíram
        eram teto liso e mármore em foco.
 
-       ── E a altura do recorte é medida na TELA LARGA ────────────────────
+       ── E a tela larga ──────────────────────────────────────────────────
 
-       O `y` não é o centro do assunto: é o valor que põe o assunto no
-       centro do que a tela larga vai mostrar.
+       Num monitor de ~2:1 o `cover` de um quadro 0,82 exibe só a faixa
+       central — 45% da altura. Com o recorte começando em 240, essa faixa
+       cai em 600–1190 do original, que é onde as pessoas estão inteiras: a
+       cabeça dentro do quadro e o mármore fora dele. Continua sendo a
+       segunda tela do projeto, mas não perde nada por isso. */
+    corte: { x: 0, y: 240, w: 1080, h: 1310 },
 
-       Num monitor de ~2:1 o `cover` de um quadro 7:8 exibe só a faixa
-       central — 42% da altura, e joga 29% fora em cima e 29% embaixo. Com
-       o recorte começando em 430, essa faixa caía em 795–1315 do original,
-       que é EXATAMENTE a altura dos ombros para baixo: a tela larga
-       mostrava pernas, torsos e mármore, e cortava todas as cabeças fora.
-       Uma multidão sem cabeça não lê como multidão, lê como sombra.
+    /* ── O pé ───────────────────────────────────────────────────────────
 
-       Em 285 a faixa da tela larga vira 650–1170, que é onde as pessoas
-       estão inteiras. O telefone, que exibe o recorte quase todo em altura,
-       perde 145px de mármore no pé e não sente falta — ali o mármore era
-       barra de primeiro plano, não assunto. */
-    corte: { x: 0, y: 285, w: 1080, h: 1250 },
+       A mesa de mármore ocupa o quarto inferior do recorte e é, de longe,
+       o objeto mais CLARO do quadro — e o único que não muda em nenhum dos
+       34 quadros. O olho vai para o mais claro; a seção sobre gente
+       passando entregava o olho a uma pedra parada.
+
+       Ela não pode sair: é o primeiro plano que dá profundidade à sala, e
+       sem ele a multidão flutua. O que ela não pode é ser o assunto. Uma
+       queda de luz assada no arquivo — do transparente ao carvão ao longo
+       do terço final — devolve o mármore à condição de primeiro plano
+       escuro sem tirá-lo de cena.
+
+       Assado e não em CSS: é a regra do projeto (nenhum filtro em tempo de
+       execução) e aqui ela ainda economiza bytes, porque pixel escuro é
+       pixel barato no WebP. */
+    /* A faixa começa acima da borda da mesa de propósito. Começando NELA, a
+       queda coincidiria com uma aresta que já existe na imagem e as duas
+       somadas virariam um degrau; começando antes, o que escurece primeiro
+       é a sombra atrás da mesa, e quando a pedra entra a rampa já está em
+       movimento. */
+    pe: { faixa: 0.38, alfa: 0.92 },
 
     /* O recorte cobra uma conta de EXPOSIÇÃO, e ela precisa ser paga aqui.
 
@@ -232,6 +265,40 @@ const existe = async (caminho) => {
   }
 }
 
+/* A queda de luz do pé, montada UMA VEZ por sequência e composta em todos
+   os quadros.
+
+   É um PNG de uma coluna de pixel — largura 1 — esticado depois pelo
+   `composite`: o gradiente é vertical, então a largura não carrega
+   informação nenhuma e gerar a coluna custa 34 bytes em vez de meio
+   megabyte de buffer RGBA.
+
+   A curva é um smoothstep, e a escolha foi medida em vez de escolhida.
+
+   Uma rampa RETA de preto sobre uma pedra clara deixa uma faixa cinza
+   visível onde ela começa — a mesma "aresta que aparece" que as demãos de
+   céu já diagnosticaram uma vez. Uma rampa AO QUADRADO não tem aresta, mas
+   adia tudo para o fim: medindo a luminância por linha no quadro
+   publicado, a face clara do mármore está entre 78% e 87% da altura, e ali
+   a quadrática ainda estava em 0,2 — o pé escurecia depois do assunto.
+
+   O smoothstep tem derivada zero nas DUAS pontas (nasce sem aresta e morre
+   sem aresta) e sobe no miolo, que é exatamente onde a pedra está. */
+const quedaDoPe = async (largura, altura, { faixa, alfa }) => {
+  const linha = Buffer.alloc(altura * 4)
+  const inicio = Math.round(altura * (1 - faixa))
+
+  for (let y = inicio; y < altura; y++) {
+    const u = (y - inicio) / Math.max(1, altura - inicio)
+    linha[y * 4 + 3] = Math.round(u * u * (3 - 2 * u) * alfa * 255)
+  }
+
+  return sharp(linha, { raw: { width: 1, height: altura, channels: 4 } })
+    .resize(largura, altura, { fit: 'fill', kernel: 'nearest' })
+    .png()
+    .toBuffer()
+}
+
 let totalGeral = 0
 
 for (const seq of SEQUENCIAS) {
@@ -273,13 +340,20 @@ for (const seq of SEQUENCIAS) {
   await mkdir(seq.saida, { recursive: true })
 
   let total = 0
+  let queda = null
 
   for (let i = 0; i < seq.quadros; i++) {
     const u = seq.quadros === 1 ? 0 : i / (seq.quadros - 1)
     const idx = Math.min(brutos.length - 1, Math.round(seq.curva(u) * (brutos.length - 1)))
 
-    const origem = sharp(join(temp, brutos[idx]))
+    let origem = sharp(join(temp, brutos[idx]))
     const destino = join(seq.saida, `${seq.prefixo}_${String(i + 1).padStart(3, '0')}.webp`)
+
+    if (seq.pe) {
+      const { width, height } = await origem.metadata()
+      queda ??= await quedaDoPe(width, height, seq.pe)
+      origem = sharp(await origem.composite([{ input: queda, blend: 'over' }]).png().toBuffer())
+    }
 
     let buffer = null
     for (const q of QUALIDADES) {

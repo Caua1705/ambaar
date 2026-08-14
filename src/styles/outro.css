@@ -126,15 +126,24 @@
   font-weight: 200;
   letter-spacing: var(--track-marca);
   text-indent: var(--track-marca);
+  /* âmbar, e é um dos três papéis que sobraram: A MARCA. O wordmark abre o
+     site e este nome o fecha, e os dois são o mesmo objeto. */
   color: var(--ambar);
-  line-height: 1;
+  line-height: var(--lh-display);
   white-space: nowrap;
 }
 
 /* a frase de fecho: serifada, quieta — a única do site que fala da marca
-   em vez da casa */
+   em vez da casa.
+
+   Sem `text-shadow`. Ela é a última das oito que saíram do projeto, e a
+   mais difícil de substituir, porque aqui embaixo dela há um copo com
+   âmbar aceso. O que a segura no lugar da sombra é a resina (o
+   `.outro__resina`, abaixo): o miolo dela não é transparente justamente
+   por isto — são .44 de carvão em cima da fotografia, no exato lugar em que
+   a frase cai. Duas superfícies, um degrau entre elas, nenhuma sombra. */
 .outro__line {
-  margin-top: 2.5rem;
+  margin-top: 2.25rem;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 5.5vw, 2.25rem);
   font-weight: 300;
@@ -142,78 +151,81 @@
   /* concreto puro some sobre o brilho do copo, que é justamente o que está
      atrás desta linha: o cinza vem de branco rebaixado, não do token de
      texto secundário */
-  color: rgba(255, 255, 255, .74);
-  line-height: 1.35;
-  text-shadow:
-    0 2px 24px rgba(13, 13, 13, .95),
-    0 1px 4px rgba(13, 13, 13, .8);
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.08;
 }
 
-.outro__line--accent {
-  margin-top: 1.25rem;
-  color: var(--ambar);
+/* A última linha do site.
+
+   Ela era âmbar, e era a quarta instância de âmbar-tinta desta tela (o
+   losango, o filete, o nome e ela). Perdeu a cor e ganhou o que a cor
+   estava tentando comprar: ela é a única linha BRANCA A CHEIO da página
+   inteira. Num site em que todo texto secundário vive entre 60% e 88% de
+   branco, 100% é um degrau que só acontece aqui — e um degrau de
+   luminância é exatamente o recurso que esta passada escolheu no lugar da
+   cor e da sombra. */
+.outro__line--fecho {
+  margin-top: 1.1rem;
+  color: #fff;
 }
 
-/* ── O pé ──────────────────────────────────────────────── */
+/* ── O pé: a voz de máquina ────────────────────────────── */
 
-/* Horário e perfil saíram da coluna central: são serviço, não composição,
-   e presos ao rodapé da tela eles param de disputar peso com o fecho. */
-/* 8svh e não 3,5: o controle de som deixou de ser um anel de 30px e virou
-   um lockup com traço e palavra, ancorado no canto inferior direito. O
-   rodapé subiu para que os dois não dividam a mesma faixa — e o @ do
-   Instagram, que na tela larga fica justamente à direita, não encoste no
-   losango do controle. */
+/* Horário, endereço e perfil. O porquê está no HTML e o desenho em
+   base.css (`.maquina`); aqui só a posição.
+
+   Duas colunas desde o telefone, e não empilhadas: são dois dados de
+   naturezas diferentes — QUANDO e ONDE — e lado a lado eles lêem como as
+   duas metades de uma etiqueta. Empilhados, leriam como um parágrafo.
+
+   O filete de cima é tracejado: ele separa a composição (que alguém
+   desenhou) do dado (que o prédio emite), e é o único filete desta tela.
+   Ele carrega estrutura, então pode existir. */
 .outro__foot {
   position: absolute;
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  bottom: 8svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(107, 74, 46, .4);
+  /* 9svh: o controle de som mora a 1rem do pé, no canto direito, e tem
+     50px de altura. A coluna direita deste bloco (o endereço e o @) cai
+     exatamente em cima dele — 9svh é a folga que separa os dois sem
+     empurrar o rodapé para dentro da composição. */
+  bottom: 9svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(107, 74, 46, .5);
 }
 
-.outro__hours {
-  font-size: var(--fs-label);
-  letter-spacing: var(--track-mid);
-  color: rgba(119, 115, 110, .8);
-  line-height: 2;
-  text-align: center;
+.outro__dado {
+  margin: 0;
+  white-space: nowrap;
 }
 
-.outro__ig {
-  font-size: var(--fs-label);
-  letter-spacing: var(--track-wide);
-  text-indent: var(--track-wide);
-  text-transform: uppercase;
-  color: var(--concreto);
-  text-decoration: none;
-  transition: color var(--dur-med) var(--ease);
+.outro__dado:last-child {
+  text-align: right;
 }
 
-.outro__ig:hover,
-.outro__ig:focus-visible {
-  color: var(--ambar);
-}
+/* O empilhamento só abaixo de 340px, e não de 380.
 
-@media (min-width: 900px) {
+   A 360 as duas colunas cabem: a linha mais larga ("SUA RUA, 000 ·
+   FORTALEZA CE") mede 108px em passo fixo de 9,5px, e a faixa útil é de
+   276. Empilhando cedo demais o bloco ficava com QUATRO linhas em vez de
+   duas, crescia 40px para cima e passava a dividir a faixa do pé com o
+   controle de som — os dois se sobrepunham em cheio.
+
+   Abaixo de 340 não cabe mesmo, e aí o recuo do pé sobe junto: quatro
+   linhas precisam de mais folga do que duas. */
+@media (max-width: 340px) {
   .outro__foot {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
+    grid-template-columns: 1fr;
+    gap: .4rem;
+    bottom: 15svh;
   }
 
-  .outro__hours {
+  .outro__dado:last-child {
     text-align: left;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .outro__ig {
-    transition: none;
   }
 }

@@ -62,15 +62,29 @@
    respiração entre a marca e a primeira hora, e respiração não tem
    assunto. */
 
+/* ── A cauda de 0,35 tela saiu ──────────────────────────
+
+   A seção comprava um terço de tela de silêncio depois da composição, com
+   a defesa de que ele garantia que o parágrafo terminasse de se escrever
+   antes de a seção começar a sair.
+
+   A defesa parou de valer quando o gatilho subiu para `top 85%`: o gesto
+   inteiro dura 2,6s e começa quando a seção ainda tem 85% de tela para
+   subir. Para quem rola em velocidade normal, ele termina antes de a
+   composição estar centrada; para quem rola depressa, a cauda não ajudava
+   de qualquer jeito, porque o gesto é disparado e corre no relógio dele.
+
+   O que a cauda fazia de verdade era cobrar um terço de tela de rolagem
+   por uma garantia que outra decisão já dava. E a seção que fala de não
+   precisar de esforço para ouvir era a segunda mais longa do site.
+
+   Uma tela. Um gesto. −0,35 tela, e é daqui que sai metade do orçamento de
+   rolagem da seção nova das 17h. */
 .escuta {
   position: relative;
   background: var(--carvao);
   scroll-margin-top: 5rem;
-  /* 1,35 tela: uma para a composição e um terço de silêncio depois dela.
-     A cauda não é enfeite — é o que garante que o parágrafo termine de se
-     escrever ANTES de a seção começar a sair, mesmo para quem rola
-     depressa. É a única duração que a seção ainda compra, e ela é curta. */
-  height: 135svh;
+  height: 100svh;
 }
 
 /* Sticky, e não pin de ScrollTrigger.
@@ -140,7 +154,13 @@
      ainda chega, e é mais larga que ela */
   font-size: clamp(1.45rem, 7vw, 3.1rem);
   font-weight: 300;
-  line-height: 1.28;
+  /* 1,28 → 0,9. A abertura é escala de display e tem duas linhas: a 0,9 as
+     duas se encaixam num bloco em vez de flutuarem separadas, e o
+     parágrafo inteiro passa a ter três densidades diferentes (bloco,
+     linha solta, bloco) em vez de três tamanhos da mesma coisa.
+     O `padding-block` de .escuta__frase span dá a folga que os acentos
+     precisam quando a entrelinha é menor que 1. */
+  line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   max-width: 22ch;
 }
@@ -181,7 +201,7 @@
      clamp, não o vw. */
   font-size: clamp(2.2rem, 12vw, 7.2rem);
   font-weight: 300;
-  line-height: .98;
+  line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: #fff;
   max-width: 14ch;
@@ -189,46 +209,57 @@
   opacity: 0;
 }
 
-/* A única palavra colorida da página inteira.
-
-   O site tem âmbar em filete, em losango, em demão de céu e em botão — em
-   nenhum lugar em TEXTO. Guardar a cor da marca para uma palavra só, e
-   para esta palavra, é o tipo de gasto que só funciona uma vez. Por isso
-   acontece aqui e em lugar nenhum mais. */
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A PALAVRA QUE A LINHA TOCA                                           ║
+   ║                                                                      ║
+   ║ "escuta" era a única palavra colorida da página, em âmbar, e a       ║
+   ║ defesa era boa: guardar a cor da marca para uma palavra só é um      ║
+   ║ gasto que funciona uma vez.                                          ║
+   ║                                                                      ║
+   ║ O problema é que ela não funcionava uma vez — funcionava a           ║
+   ║ décima-quarta, porque quando o usuário chegava aqui já tinha visto   ║
+   ║ âmbar no menu, no relógio, no rótulo do capítulo e no fio. A         ║
+   ║ raridade que o argumento supunha não existia.                        ║
+   ║                                                                      ║
+   ║ Com a disciplina do acento (tokens.css) restringindo o âmbar-tinta a ║
+   ║ três papéis, este quarto teve de sair. E o que entrou no lugar diz a ║
+   ║ mesma coisa com mais precisão: a LINHA para debaixo da palavra.      ║
+   ║                                                                      ║
+   ║ O horizonte atravessava a tela inteira atrás de tudo, o que é um     ║
+   ║ enfeite de fundo. Agora ele tem um comprimento — o da palavra — e um ║
+   ║ lugar — a base dela. O mesmo objeto que se desenha na abertura, pare ║
+   ║ a marca na hero e se recolhe até virar o losango no fecho passa a    ║
+   ║ sublinhar, no meio do caminho, a palavra que é a tese da casa.       ║
+   ║                                                                      ║
+   ║ E ele continua fazendo o que fazia: no instante em que "fica."       ║
+   ║ existe, ele se parte nos sete filetes do campo.                      ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 .escuta__frase--c b {
+  position: relative;
   font-weight: inherit;
-  color: var(--ambar);
+  color: inherit;
 }
 
 /* ── O horizonte ───────────────────────────────────────── */
 
-/* A linha. Ela é o objeto da seção, e não é nova: é a MESMA que a abertura
-   desenha enquanto os arquivos críticos chegam e a mesma que a hero usa
-   para parir a marca. Terceira e última aparição, e é aqui que ela acaba —
-   partida nas sete linhas do campo.
-
-   Mora exatamente na altura do centro do campo, porque é de lá que as sete
-   saem: se ela estivesse em qualquer outro lugar, o que se veria seriam
-   duas coisas diferentes acontecendo, e não uma virando a outra. */
+/* O JavaScript mede a palavra e escreve --x e --w (escuta.js): a linha não
+   tem posição própria, ela tem a posição de "escuta". Medir em vez de
+   ancorar por CSS é o que faz o sublinhado sobreviver à troca de fonte —
+   a Cormorant chega depois do primeiro quadro e a palavra muda de largura
+   quando ela entra. */
 .escuta__horizonte {
   position: absolute;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
-  bottom: calc(10svh + 9svh);
+  left: var(--x, var(--gutter-l));
+  top: var(--y, 50%);
+  width: var(--w, 6rem);
   height: 1px;
   background: var(--ambar);
-  opacity: .5;
+  opacity: .55;
   transform: scaleX(0);
   transform-origin: left center;
 }
 
 @media (min-width: 900px) {
-  .escuta__horizonte {
-    right: auto;
-    width: min(46vw, 34rem);
-    bottom: calc(12svh + 8svh);
-  }
-
   /* Na tela larga o fecho é um tipo de 115px em duas linhas e o campo sobe
      de 10 para 12svh: a coluna e o campo passam a disputar a mesma faixa.
      O recuo maior devolve o intervalo entre os dois — sem ele, "fica."

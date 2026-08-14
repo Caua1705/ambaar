@@ -49,6 +49,49 @@ if (secao) {
 
   const avisarFecho = () => document.dispatchEvent(new CustomEvent('escuta:fecho'))
 
+  /* ── A linha vai buscar a palavra ────────────────────
+
+     O horizonte não tem mais posição própria: ele tem a posição de
+     "escuta". A medida é feita aqui e escrita em custom properties, e ela
+     é REFEITA quando as fontes chegam — a Cormorant entra depois do
+     primeiro quadro e a palavra muda de largura quando ela entra. Um
+     sublinhado medido contra a fonte de sistema fica com a largura errada
+     para sempre.
+
+     A medida é por retângulo e não por `offsetLeft`: "escuta" é um <b>
+     INLINE dentro de um bloco dentro do palco, e a cadeia de offsetParent
+     não passa por onde o filete está ancorado. Nenhum dos dois elementos
+     tem transform no momento da medida (o GSAP só toca no clipPath dos
+     span e no transform dos filetes do campo), então o retângulo é exato.
+
+     A LINHA DE BASE, e não o pé da caixa: com entrelinha 0,9 a caixa
+     inline de uma serifada sobra bem abaixo do desenho da letra, e um
+     sublinhado no pé dela ficaria flutuando. O descendente da Cormorant é
+     ~0,21em; descontando 0,17 sobra o respiro exato para o filete passar
+     rente sem encostar. */
+  const palavra = secao.querySelector('.escuta__frase--c b')
+
+  const medirPalavra = () => {
+    if (!horizonte || !palavra) return
+
+    const alvo = palavra.getBoundingClientRect()
+    const base = secao.querySelector('.escuta__stage').getBoundingClientRect()
+    const corpo = parseFloat(getComputedStyle(palavra).fontSize) || 0
+
+    horizonte.style.setProperty('--x', `${Math.round(alvo.left - base.left)}px`)
+    horizonte.style.setProperty('--w', `${Math.round(alvo.width)}px`)
+    horizonte.style.setProperty('--y', `${Math.round(alvo.bottom - base.top - corpo * 0.17)}px`)
+  }
+
+  medirPalavra()
+  document.fonts?.ready.then(medirPalavra)
+
+  let remedir = null
+  window.addEventListener('resize', () => {
+    clearTimeout(remedir)
+    remedir = setTimeout(medirPalavra, 200)
+  }, { passive: true })
+
   if (reducedMotion) {
     secao.classList.add('is-estatica')
     gsap.set(secao.querySelectorAll('.escuta__frase span'), { clipPath: ABERTO })
@@ -82,6 +125,17 @@ if (secao) {
     const corte = frases.find((f) => f.hasAttribute('data-corte'))
     const abrem = frases.filter((f) => !f.hasAttribute('data-corte'))
 
+    /* Quanto o filete tem de descer para chegar ao centro do campo. É
+       medido no momento em que a timeline é montada, e é relativo — o
+       filete já está na altura da palavra, então o que se anima é a
+       diferença. */
+    const queda = () => {
+      if (!campo || !horizonte) return 0
+      const de = horizonte.getBoundingClientRect().top
+      const para = campo.getBoundingClientRect()
+      return Math.round(para.top + para.height / 2 - de)
+    }
+
     autonomo(secao, (t) => {
       t.to(horizonte, { scaleX: 1, duration: 1.2, ease: EASE }, 0)
 
@@ -94,22 +148,30 @@ if (secao) {
         }, 0.45 + i * 0.5)
       })
 
-      /* O corte e a partida da linha, no mesmo instante.
+      /* ── O corte, e a linha indo embora ────────────────
 
-         `set` e não `to`: a frase não tem duração. E a linha começa a se
-         desfazer no mesmo quadro — o horizonte encolhe para o centro
-         exatamente enquanto as sete crescem a partir dele, de modo que num
-         único instante as duas coisas dividem a tela e é aí que se lê que
-         uma virou a outra. */
+         `set` e não `to` na frase: ela não tem duração.
+
+         E no MESMO quadro o filete se solta da palavra. Ele não encolhe no
+         lugar como antes — ele CAI: desce até o centro do campo e ali se
+         parte nas sete linhas, que crescem de dentro dele.
+
+         É a diferença entre um objeto que some e um objeto que vira outro.
+         O sublinhado da palavra "escuta" desce e vira o som — e é o que
+         faz o campo, que até então era um enfeite no pé da tela, ter uma
+         procedência. Ele veio de uma palavra.
+
+         `power2.in` na queda: uma coisa que se solta acelera. */
       t.set(corte, { opacity: 1 }, 1.45)
-        .to(horizonte, { scaleX: 0, duration: 0.7, ease: EASE }, 1.45)
+        .to(horizonte, { y: queda, duration: 0.85, ease: 'power2.in' }, 1.45)
+        .to(horizonte, { scaleX: 0, opacity: 0, duration: 0.5, ease: EASE }, 2.0)
         .to(linhas, {
           scaleX: 1,
           y: 0,
           duration: 0.9,
           ease: EASE,
           stagger: { each: 0.045, from: 'center' }
-        }, 1.5)
+        }, 2.05)
 
       /* E então elas começam a respirar. A deriva é keyframe de CSS — custo
          zero de JavaScript, nenhum rAF ligado — e ela sobrescreve o
@@ -120,7 +182,7 @@ if (secao) {
       t.add(() => {
         campo?.classList.add('is-viva')
         avisarFecho()
-      }, 2.35)
+      }, 2.9)
     }, {
       /* Cedo. A seção tem 1,35 tela e o gesto dura 2,6 segundos: disparando
          quando o topo dela cruza 85% da tela, o parágrafo termina de se

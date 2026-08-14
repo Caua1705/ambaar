@@ -105,7 +105,7 @@
   z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 42% at 18% 84%, rgba(13, 13, 13, .82) 0%, rgba(13, 13, 13, .4) 52%, transparent 80%),
+    radial-gradient(ellipse 96% 46% at 18% 84%, rgba(13, 13, 13, .88) 0%, rgba(13, 13, 13, .52) 48%, rgba(13, 13, 13, .18) 68%, transparent 84%),
     var(--ceu-noite);
 }
 
@@ -124,13 +124,15 @@
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
   font-weight: 300;
-  line-height: 1.15;
+  line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: #fff;
-  text-shadow:
-    0 2px 24px rgba(13, 13, 13, .95),
-    0 1px 4px rgba(13, 13, 13, .8);
 }
+
+/* Sem sombra: o passe de luminância desta tela é a elipse do ::after do
+   palco, que já está ancorada em 18% 84% — exatamente onde esta frase cai.
+   Ela subiu de .82 para .88 no núcleo para carregar sozinha o trabalho que
+   dividia com o halo. */
 
 @media (min-width: 900px) {
   .retrato__linha {

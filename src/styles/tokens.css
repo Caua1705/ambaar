@@ -1,4 +1,44 @@
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A DISCIPLINA DO ACENTO                                               ║
+   ║                                                                      ║
+   ║ O âmbar tinha virado o padrão da página em vez do acento dela. Ele   ║
+   ║ estava no menu, no rótulo de cada capítulo, no losango de cada       ║
+   ║ rótulo, no relógio, numa palavra da tese, no algarismo de cada       ║
+   ║ cartão, em cada "Reservar", na última frase do fecho, no fio, no     ║
+   ║ campo, no controle de som e na marca. Catorze lugares. Uma cor que   ║
+   ║ aparece catorze vezes não é rara, é a cor do site — e um acento que  ║
+   ║ não é raro não acentua nada.                                         ║
+   ║                                                                      ║
+   ║ A regra desta passada separa duas coisas que estavam sendo contadas  ║
+   ║ juntas:                                                              ║
+   ║                                                                      ║
+   ║   ÂMBAR-LUZ   as demãos de céu, o poente, o brilho das fotografias.  ║
+   ║               Isso não é acento, é a PALETA — é a cor da hora do dia ║
+   ║               que a casa vende. Não entra na conta.                  ║
+   ║   ÂMBAR-TINTA tipo, filete e marca. É este que é acento, e ele fica  ║
+   ║               restrito a TRÊS papéis na página inteira:              ║
+   ║                                                                      ║
+   ║     1. A LINHA. Um único objeto que atravessa o site: ela se desenha ║
+   ║        na abertura enquanto os arquivos chegam, pare a marca na      ║
+   ║        hero, sublinha a palavra "escuta" na tese, se parte nos sete  ║
+   ║        filetes do campo, desce a goteira esquerda como o fio, e no   ║
+   ║        fecho se recolhe até virar o losango. É âmbar porque é como   ║
+   ║        se reconhece que é sempre a MESMA linha.                      ║
+   ║     2. A MARCA. O wordmark da hero e o losango + nome do fecho.      ║
+   ║        Abre e fecha; nada entre os dois.                             ║
+   ║     3. O CONTROLE DE SOM. A única coisa da página que se toca. A     ║
+   ║        raridade é o que faz ele ler como A interação em vez de mais  ║
+   ║        um enfeite.                                                   ║
+   ║                                                                      ║
+   ║ Tudo o mais perdeu a cor: o menu, os três rótulos de capítulo, os    ║
+   ║ três losangos de rótulo (que saíram inteiros do HTML), o relógio, a  ║
+   ║ palavra "escuta", os algarismos e as chamadas das reservas e a       ║
+   ║ última linha do fecho. Onde havia âmbar agora há branco rebaixado    ║
+   ║ ou concreto — e o relógio, que era o maior objeto âmbar da página,   ║
+   ║ virou luz branca a 10%, que é o que ele sempre quis ser.             ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
 :root {
   --carvao: #0D0D0D;
   --ambar: #C8892E;
@@ -6,8 +46,64 @@
   --concreto: #77736E;
   --fume: #1A1A1A;
 
+  /* ── Dois modos tipográficos, e só dois ──────────────────
+     A regra: um modo para o que a casa É e DECLARA, um modo para o que
+     alguém DIZ. A troca entre eles é o sinal de que o registro mudou, e
+     por isso ela não pode acontecer por gosto.
+
+       --font          Jost. A voz de sistema. O wordmark, o menu, os
+                       rótulos, os NOMES DOS AMBIENTES (Sunset Session,
+                       House All Night, Deep Listening — que são nomes de
+                       programação, não frases), a lista de gêneros, o
+                       relógio.
+       --font-display  Cormorant. A voz humana. Toda frase em português da
+                       página, sem exceção — inclusive os parágrafos dos
+                       capítulos, que estavam em Jost.
+
+     ── O terceiro modo que existia ─────────────────────────────────────
+
+     Não era uma terceira família: era a Cormorant fazendo os DOIS papéis.
+     Ela assinava tanto "House All Night" quanto "Quem escuta, fica.", e
+     com os dois na mesma letra a troca de registro não existia — a
+     serifada era só "o tipo grande". Passar os nomes de ambiente para a
+     Jost 200, em caixa alta, é o que devolve significado à troca: eles
+     passam a rimar com o wordmark (mesma família, mesmo peso, mesma caixa)
+     e a frase em português passa a ser a única coisa da tela escrita à mão.
+
+     ── E o quarto, que é deliberado ────────────────────────────────────
+
+     `--font-maquina`, abaixo. Ele existe justamente por NÃO ser um modo
+     tipográfico: é a ausência de um. */
   --font: 'Jost', system-ui, sans-serif;
   --font-display: 'Cormorant Garamond', Georgia, serif;
+
+  /* ── A voz de máquina ────────────────────────────────────
+     Horário, endereço, o @ do Instagram, os horários de cada sala.
+
+     Isto não é copy — ninguém escreveu isto. É o que o prédio informa, e
+     tem de parecer o que é. Numa fonte de sistema monoespaçada, no menor
+     corpo da página, sem tracking de desenho e em caixa baixa, o bloco
+     deixa de pedir para ser lido como composição e passa a ser lido como
+     dado: a mesma leitura instantânea de uma etiqueta atrás de um
+     equipamento.
+
+     Monoespaçada e não a sans do sistema: o passo fixo é o que faz um
+     horário parecer medido em vez de diagramado. E ela é a única família
+     da página que não é carregada — é a que o aparelho já tem, o que é
+     metade do argumento. */
+  --font-maquina: ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --fs-maquina: clamp(9.5px, 2.6vw, 11px);
+
+  /* ── Entrelinha de display ───────────────────────────────
+     0,9 em tudo o que é escala de display. Abaixo de 1 as letras invadem
+     os limites da própria linha e o bloco para de ser "linhas de texto"
+     para virar uma massa: um objeto de duas ou três camadas empilhadas,
+     que é o que dá a um título a densidade de uma coisa impressa.
+
+     Vale para a serifada e para a sans na escala grande. Não vale para
+     corpo de texto (que precisa de 1,6 para ser lido) nem para a voz de
+     máquina (que precisa de folga para o passo fixo respirar). */
+  --lh-display: .9;
 
   /* ── Tracking ────────────────────────────────────────────
      A marca tem um tracking só dela, largo, porque é assim que ela existe
@@ -47,29 +143,42 @@
      vez de uma reta, e a dissolução ocupa o terço final da tela em vez do
      último quinto.
 
-     A passada anterior pôs também um degrau escuro no TOPO destas demãos,
-     para costurar a emenda entre duas seções de sangria total. Ele saiu, e
-     é a causa da sombra que chegava com aresta dura pouco antes do título
-     do capítulo 01: uma faixa de 125px a 50% de preto atravessando o alto
-     da tela, que ainda por cima ACENDIA (a passagem levava a mesma demão
-     de 0 a 1 no fim do percurso, e as duas se somavam). Uma faixa escura
-     que aparece não é luz, é um painel — o mesmo erro das cortinas, em
-     escala menor.
+     ── E a borda de cima voltou, feita de outro jeito ──────────────────
 
-     A emenda voltou a ser resolvida onde ela existe: as pausas passaram a
-     ter fundo de carvão com moldura, então nenhum capítulo encosta em
-     foto, e a hero apaga a própria foto antes de entregar o Jardim.
+     Duas passadas atrás havia um degrau escuro no topo destas demãos, para
+     costurar a emenda entre duas seções de sangria total. Ele saiu, e com
+     razão: era uma FAIXA de 125px a 50% de preto — um platô, com uma
+     aresta embaixo, atravessando o alto da tela. Uma faixa escura que
+     aparece não é luz, é um painel.
 
-     O que sobrou do degrau de topo é uma queda longa e rasa — 30% caindo a
-     zero em quase um terço da tela, sem parada intermediária forte. Ela
-     não tem aresta para o olho encontrar, e por isso escurece o alto do
-     quadro (onde o rótulo mora) sem nunca ler como painel. */
+     Só que o problema que ele resolvia continuou existindo, e ficou visível
+     quando o poente foi refeito. A emenda entre dois capítulos de sangria
+     total atravessa a tela inteira, de baixo para cima, ao longo de uma
+     tela de rolagem. Nenhuma transição pode cobrir isso sem parar em cima
+     do usuário — que é exatamente o defeito da tela dourada que esta
+     passada consertou. Cobrir a emenda por mais tempo era o caminho
+     errado.
+
+     O caminho certo é a emenda não precisar ser coberta: se a borda de
+     CIMA de cada palco for praticamente carvão, ela encosta no carvão da
+     seção anterior e não há o que ver.
+
+     A diferença para o degrau antigo é que este não tem platô. Ele nasce em
+     .92 e cai monotonicamente para os mesmos valores de sempre em 12% da
+     altura — sem nenhum trecho constante, portanto sem nenhuma aresta em
+     que o olho possa se apoiar. Aos 14svh, onde o rótulo do capítulo mora,
+     ele já está em .17, que é praticamente o valor que estava lá antes.
+
+     Cinco por cento da altura da tela um pouco mais escuros, e as três
+     emendas entre capítulos deixam de existir. */
   --ceu-dia: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .3) 0%,
-    rgba(13, 13, 13, .2) 9%,
-    rgba(13, 13, 13, .11) 18%,
-    rgba(13, 13, 13, .05) 26%,
+    rgba(13, 13, 13, .92) 0%,
+    rgba(13, 13, 13, .6) 3%,
+    rgba(13, 13, 13, .36) 6%,
+    rgba(13, 13, 13, .24) 9%,
+    rgba(13, 13, 13, .15) 14%,
+    rgba(13, 13, 13, .08) 22%,
     rgba(200, 137, 46, .05) 32%,
     rgba(13, 13, 13, .07) 46%,
     rgba(13, 13, 13, .18) 58%,
@@ -81,11 +190,13 @@
 
   --ceu-noite: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, .34) 0%,
-    rgba(13, 13, 13, .23) 9%,
-    rgba(13, 13, 13, .14) 18%,
-    rgba(13, 13, 13, .08) 26%,
-    rgba(13, 13, 13, .07) 32%,
+    rgba(13, 13, 13, .92) 0%,
+    rgba(13, 13, 13, .62) 3%,
+    rgba(13, 13, 13, .4) 6%,
+    rgba(13, 13, 13, .27) 9%,
+    rgba(13, 13, 13, .17) 14%,
+    rgba(13, 13, 13, .1) 22%,
+    rgba(13, 13, 13, .08) 32%,
     rgba(13, 13, 13, .1) 46%,
     rgba(13, 13, 13, .2) 58%,
     rgba(13, 13, 13, .38) 73%,
@@ -117,8 +228,12 @@
      sendo, de longe, o maior objeto de qualquer tela. */
   --fs-numero: clamp(6.5rem, 34vw, 17rem);
 
-  /* título de seção */
-  --fs-grande: clamp(2.5rem, 12vw, 6.5rem);
+  /* Nome de ambiente. Ele mudou de família (Cormorant → Jost 200 em caixa
+     alta) e por isso mudou de degrau: a mesma medida em caixa alta com
+     tracking ocupa quase o dobro da largura. A 9,5vw, "HOUSE ALL" — a
+     linha mais longa que o site desenha aqui — mede 263px numa faixa útil
+     de 330. */
+  --fs-grande: clamp(1.9rem, 9.5vw, 4.5rem);
 
   /* display discreto: pausas, escuta, fecho */
   --fs-quieto: clamp(1.8rem, 8vw, 4.25rem);

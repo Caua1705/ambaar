@@ -129,13 +129,16 @@
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 6.4vw, 2.6rem);
   font-weight: 300;
-  line-height: 1.25;
+  line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: #fff;
-  text-shadow:
-    0 2px 24px rgba(13, 13, 13, .95),
-    0 1px 4px rgba(13, 13, 13, .8);
 }
+
+/* Sem sombra. Esta frase é a mais fácil das oito de resolver, porque o que
+   está atrás dela já é o passo de luminância: a pausa é a única composição
+   do site com CARVÃO LIMPO em volta das fotografias, e a frase cai
+   exatamente na faixa vazia entre os dois quadros. Não havia o que
+   proteger — o halo estava lá por hábito. */
 
 /* ── Tela larga ────────────────────────────────────────── */
 

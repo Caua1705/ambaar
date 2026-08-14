@@ -127,7 +127,15 @@
                  abre, não sobe, não desfoca — ela ESTÁ. Num site em que tudo
                  limpa, dissolve ou é preso ao dedo, a coisa parada é a mais
                  alta da página. É a tese dita em movimento em vez de em
-                 texto, e é o motivo de ela não precisar DIZER que não grita. -->
+                 texto, e é o motivo de ela não precisar DIZER que não grita.
+
+                 A palavra "escuta" NÃO é mais âmbar. Ela é a palavra que a
+                 LINHA toca: o horizonte, em vez de atravessar a tela atrás
+                 de tudo, para debaixo dela. A disciplina do acento (o âmbar
+                 restrito a três papéis) tirou a cor daqui; o que entrou no
+                 lugar diz a mesma coisa com mais precisão, porque agora o
+                 objeto que abre o site, pare a marca e fecha o documento
+                 encosta exatamente na palavra que é a tese da casa. -->
             <p class="escuta__frase escuta__frase--c" data-corte>
               <span>Quem <b>escuta</b>,</span>
               <span>fica.</span>
@@ -156,6 +164,70 @@
         </div>
       </section>
 
+      <!-- ── A troca · 17h ──────────────────────────────────
+           SEÇÃO NOVA, e ela paga uma dívida antiga.
+
+           A premissa desta casa é a coisa mais incomum que ela tem: o Âmbar
+           não é um bar, é uma HORA. Ele acontece dentro de um café que já
+           existe — às 17h o café fecha e o Âmbar abre, no mesmo lugar, com
+           as mesmas cadeiras. O site inteiro é construído sobre esse fato e
+           o dizia numa oração subordinada no corpo de texto do capítulo 01
+           ("O café fecha às 17h e o jardim abre"), onde nenhuma premissa
+           sobrevive.
+
+           Aqui ela é a tela.
+
+           ── Uma ideia ───────────────────────────────────────────────────
+
+           O minuto em que não é nem um nem outro. O balcão está aceso, os
+           dois bancos estão vazios, o portão ainda está aberto para a rua.
+           Ninguém chegou. É a única fotografia do site em que se vê a
+           CALÇADA — o lado de fora, que é de onde a noite ainda vem.
+
+           ── E é o contrário das vizinhas ────────────────────────────────
+
+           "A escuta", acima, é tipo sobre carvão e nada mais. O Jardim,
+           abaixo, é fotografia sangrando nos quatro lados. Esta fica no
+           meio e não é nenhuma das duas: um objeto isolado no vazio — a
+           fotografia numa FRESTA horizontal, com carvão em volta, e o texto
+           ao LADO dela em vez de por cima.
+
+           É a composição flanqueada do site: rótulo, assunto e dado
+           ocupando três faixas em relação uma com a outra. Em nenhuma outra
+           tela da página o texto e a imagem deixam de se sobrepor.
+
+           ── E é aqui que o relógio nasce ────────────────────────────────
+
+           17h. Ele assume nesta tela e conta a noite inteira a partir
+           daqui. Antes ele nascia dentro do capítulo 01, o que fazia a hora
+           parecer uma propriedade do jardim; agora ela é uma propriedade da
+           CASA, e o jardim é só o primeiro lugar onde ela é vista. -->
+      <!-- data-vrail curto: a assinatura vertical tem 13rem de altura fixa e
+           não quebra linha. "17H · A TROCA" transbordava. -->
+      <section class="troca" data-vrail="A TROCA" data-choreo
+               data-hora="17" data-hora-em="dir-baixo" data-som=".20">
+        <div class="troca__stage">
+          <p class="troca__rotulo">
+            <span class="troca__dash" aria-hidden="true"></span>
+            <span>A troca</span>
+          </p>
+
+          <figure class="troca__quadro">
+            <img src="/img/casa-dia.webp" alt="O balcão do jardim aceso ao entardecer, com dois bancos vazios e o portão aberto para a rua." loading="lazy">
+          </figure>
+
+          <p class="troca__linha">O café fecha.<br>A casa continua aberta.</p>
+
+          <!-- A voz de máquina. Não é copy: é o que o prédio informa.
+               Fonte de sistema, corpo mínimo, sem tracking de desenho — ver
+               a nota em tokens.css. -->
+          <dl class="maquina troca__dados">
+            <div><dt>café</dt><dd>08h — 17h</dd></div>
+            <div><dt>âmbar</dt><dd>17h — 03h</dd></div>
+          </dl>
+        </div>
+      </section>
+
       <!-- ── 01 · O entardecer acontecendo ───────────────── -->
       <!-- Vinte e dois quadros de um plano fixo presos ao dedo: o poente
            acontece de verdade — as luzinhas acendem, a vela aparece na
@@ -165,7 +237,7 @@
            data-saida="engolir": e é a maior mudança de transição do site.
            Ver a nota do .poente, no pé deste arquivo. -->
       <section class="chapter chapter--left chapter--dusk" id="cap-jardim" data-vrail="JARDIM"
-               data-nav="ambientes" data-run="150" data-saida="engolir" data-choreo
+               data-nav="ambientes" data-run="130" data-saida="engolir" data-choreo
                data-hora="17—20" data-hora-em="esq" data-som=".30">
         <div class="chapter__stage">
           <div class="chapter__media" data-seq="dusk">
@@ -176,13 +248,12 @@
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
-                <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">01 — Jardim</span>
               </span>
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-              <p class="chapter__text reveal">O café fecha às 17h e o jardim abre. O som começa lá fora, entre as plantas, sem pressa.</p>
+              <p class="chapter__text reveal">O som começa lá fora, entre as plantas, sem pressa. A luz faz o resto.</p>
             </div>
           </div>
         </div>
@@ -212,22 +283,42 @@
 
            ── E o dedo SOLTA ─────────────────────────────────────────────
 
-           No fim do curso a sequência é liberada e passa a correr sozinha, a
-           24 quadros por segundo. O usuário traz a noite até as 23h e então
-           a noite continua sem ele — é a única vez na página em que o
-           controle é devolvido, e é o argumento inteiro do site dito em um
-           gesto: o dedo faz a noite chegar, a casa faz a noite acontecer.
+           A 44% do curso a sequência é liberada e passa a correr sozinha.
+           O usuário traz a noite até as 23h e então a noite continua sem
+           ele — é a única vez na página em que o controle é devolvido, e é
+           o argumento inteiro do site dito em um gesto: o dedo faz a noite
+           chegar, a casa faz a noite acontecer.
 
-           ── O único corte do site ──────────────────────────────────────
+           ── A passagem, no lugar do corte ──────────────────────────────
 
-           Sobre a sala JÁ EM MOVIMENTO LIVRE, corte seco para uma
-           FOTOGRAFIA: a pista vista de trás da cabine, flash, grão, uma
-           pessoa olhando na lente. É o único corte duro da página inteira,
-           e ele corta movimento vivo em vez de um quadro parado — que é o
-           que faz dele um acontecimento. -->
+           Aqui havia um CORTE SECO para uma fotografia de flash. Ela
+           chegava do nada, ficava um instante e ia embora sem resolver
+           nada — três defeitos, e todos com a mesma causa: um corte só é um
+           acontecimento quando o que ele corta e o que ele revela têm
+           alguma coisa em comum. Um plano gerado de uma sala e uma foto de
+           flash de outra noite não têm.
+
+           O que existe agora é uma PASSAGEM, e ela é um gesto contínuo em
+           três estágios que não muda de assunto uma única vez — só de
+           distância:
+
+             1. A CÂMERA CHEGA PERTO. O plano da sala, ainda correndo
+                sozinho, escala. A multidão cresce e perde legibilidade.
+             2. E VIRA LUZ. No ponto de menor legibilidade, o plano dissolve
+                numa fotografia que é EXATAMENTE a mesma matéria — um corpo
+                desfeito por um giro de obturador, parede âmbar. O arrasto
+                dos 34 quadros vira o arrasto de um quadro só. Não há troca
+                de registro para o olho notar: há uma aproximação.
+             3. E A LUZ VIRA UM ROSTO. Da dissolução sai uma mulher de
+                perfil, olhos baixos, dentro do barulho. É o primeiro rosto
+                em tela cheia do site inteiro, e ele chega depois de quinze
+                telas de ambientes — que é o que faz dele um acontecimento
+                em vez de mais uma fotografia.
+
+           E ela não some: é ELA que a pausa das 00h descobre por baixo. -->
       <section class="chapter chapter--night chapter--center" id="cap-salao" data-vrail="SALÃO"
-               data-nav="ambientes" data-run="150" data-montagem="corte"
-               data-saida="parte" data-solta="0.56" data-choreo
+               data-nav="ambientes" data-run="115" data-passagem="0.5"
+               data-saida="parte" data-solta="0.44" data-choreo
                data-hora="20—23" data-hora-em="centro" data-som=".70">
         <div class="chapter__stage">
           <div class="chapter__media">
@@ -238,15 +329,16 @@
               <img class="chapter__poster" src="/frames/sala/s_001.webp" alt="">
               <canvas class="chapter__canvas" aria-hidden="true"></canvas>
             </span>
-            <!-- O corte. Fica fora de cena até 78% do curso. -->
-            <span class="chapter__plano chapter__plano--corte">
-              <img class="chapter__img chapter__img--pista" src="/img/salao-pista.webp" alt="" loading="lazy">
+            <span class="chapter__plano chapter__plano--passagem">
+              <img class="chapter__img" src="/img/salao-passagem.webp" alt="" loading="lazy">
+            </span>
+            <span class="chapter__plano chapter__plano--rosto">
+              <img class="chapter__img" src="/img/salao-rosto.webp" alt="" loading="lazy">
             </span>
           </div>
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
-                <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">02 — Salão</span>
               </span>
             </div>
@@ -333,7 +425,7 @@
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
-               data-nav="ambientes" data-run="105" data-saida="fecha" data-choreo
+               data-nav="ambientes" data-run="90" data-saida="fecha" data-choreo
                data-hora="01—03" data-hora-em="dir" data-som=".25">
         <div class="chapter__stage">
           <div class="chapter__media">
@@ -344,7 +436,6 @@
           <div class="chapter__content">
             <div class="chapter__meta">
               <span class="chapter__labelwrap">
-                <img class="chapter__losango" src="/brand/losango.svg" alt="" aria-hidden="true">
                 <span class="chapter__label reveal reveal--line">03 — Reservado</span>
               </span>
             </div>
@@ -362,45 +453,68 @@
            se escreve. O algarismo que atravessou a noite vira a frase que
            pede a escolha.
 
-           Os três cartazes foram trocados por fotografias que estavam na
-           pasta das descartadas e que vendem melhor o que se está
-           reservando: uma MESA no jardim à noite em vez do jardim ao longe,
-           e as MÃOS tocando em vez da cabine vista de cima. -->
+           ── As três fotografias saíram ─────────────────────────────────
+
+           Eram três cartazes de 33svh, cada um com a foto do ambiente
+           correspondente. Elas saíram inteiras, e por duas razões que se
+           somam:
+
+           1. É uma GALERIA. A regra desta passada é que toda imagem
+              pertence a uma HORA da noite ou a uma IDEIA — nunca a uma
+              lista. Estas três não pertenciam a nem uma nem outra: eram
+              miniaturas dos lugares que o usuário acabou de atravessar em
+              tela cheia, postas lado a lado justamente para serem
+              comparadas. Um site que seduz não pede comparação no fim.
+
+           2. Três superfícies preenchidas numa seção só. A conta da casa é
+              UMA, no máximo — e a escolha entre três ambientes é
+              exatamente o lugar onde nenhum deles pode ter mais peso que
+              os outros. Com foto, o Jardim (a mais clara das três) ganhava
+              a escolha antes de a pessoa ler os nomes.
+
+           O que ficou é a seção mais VAZIA da página depois de "A escuta":
+           carvão, três filetes tracejados e três linhas de texto. Depois de
+           dez telas de sangria total, o descanso é a composição.
+
+           −128 kB, e uma tela e meia de rolagem viraram uma e um terço. -->
       <section class="reservas" id="reservas" data-vrail="@AMBAR.BAR" data-nav="reservas"
                data-hora="off" data-som=".15">
-        <p class="reservas__eyebrow reveal reveal--line">São 03h</p>
-        <h2 class="reservas__title reveal">A noite acabou de passar.<br>Escolha onde recomeçar.</h2>
+        <!-- Flanqueada: o rótulo e o título não se empilham, eles se
+             encaram. O rótulo ocupa a coluna estreita da esquerda e o
+             título a larga da direita, e o filete tracejado entre os dois
+             é a única coisa que os liga. -->
+        <div class="reservas__cabeca">
+          <p class="reservas__eyebrow reveal reveal--line">São 03h</p>
+          <h2 class="reservas__title reveal">A noite acabou de passar.<br>Escolha onde recomeçar.</h2>
+        </div>
 
         <ul class="salas">
           <li class="sala reveal">
             <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Jardim%20do%20%C3%82mbar." target="_blank" rel="noopener">
-              <img class="sala__img" src="/img/jardim-som.webp" alt="" loading="lazy">
               <span class="sala__num">01</span>
               <span class="sala__body">
                 <span class="sala__name">Jardim</span>
-                <span class="sala__when">17h — 00h</span>
+                <span class="sala__when maquina">17h — 00h</span>
               </span>
               <span class="sala__go" aria-hidden="true">Reservar</span>
             </a>
           </li>
           <li class="sala reveal" data-delay="120">
             <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Sal%C3%A3o%20do%20%C3%82mbar." target="_blank" rel="noopener">
-              <img class="sala__img" src="/img/salao-alto.webp" alt="" loading="lazy">
               <span class="sala__num">02</span>
               <span class="sala__body">
                 <span class="sala__name">Salão</span>
-                <span class="sala__when">20h — 03h</span>
+                <span class="sala__when maquina">20h — 03h</span>
               </span>
               <span class="sala__go" aria-hidden="true">Reservar</span>
             </a>
           </li>
           <li class="sala reveal" data-delay="240">
             <a class="sala__link" href="https://wa.me/5585SEUNUMERO?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20uma%20mesa%20no%20Reservado%20do%20%C3%82mbar." target="_blank" rel="noopener">
-              <img class="sala__img" src="/img/reservado.webp" alt="" loading="lazy">
               <span class="sala__num">03</span>
               <span class="sala__body">
                 <span class="sala__name">Reservado</span>
-                <span class="sala__when">00h — 03h</span>
+                <span class="sala__when maquina">00h — 03h</span>
               </span>
               <span class="sala__go" aria-hidden="true">Reservar</span>
             </a>
@@ -437,11 +551,35 @@
           </svg>
           <p class="outro__name">ÂMBAR</p>
           <p class="outro__line">O âmbar guarda um instante<br>por milhões de anos.</p>
-          <p class="outro__line outro__line--accent">A gente guarda uma noite.</p>
+          <p class="outro__line outro__line--fecho">A gente guarda uma noite.</p>
         </div>
-        <div class="outro__foot">
-          <p class="outro__hours">Qua, Qui e Dom · 17h — 00h<br>Sex e Sáb · 17h — 03h</p>
-          <a class="outro__ig" href="https://instagram.com/ambar.bar" target="_blank" rel="noopener">@ambar.bar</a>
+
+        <!-- ── A voz de máquina ───────────────────────────
+             Horário, endereço e perfil deixaram de ser tipografados.
+
+             Eles estavam em Jost com tracking largo e caixa alta — isto é,
+             DESENHADOS, com a mesma voz dos rótulos de capítulo. O
+             problema não é estético: é que assim eles pedem para ser lidos
+             como parte da composição, e não são. São o que o prédio
+             informa: um horário de funcionamento, uma rua, um @.
+
+             Agora estão numa fonte de sistema monoespaçada, no menor corpo
+             da página, sem tracking nenhum. Ninguém desenhou isto — que é
+             exatamente o que a informação deve parecer. Ver `.maquina` em
+             tokens.css.
+
+             ⚠︎ O endereço é PLACEHOLDER, na mesma convenção do número de
+             WhatsApp lá em cima (5585SEUNUMERO). Trocar as duas coisas é o
+             que falta para o site ir ao ar. -->
+        <div class="outro__foot maquina">
+          <p class="outro__dado">
+            qua qui dom &nbsp;17h—00h<br>
+            sex sáb &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17h—03h
+          </p>
+          <p class="outro__dado">
+            SUA RUA, 000 · FORTALEZA CE<br>
+            <a href="https://instagram.com/ambar.bar" target="_blank" rel="noopener">@ambar.bar</a>
+          </p>
         </div>
       </footer>
     </div>
@@ -450,41 +588,68 @@
          A emenda 17h → 20h, e a única transição do site que é um objeto
          próprio em vez de uma propriedade de uma seção.
 
-         ── O que estava errado ────────────────────────────────────────────
+         ╔════════════════════════════════════════════════════════════════╗
+         ║ A TELA DOURADA — a causa, e ela não era de pintura             ║
+         ║                                                                ║
+         ║ Entre o capítulo 01 e o 02 aparecia uma tela inteira de âmbar  ║
+         ║ chapado, parada, por quase três quartos de tela de rolagem.    ║
+         ║ Lia como defeito de renderização, e não era: era este objeto   ║
+         ║ fazendo exatamente o que estava escrito.                       ║
+         ║                                                                ║
+         ║ O poente tinha DUAS METADES presas a DOIS gatilhos diferentes: ║
+         ║                                                                ║
+         ║   a subida    presa ao curso pinado do JARDIM, terminando a    ║
+         ║               99% dele — rolagem 3436 num aparelho de 896px.   ║
+         ║   a descida   disparada pela chegada do SALÃO, a `top 26%` —   ║
+         ║               rolagem 4113.                                    ║
+         ║                                                                ║
+         ║ Entre 3436 e 4113 há 677px, e nesses 677px NINGUÉM ESCREVIA NO ║
+         ║ POENTE. Não era uma pausa desenhada: era um trecho sem dono. E ║
+         ║ ele não podia ser curto, porque o que acontece ali é o palco   ║
+         ║ do Jardim saindo (uma tela) e o Salão subindo até 74% da tela  ║
+         ║ (três quartos de outra) — uma tela inteira de rolagem comum    ║
+         ║ que nenhum dos dois gatilhos cobria, por construção.           ║
+         ║                                                                ║
+         ║ Duas metades ancoradas em duas seções não conseguem cobrir a   ║
+         ║ costura ENTRE elas. O conserto tinha de ser estrutural.        ║
+         ╚════════════════════════════════════════════════════════════════╝
 
-         A ideia — "o jardim engolido pelo próprio poente" — sempre foi a
-         melhor do site e nunca esteve na tela. O que existia era: o título
-         subia 70px, o texto subia junto, e a demão de céu do capítulo
-         escalava de 1 para 1,4. Escalar um gradiente que já está a cheio
-         não produz movimento visível nenhum; o que se via era o texto
-         saindo, e depois um CORTE HORIZONTAL DURO — a fotografia do jardim
-         rolando para cima enquanto a do salão subia por baixo, com a
-         costura atravessando a tela.
+         ── O que é agora: uma faixa de luz que ATRAVESSA ──────────────────
 
-         Dois defeitos com a mesma causa: o gesto morava DENTRO da seção que
-         estava saindo, e uma seção que sai não pode cobrir a que entra.
+         Um gesto só, um gatilho só, um curso contínuo que começa dentro do
+         Jardim (a 60% do curso pinado dele) e termina dentro do Salão
+         (quando o topo dele cruza 30% da tela). Não existe mais um trecho
+         entre os dois: o mesmo scrub escreve do primeiro pixel ao último.
 
-         ── O que é agora ──────────────────────────────────────────────────
+         E o objeto deixou de ser um painel que sobe, segura e apaga. Agora
+         é uma FAIXA DE LUZ de três zonas — degradê, âmbar sólido, degradê —
+         que sobe e passa direto pela tela, sem parar em nenhum momento:
 
-         Uma camada fixa, do tamanho da tela, acima de tudo — inclusive do
-         menu, do fio e do relógio. Ela faz três coisas, uma vez só, no
-         site inteiro:
+           · entrando, o degradê de baixo come o jardim de baixo para cima,
+             no eixo em que o sol se põe dentro da própria fotografia;
+           · no meio, a faixa sólida cobre o quadro — e cobre por 9,5% do
+             curso, o que num telefone é cerca de um décimo de tela de
+             rolagem em vez de três quartos. Uma batida, não uma parada;
+           · saindo, o degradê de cima descobre o salão, já aceso, já com
+             gente, no mesmo eixo.
 
-           1. INUNDA. O âmbar sobe do pé da tela e come o quadro de baixo
-              para cima, no eixo em que o sol se põe dentro da própria
-              fotografia. Não é um fade: é um nível subindo.
-           2. SEGURA. Um instante de âmbar sólido — a única vez que a
-              página não é carvão. O dia acabou de morrer e ainda não há
-              onde estar.
-           3. DRENA. E o que aparece por baixo não é mais o jardim: é o
-              salão, já aceso, já com gente.
+         A emenda entre as duas seções acontece inteira debaixo da faixa
+         sólida — que é o único jeito honesto de encostar duas fotografias
+         de sangria total uma na outra. A diferença é que agora ela nunca
+         para em cima de ninguém.
 
-         A emenda entre as duas seções acontece INTEIRA dentro do âmbar
-         sólido. Não há costura porque não há nada visível para costurar —
-         que é o único jeito honesto de encostar duas fotografias de sangria
-         total uma na outra.
+         ── Por que translate e não opacidade ─────────────────────────────
 
-         É classe 2 (motion.js): dispara e corre. O sol não espera o dedo. -->
+         Uma camada no compositor, zero repintura, e — o que importa aqui —
+         REVERSÍVEL DE GRAÇA: subir a página é a mesma faixa passando ao
+         contrário, quadro a quadro. A versão anterior desfazia a descida
+         com um `pause(0)`, e o que se via subindo era a tela ficando âmbar
+         de estalo, em um quadro.
+
+         É classe 1 (motion.js), e é o único caso do site em que uma
+         transição é presa ao dedo. O motivo é que ela não é uma transição:
+         é a continuação do entardecer. O capítulo 01 já é o sol caindo
+         preso à rolagem; esta faixa é o último quarto do mesmo sol. -->
     <div class="poente" id="poente" aria-hidden="true"></div>
 
     <!-- ── O relógio da casa ──────────────────────────────

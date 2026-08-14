@@ -74,22 +74,39 @@ if (secao) {
 
        A emenda 01h → Reservado era a única do site que não era nada: uma
        seção acabava, a outra começava, e a rolagem levava uma para fora
-       enquanto trazia a outra. Todos os outros sete encontros da página
-       têm um gesto próprio — o filete entregando o bastão, a batida de
-       preto, o poente engolindo, a fotografia sendo empurrada, a fresta
-       abrindo, o Reservado contraindo, a resina fechando — e a regra é que
-       dois vizinhos nunca usem o mesmo. Este usava o dispositivo "nenhum",
-       e "nenhum" duas vezes seguidas é o que faz uma seção parecer avulsa.
+       enquanto trazia a outra. Todos os outros encontros da página têm um
+       gesto próprio, e a regra é que dois vizinhos nunca usem o mesmo.
+       Este usava o dispositivo "nenhum", e "nenhum" duas vezes seguidas é o
+       que faz uma seção parecer avulsa.
 
        O fecho é o próprio gesto de entrada ao contrário: a imagem volta a
        ser a linha de que ela nasceu. A seção passa a ter a forma mais
        limpa da página — abre, segura, fecha —, e é a única que se apaga
        sozinha em vez de sair rolando.
 
-       E o que sobra na tela um instante antes do Reservado é uma LINHA
-       horizontal no meio do carvão. Não é a linha da marca (aquela morreu
-       em "A escuta", partida no campo) — é o resto de uma fotografia. A
-       rima é distante o bastante para ser um eco e não uma repetição. */
+       ╔════════════════════════════════════════════════════════════════╗
+       ║ E SUBINDO ELA REABRE — com o gesto, não com um salto            ║
+       ║                                                                ║
+       ║ Este era o efeito unidirecional que o site tinha, e ele tinha   ║
+       ║ dois sintomas.                                                 ║
+       ║                                                                ║
+       ║ O primeiro: `autonomo` desfazia a volta com `pause(0)`, que     ║
+       ║ rebobina sem tocar. A fotografia reaparecia INTEIRA em um       ║
+       ║ quadro, de estalo, no meio de uma página em que nada mais       ║
+       ║ aparece sem gesto.                                             ║
+       ║                                                                ║
+       ║ O segundo, e é o que o usuário via: `pause(0)` só era chamado   ║
+       ║ ao cruzar `bottom 78%` DE VOLTA, e entre esse ponto e o fim da  ║
+       ║ seção há 700px. Subindo do Reservado, o retrato ficava fechado  ║
+       ║ — uma tela preta — por quase uma tela inteira de rolagem antes  ║
+       ║ de estalar de volta. Na prática: "subindo, a imagem fica        ║
+       ║ fechada".                                                      ║
+       ║                                                                ║
+       ║ `volta: 'reverter'` conserta os dois de uma vez: a timeline     ║
+       ║ toca ao contrário a partir de onde estiver, então a fresta      ║
+       ║ REABRE com o mesmo movimento com que fechou, e começa a reabrir ║
+       ║ no instante em que o usuário inverte a direção.                 ║
+       ╚════════════════════════════════════════════════════════════════╝ */
     autonomo(secao, (t) => {
       t.to(linha, { opacity: 0, y: -18, duration: 0.7, ease: EASE }, 0)
         .to(quadro, {
@@ -97,6 +114,6 @@ if (secao) {
           duration: 1.1,
           ease: EASE
         }, 0.15)
-    }, { start: 'bottom 78%' })
+    }, { start: 'bottom 78%', volta: 'reverter' })
   }
 }

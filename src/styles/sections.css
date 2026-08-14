@@ -71,58 +71,56 @@
   opacity: 1;
 }
 
-/* ── Os dois planos do Salão ───────────────────────────── */
+/* ── Os três planos do Salão ───────────────────────────── */
 
-/* Um plano vivo e um corte, e nada mais.
+/* Um plano vivo e duas fotografias, e as três são a mesma coisa vista de
+   três distâncias.
 
-   Eram três fotografias que passavam uma pela outra de lado. Saíram
-   inteiras, e o que as condenou não foi a transição: foi não terem nada em
-   comum. Uma cabine vista de cima, um par de mãos num mixer e um borrão de
-   obturador são três retângulos sem parentesco, e qualquer movimento que
-   os faça deslizar juntos só sublinha isso. Carrossel não conserta imagem
-   fraca — ele põe as fotos lado a lado e dá tempo de comparar.
+     sequência   a sala enchendo, 34 quadros, plano FIXO. A câmera não anda
+                 em ponto nenhum do capítulo: o que muda dentro do quadro é
+                 a sala. É a mesma matéria do Jardim, com gente no lugar de
+                 luz.
+     passagem    um corpo desfeito por um giro de obturador. Mesma matéria
+                 dos 34 quadros — arrasto —, só que a um metro em vez de a
+                 seis.
+     rosto       e o arrasto resolve numa pessoa.
 
-     sequência  a sala enchendo, 22 quadros, plano FIXO. A câmera não anda
-                em ponto nenhum do capítulo: o que muda dentro do quadro é
-                a sala. É a mesma matéria do Jardim, com gente no lugar de
-                luz.
-     pista      a fotografia. Fica fora de cena até 74% do curso e então
-                entra de uma vez.
+   ── Por que isto não é um carrossel ────────────────────────────────────
 
-   O corte é o único da página. Todo o resto do site dissolve, acende ou
-   deriva — e é justamente por ser o único que ele lê como acontecimento em
-   vez de defeito. */
+   Havia três fotografias aqui duas passadas atrás e elas saíram porque não
+   tinham nada em comum: uma cabine vista de cima, um par de mãos num mixer
+   e um borrão. Três retângulos sem parentesco, deslizando de lado.
 
-/* A fotografia é o único quadro DEITADO do site (6000×4000) num lugar onde
-   todos os outros são retrato, e por isso é a única em que o enquadramento
-   por breakpoint não é ajuste fino: é escolha de assunto.
+   Estas três têm a mesma luz, o mesmo lugar e o mesmo assunto, e não
+   deslizam: elas se APROXIMAM. O que o usuário vê é uma câmera andando
+   para dentro da sala, não uma pilha de fotos passando. A diferença entre
+   montagem e carrossel é essa — e é a razão de a passagem poder ser uma
+   dissolução onde antes precisava ser um corte. */
 
-   Num telefone de 430px a imagem é exibida a 1397px de largura e só 430
-   entram — 31% do quadro. A âncora decide QUAL 31%. Em 8% a faixa visível
-   é a fatia esquerda: o console na quina de baixo e os corpos logo atrás
-   dele. É o que preserva o ponto de vista da foto, que é estar ATRÁS DA
-   CABINE — sem o equipamento em cena, sobra uma multidão genérica que
-   poderia ser de qualquer lugar.
+.chapter__plano--passagem,
+.chapter__plano--rosto {
+  opacity: 0;
+}
 
-   O preço é a mulher que olha na lente (a 62% da largura) ficar de fora no
-   retrato. Vale: o ponto de vista é o que faz a foto significar alguma
-   coisa neste capítulo; o olhar é um bônus que a tela larga entrega. */
-.chapter__img--pista {
-  object-position: 8% 52%;
+/* O borrão não tem assunto localizável: qualquer recorte serve, e o centro
+   é o que mantém o facho de luz na diagonal do quadro. */
+.chapter__plano--passagem .chapter__img {
+  object-position: 50% 46%;
+}
+
+/* Ela está no terço direito do arquivo e o rosto no terço alto. Numa tela
+   estreita entra pouco mais de metade da largura: a âncora à direita do
+   centro é o que garante que o que sobra seja ELA, e não o mural. */
+.chapter__plano--rosto .chapter__img {
+  object-position: 64% 30%;
 }
 
 @media (min-width: 900px) {
-  /* Deitada a foto entra quase inteira e a âncora pode voltar ao centro:
-     aí os CDJs ficam onde estavam no original, na quina. */
-  .chapter__img--pista {
-    object-position: 46% 50%;
+  /* Deitada, o corte passa a ser vertical e severo: a âncora sobe para o
+     quadro abrir acima do cabelo em vez de cortar a testa. */
+  .chapter__plano--rosto .chapter__img {
+    object-position: 58% 14%;
   }
-}
-
-/* O corte nasce fora de cena. Opacidade e não deslocamento: o plano não
-   chega de lugar nenhum, ele simplesmente passa a ser o que está lá. */
-.chapter__plano--corte {
-  opacity: 0;
 }
 
 /* O cartaz é o que segura a cena antes de o canvas ter o primeiro quadro,
@@ -219,16 +217,20 @@
   padding-top: 14svh;
 }
 
+/* O losango saiu daqui.
+
+   Ele era o terceiro elemento de um objeto que informa uma coisa só:
+   losango + traço + "01 — JARDIM". Três peças para um rótulo, repetidas
+   três vezes na página, e mais três instâncias de âmbar-tinta na conta do
+   acento — num site onde a MESMA marca já desce a goteira esquerda, no
+   fio, o tempo inteiro, dois centímetros à esquerda deste rótulo.
+
+   O teste da casa é "remover este elemento deixaria a tela mais forte?".
+   Aqui deixava, e ainda economizava uma requisição por capítulo. */
 .chapter__labelwrap {
   display: inline-flex;
   align-items: center;
   gap: .6rem;
-}
-
-.chapter__losango {
-  flex: none;
-  width: 18px;
-  opacity: 0;
 }
 
 .chapter--center .chapter__meta {
@@ -279,72 +281,116 @@
   text-align: right;
 }
 
+/* 19svh e não 24. O Reservado é o único capítulo em que o relógio fica na
+   goteira DIREITA, e ele sobe a 7svh do pé em vez de 4 (relogio.css) para
+   não encostar no controle de som. Somando os 110px do algarismo, ele
+   ocupa a faixa entre 20% e 13% do pé — exatamente onde a terceira linha
+   do parágrafo caía.
+
+   O texto está na camada 4 e o algarismo na 3, então a leitura nunca foi
+   impossível; ela era EMBOLADA, que é pior, porque parece descuido em vez
+   de profundidade. Subindo o bloco cinco por cento de tela, a hora volta a
+   passar POR TRÁS da composição em vez de dentro dela. */
 .chapter--right .chapter__body {
   align-items: flex-end;
-  padding-top: 24svh;
+  padding-top: 19svh;
 }
 
 .chapter--center { --scrim-x: 50%; }
 .chapter--right { --scrim-x: 85%; }
 
-/* Scrim local, e só onde o texto está. A regra do passe de luminância: onde
-   foto e texto brigam, a foto sobe e o texto ganha uma sombra própria —
-   nunca a cena inteira desce. */
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ PROFUNDIDADE SEM SOMBRA                                              ║
+   ║                                                                      ║
+   ║ Não existe mais um `text-shadow` no site inteiro. Havia oito, e      ║
+   ║ todos faziam a mesma coisa: um halo escuro de 24px de desfoque em    ║
+   ║ volta de cada letra, para o texto sobreviver à fotografia.           ║
+   ║                                                                      ║
+   ║ Isso é um contorno, não profundidade. E é o pior tipo: ele acompanha ║
+   ║ a FORMA da letra, então o que se lê em volta de um título de 40px é  ║
+   ║ uma mancha com o desenho do título — a coisa mais barata que se pode ║
+   ║ fazer com tipo sobre imagem, e a mais visível em tela grande.        ║
+   ║                                                                      ║
+   ║ O que ficou no lugar é uma pilha de DUAS SUPERFÍCIES:                ║
+   ║                                                                      ║
+   ║   passo 1  a demão de céu da seção, que já existia (::after do       ║
+   ║            palco): a fotografia inteira, um degrau abaixo.           ║
+   ║   passo 2  esta elipse, ancorada no alinhamento do texto: um segundo ║
+   ║            degrau, e só onde o texto está.                           ║
+   ║                                                                      ║
+   ║ A diferença entre os dois degraus é o que o olho lê como distância — ║
+   ║ o texto não flutua sobre a foto, ele está numa camada à frente dela. ║
+   ║ E a elipse não tem a forma do texto: ela tem a forma da LUZ, então   ║
+   ║ ela não pode ser vista como um efeito aplicado a uma letra.          ║
+   ║                                                                      ║
+   ║ Ela ficou mais funda (.72 → .82 no núcleo) e mais larga do que era,  ║
+   ║ porque agora carrega sozinha o trabalho que dividia com o halo.      ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 .chapter__content::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   background: radial-gradient(
-    ellipse 76% 38% at var(--scrim-x) 34%,
-    rgba(13, 13, 13, .72) 0%,
-    rgba(13, 13, 13, .34) 55%,
-    transparent 78%
+    ellipse 92% 46% at var(--scrim-x) 36%,
+    rgba(13, 13, 13, .82) 0%,
+    rgba(13, 13, 13, .52) 46%,
+    rgba(13, 13, 13, .2) 68%,
+    transparent 84%
   );
   pointer-events: none;
 }
 
-.chapter__label,
-.chapter__title,
-.chapter__text {
-  text-shadow:
-    0 2px 24px rgba(13, 13, 13, .9),
-    0 1px 4px rgba(13, 13, 13, .7);
-}
-
+/* O rótulo perdeu o âmbar (ver a disciplina do acento, tokens.css). Branco
+   rebaixado sobre o segundo degrau de luminância lê melhor do que âmbar
+   pequeno lia sobre folhagem clara — e sem halo. */
 .chapter__label {
   display: inline-block;
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
-  color: var(--ambar);
-  /* âmbar pequeno sobre folhagem clara pede sombra mais fechada */
-  text-shadow:
-    0 1px 12px rgba(13, 13, 13, .95),
-    0 1px 3px rgba(13, 13, 13, .9);
+  color: rgba(255, 255, 255, .74);
 }
 
-/* O título ocupa a tela: uma palavra por linha, na escala grande. */
+/* ── O nome do ambiente ────────────────────────────────── */
+
+/* Jost 200 em caixa alta, e não a serifada.
+
+   Os três nomes — Sunset Session, House All Night, Deep Listening — são
+   nomes de PROGRAMAÇÃO, não frases. Eles pertencem à voz de sistema, junto
+   com o wordmark, o menu e os rótulos; a Cormorant ficou reservada ao que
+   alguém diz em português. Ver a nota dos dois modos em tokens.css.
+
+   O tracking é .08em: mais fechado que o dos rótulos (.28) e que o da
+   marca (.2), porque aqui a caixa alta já está em escala grande e o
+   tracking largo desmancharia a palavra em letras soltas. É o mesmo peso
+   200 do wordmark — a rima é proposital: o nome da noite é escrito com a
+   letra do nome da casa. */
 .chapter__title {
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: var(--fs-grande);
-  font-weight: 300;
+  font-weight: 200;
   color: #fff;
-  letter-spacing: var(--track-display);
-  line-height: .95;
-  max-width: 8ch;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  line-height: var(--lh-display);
+  max-width: 11ch;
 }
 
 .chapter--center .chapter__title {
-  max-width: 9ch;
+  max-width: 12ch;
 }
 
+/* O parágrafo é a voz humana: serifada, e um degrau maior que a Jost
+   ocupava, porque a Cormorant desenha pequeno no mesmo corpo. */
 .chapter__text {
-  font-size: var(--fs-body);
-  color: rgba(255, 255, 255, .88);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 4.4vw, 1.3rem);
+  color: rgba(255, 255, 255, .82);
+  letter-spacing: var(--track-display);
   max-width: 26ch;
-  margin-top: 1.75rem;
-  line-height: 1.7;
+  margin-top: 1.5rem;
+  line-height: 1.5;
 }
 
 /* ── Estreito: as âncoras laterais não podem esbarrar no texto ── */
@@ -352,10 +398,6 @@
 @media (max-width: 600px) {
   .chapter__label {
     letter-spacing: var(--track-mid);
-  }
-
-  .chapter__losango {
-    width: 14px;
   }
 
   .chapter__labelwrap {

@@ -115,7 +115,7 @@
   /* o tracking sobra depois da última letra: sem o recuo a palavra nasce
      deslocada meio caractere para a esquerda do eixo */
   text-indent: var(--track-marca);
-  line-height: .92;
+  line-height: var(--lh-display);
   white-space: nowrap;
 }
 
@@ -149,15 +149,16 @@
   -webkit-text-stroke: .5px rgba(200, 137, 46, .85);
 }
 
-/* A camada cheia. Nasce apagada e é para onde a marca vai. */
+/* A camada cheia. Nasce apagada e é para onde a marca vai.
+
+   Sem sombra. O que a separa da fotografia é o `.hero__scrim`, que já é
+   uma elipse de carvão a 88% ancorada exatamente na altura do wordmark —
+   o passo de luminância desta tela existia antes do halo e fazia o
+   trabalho sozinho. O halo só estava somando um contorno com o desenho da
+   palavra em cima de um degrau que já bastava. */
 .hero__mark-layer--cheio {
   color: var(--ambar);
   opacity: 0;
-  /* a foto é quente e o âmbar é quente: sem a sombra larga a marca encosta
-     no fundo em vez de flutuar sobre ele */
-  text-shadow:
-    0 2px 48px rgba(13, 13, 13, .9),
-    0 1px 12px rgba(13, 13, 13, .7);
 }
 
 /* Sem movimento não há primeira rolagem que troque uma camada pela outra:
@@ -179,22 +180,32 @@
   transform: scaleX(0);
 }
 
+/* A assinatura perdeu o âmbar e ganhou branco.
+
+   Ela estava dentro do lockup da marca, o que a fazia parecer parte do
+   papel âmbar dela — mas ela não é a marca, é a legenda da marca. E
+   âmbar sobre parede quente em hora dourada é âmbar sobre âmbar: ela
+   dependia inteiramente do halo para existir.
+
+   Branco a 78% sobre a mesma elipse de scrim que segura o wordmark: ela
+   se separa por LUMINÂNCIA em vez de por cor, e a hierarquia entre nome e
+   legenda passa a ser legível de relance — o nome é a única coisa colorida
+   da tela. */
 .hero__tag {
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
   text-indent: var(--track-wide);
-  /* âmbar a 82% sobre parede quente em hora dourada é âmbar sobre âmbar: a
-     assinatura vem a cheio, com a sombra fechada que a descola do fundo */
-  color: var(--ambar);
+  color: rgba(255, 255, 255, .78);
   white-space: nowrap;
-  text-shadow:
-    0 1px 14px rgba(13, 13, 13, .95),
-    0 1px 3px rgba(13, 13, 13, .85);
 }
 
 /* ── Âncora superior direita ────────────────────────────── */
 
+/* O lugar. Sem sombra — e por isso ele ganhou o degrau de luminância que
+   faltava: uma queda de carvão no topo do quadro, que o `.hero__scrim` já
+   desenha (55% na borda de cima, caindo a zero em 40% da altura). Ele
+   estava lá o tempo todo; o halo é que o tornava dispensável. */
 .hero__place {
   position: absolute;
   top: var(--pad-x);
@@ -202,11 +213,8 @@
   z-index: 2;
   font-size: var(--fs-label);
   letter-spacing: var(--track-wide);
-  color: rgba(255, 255, 255, .62);
+  color: rgba(255, 255, 255, .7);
   text-align: right;
-  text-shadow:
-    0 1px 12px rgba(13, 13, 13, .95),
-    0 1px 3px rgba(13, 13, 13, .8);
 }
 
 /* ── Indicador de rolagem ───────────────────────────────── */

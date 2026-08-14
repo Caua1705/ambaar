@@ -92,15 +92,39 @@ if (outro) {
        Um gsap.set por quadro num elemento só, escrevendo transform: é a
        coisa mais barata que se pode animar, e ela só roda com a seção em
        cena (o observador vive dentro do laco). */
+    /* ── E a amplitude subiu ─────────────────────────────
+
+       Era ±2,2% de translação em 9,1s. A conta estava certa e o resultado
+       era invisível: 2,2% de uma camada de partículas difusas ao longo de
+       nove segundos é meio pixel por segundo, e meio pixel por segundo não
+       é uma coisa que se move — é uma coisa parada.
+
+       O problema não é estético, é estrutural: esta tela inteira existe
+       para que uma coisa PARE. Parar só significa alguma coisa se houver
+       andado antes, e ninguém tinha visto o pó andar.
+
+       Agora são ±5,4% num período mais curto, e a escala respira 5% em vez
+       de 3%. Continua longe de uma paralaxe — não se olha para o pó, ele
+       não é o assunto — mas o quadro deixou de estar parado, e o congelar
+       do fim passou a ser um acontecimento em vez de uma nota de rodapé.
+
+       Quatro senoides de períodos primos entre si (11,4s, 15,1s, 21,3s e
+       26,2s): o desenho nunca fecha o ciclo, então nunca se repete
+       visivelmente. É o mesmo princípio dos filetes do campo, aplicado a
+       uma imagem.
+
+       Um gsap.set por quadro num elemento só, escrevendo transform: é a
+       coisa mais barata que se pode animar, e ela só roda com a seção em
+       cena (o observador vive dentro do laco). */
     if (po) {
       let t = 0
       laco(outro, (dt) => {
         t += dt
         gsap.set(po, {
-          xPercent: Math.sin(t * 0.110) * 2.2,
-          yPercent: Math.cos(t * 0.083) * 1.7,
-          rotation: Math.sin(t * 0.047) * 1.1,
-          scale: 1.06 + Math.sin(t * 0.061) * 0.03
+          xPercent: Math.sin(t * 0.088) * 5.4,
+          yPercent: Math.cos(t * 0.066) * 4.1,
+          rotation: Math.sin(t * 0.047) * 2.4,
+          scale: 1.1 + Math.sin(t * 0.038) * 0.05
         })
       })
     }
@@ -140,12 +164,48 @@ if (outro) {
         .to(pe, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 2.9)
     }, { start: 'top 72%', uma: true })
 
-    /* ── 5 · E então para ────────────────────────────── */
+    /* ── 5 · E então para ──────────────────────────────
 
-    /* A resina assenta: a composição inteira encolhe 1,5% e fica. É pouco
-       de propósito — não é um zoom, é uma coisa acomodando dentro de outra
-       que endureceu em volta dela. Numa tela que acabou de ficar imóvel,
-       1,5% é visível; numa tela que ainda se mexe, não seria. */
+       ╔════════════════════════════════════════════════════════════════╗
+       ║ O SITE INTEIRO É O TEMPO PASSANDO. AQUI ELE PARA.              ║
+       ║                                                                ║
+       ║ Um relógio atravessa a página de 17h a 03h e a noite avança     ║
+       ║ conforme o dedo. Âmbar é o contrário: resina que endureceu em   ║
+       ║ volta de um instante e o guardou por milhões de anos. As duas   ║
+       ║ ideias se encontram no último pixel do documento, e o encontro  ║
+       ║ é literal — não é uma metáfora escrita na tela, é o             ║
+       ║ comportamento da tela.                                         ║
+       ║                                                                ║
+       ║ No pé do documento, ao mesmo tempo, no mesmo quadro:            ║
+       ║                                                                ║
+       ║   · o pó congela no meio da deriva (congelarAmbiente)           ║
+       ║   · o GRÃO levanta — a camada de ruído que esteve sobre a       ║
+       ║     página inteira, das 17h às 03h, some                        ║
+       ║   · a vinheta abre                                             ║
+       ║   · os SETE FILETES do campo param de respirar, e com eles o    ║
+       ║     pulso do controle de som (grain.css)                        ║
+       ║   · e a composição assenta 1,5%                                 ║
+       ║                                                                ║
+       ║ Os filetes são a peça nova desta lista, e são a que fecha o     ║
+       ║ argumento. Eles nasceram em "A escuta" — quinze telas atrás,    ║
+       ║ do sublinhado da palavra "escuta" caindo — e desde então vivem  ║
+       ║ dentro do controle de som, respirando, em toda tela da página.  ║
+       ║ São o único objeto do site que se move o tempo inteiro sem      ║
+       ║ nunca ter sido pedido a ninguém.                                ║
+       ║                                                                ║
+       ║ Se eles não parassem aqui, a última tela teria uma coisa viva   ║
+       ║ no canto dizendo que o tempo continua — e a tela inteira        ║
+       ║ existe para dizer o contrário.                                 ║
+       ║                                                                ║
+       ║ E nada disso é permanente: rolar para cima devolve tudo. O      ║
+       ║ tempo não acabou, ele está GUARDADO — que é a diferença entre   ║
+       ║ âmbar e um fim.                                                ║
+       ╚════════════════════════════════════════════════════════════════╝
+
+       A composição encolhe 1,5% e fica. É pouco de propósito — não é um
+       zoom, é uma coisa acomodando dentro de outra que endureceu em volta
+       dela. Numa tela que acabou de ficar imóvel, 1,5% é visível; numa tela
+       que ainda se mexe, não seria. */
     const assentar = gsap.timeline({ paused: true })
     assentar.to(conteudo, { scale: 0.985, duration: 2.2, ease: EASE }, 0)
 

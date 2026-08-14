@@ -1,0 +1,216 @@
+/* A troca · 17h — seção nova.
+
+   O porquê está no HTML. Aqui está a composição, e ela tem dois trabalhos
+   que nenhuma outra tela da página faz.
+
+   ── 1 · O outro modo de layout ──────────────────────────────────────────
+
+   O site tinha UM modo: fotografia sangrando nos quatro lados com texto por
+   cima. Nove telas seguidas dele, e o efeito de sangria total desaparece
+   quando ela é o padrão — o que era imersão vira papel de parede.
+
+   O modo que faltava é o oposto: um assunto ISOLADO NO VAZIO. A fotografia
+   não toma a tela, ela ocupa uma fresta dentro dela, com carvão em volta, e
+   o carvão é metade da composição. A alternância entre os dois modos é o
+   que devolve peso aos dois — a sangria total do Jardim, logo abaixo, é
+   mais violenta por vir depois desta.
+
+   (A pausa das 00h também tem moldura, e as duas não se confundem: lá são
+   DOIS quadros em retrato sangrando por lados opostos; aqui é UM, deitado,
+   e o eixo é horizontal do começo ao fim.)
+
+   ── 2 · A composição flanqueada ─────────────────────────────────────────
+
+   Em toda outra tela da página o texto está POR CIMA da imagem. Aqui os
+   três elementos se encaram:
+
+       ─── A TROCA                        rótulo, na goteira
+
+       café   08h—17h  ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   os dados ao LADO do assunto,
+       âmbar  17h—03h  ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   e o assunto sangrando pela
+                       ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   direita, para a rua
+
+                          O café fecha.    a frase, embaixo e à direita
+                          A casa continua
+                          aberta.
+
+   O dado à esquerda, a fotografia à direita, a frase debaixo das duas. Nada
+   se sobrepõe a nada, e é a única tela do site em que isso acontece.
+
+   E a relação não é só de posição: o bloco de dados é a razão de a
+   fotografia estar ali. "café 08h—17h / âmbar 17h—03h" é a premissa inteira
+   da casa em quatro números, e a fotografia é o minuto entre as duas
+   linhas.
+
+   ── A sangria para a direita ────────────────────────────────────────────
+
+   A fresta não termina na tela: ela sai por ela. É a única direção que
+   significa alguma coisa aqui — o portão aberto do outro lado do quadro dá
+   para a rua, e a rua é de onde a noite ainda vem. Uma fresta centrada
+   seria um quadro pendurado; esta é uma abertura. */
+
+.troca {
+  position: relative;
+  background: var(--carvao);
+}
+
+.troca__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  padding: 0 var(--gutter-r) 0 var(--gutter-l);
+}
+
+/* ── O rótulo ──────────────────────────────────────────── */
+
+/* Mesma gramática do rótulo de capítulo — traço, caixa alta, tracking
+   largo —, e é de propósito: esta é a primeira hora da noite, e ela tem de
+   pertencer à mesma série que "01 — JARDIM" mesmo não sendo um capítulo. */
+.troca__rotulo {
+  position: absolute;
+  top: 14svh;
+  left: var(--gutter-l);
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(255, 255, 255, .68);
+}
+
+.troca__dash {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: .55;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ── A fresta ──────────────────────────────────────────── */
+
+/* A altura é svh e não uma proporção da imagem: a fresta é uma janela de
+   composição, não um enquadramento da fotografia. O que decide o que se vê
+   dentro dela é o object-position, abaixo. */
+.troca__quadro {
+  position: absolute;
+  top: 30svh;
+  /* A fresta é DEITADA, e num telefone isso precisa ser medido contra o
+     que fica DENTRO da tela, não contra a caixa. Com `left: 43%` e a
+     sangria de 14vw, os 236px visíveis contra 233 de altura davam um
+     quadrado — a moldura lia como uma fotografia pendurada em vez de uma
+     abertura. */
+  left: 36%;
+  right: -20vw;
+  height: 22svh;
+  margin: 0;
+  overflow: hidden;
+  /* fechada, e ela abre de baixo para cima (troca.js) */
+  clip-path: inset(100% 0% 0% 0%);
+}
+
+.troca__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* O balcão e os dois bancos estão no miolo baixo do arquivo; o portão
+     para a rua, na quina esquerda. Numa fresta deitada entra uma faixa
+     estreita da altura: a 58% ela cai exatamente na linha do balcão aceso,
+     com os bancos inteiros e a calçada visível na ponta. */
+  object-position: 46% 58%;
+}
+
+/* ── Os dados ──────────────────────────────────────────── */
+
+/* Alinhados pelo TOPO da fresta, não centrados nela: é o alinhamento que
+   faz duas coisas de tamanhos diferentes lerem como uma linha só. */
+.troca__dados {
+  position: absolute;
+  top: 30svh;
+  left: var(--gutter-l);
+  width: 34%;
+  margin: 0;
+  opacity: 0;
+}
+
+.troca__dados div {
+  display: flex;
+  flex-direction: column;
+  padding: .55rem 0;
+}
+
+/* Tracejado, hairline, e só entre as duas linhas: é o único lugar desta
+   tela em que um filete carrega significado estrutural — ele separa dois
+   negócios que dividem o mesmo endereço. */
+.troca__dados div + div {
+  border-top: 1px dashed rgba(107, 74, 46, .55);
+}
+
+.troca__dados dt {
+  color: rgba(119, 115, 110, .55);
+}
+
+.troca__dados dd {
+  margin: 0;
+  color: rgba(255, 255, 255, .62);
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+.troca__linha {
+  position: absolute;
+  top: 62svh;
+  right: var(--gutter-r);
+  left: 30%;
+  text-align: right;
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: rgba(255, 255, 255, .92);
+}
+
+/* ── Tela larga ────────────────────────────────────────── */
+
+@media (min-width: 900px) {
+  .troca__quadro {
+    top: 26svh;
+    left: 38%;
+    right: -6vw;
+    height: 38svh;
+  }
+
+  .troca__dados {
+    top: 26svh;
+    width: 22%;
+  }
+
+  .troca__linha {
+    top: 70svh;
+    left: 38%;
+    max-width: 22ch;
+  }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .troca__quadro {
+    clip-path: none;
+  }
+
+  .troca__dados,
+  .troca__linha {
+    opacity: 1;
+  }
+
+  .troca__dash {
+    transform: scaleX(1);
+  }
+}

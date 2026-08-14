@@ -24,13 +24,23 @@
   pointer-events: auto;
 }
 
-/* a marca é sempre a letra da marca: mesma família e mesmo tracking da hero
-   e do fecho, só que na menor escala em que ela ainda se lê */
+/* ── E o menu perdeu o âmbar inteiro ────────────────────
+
+   Duas instâncias saíram daqui: a marca e a chamada. Elas eram as duas
+   primeiras coisas âmbar que o usuário via depois da hero, e as duas
+   estavam na barra fixa — isto é, estavam em TODAS as telas ao mesmo
+   tempo. Uma cor de acento que nunca sai da tela não pode ser rara em
+   lugar nenhum.
+
+   A marca aqui não precisa de cor para ser reconhecida: ela já é a única
+   coisa da barra em caixa alta com o tracking da marca, e o wordmark
+   âmbar de tela cheia acabou de sair de cena duas rolagens atrás. Branco
+   rebaixado, e ela lê. */
 .topbar__mark {
   font-family: var(--font);
   font-weight: 300;
   font-size: .8rem;
-  color: var(--ambar);
+  color: rgba(255, 255, 255, .8);
   letter-spacing: var(--track-wide);
   text-indent: var(--track-wide);
 }
@@ -53,8 +63,16 @@
   transition: color var(--dur-med) var(--ease);
 }
 
+/* A chamada se distingue por PESO e por um filete permanente, não por cor.
+   O filete é o mesmo objeto que marca o item ativo — aqui ele já está
+   desenhado, e é isso que diz "esta é a ação". */
 .topbar__link--cta {
-  color: var(--ambar);
+  color: rgba(255, 255, 255, .82);
+}
+
+.topbar__link--cta::after {
+  transform: scaleX(1);
+  opacity: .45;
 }
 
 /* traço fino sob o item da seção em cena */
@@ -75,18 +93,35 @@
 .topbar__link:hover::after,
 .topbar__link:focus-visible::after {
   transform: scaleX(1);
+  opacity: 1;
 }
 
 .topbar__link:hover,
 .topbar__link:focus-visible,
 .topbar__link.is-active {
-  color: var(--ambar);
+  color: #fff;
 }
 
-/* estreito: só a chamada sobrevive */
+/* estreito: só a chamada sobrevive.
+
+   E o recuo cai junto. A barra tem `padding: 1.25rem 1.5rem` e a palavra
+   "RESERVAS" com tracking .14em mede 78px num telefone de 414 — o suficiente
+   para a última letra encostar na borda quando o tracking sobra à direita,
+   que é como o `letter-spacing` funciona. Um recuo de 1rem e o tracking
+   compensado por `padding-right` põem a palavra inteira dentro da tela. */
 @media (max-width: 600px) {
+  .topbar {
+    padding: 1.1rem 1rem;
+  }
+
   .topbar__link:not(.topbar__link--cta) {
     display: none;
+  }
+
+  /* o tracking deixa um vão depois da última letra: sem isto ele conta como
+     largura e empurra a palavra para fora da goteira */
+  .topbar__link--cta {
+    margin-right: calc(var(--track-mid) * -1);
   }
 }
 

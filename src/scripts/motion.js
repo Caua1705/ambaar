@@ -18,29 +18,34 @@
    ║                                                                      ║
    ║ 1. PRESO (scrub) — a posição da rolagem É um estado da cena, e o     ║
    ║    usuário controla o tempo. É caro em atenção e por isso é raro:    ║
-   ║    três momentos no site, mais o fechamento do documento.            ║
+   ║    CINCO momentos na página inteira, e cada um responde à pergunta   ║
+   ║    "que ESTADO da cena esta posição de rolagem representa?".         ║
    ║                                                                      ║
-   ║       · o entardecer do Jardim (17h → 20h)                           ║
-   ║       · o salão enchendo (20h → 23h)                                 ║
-   ║       · o relógio da casa, dentro dos dois acima                     ║
-   ║       · a resina do fecho — chegar ao fim do documento É fechar      ║
+   ║       · o entardecer do Jardim  a hora do dia                        ║
+   ║       · o salão enchendo        quanta gente há na sala              ║
+   ║       · o relógio da casa       dentro dos dois acima                ║
+   ║       · o poente                o nível do âmbar sobre o quadro      ║
+   ║       · a resina do fecho       o quanto falta de documento          ║
    ║                                                                      ║
-   ║    Nada mais. Se um elemento não puder responder à pergunta "que     ║
-   ║    ESTADO da cena esta posição de rolagem representa?", ele não      ║
-   ║    pertence a esta classe.                                           ║
+   ║    Nada mais. Um paralaxe não passa neste teste: "a foto está 8vw    ║
+   ║    à direita" não é um estado da cena, é uma consequência de o dedo  ║
+   ║    ter andado — e foi por isso que a deriva da pausa das 00h saiu    ║
+   ║    do scrub nesta passada e virou classe 3.                          ║
    ║                                                                      ║
    ║ 2. DISPARADO (`entrada`, `autonomo`) — a rolagem só dá a partida.    ║
    ║    A animação corre na velocidade dela e termina, mesmo que o dedo   ║
    ║    tenha parado. É onde mora quase todo o site: texto, entradas,     ║
-   ║    saídas, aberturas de moldura, o engolir do poente.                ║
+   ║    saídas, aberturas de moldura, a passagem do Salão.                ║
    ║                                                                      ║
    ║ 3. AMBIENTE (`laco`) — não pergunta nada a ninguém. Corre desde que  ║
    ║    esteja em cena e para quando sai. Vídeo em laço, o campo          ║
-   ║    respirando, o pó do fecho, a sala do capítulo 02 depois de o      ║
-   ║    dedo soltá-la.                                                    ║
+   ║    respirando, o pó do fecho, a deriva da pausa, a sala do capítulo  ║
+   ║    02 depois de o dedo soltá-la.                                     ║
    ║                                                                      ║
    ║ O teste que separa a 1 da 3: um vídeo que PARA no meio do movimento  ║
    ║ porque o usuário parou o polegar é um defeito, não uma pausa.        ║
+   ║                                                                      ║
+   ║ E vale para as três: SUBIR DESFAZ. Ver `autonomo`, abaixo.           ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
 import Lenis from 'lenis'
@@ -198,16 +203,37 @@ export const entrada = (trigger, montar, { start = 'top 62%', uma = false } = {}
   return tl
 }
 
-/* Classe 2, variante sem volta. `entrada` rebobina ao subir, para que a
-   seção possa ser lida duas vezes; há gestos que não podem rebobinar
-   porque são uma PASSAGEM e não um estado — o poente engolindo o jardim,
-   o corte do Salão. Um gesto de passagem tocado ao contrário vira um
-   desfazer, e desfazer não é um movimento que exista na natureza da cena.
+/* Classe 2, com a volta declarada.
 
-   Aqui a timeline toca uma vez por chegada e, subindo de volta, é
-   REBOBINADA sem tocar (progress 0), pronta para acontecer de novo na
-   próxima descida. */
-export const autonomo = (trigger, montar, { start = 'top 62%', rearmar = true } = {}) => {
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ TODO EFEITO PRESO À ROLAGEM TEM DE SER REVERSÍVEL                    ║
+   ║                                                                      ║
+   ║ Subir a página desfaz o que descer fez, COM O MESMO GESTO tocado ao  ║
+   ║ contrário. Não com um salto, não com um estado colado.               ║
+   ║                                                                      ║
+   ║ Esta função tinha um padrão que violava a regra em silêncio:         ║
+   ║ `onLeaveBack: tl.pause(0)`. Rebobinar sem tocar é correto no ESTADO  ║
+   ║ e errado no MOVIMENTO — a tela pula de um extremo ao outro em um     ║
+   ║ quadro. Era o que fazia a fotografia da 01h reaparecer de estalo em  ║
+   ║ vez de reabrir, e o que fazia o âmbar do poente voltar a encher a    ║
+   ║ tela sem aviso na subida.                                            ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   Três voltas, e a seção escolhe:
+
+     'reverter'  (padrão) a timeline toca ao contrário. É o que quase todo
+                 gesto do site quer: o que abriu, fecha; o que subiu,
+                 desce. Reversível de verdade, não só no estado final.
+     'rearmar'   rebobina sem tocar. Só para PASSAGENS: gestos cuja
+                 versão ao contrário não existe na natureza da cena e que
+                 acontecem por baixo de outra coisa, onde o salto não é
+                 visto.
+     'nenhum'    fica onde parou. Para o fecho do documento, que não é um
+                 gesto e sim um estado.
+
+   Quem escolhe 'rearmar' tem de poder explicar por que o salto é
+   invisível. Se não puder, a resposta é 'reverter'. */
+export const autonomo = (trigger, montar, { start = 'top 62%', volta = 'reverter' } = {}) => {
   const tl = gsap.timeline({ paused: true })
   montar(tl)
 
@@ -216,11 +242,17 @@ export const autonomo = (trigger, montar, { start = 'top 62%', rearmar = true } 
     return tl
   }
 
+  const voltar = {
+    reverter: () => tl.reverse(),
+    rearmar: () => tl.pause(0),
+    nenhum: undefined
+  }[volta]
+
   ScrollTrigger.create({
     trigger,
     start,
     onEnter: () => tl.play(),
-    onLeaveBack: rearmar ? () => tl.pause(0) : undefined
+    onLeaveBack: voltar
   })
 
   return tl

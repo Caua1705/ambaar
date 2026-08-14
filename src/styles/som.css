@@ -63,34 +63,82 @@
    nenhum, e no minuto em que a casa se declara um clube de escuta, aparece
    a coisa que se pode escutar. */
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O QUE AINDA ESTAVA ERRADO: ELE NÃO SE VIA                            ║
+   ║                                                                      ║
+   ║ A gramática do lockup estava certa. A presença, não. Medido na       ║
+   ║ tela: losango a 55% de opacidade, traço a 30%, palavra em concreto   ║
+   ║ a 82% — três objetos entre 25% e 45% de luminância efetiva, num      ║
+   ║ canto, sobre fotografia. Num telefone, à luz do dia, ele            ║
+   ║ simplesmente não estava lá.                                          ║
+   ║                                                                      ║
+   ║ E o traço SAÍA abaixo de 420px, que é a largura em que o site        ║
+   ║ realmente é lido: o objeto que a folha descrevia — traço, palavra,   ║
+   ║ losango — nunca existiu no aparelho de ninguém.                      ║
+   ║                                                                      ║
+   ║ ── O conserto não é aumentar a opacidade ──────────────────────────  ║
+   ║                                                                      ║
+   ║ Subir tudo um degrau resolveria a visibilidade e criaria outro       ║
+   ║ problema: um lockup âmbar brilhante flutuando sobre a fotografia é   ║
+   ║ interface, não marca. Discrição continua sendo o requisito.          ║
+   ║                                                                      ║
+   ║ O que faltava era uma SUPERFÍCIE. O controle era o único elemento    ║
+   ║ da página desenhado direto em cima da fotografia, sem nada por       ║
+   ║ baixo — enquanto toda a tipografia do site ganhou, nesta passada,    ║
+   ║ um passo de luminância sob ela (a regra 4.5: profundidade por        ║
+   ║ pilha de superfícies, nunca por sombra).                             ║
+   ║                                                                      ║
+   ║ Agora ele tem a dele: uma placa de carvão a 62%, com o mesmo raio    ║
+   ║ zero do resto do site e um contorno hairline. Sobre ela, o âmbar     ║
+   ║ pode ficar quieto E ser visto — porque o contraste não vem da cor,   ║
+   ║ vem do degrau. É a mesma regra que resolveu o texto sobre foto,      ║
+   ║ aplicada à única coisa da página que se toca.                        ║
+   ║                                                                      ║
+   ║ Sem sombra, sem desfoque, sem `backdrop-filter`. Duas superfícies.   ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
 .som {
   position: fixed;
-  right: 1.25rem;
-  bottom: .9rem;
+  right: 1rem;
+  bottom: 1rem;
   z-index: 16;
 
   display: flex;
   align-items: center;
-  gap: .75rem;
+  gap: .7rem;
 
   /* a área de toque vive no padding: o desenho tem 34px de altura e o alvo
-     tem 44 nos dois eixos, sem que o desenho precise crescer */
-  padding: .35rem .3rem;
-  border: 0;
-  background: none;
+     passa de 44 nos dois eixos, sem que o desenho precise crescer */
+  padding: .5rem .7rem .5rem .85rem;
   color: var(--ambar);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 
+  /* A placa. `--carvao` a 62% é um degrau acima de qualquer fotografia
+     desta paleta e um degrau abaixo do carvão puro das seções lisas: ela
+     se separa nas duas situações sem nunca virar um retângulo evidente.
+
+     O contorno é bronze a 40% — hairline, e é ele que dá a aresta que o
+     desfoque daria, sem desfoque nenhum. */
+  background: rgba(13, 13, 13, .62);
+  border: 1px solid rgba(107, 74, 46, .4);
+
   /* fora de cena até "A escuta" */
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1.2s var(--ease);
+  transition: opacity 1.2s var(--ease), background-color .6s var(--ease),
+    border-color .6s var(--ease);
 }
 
 .som.is-visivel {
   opacity: 1;
   pointer-events: auto;
+}
+
+.som:hover,
+.som:focus-visible {
+  background: rgba(13, 13, 13, .78);
+  border-color: rgba(200, 137, 46, .45);
 }
 
 /* ── O rótulo ──────────────────────────────────────────── */
@@ -102,14 +150,15 @@
 }
 
 /* O mesmo traço dos rótulos de capítulo (.reveal__dash), na mesma
-   espessura. Ele encolhe um pouco no telefone, onde a linha inteira precisa
-   caber sem chegar perto do relógio. */
+   espessura. A 30% ele era invisível; a 60%, sobre a placa, ele é um filete
+   quieto — e é ele que faz a linha ser lida como um rótulo da casa em vez
+   de como um botão. */
 .som__dash {
   display: block;
-  width: 26px;
+  width: 22px;
   height: 1px;
   background: currentColor;
-  opacity: .3;
+  opacity: .6;
   transition: opacity .5s var(--ease), width .5s var(--ease);
 }
 
@@ -134,8 +183,12 @@
   transition: opacity .5s var(--ease);
 }
 
+/* Desligado a palavra é branco rebaixado, não concreto: concreto sobre a
+   placa de carvão é cinza sobre cinza, e era metade da razão de o objeto
+   não se ler. Ligado ela vira âmbar, que é a única troca de COR do
+   controle — e a que diz que ele está fazendo alguma coisa. */
 .som__estado--off {
-  color: rgba(119, 115, 110, .82);
+  color: rgba(255, 255, 255, .72);
   opacity: 1;
 }
 
@@ -174,7 +227,7 @@
 }
 
 .som__losango {
-  opacity: .55;
+  opacity: .85;
   background: transparent;
   transition: opacity .5s var(--ease), background-color .7s var(--ease);
 }
@@ -216,37 +269,49 @@
 
 .som:hover .som__losango,
 .som:focus-visible .som__losango {
-  opacity: .95;
+  opacity: 1;
 }
 
 .som:hover .som__dash,
 .som:focus-visible .som__dash {
-  opacity: .55;
-  width: 34px;
+  opacity: .85;
+  width: 30px;
 }
 
 .som:hover .som__estado--off,
 .som:focus-visible .som__estado--off {
-  color: rgba(200, 137, 46, .9);
+  color: rgba(200, 137, 46, .95);
 }
 
 .som:focus-visible {
-  outline: 1px solid rgba(200, 137, 46, .6);
+  outline: 1px dashed rgba(200, 137, 46, .7);
   outline-offset: 4px;
 }
 
 /* ── Estreito ──────────────────────────────────────────── */
 
-/* Abaixo de 420px a linha inteira (traço + palavra + losango) chega perto
-   do algarismo do relógio. O traço sai; a palavra e o losango, que são o
-   que identifica o objeto, ficam. */
+/* ── E o traço VOLTA ────────────────────────────────────
+
+   Ele sumia abaixo de 420px, que é a largura em que este site é lido de
+   verdade. O objeto descrito nesta folha — traço, palavra, losango, a
+   gramática de um rótulo de capítulo — nunca chegou a existir no aparelho
+   de ninguém: no telefone o que havia era uma palavra e um losango, que é
+   uma coisa diferente.
+
+   A conta que o expulsou era a distância até o algarismo do relógio. Ela
+   mudou: o relógio virou luz branca a 10% (relogio.css) em vez de âmbar a
+   18% com contorno, então os dois objetos deixaram de disputar a mesma
+   cor, e o lugar do canto direito baixo passou a ter os dois degraus de
+   luminância que separam um do outro. Ele cabe, e agora ele é o objeto que
+   a folha descreve. */
 @media (max-width: 420px) {
   .som {
     gap: .55rem;
+    padding: .45rem .6rem .45rem .7rem;
   }
 
   .som__dash {
-    display: none;
+    width: 16px;
   }
 }
 

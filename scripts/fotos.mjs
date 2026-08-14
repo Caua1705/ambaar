@@ -55,6 +55,43 @@
  *              que não tem rosto, não tem flash e não tem marca legível.
  *   particulas pó em suspensão num facho âmbar. Não é fotografia da casa —
  *              é matéria. Vai para o fecho, onde a resina fecha.
+ *
+ * ── A terceira triagem ─────────────────────────────────────────────────
+ *
+ * Três voltaram, e as três resolvem um buraco que o site tinha e não uma
+ * vontade de usar material:
+ *
+ *   casa-dia        o balcão do jardim aceso, dois bancos vazios, o portão
+ *                   aberto para a rua. A premissa da casa — o café fecha
+ *                   às 17h e o Âmbar abre — existia numa frase de corpo de
+ *                   texto e em lugar nenhum na tela. Agora tem uma seção.
+ *   salao-passagem  um corpo dissolvido por um giro de obturador. É a
+ *                   mesma matéria dos quadros do capítulo 02, e é o que
+ *                   permite a passagem dele ser uma dissolução em vez do
+ *                   corte seco que chegava do nada.
+ *   salao-rosto     uma mulher de perfil, ouvindo, dentro do barulho. É o
+ *                   primeiro rosto em tela cheia do site.
+ *
+ * ── E uma que SAIU ─────────────────────────────────────────────────────
+ *
+ *   salao-pista     a pista vista de trás da cabine, 6000×4000, flash e
+ *                   grão. Ela foi mantida duas passadas por um argumento
+ *                   que só vale na tela larga: "é a única fotografia real
+ *                   de uma noite cheia, e tem uma pessoa olhando na
+ *                   lente".
+ *
+ *                   Num telefone essa pessoa está a 62% da largura de um
+ *                   quadro DEITADO do qual entram 31%. Ela nunca esteve na
+ *                   tela. O que o telefone exibia era a faixa da esquerda:
+ *                   dois torsos e um par de pernas, cortados na altura da
+ *                   cintura, sem uma cabeça no quadro. A foto que
+ *                   justificava a seção não era a foto que o site mostrava.
+ *
+ *                   Recortá-la em retrato salvaria o rosto e perderia o
+ *                   ponto de vista (estar ATRÁS da cabine), que era a
+ *                   outra metade do argumento. Sem os dois, sobra uma foto
+ *                   de festa — e o registro de festa é o critério nº 2
+ *                   desta lista. Saiu inteira: −152 kB.
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
@@ -76,44 +113,76 @@ const FOTOS = [
      do wordmark e é recortada por ele. */
   { saida: 'jardim-dourado', de: 'jardim-dourado.png', largura: 920, q: 70, luz: 1.06 },
 
-  /* ── O clímax do Salão ───────────────────────────────────────────────
-     A pista vista de trás da cabine: os CDJs na quina inferior esquerda e
-     a sala inteira de pé. É a única fotografia REAL de uma noite cheia no
-     acervo, e é o único quadro deitado do site.
+  /* ── A troca · 17h ───────────────────────────────────────────────────
+     SEÇÃO NOVA, e a imagem que a paga.
 
-     Ela existe para uma coisa só, e a coisa é uma troca de registro. Todo
-     o capítulo 02 é um plano gerado — liso, âmbar, silencioso. No fim
-     dele o site corta para ISTO: grão, flash, rosto olhando na lente.
-     O corte diz "e foi assim de verdade", e é a única vez que o site
-     mostra a casa como ela é fotografada, não como ela é desenhada.
+     O jardim ao entardecer com o balcão aceso, os dois bancos vazios, as
+     luzinhas no chão e o portão aberto para a rua. É a casa no minuto
+     entre os dois negócios — o café acabou de fechar e ninguém chegou
+     ainda —, e é a única fotografia do acervo em que se vê a CALÇADA.
 
-     1180px: é o quadro que mais precisa de resolução depois da hero,
-     porque é o único com rostos reconhecíveis em tela cheia. A tinta é
-     baixa (.16) — o suficiente para a temperatura bater com o plano
-     anterior, e não tanto que apague o flash, que é o assunto. */
-  { saida: 'salao-pista', de: 'salao-pista.jpg', largura: 1180, q: 68, luz: 1.02, sat: 0.82, tinta: 0.16 },
+     Ela estava na pasta das descartadas por causa da luz do portão: o fim
+     de tarde na rua é cinza-azulado e o resto do quadro é tungstênio. O
+     que a salvou foi medir a mancha em vez de julgar o lote — são 6% do
+     quadro, na quina, e ela é o ASSUNTO: a rua é o lado de fora, e o lado
+     de fora é o que ainda não entrou. Dessaturar um passo e tingir de
+     âmbar puxa o cinza para o bronze sem tocar no tungstênio, que já é a
+     paleta. Correção moderada numa mancha pequena; nada de refazer a foto.
 
-  /* ── Os três cartões de reserva ──────────────────────────────────────
-     Cada cartão mostra o ambiente que se está reservando, e os três têm
-     de ler em 33svh de altura com texto por cima. Por isso são os únicos
-     arquivos do site abaixo de 800px: eles nunca são vistos grandes. */
+     820px: a seção não é sangria total — a fotografia mora numa fresta
+     horizontal sobre carvão. */
+  { saida: 'casa-dia', de: 'nao-usadas/salao.jpg', largura: 820, q: 72, luz: 1.0, sat: 0.78, tinta: 0.16 },
 
-  /* Jardim: o jardim À NOITE, luzinhas acesas, cadeiras vazias e uma vela
-     na mesa. Trocou a foto da cabine acesa vista de longe, e a troca é de
-     ASSUNTO: o cartão não vende o jardim, vende a MESA no jardim — que é
-     literalmente o que se reserva. Um cartão de reserva com uma cadeira
-     vazia é um convite; com uma cabine de som é um cartaz. */
-  { saida: 'jardim-som', de: 'nao-usadas/jardim-noite.png', largura: 760, q: 72, luz: 1.06 },
+  /* ── A passagem do Salão · 23h ───────────────────────────────────────
+     O corte duro para a fotografia de flash SAIU do capítulo 02, e com ele
+     saiu `salao-pista`. Ver a nota no pé deste arquivo.
 
-  /* Salão: as mãos no mixer, recorte fechado, contraluz âmbar. Trocou a
-     cabine vista de cima com as pernas da pista em volta.
-     A anterior dizia "tem DJ e tem gente" — informação de cartaz de festa.
-     Esta diz uma coisa só e diz melhor: alguém está TOCANDO. Num clube de
-     escuta o produto é o gesto, não a multidão, e é a única foto do acervo
-     de cabine que não tem rosto, nem flash, nem marca legível. */
-  { saida: 'salao-alto', de: 'nao-usadas/salao-maos.png', largura: 760, q: 72, luz: 1.04 },
+     O que entra no lugar são duas imagens, e as duas são a mesma frase
+     dita duas vezes: o quarto está cheio, e a câmera CHEGA PERTO.
 
-  /* ── A hora sem nome · 01h ───────────────────────────────────────────
+     Primeiro isto — um corpo dissolvido por um giro de obturador, parede
+     âmbar, os LEDs da cabine embaixo. Não é uma fotografia DE alguém: é
+     uma fotografia de movimento, e é exatamente a mesma matéria dos 34
+     quadros que vêm antes dela, que também são arrasto. Por isso ela pode
+     entrar por dissolução em vez de por corte: o que muda não é o assunto,
+     é a distância.
+
+     720px e qualidade baixa: o arquivo inteiro é borrão. Resolução aqui é
+     peso sem imagem. A tinta baixa serve para uma coisa só — os LEDs azuis
+     da cabine, que são a única cor fria que o site publica. */
+  { saida: 'salao-passagem', de: 'nao-usadas/dj-blur.png', largura: 720, q: 64, luz: 1.02, sat: 0.9, tinta: 0.12 },
+
+  /* E então o borrão resolve num rosto.
+
+     Uma mulher de perfil, olhos baixos, o cabelo ainda andando, o copo na
+     mão, contra o mural pintado da sala. É o primeiro ROSTO em tela cheia
+     do site inteiro — quinze telas de ambientes e multidões antes de uma
+     pessoa —, e ela está fazendo exatamente o que a casa vende: está ali,
+     sozinha dentro do barulho, ouvindo.
+
+     Estava fora com o lote de "flash direto" e nunca teve flash: a luz
+     dela é a mesma luz de tungstênio quente do resto da noite. Precisou de
+     um passo de saturação (o mural tem verdes que competem com o âmbar) e
+     de quase nenhuma tinta.
+
+     880px: tela cheia, e o assunto é a cara. */
+  { saida: 'salao-rosto', de: 'nao-usadas/perfil.png', largura: 880, q: 72, luz: 1.02, sat: 0.84, tinta: 0.1 },
+
+  /* ── Os três cartões de reserva saíram ───────────────────────────────
+     `jardim-som` (a mesa no jardim à noite) e `salao-alto` (as mãos no
+     mixer) foram publicadas duas passadas para os cartazes de reserva.
+     A seção de reservas virou uma composição sem fotografia nenhuma —
+     três nomes entre filetes tracejados —, e as duas ficaram sem destino.
+
+     Elas não voltam para outro lugar, e a razão é a regra: toda imagem
+     pertence a uma HORA da noite ou a uma IDEIA. Estas duas pertenciam a
+     um item de lista. Um item de lista deixou de existir; a fotografia
+     não se muda para outro endereço só porque já foi tratada.
+
+     −128 kB. O terceiro cartão usava `reservado`, que continua no build
+     porque é o cartaz do capítulo 03 (o quadro do vídeo).
+
+     ── A hora sem nome · 01h ───────────────────────────────────────────
      A mulher sentada, cabeça baixa, o cabelo caindo, contra o tijolo. É a
      fotografia que este site estava devendo: todas as outras têm um
      assunto (o jardim, a cabine, a conversa, o copo) e esta tem uma

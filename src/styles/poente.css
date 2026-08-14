@@ -1,69 +1,73 @@
 /* O poente — a emenda 17h → 20h.
 
-   O porquê está no HTML, junto do elemento. Aqui está a construção, e ela
-   tem uma decisão que decide tudo o mais: ISTO NÃO É UM PAINEL.
+   O diagnóstico da tela dourada está no HTML, junto do elemento. Aqui está
+   a construção, e ela tem uma decisão que decide todo o resto: ISTO NÃO É
+   UM PAINEL QUE APARECE. É uma faixa de luz que ATRAVESSA.
 
-   ── Por que o gesto é uma translação, e não um clipPath ─────────────────
+   ── Por que o gesto é uma translação, e não opacidade nem clipPath ──────
 
-   O desenho é "o âmbar sobe e come a tela de baixo para cima". A maneira
-   óbvia de escrever isso é `clip-path: inset(100% 0 0 0)` indo a zero — uma
-   janela que se abre para cima. Ela foi descartada por duas razões:
+   O desenho é "o âmbar sobe e come a tela de baixo para cima, e depois
+   continua subindo e a descobre de novo". As duas maneiras óbvias de
+   escrever isso foram descartadas:
 
-     · clip-path animado sobre um elemento de tela cheia não é garantido no
-       compositor. Ele repinta, e repintar a tela inteira durante a emenda
-       mais importante do site é gastar quadros exatamente onde não há
-       nenhum de sobra;
-     · e a janela tem BORDA. Uma aresta horizontal atravessando o quadro é
-       um painel subindo, não luz enchendo — o mesmo erro que as cortinas de
-       carregamento cometiam, e que a nota das demãos de céu (tokens.css) já
-       diagnosticou uma vez: "uma faixa escura que aparece não é luz, é um
-       painel".
+     · `clip-path: inset()` animado sobre um elemento de tela cheia não é
+       garantido no compositor. Ele repinta, e repintar a tela inteira
+       durante a emenda mais importante do site é gastar quadros
+       exatamente onde não há nenhum de sobra. E a janela tem BORDA: uma
+       aresta horizontal atravessando o quadro é um painel subindo, não luz
+       enchendo.
+     · opacidade produz um FADE, e fade é a única coisa que este momento
+       não pode ser. Um fade não tem eixo; um poente tem. O sol se põe para
+       baixo e a sombra sobe, e é a direção que faz a imagem significar.
 
-   O que existe aqui é um elemento de DUAS TELAS de altura em que a metade
-   de cima é um degradê do transparente ao âmbar e a metade de baixo é âmbar
-   sólido. Ele começa uma tela abaixo da dobra e sobe. O que atravessa o
-   quadro é uma tela inteira de degradê — não há aresta em lugar nenhum para
-   o olho encontrar, e o que se lê é um nível de luz subindo.
+   Translate puro: uma camada no compositor, zero repintura, e — o que
+   importa mais depois do defeito que este arquivo existe para consertar —
+   reversível de graça. Subir a página é a mesma faixa passando ao
+   contrário, quadro a quadro, sem um único estado colado.
 
-   E é translate puro: uma camada no compositor, zero repintura.
+   ── A conta, e ela é toda em percentagem da PRÓPRIA altura ──────────────
 
-   ── A conta ─────────────────────────────────────────────────────────────
+   O elemento tem 320svh e três zonas:
 
-   Altura 200svh, degradê de 0% a 50% (uma tela), sólido de 50% a 100%.
+       0%   —  28,1%   âmbar → transparente   (a borda de trás)
+      28,1% —  71,9%   âmbar sólido           (140svh, uma tela e quatro)
+      71,9% — 100%     transparente → âmbar   (a borda da frente)
 
-     translateY(50%)   o topo do elemento está em +100svh — a borda de
-                       baixo da tela. Nada aparece.
-     translateY(-50%)  o topo está em -100svh, e a fronteira do sólido
-                       (50% da altura) está exatamente em 0. A tela inteira
-                       é âmbar sólido.
+   E o curso é de yPercent +31,25% a −100%:
 
-   Entre os dois extremos há exatamente 200svh de curso, e o degradê varre
-   o quadro uma vez.
+     +31,25%   o topo do elemento está em +100svh — a borda de baixo da
+               tela. Nada aparece.
+     −34,4%    a faixa sólida cobre o quadro inteiro. Âmbar chapado.
+     −100%     a borda de baixo do elemento está em 0. Nada aparece de novo.
 
-   ── Quem move o quê ─────────────────────────────────────────────────────
+   São 131,25 pontos de curso, e a janela em que a tela fica INTEIRAMENTE
+   âmbar (yPercent entre −40,6% e −28,1%) ocupa 12,5 deles: 9,5% do
+   percurso. Num telefone, com o curso de 1093px que chapters.js entrega,
+   isso são 104px de rolagem — um décimo de tela. Uma batida.
 
-   A SUBIDA é presa ao dedo, e é o único caso do site em que uma transição é
-   scrub. O motivo é que ela não é uma transição: é a continuação do
-   entardecer. O capítulo 01 já é o sol caindo preso à rolagem, e o poente
-   engolindo o jardim é o último quarto do mesmo sol. Interromper o scrub
-   para animar isso sozinho seria trocar de motor no meio de um movimento
-   contínuo.
+   Era esse número que estava errado antes, e ele não estava errado por
+   pouco: eram 677px, seis vezes e meia mais, e eles não eram desenhados —
+   eram o vão entre dois gatilhos.
 
-   A DESCIDA (o âmbar apagando sobre o Salão) é classe 2: ela pertence à
-   seção que CHEGA, e chegadas neste site são disparadas.
+   ── Por que a faixa sólida tem 1,4 tela e não 1,0 ───────────────────────
 
-   O efeito colateral é o que salva a emenda: a fronteira entre as duas
-   seções acontece inteira debaixo de âmbar sólido, em qualquer velocidade
-   de rolagem. Não há costura porque não há duas fotografias visíveis ao
-   mesmo tempo — que é o único jeito honesto de encostar duas sangrias
-   totais uma na outra. */
+   Com exatamente uma tela de sólido, a cobertura total aconteceria num
+   único ponto do curso e o âmbar chapado nunca chegaria a existir como
+   momento: seria um degradê passando. Com 1,4, existe uma janela — curta,
+   medida, e sempre em movimento. A diferença entre uma batida e uma parada
+   é que a batida não tem duração própria: ela dura o que o dedo levar.
+
+   ── As paradas do degradê não são lineares ──────────────────────────────
+
+   A luz de um poente satura devagar no começo e depressa no fim. Uma rampa
+   reta entre transparente e âmbar lê como uma lavagem de tinta. */
 
 .poente {
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: 200svh;
+  height: 320svh;
 
   /* acima de tudo: do menu, do fio, do relógio e do controle de som. O sol
      não engole o jardim e deixa a navegação boiando por cima. O grão
@@ -71,28 +75,35 @@
   z-index: 30;
   pointer-events: none;
 
-  /* O degradê ocupa a metade de cima. As paradas intermediárias não são
-     lineares: a luz de um poente satura devagar no começo e depressa no
-     fim, e uma rampa reta entre transparente e âmbar lê como uma lavagem
-     de tinta. */
   background: linear-gradient(
     to bottom,
+    /* a borda de trás: por onde o salão é descoberto */
     rgba(200, 137, 46, 0) 0%,
-    rgba(200, 137, 46, .05) 14%,
-    rgba(200, 137, 46, .16) 25%,
-    rgba(205, 141, 47, .36) 34%,
-    rgba(212, 147, 50, .64) 41%,
-    rgba(219, 154, 54, .88) 46%,
-    #C8892E 50%,
-    #C8892E 100%
+    rgba(200, 137, 46, .06) 4%,
+    rgba(200, 137, 46, .2) 9.5%,
+    rgba(205, 141, 47, .44) 15%,
+    rgba(212, 147, 50, .72) 20.5%,
+    rgba(219, 154, 54, .92) 25%,
+    #C8892E 28.1%,
+    /* a faixa sólida */
+    #C8892E 71.9%,
+    /* a borda da frente: por onde o jardim é engolido */
+    rgba(219, 154, 54, .92) 75%,
+    rgba(212, 147, 50, .72) 79.5%,
+    rgba(205, 141, 47, .44) 85%,
+    rgba(200, 137, 46, .2) 90.5%,
+    rgba(200, 137, 46, .06) 96%,
+    rgba(200, 137, 46, 0) 100%
   );
 
-  /* fora de cena, uma tela abaixo da dobra */
-  transform: translate3d(0, 50%, 0);
+  /* fora de cena, uma tela abaixo da dobra. O valor tem de bater com o
+     `gsap.set` de chapters.js: o CSS é o estado antes de o JavaScript
+     existir, e um desencontro entre os dois é um pulo no primeiro quadro. */
+  transform: translate3d(0, 31.25%, 0);
 }
 
 /* Sem movimento não há emenda para cobrir: as seções são lidas paradas, uma
-   embaixo da outra, e um campo âmbar de tela cheia por cima de duas delas
+   embaixo da outra, e uma faixa âmbar de tela cheia por cima de duas delas
    seria só uma tela laranja no meio da leitura. */
 @media (prefers-reduced-motion: reduce) {
   .poente {

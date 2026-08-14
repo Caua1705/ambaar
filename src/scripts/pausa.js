@@ -46,7 +46,7 @@
    Sem pin: uma passada de dedo atravessa a seção inteira, que é o que uma
    pausa tem de ser. O curso do deslocamento é a própria travessia. */
 
-import { gsap, reducedMotion, EASE, entrada } from './motion.js'
+import { gsap, reducedMotion, EASE, entrada, laco } from './motion.js'
 
 /* deslocamento em vw: [quadro, foto dentro do quadro] */
 const CURSO = { retrato: [8, -3], detalhe: [-12, 5] }
@@ -79,32 +79,62 @@ for (const pausa of document.querySelectorAll('.pausa')) {
   gsap.set(retrato, { clipPath: FECHADO[abre.retrato] })
   gsap.set(detalhe, { clipPath: FECHADO[abre.detalhe] })
 
-  /* ── Os quadros, presos ao dedo ──────────────────────── */
+  /* ╔══════════════════════════════════════════════════════════════════╗
+     ║ A DERIVA SAIU DO DEDO — classe 1 → classe 3                      ║
+     ║                                                                  ║
+     ║ Os dois quadros corriam lateralmente presos ao scrub, ao longo   ║
+     ║ da travessia da seção. Era paralaxe, e paralaxe não passa no     ║
+     ║ teste que separa a classe 1 da 3 (motion.js): "que ESTADO da     ║
+     ║ cena esta posição de rolagem representa?".                       ║
+     ║                                                                  ║
+     ║ "A fotografia está 4vw à direita" não é um estado de nada. É uma ║
+     ║ consequência de o dedo ter andado — e é o tipo de movimento que  ║
+     ║ o site inteiro tinha demais: quando tudo responde à rolagem,     ║
+     ║ nada parece ter acontecido sozinho, e a página cansa duas vezes  ║
+     ║ (uma no dedo, outra na atenção).                                 ║
+     ║                                                                  ║
+     ║ E havia um defeito concreto: com o polegar parado, uma seção     ║
+     ║ chamada A PAUSA ficava absolutamente imóvel. A tela que fala de  ║
+     ║ conversa baixando sozinha era a única do site em que nada era    ║
+     ║ capaz de acontecer sozinho.                                      ║
+     ║                                                                  ║
+     ║ Agora é classe 3: os dois quadros derivam no relógio DELES,      ║
+     ║ desde que a seção esteja em cena, e param quando ela sai.        ║
+     ╚══════════════════════════════════════════════════════════════════╝
 
-  const deriva = (quadro, [fora, dentro]) => {
+     ── Como o desenho sobreviveu à troca de motor ─────────────────────
+
+     O que fazia a dupla ler como composição em vez de duas camadas de
+     paralaxe era o SENTIDO CONTRÁRIO: quando dois elementos andam juntos o
+     olho vê profundidade, quando andam contra o olho vê montagem. Isso não
+     dependia do scroll — dependia dos sinais opostos, e eles ficaram.
+
+     O que mudou é a fonte do parâmetro: em vez de `progresso da rolagem`,
+     `seno do tempo`. Cada quadro tem um período próprio e primo do outro
+     (17,9s e 23,1s), então os dois nunca se alinham e o desenho nunca se
+     repete visivelmente — o mesmo princípio dos sete filetes do campo e do
+     pó do fecho.
+
+     E a fotografia dentro do quadro continua andando ao contrário do
+     quadro, com um terço da amplitude. São três velocidades numa tela de
+     duas imagens, como antes. */
+
+  const deriva = (quadro, [fora, dentro], periodo, fase) => {
     if (!quadro) return
 
-    const comum = {
-      ease: 'none',
-      scrollTrigger: {
-        trigger: pausa,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1
-      }
-    }
+    const foto = quadro.querySelector('img')
+    let t = fase
 
-    gsap.fromTo(quadro,
-      { xPercent: -fora * 0.5 },
-      { xPercent: fora * 0.5, ...comum })
-
-    gsap.fromTo(quadro.querySelector('img'),
-      { xPercent: -dentro * 0.5 },
-      { xPercent: dentro * 0.5, ...comum })
+    laco(quadro, (dt) => {
+      t += dt
+      const onda = Math.sin(t * periodo)
+      gsap.set(quadro, { xPercent: fora * 0.5 * onda })
+      if (foto) gsap.set(foto, { xPercent: dentro * 0.5 * onda })
+    })
   }
 
-  deriva(retrato, curso.retrato)
-  deriva(detalhe, curso.detalhe)
+  deriva(retrato, curso.retrato, 0.351, 0)
+  deriva(detalhe, curso.detalhe, 0.272, 2.4)
 
   /* ── A abertura e a frase, por gatilho ───────────────── */
 

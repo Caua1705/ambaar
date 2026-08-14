@@ -48,7 +48,9 @@
    o nível que pede (data-som, no HTML) e o ganho persegue esse valor em
    2 segundos.
 
+       Hero      .15    o instante guardado, antes de tudo
        A escuta  .15    o silêncio antes da noite
+       A troca   .20    o café acabou de fechar; a casa liga o som
        Jardim    .30    som lá fora, entre as plantas
        Salão     .70    a casa cheia — o pico da página
        Pausa 00h .40    a conversa baixando
@@ -56,6 +58,11 @@
        Reservado .25    poucas mesas, o som no ponto exato
        Reservas  .15
        Fecho     .15    o tempo parando
+
+     A curva é a da própria noite: sobe do silêncio ao pico no Salão e
+     desce até o mesmo silêncio. O .20 das 17h é o único degrau novo, e ele
+     existe porque a seção é literalmente o momento em que a casa liga o
+     som — .15 seria dizer que nada mudou.
 
    Duas decisões dentro disso:
 

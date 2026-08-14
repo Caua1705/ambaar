@@ -55,10 +55,25 @@
   opacity: 0;
 }
 
-/* Massa trocada por contorno: o preenchimento fica baixo e o desenho da
-   letra ganha um traço âmbar de 1px. O relógio tem a presença de um objeto
-   grande sem ter o peso de um bloco de texto, e a cor o filia à marca em
-   vez de competir com o branco do título. */
+/* ── E ele deixou de ser âmbar ──────────────────────────
+
+   Este era o maior objeto âmbar da página: um algarismo de 34vw, presente
+   em oito das dez telas, com preenchimento e contorno na cor da marca. Uma
+   cor que ocupa um terço da largura da tela durante oitenta por cento da
+   visita não é um acento — é o fundo.
+
+   E havia um problema antes do problema de disciplina: ele COMPETIA. Em
+   todo capítulo, o âmbar do relógio disputava a mesma faixa de cor da
+   fotografia atrás dele (que é âmbar por construção — é a luz da casa), e
+   o resultado era um algarismo que sumia nas partes claras da foto e
+   aparecia demais nas escuras. Duas leituras diferentes do mesmo objeto na
+   mesma tela.
+
+   Agora ele é LUZ, não tinta: branco a 10% de preenchimento com um contorno
+   de 1px a 30%. Sobre qualquer fotografia desta paleta — que é toda quente
+   — um contorno neutro se separa sempre, e nunca compete. E o relógio
+   ganhou o que o âmbar não conseguia dar: ele parece pertencer ao VIDRO da
+   tela em vez de à cena, que é exatamente o que um relógio da casa é. */
 .relogio__valor {
   position: absolute;
   left: 0;
@@ -68,8 +83,8 @@
   font-weight: 200;
   letter-spacing: -.03em;
   line-height: .78;
-  color: rgba(200, 137, 46, .18);
-  -webkit-text-stroke: 1px rgba(200, 137, 46, .52);
+  color: rgba(255, 255, 255, .1);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, .3);
   white-space: nowrap;
   /* o dígito troca a cada quadro: sem largura fixa o número treme */
   font-variant-numeric: tabular-nums;

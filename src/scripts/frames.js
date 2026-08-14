@@ -39,7 +39,7 @@ import { ScrollTrigger } from './motion.js'
 
 const DPR_MAX = 1.5
 
-export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6 }) => {
+export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6, ancora = 0.5 }) => {
   const ctx = canvas.getContext('2d', { alpha: false })
 
   const imagens = new Array(total)
@@ -68,8 +68,23 @@ export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6 }) =>
 
   /* ── Desenho ─────────────────────────────────────── */
 
-  // cover: preenche a caixa inteira preservando a proporção, recortando o
-  // excedente no eixo que sobra
+  /* cover: preenche a caixa inteira preservando a proporção, recortando o
+     excedente no eixo que sobra.
+
+     ── E o recorte tem ÂNCORA ────────────────────────────────────────────
+
+     `cover` centrado é o padrão de todo mundo e é uma decisão de
+     enquadramento tomada por omissão. Num telefone, uma sequência de
+     proporção 0,82 dentro de uma caixa 0,46 perde 44% da largura — e
+     centrar significa escolher os 56% do MEIO do arquivo, que só por
+     acaso seriam os 56% em que está o assunto. No Salão não eram: a
+     multidão entra pela direita e o meio do quadro é a parede.
+
+     `ancora` é onde o recorte cai, de 0 (encosta à esquerda) a 1 (à
+     direita). É o `object-position` que um <canvas> não tem — e o eixo
+     vertical usa a mesma conta, mesmo que hoje nenhuma sequência precise
+     dele: quando a caixa é mais alta que a fonte, o excedente é zero e o
+     valor não faz diferença nenhuma. */
   const pintar = (img, alfa) => {
     const cw = canvas.width
     const ch = canvas.height
@@ -78,7 +93,7 @@ export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6 }) =>
     const h = img.height * escala
 
     ctx.globalAlpha = alfa
-    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h)
+    ctx.drawImage(img, (cw - w) * ancora, (ch - h) * 0.5, w, h)
     ctx.globalAlpha = 1
   }
 

@@ -31,8 +31,45 @@ img {
 .escuta__frase,
 .chapter__text,
 .reservas__title,
+.retrato__linha,
+.troca__linha,
 .outro__line {
   text-wrap: balance;
+}
+
+/* ── A voz de máquina ──────────────────────────────────── */
+
+/* O porquê está em tokens.css. Aqui está a regra, e ela é curta de
+   propósito: tudo o que este bloco faz é DESFAZER o desenho. Fonte de
+   sistema, corpo mínimo, tracking zero, caixa baixa, cinza. Não há um
+   único valor aqui escolhido para ficar bonito.
+
+   `font-variant-numeric: tabular-nums` é a única concessão, e ela é
+   funcional: dois horários empilhados com algarismos de larguras
+   diferentes não alinham, e um horário que não alinha lê como texto. */
+.maquina {
+  font-family: var(--font-maquina);
+  font-size: var(--fs-maquina);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.7;
+  color: rgba(119, 115, 110, .78);
+  font-variant-numeric: tabular-nums;
+}
+
+.maquina a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(119, 115, 110, .35);
+  padding-bottom: 1px;
+  transition: color var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease);
+}
+
+.maquina a:hover,
+.maquina a:focus-visible {
+  color: rgba(255, 255, 255, .85);
+  border-bottom-color: rgba(255, 255, 255, .5);
 }
 
 /* ── Lenis ─────────────────────────────────────────────── */

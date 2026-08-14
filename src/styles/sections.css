@@ -107,6 +107,41 @@
   opacity: 1;
 }
 
+/* ── O segundo ato do Jardim ───────────────────────────── */
+
+/* O mesmo jardim com as luzinhas da parreira acesas e uma vela na mesa. Ele
+   está empilhado por cima da sequência de quadros, no mesmo embrulho, e
+   acende sozinho quando o sol termina de cair — quem escreve a opacidade
+   dele é o progresso da SEQUÊNCIA, não a rolagem (chapters.js).
+
+   O porquê está no HTML: o capítulo era uma rampa de luz caindo e nada
+   mais, e a queixa foi que o efeito estava básico. Ele não ganhou um
+   segundo efeito, ganhou um segundo ATO — a luz que o dia levou sendo
+   substituída pela que a casa acendeu, que é a premissa do Âmbar dita em
+   imagem em vez de em texto.
+
+   A escala de 104% existe pela mesma razão que a do .chapter__media: a
+   fotografia mora dentro de um plano que a timeline de permanência gira
+   meio grau, e sem folga a rotação descobriria os cantos. */
+.chapter__plano--noite {
+  opacity: 0;
+  z-index: 1;
+}
+
+.chapter__plano--noite img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* A vela na mesa está no miolo baixo e as luzinhas ocupam o terço alto.
+     A 52% 46% as duas coisas ficam no quadro numa tela estreita, e é a
+     presença das DUAS que faz a fotografia dizer "a casa acendeu" em vez
+     de "escureceu". */
+  object-position: 52% 46%;
+  transform: scale(1.04);
+}
+
 /* ── Os três planos do Salão ───────────────────────────── */
 
 /* Um plano vivo e duas fotografias, e as três são a mesma coisa vista de

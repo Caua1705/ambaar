@@ -25,10 +25,37 @@
 
    ── A proporção ─────────────────────────────────────────────────────────
 
-   Cada metade é um retrato estreito — 1:1,5 —, e as duas juntas formam um
-   quadrado deitado no meio da tela. O formato importa: um retrato pede que
-   se olhe DENTRO dele, e as duas imagens são sobre o que há dentro de uma
-   sala. Um par deitado leria como um panorama partido. */
+   Cada metade é um retrato estreito, e as duas juntas formam um bloco
+   deitado no meio da tela. O formato importa: um retrato pede que se olhe
+   DENTRO dele, e as duas imagens são sobre o que há dentro de uma sala. Um
+   par deitado leria como um panorama partido.
+
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O CARVÃO MORTO EMBAIXO — e ele era metade de uma queixa              ║
+   ║                                                                      ║
+   ║ "Embaixo dela tenho que rolar quatro vezes para chegar no Salão, e   ║
+   ║ fica um espaço preto vazio grande."                                  ║
+   ║                                                                      ║
+   ║ Duas causas somadas, e as duas foram consertadas:                    ║
+   ║                                                                      ║
+   ║ 1. O POENTE. A faixa âmbar da emenda 17h→20h terminava com o topo da ║
+   ║    CABINE cruzando 25% da tela — isto é, ela cobria esta seção       ║
+   ║    inteira e só drenava depois. O que o usuário via aqui era ouro    ║
+   ║    chapado, e o que vinha depois dele era o resto da seção sem nada. ║
+   ║    O objeto foi removido do site (ver a nota no index.html).         ║
+   ║                                                                      ║
+   ║ 2. A COMPOSIÇÃO. Medida a 414×896, ela terminava aos 66svh (a        ║
+   ║    frase) e deixava 34svh de carvão liso até o fim da seção, mais os ║
+   ║    64% de tela que o capítulo seguinte gasta antes de a fotografia   ║
+   ║    dele acender. Uma tela e meia de preto seguido.                   ║
+   ║                                                                      ║
+   ║    O par subiu de 27svh para 22svh e cresceu de 34svh para 44svh; a  ║
+   ║    frase subiu de 66svh para 70svh e o pé da seção passou a ter      ║
+   ║    18svh de folga em vez de 34. E o Salão passou a acender a `top    ║
+   ║    78%` em vez de `top 64%` (chapters.js), o que corta a batida de   ║
+   ║    preto pela metade sem tirá-la — ela existe para que a chegada de  ║
+   ║    um capítulo seja um corte, e um corte precisa de escuro antes.    ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 
 .cabine {
   position: relative;
@@ -74,10 +101,10 @@
 
 .cabine__par {
   position: absolute;
-  top: 27svh;
+  top: 22svh;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  height: 34svh;
+  height: 44svh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* o filete tracejado entre os dois quadros é o único divisor desta tela,
@@ -103,24 +130,28 @@
   object-fit: cover;
 }
 
-/* A mesa de mármore acesa está no miolo baixo do arquivo, e é ela que diz
-   "sala vazia" — as cadeiras em volta dela estão ausentes de propósito. */
+/* Os dois pendentes acesos estão no terço alto e o piso devolvendo a luz
+   ocupa o resto. Numa moldura estreita entra uma faixa central: a 50% 42%
+   ela pega uma lâmpada inteira em cima e o chão iluminado embaixo, que é a
+   profundidade que faz a sala parecer grande e vazia. */
 .cabine__quadro--antes img {
-  object-position: 52% 62%;
+  object-position: 50% 42%;
 }
 
-/* Ele está no terço alto e à esquerda, curvado sobre a mesa de som. A
-   âncora um pouco à esquerda do centro mantém as mãos e o equipamento no
-   quadro quando a moldura estreita corta as laterais. */
+/* As duas mãos estão no terço alto do arquivo — a esquerda a 10% da largura
+   e a direita a 65%. A moldura é estreita e alta (1:2,4) e mostra pouco
+   mais da metade da largura do arquivo: a 40% a janela cai entre 11% e 68%,
+   que é o único recorte em que as DUAS mãos cabem. Centrada, a da esquerda
+   ficava fora e a seção passava a ser sobre um equipamento. */
 .cabine__quadro--fonte img {
-  object-position: 42% 34%;
+  object-position: 40% 28%;
 }
 
 /* ── A frase ───────────────────────────────────────────── */
 
 .cabine__linha {
   position: absolute;
-  top: 66svh;
+  top: 70svh;
   left: var(--gutter-l);
   right: var(--gutter-r);
   opacity: 0;
@@ -134,15 +165,15 @@
 
 @media (min-width: 900px) {
   .cabine__par {
-    top: 24svh;
-    left: 22%;
-    right: 22%;
-    height: 46svh;
+    top: 20svh;
+    left: 20%;
+    right: 20%;
+    height: 52svh;
   }
 
   .cabine__linha {
     top: 76svh;
-    left: 22%;
+    left: 20%;
     max-width: 24ch;
   }
 }

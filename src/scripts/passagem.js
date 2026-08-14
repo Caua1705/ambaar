@@ -13,23 +13,27 @@
 
    ── Três estágios, uma distância ────────────────────────────────────────
 
-     1. o plano da sala, correndo sozinho, ESCALA — a multidão cresce e
-        perde legibilidade
-     2. no ponto de menor legibilidade, dissolve num corpo desfeito por um
-        giro de obturador: a MESMA matéria dos 34 quadros, a um metro em vez
-        de a seis
-     3. e o borrão resolve num rosto
+     1. o plano da sala em 34 quadros, correndo sozinho, ESCALA — seis
+        metros de distância
+     2. dissolve na mesma sala à altura do ombro: cabelo, costas, um copo,
+        ninguém olhando para a lente — dois metros
+     3. e a sala resolve num rosto — meio metro
 
-   Nada troca de assunto. Só de distância. É por isso que a emenda pode ser
-   uma dissolução em vez do corte seco que havia aqui duas passadas atrás:
-   o que muda entre um estágio e o seguinte não é O QUE se vê, é DE ONDE.
+   Nada troca de assunto. Só de distância.
+
+   ── O degrau do meio trocou ─────────────────────────────────────────────
+
+   Era o ARRASTO (dj-blur), e ele foi para o fundo da pista das 22h. O
+   diagnóstico completo está em passagem.css; o resumo é que um borrão em
+   tela cheia não tem contra o que ser borrão, então o estágio 2 era um
+   degrau ilegível no meio de uma escada — a queixa foi exatamente essa.
 
    ── Classe 2, e por quê ─────────────────────────────────────────────────
 
    Disparada. Isto é um GESTO — uma câmera andando —, e um gesto entregue
    em fatias proporcionais ao dedo deixa de ser gesto: pararia no meio do
-   percurso, com a sala meio dissolvida no borrão, que é a única posição em
-   que a composição não significa nada.
+   percurso, com dois planos meio dissolvidos um no outro, que é a única
+   posição em que a composição não significa nada.
 
    A sala continua correndo sozinha por baixo (classe 3, `sala-2`), então
    mesmo com o polegar parado no meio da dissolução há movimento na tela.
@@ -48,18 +52,18 @@ const secao = document.querySelector('.passagem')
 
 if (secao) {
   const plano = secao.querySelector('.passagem__plano--sala')
-  const luz = secao.querySelector('.passagem__plano--luz')
+  const meio = secao.querySelector('.passagem__plano--meio')
   const rosto = secao.querySelector('.passagem__plano--rosto')
   const linha = secao.querySelector('.passagem__linha')
   const canvas = secao.querySelector('canvas')
 
   if (reducedMotion) {
     // estado final legível: o rosto, e a frase
-    gsap.set([luz], { opacity: 0 })
+    gsap.set([meio], { opacity: 0 })
     gsap.set([rosto, linha], { opacity: 1, y: 0 })
     if (canvas) canvas.remove()
   } else {
-    gsap.set([luz, rosto], { opacity: 0 })
+    gsap.set([meio, rosto], { opacity: 0 })
     gsap.set(linha, { opacity: 0, y: 20 })
 
     /* ── A sala, ainda correndo ──────────────────────────
@@ -106,12 +110,12 @@ if (secao) {
        nele, que é a seção. */
     autonomo(secao, (t) => {
       t.to(plano, { scale: 1.42, duration: 3.0, ease: EASE }, 0)
-        .fromTo(luz, { scale: 1.28 }, { scale: 1.02, duration: 2.6, ease: EASE }, 0.5)
-        .to(luz, { opacity: 1, duration: 1, ease: 'none' }, 0.5)
+        .fromTo(meio, { scale: 1.28 }, { scale: 1.02, duration: 2.6, ease: EASE }, 0.5)
+        .to(meio, { opacity: 1, duration: 1, ease: 'none' }, 0.5)
         .to(plano, { opacity: 0, duration: 0.8, ease: 'none' }, 1)
         .fromTo(rosto, { scale: 1.18 }, { scale: 1, duration: 2.4, ease: EASE }, 1.5)
         .to(rosto, { opacity: 1, duration: 1, ease: 'none' }, 1.5)
-        .to(luz, { opacity: 0, duration: .9, ease: 'none' }, 1.9)
+        .to(meio, { opacity: 0, duration: .9, ease: 'none' }, 1.9)
         .to(linha, { opacity: 1, y: 0, duration: .9, ease: EASE }, 2.6)
     }, { start: 'top 80%' })
 

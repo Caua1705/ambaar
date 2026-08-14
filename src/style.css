@@ -2,19 +2,21 @@
 @import './styles/base.css';
 @import './styles/abertura.css';
 @import './styles/hero.css';
+@import './styles/escuta.css';
 @import './styles/troca.css';
 @import './styles/sections.css';
+@import './styles/copo.css';
 @import './styles/cabine.css';
+@import './styles/pista.css';
+@import './styles/brinde.css';
 @import './styles/passagem.css';
 @import './styles/pausa.css';
-@import './styles/fica.css';
 @import './styles/retrato.css';
-@import './styles/escuta.css';
+@import './styles/quemfica.css';
 @import './styles/topbar.css';
 @import './styles/reservas.css';
 @import './styles/outro.css';
 /* âncoras fixas por último: elas reservam faixa nas seções acima */
-@import './styles/poente.css';
 @import './styles/relogio.css';
 @import './styles/campo.css';
 @import './styles/som.css';

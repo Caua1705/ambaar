@@ -4,17 +4,36 @@ import './style.css'
 import './scripts/motion.js'
 import './scripts/abertura.js'
 
-// uma seção por arquivo, na ordem em que aparecem na página
+/* Uma seção por arquivo, na ordem em que elas aparecem na página — e a
+   ordem é a noite, hora a hora:
+
+     hero       a marca
+     escuta     a tese
+     troca      17h   o café fecha
+     chapters   17—19h · 20—22h · 02—03h   os três ambientes
+     copo       19h   o primeiro copo
+     cabine     20h   alguém escolhe o que vai tocar
+     pista      22h   a sala cheia
+     brinde     23h   ninguém combinou nada
+     passagem   00h   a câmera entra até achar uma pessoa
+     pausa      01h   a conversa baixa
+     retrato    02h   ninguém está indo embora
+     quemfica   03h   a tese da segunda tela, seis horas depois
+     reservas   a escolha
+     outro      o fecho */
 import './scripts/hero.js'
 import './scripts/escuta.js'
 import './scripts/troca.js'
 import './scripts/chapters.js'
+import './scripts/copo.js'
 import './scripts/cabine.js'
+import './scripts/pista.js'
+import './scripts/brinde.js'
 import './scripts/passagem.js'
 import './scripts/pausa.js'
 import './scripts/retrato.js'
+import './scripts/quemfica.js'
 import './scripts/reservas.js'
-import './scripts/fica.js'
 import './scripts/outro.js'
 
 /* Transversais: entradas genéricas e as âncoras fixas.

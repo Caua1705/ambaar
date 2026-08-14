@@ -1,0 +1,194 @@
+/* Quem fica · 03h — seção nova, e ela fecha o arco que a segunda tela abre.
+
+   ── A ideia ─────────────────────────────────────────────────────────────
+
+   Uma mulher de perfil, olhos baixos, o brinco comprido pegando a luz. Ela
+   não está posando, não está falando com ninguém e não está olhando para a
+   lente: está OUVINDO.
+
+   A segunda tela do site promete uma coisa — "Quem escuta, fica." — e essa
+   promessa ficava sem prova. Havia uma tentativa, a 04h, com um anel
+   esquecido numa bancada de mármore e a frase "a sala volta a ser uma
+   sala"; ela foi removida nesta passada porque dizia o contrário do que a
+   casa vende (que a noite acabou) e porque uma fotografia de um objeto
+   depois de treze telas de gente é um anticlímax, não um fecho.
+
+   O que fecha o arco é a mesma frase, dita outra vez, com uma pessoa
+   embaixo dela. Não uma frase nova: A MESMA. É a única repetição literal
+   de copy do site, e ela existe porque a repetição É o argumento — seis
+   horas depois, a promessa continua de pé.
+
+   ── A composição PARTIDA, e ela é única ─────────────────────────────────
+
+   A fotografia não sangra nos quatro lados (como o retrato das 02h) e não
+   mora numa moldura com carvão em volta (como a cabine ou a pausa). Ela
+   ocupa uma FAIXA VERTICAL de dois terços encostada na borda direita, e o
+   terço da esquerda é carvão liso com o texto dentro.
+
+   Nenhuma outra tela da página divide o quadro em duas colunas, e esta
+   pode fazê-lo por uma razão que não é de gosto: é a única em que o texto
+   RESPONDE a alguma coisa dita antes em vez de descrever o que está na
+   imagem. As duas metades da tela são as duas metades do argumento — a
+   promessa à esquerda, a prova à direita —, e uma composição partida é a
+   forma que um argumento em duas metades tem.
+
+   ── Três vozes na coluna, e a do meio é a que importa ───────────────────
+
+     eyebrow   "Dissemos lá em cima"      miúda, caixa alta, a citação
+     linha     "Quem escuta, fica."        a frase, no degrau de display
+     nota      "São três da manhã…"        miúda outra vez, a data
+
+   O tipo grande fica ensanduichado entre duas vozes pequenas: é a mesma
+   estrutura de uma legenda de museu, e é de propósito — a frase está sendo
+   citada, não dita. */
+
+.quemfica {
+  position: relative;
+  background: var(--carvao);
+}
+
+.quemfica__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ── A faixa ───────────────────────────────────────────── */
+
+.quemfica__quadro {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 26%;
+  margin: 0;
+  overflow: hidden;
+  /* fechada: a faixa cresce da borda direita para a esquerda (quemfica.js).
+     É o mesmo eixo em que ela é lida — da coluna de texto para a
+     fotografia — e o contrário do inset das 19h, que entra vindo de fora. */
+  clip-path: inset(0% 0% 0% 100%);
+}
+
+.quemfica__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* A cabeça está no terço alto e o cabelo ocupa o resto do quadro. Numa
+     faixa estreita e alta entra pouco mais de um terço da largura: a 34%
+     a orelha e o brinco — que são o assunto — ficam no meio da faixa. */
+  object-position: 34% 34%;
+}
+
+/* A demão da faixa, e ela é VERTICAL: um degradê da borda esquerda da
+   fotografia para dentro, que dissolve a aresta entre a coluna de carvão e
+   a imagem. Sem isso a divisão seria uma linha reta atravessando a tela, e
+   uma linha reta é um painel — a composição partida tem de parecer uma
+   sala com sombra, não um layout de duas colunas. */
+.quemfica__quadro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--carvao) 0%, rgba(13, 13, 13, .72) 14%, rgba(13, 13, 13, .18) 38%, transparent 62%),
+    linear-gradient(to bottom, rgba(13, 13, 13, .82) 0%, transparent 18%, transparent 84%, rgba(13, 13, 13, .7) 100%);
+}
+
+/* ── A coluna ──────────────────────────────────────────── */
+
+.quemfica__texto {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter-l);
+  right: 46%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.quemfica__eyebrow {
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-mid);
+  color: rgba(255, 255, 255, .45);
+  margin-bottom: 1.4rem;
+  opacity: 0;
+}
+
+.quemfica__linha {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 9.5vw, 4.6rem);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #fff;
+  opacity: 0;
+}
+
+.quemfica__nota {
+  margin-top: 1.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(.95rem, 4vw, 1.15rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .62);
+  opacity: 0;
+}
+
+/* ── Tela larga ────────────────────────────────────────── */
+
+@media (min-width: 900px) {
+  .quemfica__quadro {
+    left: 38%;
+  }
+
+  /* Deitada, a faixa é mais LARGA que a proporção do arquivo, então o
+     `cover` escala pela largura e o recorte passa a ser inteiramente
+     VERTICAL — 51% da altura, e nenhum pixel de largura é jogado fora.
+
+     A 22% essa faixa ia do alto da cabeça até o queixo: cabelo escuro sobre
+     fundo escuro, com a única parte clara do arquivo (o ombro, a alça) fora
+     do quadro e o rosto justamente na faixa que o degradê da coluna de
+     texto escurece. Medido na tela, o terço direito ficava preto — a
+     fotografia estava lá e não se via nenhuma.
+
+     A 48% a mesma faixa abre na orelha e fecha abaixo do ombro. */
+  .quemfica__quadro img {
+    object-position: 42% 48%;
+  }
+
+  .quemfica__texto {
+    right: 56%;
+  }
+}
+
+/* ── Estreito ──────────────────────────────────────────── */
+
+/* Abaixo de 420px a coluna de texto não cabe em 46% da tela: a frase
+   quebraria em cinco linhas de duas palavras. A faixa recua para dar
+   espaço, e a fotografia passa a ser um terço em vez de dois — o que
+   funciona porque o assunto dela (a orelha, o brinco) é vertical. */
+@media (max-width: 420px) {
+  .quemfica__quadro {
+    left: 42%;
+  }
+
+  .quemfica__texto {
+    right: 34%;
+  }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .quemfica__quadro {
+    clip-path: none;
+  }
+
+  .quemfica__eyebrow,
+  .quemfica__linha,
+  .quemfica__nota {
+    opacity: 1;
+  }
+}

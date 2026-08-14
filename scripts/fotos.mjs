@@ -134,73 +134,180 @@ const FOTOS = [
      três, e as três já são âmbar — nenhuma precisou de correção pesada.
      ══════════════════════════════════════════════════════════════════ */
 
+  /* ══════════════════════════════════════════════════════════════════
+     A QUINTA TRIAGEM — e desta vez a pergunta foi outra outra vez
+
+     As quatro anteriores perguntaram se a fotografia pertencia à paleta e
+     se ela tapava um buraco da narrativa. Esta perguntou uma coisa que
+     nenhuma tinha perguntado: QUEM aparece neste site?
+
+     A resposta era constrangedora. Em dezesseis telas havia três pessoas
+     com rosto — e o acervo tem dezenas de fotografias de MULHERES na luz
+     exata da casa, todas na pasta das descartadas, quase todas triadas em
+     LOTE ("as de flash", "as de luz vermelha") sem nunca terem sido
+     olhadas uma a uma.
+
+     Onze entraram. Elas não são enfeite de uma narrativa que já existia:
+     elas SÃO a narrativa nova — a noite deixou de ser uma sequência de
+     cômodos e passou a ser uma sequência de pessoas dentro deles.
+     ══════════════════════════════════════════════════════════════════ */
+
   /* ── A cabine · 20h ──────────────────────────────────────────────────
-     O DJ visto DE CIMA, cabeça baixa sobre os CDJs, fitas espelhadas na
-     parede e a bola de espelhos na quina. Luz de tungstênio, sem flash.
+     As mãos sobre a mesa de som, contraluz âmbar, o resto preto. Nenhum
+     rosto, nenhuma cor fria, nenhum logotipo dentro do quadro — o recorte
+     joga fora a faixa de baixo, que é onde a marca do equipamento aparece.
 
-     Ela é a resposta ao buraco nº 1, e é a única fotografia do acervo de
-     cabine que passa nos três critérios de recusa do projeto ao mesmo
-     tempo: não tem luz vermelha (é âmbar), não tem flash (é contínua) e
-     não tem marca de terceiro legível — a camiseta mostra três letras
-     soltas e o equipamento aparece de cima, sem logotipo no quadro.
+     Ela substitui a cabine vista de cima (`dj-cabine`), e a troca é de
+     ASSUNTO, não de qualidade: a de cima mostrava um DJ, e um DJ dentro do
+     quadro faz a seção virar um retrato e a casa virar um cartaz de
+     line-up. Um par de mãos num equipamento não é ninguém — é o GESTO de
+     escolher, que é a única coisa que esta seção precisa dizer.
 
-     E não tem ROSTO, que é o que a faz caber aqui. A seção não é sobre um
-     DJ; é sobre a noite ter um autor. Uma cara reconhecível transformaria
-     a ideia num retrato e a casa num cartaz de line-up.
-
-     880px: é tela cheia dentro de uma moldura, e o assunto é o gesto das
-     mãos sobre a mesa. A saturação desce um passo porque as fitas
-     espelhadas devolvem um verde-azulado que não é da casa. */
-  { saida: 'cabine', de: 'nao-usadas/dj-cabine.png', largura: 880, q: 70, luz: 1.02, sat: 0.86, tinta: 0.08 },
+     E ela é âmbar puro sobre preto, o que a faz encostar na sala vazia ao
+     lado sem costura de cor nenhuma. */
+  { saida: 'cabine', de: 'nao-usadas/salao-maos.png', corte: { left: 0, top: 0, width: 1024, height: 1370 }, largura: 820, q: 72, luz: 1.06 },
 
   /* ── A sala antes · 20h ──────────────────────────────────────────────
-     O salão vazio: a mesa redonda de mármore acesa por baixo dos dois
-     pendentes, o quadro na parede, a cabine encostada no fundo. É
-     exatamente o mesmo lugar dos 34 quadros do capítulo 02, visto de outro
-     ângulo e sem uma única pessoa.
+     O salão vazio visto de frente: os dois pendentes acesos, os quadros na
+     parede, o piso devolvendo a luz. É o mesmo lugar dos 34 quadros do
+     capítulo 02, sem uma única pessoa, e é a fotografia mais QUIETA do
+     acervo — dois cones de luz e nada mais.
 
-     Buraco nº 2. Ela divide a tela com a cabine na mesma seção: à
-     esquerda a sala sem ninguém, à direita quem vai enchê-la. A seção
-     inteira é essa frase em duas imagens.
+     Ela substitui a mesa de mármore (`salao-som`), que tinha o mesmo
+     assunto e metade da profundidade: lá a sala terminava numa mesa a dois
+     metros da lente; aqui ela vai até o fundo, e é essa distância vazia que
+     torna a tela seguinte — a mesma sala cheia — um acontecimento.
 
      760px: ela nunca é vista maior que meia tela. */
-  { saida: 'salao-antes', de: 'nao-usadas/salao-som.png', largura: 760, q: 72, luz: 1.04 },
+  { saida: 'salao-antes', de: 'nao-usadas/salao-vazio.png', largura: 760, q: 72, luz: 1.1 },
 
-  /* ── O que fica · 04h ────────────────────────────────────────────────
-     Um anel esquecido em cima de uma bancada de mármore rachado, atravessada
-     por uma réstia de luz. Buraco nº 3, e a fotografia é literalmente um
-     TRAÇO: alguém estava aqui e não está mais.
+  /* ── O primeiro copo · 19h ───────────────────────────────────────────
+     SEÇÃO NOVA, e é a fotografia que uma casa que se chama COCKTAIL BAR
+     estava devendo desde a primeira passada.
 
-     É a única imagem do site em que há evidência de uma pessoa sem haver
-     uma pessoa. Depois de treze telas de gente, o silêncio de um objeto
-     esquecido é o que fecha a noite — e é o contrário exato do fecho, que
-     é a marca guardando um instante. Aqui a casa não guarda nada: só
-     sobrou.
+     Uma mulher de verde, no jardim, com uma taça de âmbar na mão. O
+     conteúdo do copo é exatamente a cor da marca, a luz é a mesma
+     tungstênio quente do resto da noite, e o fundo é a folhagem do jardim
+     do capítulo 01 — a mesma parede, uma hora depois.
 
-     Sem tinta. A luz dela já é a réstia âmbar sobre pedra escura que a
-     paleta inteira do site persegue; tingir seria pintar por cima do
-     acerto. */
-  { saida: 'fica', de: 'nao-usadas/textura-marmore.png', largura: 780, q: 70, luz: 1.06 },
+     Ela é a resposta a duas perguntas de uma vez: onde estão as pessoas
+     entre o entardecer e o salão, e o que é que a casa serve. O recorte
+     fecha na taça e na mão e deixa o rosto fora do quadro: a seção é sobre
+     o copo, não sobre quem o segura.
 
-  /* ── A bruma · dentro do poente ──────────────────────────────────────
-     Fumaça atravessada por um facho âmbar sobre preto. Não é fotografia de
-     lugar nenhum: é MATÉRIA, irmã do pó do fecho.
+     900px: é tela cheia. */
+  { saida: 'copo-jardim', de: 'nao-usadas/detalhe-01.jpg', corte: { left: 200, top: 1400, width: 3600, height: 4000 }, largura: 1100, q: 72, luz: 1.06, sat: 0.92, tinta: 0.1 },
 
-     Ela existe para consertar um defeito, e o defeito é o assunto de
-     src/styles/poente.css: a faixa de luz que faz a emenda 17h → 20h
-     chegava, no pico, a um campo de âmbar CHAPADO — uma tela inteira de
-     uma cor só, sem nada dentro. Um retângulo de #C8892E não lê como luz,
-     lê como erro de renderização, e a duração não muda isso: 225px de nada
-     são tão defeituosos quanto 677.
+  /* O mesmo copo a um palmo, e é a única imagem do site em que a marca
+     aparece como MATÉRIA: âmbar dentro de vidro, na mão de alguém.
 
-     Luz precisa de alguma coisa suspensa nela para ser lida como luz. A
-     bruma é essa coisa: composta em `screen` dentro da faixa, derivando
-     devagar, ela dá ao pico do poente textura, direção e movimento — três
-     coisas que uma cor sólida não tem.
+     Ela era o fundo do fecho e foi mal servida ali — em tela cheia sob a
+     resina, o que se via era um pescoço e uma renda, com a taça escondida
+     atrás do próprio texto. Aqui ela é pequena, emoldurada e nítida, e o
+     recorte fecha na taça: a fotografia passou a mostrar o que ela sempre
+     teve de bom. */
+  { saida: 'copo-mao', de: 'mao-copo.png', corte: { left: 300, top: 460, width: 723, height: 900 }, largura: 620, q: 74, luz: 1.16 },
 
-     640px e qualidade baixa: é um borrão sobre preto composto a 55%.
-     Resolução aqui é peso sem imagem. */
-  { saida: 'bruma', de: 'nao-usadas/textura-fumaca.png', largura: 640, q: 58, luz: 1.0 },
+  /* ── A pista · 22h ───────────────────────────────────────────────────
+     SEÇÃO NOVA. A sala cheia vista DE CIMA — a única fotografia do acervo
+     tirada de um ponto de vista que o site não tem em nenhuma outra tela.
+
+     Ela vem do lote das descartadas por "flash direto" e nunca teve flash:
+     é luz de tungstênio de teto sobre trinta pessoas. O recorte vertical
+     joga fora a mesa de som em primeiro plano e deixa só a multidão.
+
+     880px: é tela cheia atrás de duas molduras. */
+  { saida: 'pista-alto', de: 'nao-usadas/@FOTOBYDAVID -102 (1).jpg', corte: { left: 1500, top: 0, width: 3000, height: 4000 }, largura: 880, q: 70, luz: 1.08, sat: 0.82, tinta: 0.14 },
+
+  /* E a mesma pista à altura dos ombros: cabelo, costas, um copo, ninguém
+     olhando para a lente. É o contrário exato da de cima — lá a sala é um
+     desenho, aqui ela é um lugar onde não se enxerga por cima de ninguém.
+
+     820px: moldura, nunca tela cheia. */
+  { saida: 'pista-perto', de: 'nao-usadas/@FOTOBYDAVID -086 (1).jpg', corte: { left: 350, top: 1750, width: 3050, height: 3600 }, largura: 1000, q: 70, luz: 1.1, sat: 0.8, tinta: 0.16 },
+
+  /* O gesto que fecha a seção: o leque aberto no alto, o braço estendido,
+     a bola de espelhos na quina baixa. É a única fotografia do site em que
+     alguém está claramente DANÇANDO.
+
+     A luz é vermelha de palco e por isso ela leva a segunda maior tinta da
+     página: dessaturar dois passos e compor âmbar por cima traz o carmim
+     para o bronze da casa sem apagar o contraste do braço contra o preto. */
+  { saida: 'leque', de: 'nao-usadas/DSC02234.jpeg', corte: { left: 300, top: 300, width: 3500, height: 4700 }, largura: 820, q: 70, luz: 1.04, sat: 0.6, tinta: 0.3 },
+
+  /* ── O brinde · 00h ──────────────────────────────────────────────────
+     SEÇÃO NOVA, e é a fotografia mais ALEGRE do acervo — duas mulheres
+     rindo com os copos na mão, uma delas com o braço no alto.
+
+     O site tinha um problema de temperatura que nenhuma correção de cor
+     resolve: da 20h em diante tudo era arrasto, silhueta e gente de costas.
+     Uma casa noturna que nunca mostra ninguém FELIZ está vendendo um
+     museu. Esta tela é a meia-noite, e a meia-noite é isto.
+
+     A taça da frente é carmim: sat baixa e tinta média a trazem para o
+     âmbar sem tocar na pele, que já é quente.
+
+     900px: tela cheia. */
+  { saida: 'brinde', de: 'nao-usadas/DSC02281.jpeg', corte: { left: 400, top: 900, width: 3400, height: 4200 }, largura: 1100, q: 72, luz: 1.06, sat: 0.76, tinta: 0.16 },
+
+  /* ── Quem fica · 03h ─────────────────────────────────────────────────
+     SEÇÃO NOVA, e ela fecha o arco que "A escuta" abre na segunda tela.
+
+     Uma mulher de perfil, olhos baixos, o brinco comprido pegando a luz,
+     o cabelo inteiro no quadro. Ela não está posando, não está falando com
+     ninguém e não está olhando para a lente: está OUVINDO. É literalmente
+     a frase da segunda tela — "Quem escuta, fica." — fotografada seis
+     horas depois.
+
+     O recorte tira a faixa esquerda do arquivo, onde havia uma marca de
+     destilado num quadro de parede. O que sobra é ela e o escuro.
+
+     880px: tela cheia, e o assunto é a orelha. */
+  { saida: 'perfil-brinco', de: 'nao-usadas/@FOTOBYDAVID -091.jpg', corte: { left: 1150, top: 600, width: 2450, height: 3700 }, largura: 1000, q: 62, luz: 1.06, sat: 0.88, tinta: 0.08 },
+
+  /* ── O fecho ─────────────────────────────────────────────────────────
+     Uma mulher de vestido de paetê bronze, a bola de espelhos atrás. Ela é
+     a fotografia mais literalmente ÂMBAR do acervo: um corpo inteiro
+     coberto de luz cor de resina.
+
+     Ela substitui `mao-copo` no fecho, e a troca conserta um defeito de
+     composição, não de gosto. O fecho tem uma resina que escurece o miolo
+     do quadro justamente onde o texto cai — e `mao-copo` tinha o assunto
+     (a taça) EXATAMENTE no miolo. A fotografia era coberta pelo próprio
+     dispositivo que a segurava legível. Aqui o assunto é o vestido, que
+     ocupa a tela inteira e sobrevive a qualquer demão.
+
+     ── O recorte corta a cabeça, e é de propósito ──────────────────────
+
+     Publicada com o rosto dentro do quadro, ela não funcionava no fecho, e
+     a causa é geométrica: num telefone (430×930) a proporção da tela é
+     2,16 e a da fotografia é 1,43, então o `cover` escala pela ALTURA e
+     não sobra nenhum corte vertical — o rosto cai sempre no meio da tela,
+     que é exatamente onde moram o losango e o wordmark. O que se via era a
+     marca da casa desenhada em cima da boca de uma pessoa.
+
+     Recortada dos ombros para baixo, a fotografia deixa de ser um retrato
+     e passa a ser o que a seção precisa: um campo de âmbar com textura. A
+     pele no alto do quadro é o que impede a imagem de virar tecido — sabe-
+     se que há alguém ali, e não se olha para o rosto dela em vez de para a
+     marca.
+
+     900px: tela cheia. */
+  { saida: 'dourada', de: 'nao-usadas/DSC02228.jpeg', corte: { left: 250, top: 1980, width: 3500, height: 4020 }, largura: 1100, q: 72, luz: 1.04, sat: 0.8, tinta: 0.16 },
+
+  /* ── O jardim à noite · dentro do capítulo 01 ────────────────────────
+     O mesmo jardim do entardecer com as luzinhas da parreira acesas e uma
+     vela na mesa. Ela existe para consertar a queixa mais direta desta
+     passada: o capítulo 01 era "básico" — vinte e dois quadros de luz
+     caindo e nada mais acontecendo.
+
+     Agora ele tem um segundo ato. Quando o sol termina de cair, o plano
+     dissolve NESTA fotografia: o mesmo lugar, com a luz que a casa acendeu
+     no lugar da que o dia levou. O entardecer deixa de ser uma rampa e
+     passa a ser uma troca de turno — que é a premissa da casa inteira.
+
+     900px: tela cheia. */
+  { saida: 'jardim-noite', de: 'nao-usadas/jardim-noite.png', largura: 900, q: 72, luz: 1.12 },
 
   /* ── A troca · 17h ───────────────────────────────────────────────────
      SEÇÃO NOVA, e a imagem que a paga.
@@ -218,28 +325,61 @@ const FOTOS = [
      âmbar puxa o cinza para o bronze sem tocar no tungstênio, que já é a
      paleta. Correção moderada numa mancha pequena; nada de refazer a foto.
 
-     820px: a seção não é sangria total — a fotografia mora numa fresta
-     horizontal sobre carvão. */
-  { saida: 'casa-dia', de: 'nao-usadas/salao.jpg', largura: 820, q: 72, luz: 1.0, sat: 0.78, tinta: 0.16 },
+     ── E ela cresceu, porque a seção mudou de modo ──────────────────────
 
-  /* ── A passagem do Salão · 23h ───────────────────────────────────────
-     O corte duro para a fotografia de flash SAIU do capítulo 02, e com ele
-     saiu `salao-pista`. Ver a nota no pé deste arquivo.
+     Ela morava numa FRESTA de 22svh de altura com carvão em volta, e a
+     fresta era o defeito: a premissa mais importante da casa — o café
+     fecha, o Âmbar abre — era ilustrada por uma tarja em que não se
+     enxergava o balcão, o portão nem a calçada. Uma tela com 70% de preto
+     vazio não é composição, é um buraco.
 
-     O que entra no lugar são duas imagens, e as duas são a mesma frase
-     dita duas vezes: o quarto está cheio, e a câmera CHEGA PERTO.
+     Agora ela sangra nos quatro lados, como os capítulos. 900px. */
+  { saida: 'casa-dia', de: 'nao-usadas/salao.jpg', largura: 900, q: 74, luz: 1.02, sat: 0.8, tinta: 0.14 },
 
-     Primeiro isto — um corpo dissolvido por um giro de obturador, parede
-     âmbar, os LEDs da cabine embaixo. Não é uma fotografia DE alguém: é
-     uma fotografia de movimento, e é exatamente a mesma matéria dos 34
-     quadros que vêm antes dela, que também são arrasto. Por isso ela pode
-     entrar por dissolução em vez de por corte: o que muda não é o assunto,
-     é a distância.
+  /* ── O arrasto · e ele mudou de endereço ─────────────────────────────
+     Um corpo dissolvido por um giro de obturador, parede âmbar, os LEDs da
+     cabine embaixo. Não é uma fotografia DE alguém: é uma fotografia de
+     movimento.
+
+     Ela era o plano do meio da passagem das 23h — o degrau entre a sala em
+     34 quadros e o rosto em tela cheia — e não funcionava ali. O
+     diagnóstico é de enquadramento: em tela cheia, num telefone, o borrão
+     ocupa a tela inteira sem um único ponto de apoio para o olho, e uma
+     tela inteira sem ponto de apoio não lê como aproximação, lê como
+     imagem desalinhada. Ela chegava, ficava meio segundo, e ia embora sem
+     que ninguém soubesse o que tinha visto.
+
+     Agora ela é o FUNDO da pista das 22h, atrás de duas molduras nítidas.
+     Ali o borrão tem função: ele é a sala em movimento por trás de duas
+     coisas que estão paradas, e o contraste entre os dois registros é o
+     assunto da seção. A mesma imagem, num lugar em que ela tem contra o
+     que ser borrão.
 
      720px e qualidade baixa: o arquivo inteiro é borrão. Resolução aqui é
-     peso sem imagem. A tinta baixa serve para uma coisa só — os LEDs azuis
-     da cabine, que são a única cor fria que o site publica. */
-  { saida: 'salao-passagem', de: 'nao-usadas/dj-blur.png', largura: 720, q: 64, luz: 1.02, sat: 0.9, tinta: 0.12 },
+     peso sem imagem. */
+  { saida: 'arrasto', de: 'nao-usadas/dj-blur.png', largura: 720, q: 64, luz: 1.04, sat: 0.9, tinta: 0.12 },
+
+  /* ── Os três cartões de reserva VOLTARAM ─────────────────────────────
+     Eles saíram duas passadas atrás com um argumento de composição: uma
+     galeria de miniaturas no fim de um site que acabou de mostrar os três
+     lugares em tela cheia é uma repetição, e com foto o Jardim (o mais
+     claro dos três) ganhava a escolha antes de a pessoa ler os nomes.
+
+     O primeiro argumento continua de pé e o segundo tinha um erro de
+     sinal: uma lista de três nomes em tipo branco sobre carvão não é
+     neutra, é ILEGÍVEL como escolha — nada ali diz o que é cada sala, e a
+     pessoa está escolhendo entre três palavras. Uma miniatura de 40mm não
+     é uma galeria; é a legenda do nome.
+
+     O que resolve o desequilíbrio não é tirar a foto de todos: é ela ser
+     PEQUENA, do mesmo tamanho nos três, e escura o bastante para nenhuma
+     ganhar por brilho. 420px, e as três passam pela mesma correção.
+
+     +54 kB, e a seção que pede a reserva deixa de pedir um voto de
+     confiança. */
+  { saida: 'sala-jardim', de: 'nao-usadas/salao.jpg', largura: 420, q: 70, luz: 1.0, sat: 0.8, tinta: 0.14 },
+  { saida: 'sala-salao', de: 'nao-usadas/salao-vazio.png', largura: 420, q: 70, luz: 1.35, sat: 0.9, tinta: 0.1 },
+  { saida: 'sala-reservado', de: 'nao-usadas/reservado.png', largura: 420, q: 70, luz: 1.4, sat: 0.9, tinta: 0.1 },
 
   /* E então o borrão resolve num rosto.
 
@@ -319,11 +459,7 @@ const FOTOS = [
      borda do copo, na fruta e na colher, e deixa o logotipo fora do
      quadro; a tinta alta traz o carmim para o âmbar da casa. É a foto
      mais tratada da página e a única que precisou de recorte no build. */
-  { saida: 'guarnicao', de: 'guarnicao.jpg', corte: { left: 1060, top: 1840, width: 1640, height: 1640 }, largura: 520, q: 74, luz: 1.16, sat: 0.42, tinta: 0.38 },
-
-  /* ── O fecho ─────────────────────────────────────────────────────────
-     Âmbar dentro de um copo na mão: a marca em uma imagem. */
-  { saida: 'mao-copo', de: 'mao-copo.png', largura: 900, q: 74, luz: 1.14 }
+  { saida: 'guarnicao', de: 'guarnicao.jpg', corte: { left: 1060, top: 1840, width: 1640, height: 1640 }, largura: 520, q: 74, luz: 1.16, sat: 0.42, tinta: 0.38 }
 ]
 
 /* O Reservado não tem foto: tem um vídeo de velas. O cartaz sai do PRÓPRIO

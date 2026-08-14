@@ -32,11 +32,47 @@
    ║        um enfeite.                                                   ║
    ║                                                                      ║
    ║ Tudo o mais perdeu a cor: o menu, os três rótulos de capítulo, os    ║
-   ║ três losangos de rótulo (que saíram inteiros do HTML), o relógio, a  ║
-   ║ palavra "escuta", os algarismos e as chamadas das reservas e a       ║
-   ║ última linha do fecho. Onde havia âmbar agora há branco rebaixado    ║
-   ║ ou concreto — e o relógio, que era o maior objeto âmbar da página,   ║
-   ║ virou luz branca a 10%, que é o que ele sempre quis ser.             ║
+   ║ três losangos de rótulo (que saíram inteiros do HTML), o relógio, os ║
+   ║ algarismos das reservas e a última linha do fecho. Onde havia âmbar  ║
+   ║ agora há branco rebaixado ou concreto — e o relógio, que era o maior ║
+   ║ objeto âmbar da página, virou luz branca a 10%.                      ║
+   ║                                                                      ║
+   ║ ── O QUARTO PAPEL, e ele é desta passada ──────────────────────────  ║
+   ║                                                                      ║
+   ║ 4. O TRECHO QUE CARREGA A FRASE. Um por tela, no máximo, e só na     ║
+   ║    linha de display — nunca em rótulo, nunca em corpo de texto,      ║
+   ║    nunca em dois lugares da mesma frase.                             ║
+   ║                                                                      ║
+   ║    Trecho e não palavra: o que recebe a cor é a parte da frase que   ║
+   ║    ela existe para dizer, e às vezes ela tem quatro palavras ("a     ║
+   ║    cor do nome dela"). O que a regra proíbe não é o comprimento, é   ║
+   ║    o acúmulo — duas manchas âmbar na mesma tela, ou uma mancha que   ║
+   ║    não seja o argumento da frase.                                    ║
+   ║                                                                      ║
+   ║ A passada anterior tirou o âmbar de todo texto e o resultado, na     ║
+   ║ tela, foi um site em que catorze frases brancas se sucedem sem que   ║
+   ║ nenhuma pareça mais importante que as outras. A disciplina do acento ║
+   ║ tinha resolvido o problema de o âmbar não acentuar nada criando      ║
+   ║ outro: nada acentua nada.                                            ║
+   ║                                                                      ║
+   ║ A diferença entre este quarto papel e o que foi removido é a REGRA.  ║
+   ║ O que saiu era âmbar por PADRÃO — o menu inteiro, os três rótulos    ║
+   ║ inteiros, cada "Reservar", cada algarismo: uma cor aplicada a uma    ║
+   ║ CATEGORIA de elemento. O que entra é âmbar por ESCOLHA — uma palavra ║
+   ║ escolhida à mão dentro de uma frase, em sete telas de dezesseis:     ║
+   ║                                                                      ║
+   ║    escuta      "Quem escuta, fica."          a tese                  ║
+   ║    troca       "A casa continua aberta."     a premissa              ║
+   ║    o copo      "…a cor do nome dela."        a marca em uma coisa    ║
+   ║    a cabine    "Alguém escolheu…"            o autor da noite        ║
+   ║    a pista     "…deixa de ser nossa."        a virada                ║
+   ║    o brinde    "Está todo mundo aqui."       o pico                  ║
+   ║    quem fica   "Quem escuta, fica."          a prova da tese         ║
+   ║    reservas    "Escolha onde recomeçar."     o pedido                ║
+   ║                                                                      ║
+   ║ São oito palavras em dezesseis telas, e elas contam a história do    ║
+   ║ site sozinhas se lidas em sequência — que é o teste. Uma palavra     ║
+   ║ âmbar que não sobreviveria a esse resumo não deve ser âmbar.         ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
 :root {

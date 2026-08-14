@@ -24,8 +24,12 @@
    ║       · o entardecer do Jardim  a hora do dia                        ║
    ║       · o salão enchendo        quanta gente há na sala              ║
    ║       · o relógio da casa       dentro dos dois acima                ║
-   ║       · o poente                o nível do âmbar sobre o quadro      ║
    ║       · a resina do fecho       o quanto falta de documento          ║
+   ║                                                                      ║
+   ║    Eram cinco. O poente — a faixa âmbar que fazia a emenda 17h→20h — ║
+   ║    saiu do site inteiro nesta passada: ele era a tela dourada, e a   ║
+   ║    causa era geométrica em vez de temporal. Ver o bloco no topo de   ║
+   ║    chapters.js.                                                      ║
    ║                                                                      ║
    ║    Nada mais. Um paralaxe não passa neste teste: "a foto está 8vw    ║
    ║    à direita" não é um estado da cena, é uma consequência de o dedo  ║
@@ -214,9 +218,8 @@ export const entrada = (trigger, montar, { start = 'top 62%', uma = false } = {}
    ║ Esta função tinha um padrão que violava a regra em silêncio:         ║
    ║ `onLeaveBack: tl.pause(0)`. Rebobinar sem tocar é correto no ESTADO  ║
    ║ e errado no MOVIMENTO — a tela pula de um extremo ao outro em um     ║
-   ║ quadro. Era o que fazia a fotografia da 01h reaparecer de estalo em  ║
-   ║ vez de reabrir, e o que fazia o âmbar do poente voltar a encher a    ║
-   ║ tela sem aviso na subida.                                            ║
+   ║ quadro. Era o que fazia a fotografia do retrato reaparecer de        ║
+   ║ estalo em vez de reabrir.                                            ║
    ╚══════════════════════════════════════════════════════════════════════╝
 
    Três voltas, e a seção escolhe:
@@ -364,11 +367,33 @@ const laços = new Set()
 let quadroAmbiente = null
 let congelado = false
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ TODOS OS LAÇOS DO ELEMENTO, E NÃO O PRIMEIRO                         ║
+   ║                                                                      ║
+   ║ Isto era `[...laços].find((l) => l.el === entry.target)` — o         ║
+   ║ PRIMEIRO laço registrado para aquele elemento. E vários elementos do  ║
+   ║ site têm mais de um: o Jardim tem três (o relógio da sequência, o    ║
+   ║ vaivém dos últimos quadros e, desde esta passada, a dissolução para  ║
+   ║ o jardim à noite) e a pista tem dois.                                ║
+   ║                                                                      ║
+   ║ Com `find`, sair da tela desligava um deles e deixava os outros      ║
+   ║ correndo, e as consequências eram duas e silenciosas:                ║
+   ║                                                                      ║
+   ║   · laços fora de cena continuavam desenhando — no telefone, um      ║
+   ║     canvas sendo repintado por uma seção que está seis telas acima;  ║
+   ║   · e a contagem de `vivos` em `correr` nunca chegava a zero, então  ║
+   ║     o rAF do motor ambiente NUNCA dormia. A página inteira mantinha  ║
+   ║     um quadro por frame acordado até a aba ser escondida.            ║
+   ║                                                                      ║
+   ║ Um `for` sobre todos os laços do alvo custa o mesmo e desliga o que  ║
+   ║ tem de ser desligado.                                                ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 const observadorAmbiente = typeof IntersectionObserver !== 'undefined'
   ? new IntersectionObserver((entries) => {
     for (const entry of entries) {
-      const laço = [...laços].find((l) => l.el === entry.target)
-      if (laço) laço.visivel = entry.isIntersecting
+      for (const laço of laços) {
+        if (laço.el === entry.target) laço.visivel = entry.isIntersecting
+      }
     }
     bombear()
   }, { rootMargin: '10% 0px' })
@@ -457,9 +482,18 @@ export const congelarAmbiente = (v) => {
    Some do bundle de produção junto com a condição. */
 if (import.meta.env.DEV) {
   window.__ambiente = (dt = 1 / 60) => {
-    for (const laço of laços) if (laço.visivel && !congelado) laço.passo(dt)
-    return laços.size
+    let n = 0
+    for (const laço of laços) if (laço.visivel && !congelado) { laço.passo(dt); n++ }
+    return n
   }
+
+  /* O estado do motor, para conferir por que um laço não anda: fora de
+     cena, congelado, ou o rAF dormindo. */
+  window.__laços = () => ({
+    congelado,
+    rodando: Boolean(quadroAmbiente),
+    lista: [...laços].map((l) => ({ el: l.el.className.split(' ')[0], visivel: l.visivel }))
+  })
 }
 
 /* ── Utilidades de texto ───────────────────────────────── */

@@ -19,15 +19,43 @@
   overflow: hidden;
 }
 
-/* Âmbar dentro de um copo: a única foto do site em que a marca aparece
-   como matéria, e por isso a única imagem que o fecho precisa. */
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A FOTOGRAFIA TROCOU, E POR UM DEFEITO DE COMPOSIÇÃO                  ║
+   ║                                                                      ║
+   ║ Era `mao-copo`: uma taça de âmbar na mão, em tela cheia. A queixa    ║
+   ║ foi "a última seção está feia, essa foto não está legal", e a foto   ║
+   ║ não tinha nada de errado — o lugar tinha.                            ║
+   ║                                                                      ║
+   ║ Este fecho tem uma RESINA que escurece o miolo do quadro (.44 de     ║
+   ║ carvão no centro, .95 na borda), e ela existe porque é ali que a     ║
+   ║ frase cai. O assunto de `mao-copo` — a taça — ficava exatamente no   ║
+   ║ miolo. A fotografia era coberta pelo dispositivo que a mantinha      ║
+   ║ legível, e o que sobrava visível nas bordas era um pescoço e uma     ║
+   ║ renda: dois fragmentos sem assunto.                                  ║
+   ║                                                                      ║
+   ║ A imagem que entra é o contrário disso. Um vestido de paetê bronze   ║
+   ║ de corpo inteiro: o assunto ocupa a tela dos quatro cantos, então    ║
+   ║ ele sobrevive a qualquer demão — o que a resina escurece continua    ║
+   ║ sendo a mesma coisa que ela deixa aceso.                             ║
+   ║                                                                      ║
+   ║ E ela é a fotografia mais literalmente ÂMBAR do acervo: um corpo     ║
+   ║ inteiro coberto de luz cor de resina, que é o assunto da frase que   ║
+   ║ está por cima dela.                                                  ║
+   ║                                                                      ║
+   ║ A taça não se perdeu: foi para as 19h, emoldurada e nítida, onde é   ║
+   ║ o assunto da seção em vez do fundo dele.                             ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   30% no eixo vertical: o rosto fica no terço alto, acima do losango, e o
+   vestido ocupa o resto. Centrar mostraria o rosto atrás do wordmark — e a
+   marca não pode dividir a linha do olho com uma pessoa. */
 .outro__bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 38% 40%;
+  object-position: 50% 30%;
   z-index: 0;
 }
 

@@ -6,9 +6,10 @@
    nesta passada ela ficou mais estrita em um ponto e mais solta em outro:
 
      CLASSE 1 · preso ao dedo
-       a foto respirando, a demão de céu ganhando corpo, o relógio contando
-       e o poente atravessando a tela. Em todos, a posição da rolagem
-       corresponde literalmente a um estado da cena.
+       a foto respirando, a demão de céu ganhando corpo e o relógio
+       contando. Em todos, a posição da rolagem corresponde literalmente a
+       um estado da cena. (O poente estava nesta lista e saiu do site: ver
+       o bloco abaixo dos imports.)
 
      CLASSE 2 · disparado
        todo o texto, todas as entradas, todas as saídas, a chegada de cada
@@ -40,8 +41,9 @@
 
      01 Jardim    22 quadros de um plano fixo em 9 segundos: o entardecer
                   acontece de verdade — as luzinhas acendem, a vela aparece
-                  na mesa, o céu perde a luz. E no fim o poente ATRAVESSA a
-                  tela (ver .poente, no HTML).
+                  na mesa, o céu perde a luz. E quando o sol acaba, o plano
+                  dissolve no MESMO jardim com a luz da casa acesa — o
+                  segundo ato, que é a resposta ao "efeito básico".
      02 Salão     34 quadros de um plano fixo em 5,5 segundos. A sala começa
                   vazia e ENCHE, e no fim respira em vaivém. A passagem que
                   vinha depois virou seção própria (.passagem).
@@ -62,10 +64,19 @@ import { criarSequencia } from './frames.js'
 const NATURAL = { opacity: 1, y: 0, x: 0, scaleX: 1 }
 const OVERLAP = 0.3 // fatia da janela compartilhada com a vizinha
 
-/* Onde a saída de cada capítulo dispara, em fração do curso pinado. Não é
-   um número só porque as três saídas têm durações diferentes de gesto: o
-   poente do Jardim ocupa o último terço, o Salão se parte em um segundo. */
-const SAIDA_EM = { engolir: 0.74, parte: 0.9, fecha: 0.84 }
+/* Onde a saída de cada capítulo dispara, em fração do curso de permanência.
+   Não é um número só porque as três saídas têm durações diferentes de
+   gesto: o Jardim escurece devagar (uma luz que acaba), o Salão se parte em
+   um segundo.
+
+   0,74 → 0,90 no Jardim, e o número foi medido em cima do defeito que ele
+   evita. A saída antiga (`engolir`) disparava a 74% porque o poente
+   precisava de um quarto de curso para atravessar a tela. A nova só apaga —
+   e apagando a 74% ela cobria justamente o trecho em que o SEGUNDO ATO
+   acontece: medido na tela, as luzinhas da parreira chegavam a 77% de
+   opacidade e a seção escurecia por cima delas. O capítulo ganhou um
+   segundo ato e a saída o comia. */
+const SAIDA_EM = { apaga: 0.9, parte: 0.9, fecha: 0.84 }
 
 /* ── A declaração de cada sequência ──────────────────────────────────────
 
@@ -101,7 +112,15 @@ const SEQUENCIAS = {
 
        Com o piso de rolagem, quem não tiver nove segundos empurra. */
     dur: 9,
-    janela: [0.02, 0.86],
+    /* [0.02, 0.86] → [0.02, 0.72]. A janela é o trecho do curso em que a
+       rolagem EMPURRA a sequência; fora dela o piso satura. Encurtá-la faz
+       o sol acabar mais cedo para quem rola depressa, e o que sobra do
+       curso é o segundo ato: o jardim já aceso, com a vela na mesa.
+
+       Para quem NÃO rola depressa nada disso muda — o relógio de 9s
+       continua mandando, e a janela só existe para o caso em que o dedo é
+       mais rápido que a luz. */
+    janela: [0.02, 0.72],
     /* O jardim também respira no fim: os últimos quadros são a noite já
        posta, e o vaivém entre eles é o piscar das luzinhas na parreira. */
     laco: [19, 21],
@@ -155,24 +174,39 @@ const SEQUENCIAS = {
   }
 }
 
-/* `y: 0` junto com o `yPercent`, e sem ele o poente não sobe.
-
-   O CSS declara `transform: translate3d(0, 31.25%, 0)` para que o elemento
-   esteja fora de cena antes de o JavaScript existir. O GSAP, ao tocar num
-   elemento pela primeira vez, LÊ o transform computado — e o navegador
-   devolve percentagem de translate já resolvida em pixels, num matrix().
-   O GSAP interpreta esse valor como `y` em pixels e o mantém.
-
-   O resultado é que `gsap.set(el, { yPercent: 45.45 })` compõe y(900px) +
-   yPercent(45.45%), e o `.to()` seguinte anima só a segunda metade: o
-   elemento percorre menos do que deveria e a faixa sólida nunca chega a
-   cobrir a tela.
-
-   Zerar `y` explicitamente descarta o valor lido e deixa a posição inteira
-   nas mãos da percentagem, que é a única unidade que sobrevive a uma troca
-   de altura de tela. */
-const poente = document.querySelector('.poente')
-if (poente && !reducedMotion) gsap.set(poente, { y: 0, yPercent: 45.45, opacity: 1 })
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O POENTE SAIU DAQUI, E COM ELE A TELA DOURADA                        ║
+   ║                                                                      ║
+   ║ Este arquivo tinha um bloco de quarenta linhas que montava a         ║
+   ║ transição 17h → 20h: uma faixa âmbar de 220svh, presa a um gatilho   ║
+   ║ com as pontas em duas seções diferentes, atravessando a tela de      ║
+   ║ baixo para cima.                                                     ║
+   ║                                                                      ║
+   ║ Ela produzia uma tela inteira de âmbar chapado, e duas passadas      ║
+   ║ tentaram consertá-la — uma atacando a DURAÇÃO (677px de âmbar        ║
+   ║ viraram 225), outra atacando o PLATÔ do gradiente (o pico caiu de    ║
+   ║ 1,00 para 0,65 e ganhou uma camada de bruma). As duas mediram        ║
+   ║ certo, as duas aplicaram, e o defeito continuou lá: medido outra vez ║
+   ║ a 414×896, na rolagem 3175 o quadro inteiro é âmbar com uma emenda   ║
+   ║ horizontal dura no meio, e ele ainda está assim em 3600.             ║
+   ║                                                                      ║
+   ║ A causa não é nem a duração nem o platô: é a GEOMETRIA. Uma faixa    ║
+   ║ cujo trecho acima de 0,7 de opacidade mede 33 pontos percentuais da  ║
+   ║ própria altura, atravessando uma tela que ocupa 45 pontos dessa      ║
+   ║ mesma altura, cobre o quadro inteiro com valores entre 0,7 e 0,96    ║
+   ║ durante uma tela de rolagem. Nenhum ajuste de parada de gradiente    ║
+   ║ conserta isso — enquanto o objeto for uma faixa opaca mais alta que  ║
+   ║ a tela passando por cima dela, haverá um momento em que ele É a      ║
+   ║ tela.                                                                ║
+   ║                                                                      ║
+   ║ Removido inteiro: o elemento, a folha, a bruma, a fotografia dela e  ║
+   ║ este bloco. E ele não deixou buraco, porque a emenda que existia     ║
+   ║ para cobrir deixou de existir: depois do Jardim não vem outra        ║
+   ║ fotografia de sangria total, vem a cabine — carvão liso com dois     ║
+   ║ quadros emoldurados. Não há costura para esconder.                   ║
+   ║                                                                      ║
+   ║ O Jardim passou a sair como o assunto dele pede (`apaga`, abaixo).   ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 
 for (const chapter of document.querySelectorAll('.chapter')) {
   const stage = chapter.querySelector('.chapter__stage')
@@ -181,8 +215,15 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   /* As camadas da montagem são os PLANOS quando eles existem, e as fotos
      quando não. O plano é um embrulho cuja única função é andar: a foto
      dentro dele guarda a própria escala e âncora no CSS, e as duas coisas
-     precisam de transform ao mesmo tempo. */
-  const planos = [...chapter.querySelectorAll('.chapter__plano')]
+     precisam de transform ao mesmo tempo.
+
+     `--noite` fica de fora da lista de propósito. Ela é um plano no
+     desenho — está empilhada no mesmo lugar, no mesmo embrulho — e NÃO é
+     uma camada de montagem: quem a acende não é o curso da seção, é o
+     progresso da sequência de quadros (ver o bloco do segundo ato,
+     abaixo). Deixá-la entrar aqui poria duas timelines escrevendo na mesma
+     opacidade, e a que perde é sempre a que não está presa ao scrub. */
+  const planos = [...chapter.querySelectorAll('.chapter__plano:not(.chapter__plano--noite)')]
   const camadas = planos.length ? planos : imgs
   const canvas = chapter.querySelector('.chapter__canvas')
   const video = chapter.querySelector('.chapter__video')
@@ -205,6 +246,12 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     // estado final legível: o cartaz parado do ambiente e o texto inteiro
     gsap.set([dash, labelText, title, text, ...chars], NATURAL)
     gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
+    /* O segundo ato do Jardim fica de fora do caminho sem movimento. Ele é
+       o resultado de uma sequência que não corre aqui, e a fotografia que
+       representa o capítulo parado é a da hora dourada — que é o cartaz da
+       sequência e o nome da seção (Sunset Session). */
+    const noiteParada = chapter.querySelector('.chapter__plano--noite')
+    if (noiteParada) gsap.set(noiteParada, { opacity: 0 })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
     if (video) video.remove()
@@ -259,8 +306,10 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     /* A janela do scrub não é o curso inteiro, e os dois capítulos usam a
        folga de maneiras diferentes:
 
-         Jardim  0 → 1. O poente ocupa o capítulo todo; não há nada antes
-                 nem depois dele.
+         Jardim  0,02 → 0,86. Uma batida de sol alto na entrada, e uma
+                 folga no fim que é onde o segundo ato acontece: a
+                 sequência termina e as luzinhas da parreira acendem por
+                 cima dela.
          Salão   folga na frente (uma batida de sala vazia, que é o que faz
                  a primeira pessoa a entrar ser um acontecimento em vez do
                  estado inicial) e folga atrás — e a de trás não é espera:
@@ -363,6 +412,62 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        continue viva em vez de virar um cartaz — e é o que sobrou da
        "soltura" da passada anterior, que agora é o estado normal da seção
        inteira em vez de um acontecimento no meio dela. */
+    /* ╔════════════════════════════════════════════════════════════════╗
+       ║ O SEGUNDO ATO DO JARDIM — e é a resposta ao "efeito básico"     ║
+       ║                                                                ║
+       ║ A queixa: o capítulo 01 era uma rampa. Vinte e dois quadros de  ║
+       ║ luz caindo, nove segundos, e no fim a mesma fotografia um pouco ║
+       ║ mais escura. Uma rampa não é um acontecimento; é um valor       ║
+       ║ mudando devagar.                                               ║
+       ║                                                                ║
+       ║ A proposta que veio junto — "as pessoas chegando depressa, como ║
+       ║ no salão" — foi recusada, e a razão está no HTML: o capítulo 02 ║
+       ║ JÁ É isso, e dois capítulos em que a sala enche são o mesmo     ║
+       ║ capítulo duas vezes. A rima entre 01 e 02 (mesma câmera         ║
+       ║ travada, mesmo mecanismo, assuntos opostos) é o que dá forma à  ║
+       ║ noite.                                                         ║
+       ║                                                                ║
+       ║ O que faltava era um SEGUNDO ATO, e ele é a premissa da casa    ║
+       ║ dita em imagem: quando o sol termina de cair, o plano dissolve  ║
+       ║ numa fotografia do mesmo jardim com as luzinhas da parreira     ║
+       ║ ACESAS e uma vela na mesa. A luz que o dia levou é substituída  ║
+       ║ pela que a casa acendeu. Troca de turno, não fim de tarde.      ║
+       ║                                                                ║
+       ║ ── E a dissolução segue a SEQUÊNCIA, não a rolagem ──────────── ║
+       ║                                                                ║
+       ║ Este é o ponto mecânico que faz a coisa funcionar. A sequência  ║
+       ║ é classe 3: ela corre num relógio de 9 segundos com piso de     ║
+       ║ rolagem, então o instante em que o sol acaba NÃO corresponde a  ║
+       ║ nenhuma posição fixa de rolagem — depende de quanto tempo o     ║
+       ║ usuário passou na seção e de quão depressa ele empurrou.        ║
+       ║                                                                ║
+       ║ Um crossfade preso ao scrub acenderia as luzinhas com o sol     ║
+       ║ ainda alto para quem lê devagar, e com a noite já posta há      ║
+       ║ segundos para quem lê depressa. Amarrado ao progresso da        ║
+       ║ própria sequência, ele acontece sempre no mesmo QUADRO — que é  ║
+       ║ o único lugar em que ele significa alguma coisa.                ║
+       ║                                                                ║
+       ║ A janela é 0,72 → 0,99 do curso da sequência: começa quando os  ║
+       ║ últimos quadros já estão escuros e termina no último. Um `set`  ║
+       ║ por quadro numa opacidade, e só enquanto a seção está em cena.  ║
+       ╚════════════════════════════════════════════════════════════════╝ */
+    const noite = chapter.querySelector('.chapter__plano--noite')
+    if (noite) {
+      gsap.set(noite, { opacity: 0 })
+
+      const DE = 0.64
+      const ATE = 0.96
+      let ultimo = -1
+
+      laco(chapter, () => {
+        const p = total ? quadro.v / total : 0
+        const v = Math.min(1, Math.max(0, (p - DE) / (ATE - DE)))
+        if (Math.abs(v - ultimo) < 0.004) return
+        ultimo = v
+        gsap.set(noite, { opacity: v })
+      })
+    }
+
     if (seq.laco) {
       const [de, para] = seq.laco
       const fps = seq.fps ?? 6
@@ -446,108 +551,23 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      fotografia está 40% acesa" não responde à pergunta que separa a classe
      1 da 2 (motion.js) — só descreve o quanto o dedo andou. E presa ao
      scrub ela parava meio acesa quando o usuário parasse de rolar, o que
-     não lê como chegada em curso, lê como carregamento travado. */
+     não lê como chegada em curso, lê como carregamento travado.
+
+     ── E ela acende mais cedo: `top 64%` virou `top 78%` ────────────────
+
+     Metade de uma queixa desta passada: "embaixo da cabine tenho que rolar
+     quatro vezes para chegar no Salão, e fica um espaço preto vazio
+     grande". A outra metade era o poente, que cobria a cabine inteira de
+     âmbar e foi removido; esta é o resto.
+
+     A 64%, o capítulo passava 36% de tela em preto absoluto antes de a
+     fotografia começar a acender — somados aos 30svh de carvão que a seção
+     anterior deixava no pé, davam mais de uma tela seguida sem nada.
+     A 78% a batida de preto continua existindo (ela é o que faz a chegada
+     ser um corte), e ela dura 22% de tela em vez de 36. */
   autonomo(chapter, (t) => {
     t.fromTo(media, { opacity: 0 }, { opacity: 1, duration: 1.1, ease: 'power2.out' })
-  }, { start: 'top 64%' })
-
-  /* ══════════════════════════════════════════════════════════════════════
-     O POENTE — e é aqui que a tela dourada é consertada de verdade.
-
-     O diagnóstico completo está no HTML, junto do elemento; o desenho, em
-     poente.css. O resumo:
-
-       A passada anterior mediu 677px de âmbar chapado, atribuiu o defeito
-       à DURAÇÃO, reconstruiu a transição num gatilho contínuo e derrubou o
-       número para 225px. Medido de novo neste navegador, a 414×896: o
-       conserto aplicou, o número está certo, e o defeito continua lá.
-
-       Porque a duração nunca foi a causa. A causa é que a faixa tinha um
-       PLATÔ — 43% da altura dela era #C8892E a 100% — e sempre que esse
-       platô cobria a tela, o quadro inteiro virava um valor só. Uma cor
-       sólida de borda a borda não lê como luz; lê como erro de
-       renderização. E isso é igualmente verdade em 225px e em 677.
-
-     Agora não há platô: o perfil sobe até um núcleo quente e volta, sem um
-     trecho constante, e o núcleo é mais estreito que a tela. O quadro tem
-     SEMPRE um gradiente vertical dentro dele — que é, além do mais, a
-     forma que um poente tem.
-
-     ── O que este bloco faz ──────────────────────────────────────────────
-
-     Um gatilho só, com as duas pontas em seções diferentes: `trigger` no
-     Jardim e `endTrigger` na seção que chega. É a única maneira honesta de
-     cobrir uma emenda — o objeto que a cobre não pode pertencer a nenhum
-     dos dois lados dela.
-
-     ── Três tempos, e o do meio é a travessia do núcleo ─────────────────
-
-       0    → 0.42   INUNDA     yPercent +45,45 → −5    power2.in
-       0.42 → 0.66   ATRAVESSA  yPercent −5     → −35   none
-       0.66 → 1      DRENA      yPercent −35    → −100  power2.out
-
-     Curva `none` no meio porque ali o que se quer é previsibilidade: a
-     duração do momento mais quente tem de ser proporcional ao dedo, não à
-     curva. Nas pontas as curvas ficam, e elas dão a direção — um nível que
-     sobe acelera, uma luz que vai embora desacelera.
-
-     ── E a fotografia do Jardim NÃO apaga mais ──────────────────────────
-
-     Ela apagava por baixo da faixa sólida, para que o palco não passasse
-     aceso por trás da seção seguinte. Duas coisas mudaram e as duas tiram
-     a razão de ser disso: o pico deixou de ser opaco (então apagar a foto
-     por baixo dele seria visível, e o que se veria é a coisa se apagando),
-     e o que vem depois do poente é a cabine — carvão liso, sem costura
-     para esconder.
-
-     O jardim fica, e no pico ele é o que se vê ATRAVÉS da luz: silhueta
-     contra contraluz, que é o que um fim de tarde é.
-     ══════════════════════════════════════════════════════════════════════ */
-  if (tipoSaida === 'engolir' && poente) {
-    const chega = chapter.nextElementSibling
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: chapter,
-        start: () => `top top-=${Math.round(window.innerHeight * (curso / 100) * 0.5)}`,
-        endTrigger: chega ?? chapter,
-        end: chega ? 'top 25%' : 'bottom top',
-        /* A timeline de permanência corre com `scrub: 1` — um segundo de
-           inércia, que é o que dá ao entardecer a maciez de uma luz
-           mudando. Aqui a inércia é um terço disso: o suficiente para o
-           movimento não ser digital, curto o bastante para a luz nunca
-           chegar atrasada ao próprio compromisso. */
-        scrub: 0.35,
-        invalidateOnRefresh: true
-      }
-    })
-      .to(poente, { yPercent: -5, duration: 0.42, ease: 'power2.in' }, 0)
-      .to(poente, { yPercent: -35, duration: 0.24, ease: 'none' }, 0.42)
-      .to(poente, { yPercent: -100, duration: 0.34, ease: 'power2.out' }, 0.66)
-
-    /* ── A bruma deriva ──────────────────────────────────
-
-       Classe 3. Ela é a resposta à pergunta que o defeito fazia: o que há
-       DENTRO desta luz? Uma luz sem nada suspenso nela é uma cor.
-
-       Duas senoides de períodos primos entre si, amplitude pequena — não é
-       paralaxe, é uma coisa que não está parada. E o laço está preso ao
-       CAPÍTULO, não ao poente: o poente é fixo e estaria sempre "em cena"
-       para o observador, o que faria a bruma acordar o telefone durante a
-       visita inteira. */
-    const bruma = poente.querySelector('.poente__bruma')
-    if (bruma) {
-      let t = 0
-      laco(chapter, (dt) => {
-        t += dt
-        gsap.set(bruma, {
-          xPercent: Math.sin(t * 0.13) * 3.6,
-          yPercent: Math.cos(t * 0.091) * 2.8,
-          scale: 1.18 + Math.sin(t * 0.067) * 0.04
-        })
-      })
-    }
-  }
+  }, { start: 'top 78%' })
 
   /* ── O texto: gatilho, não dedo ────────────────────── */
 
@@ -570,12 +590,10 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      seção. Cada um sai como o seu assunto pede, e o data-saida do HTML é
      quem escolhe:
 
-       engolir — o Jardim não se apaga nem sai: ele é COMIDO. O texto se
-                 recolhe na direção da luz que sobe, e o resto do gesto é
-                 do poente, que é um objeto da página e não da seção.
+       apaga   — o Jardim acaba porque a LUZ acaba. A tela escurece até o
+                 carvão e o texto sobe junto. Ver abaixo.
        parte   — o Salão se parte ao meio, título para um lado e texto para
-                 o outro, como a pista abrindo. E a fotografia FICA ACESA
-                 (ver abaixo).
+                 o outro, como a pista abrindo. E a fotografia FICA ACESA.
        fecha   — o Reservado contrai para o centro e escurece: a noite se
                  fecha em si mesma, que é literalmente o que o texto diz.
 
@@ -586,26 +604,41 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
   saida.to(meta, { opacity: 0, duration: 0.6, ease: 'none' }, 0)
 
-  if (tipoSaida === 'engolir') {
-    /* O texto sobe e some — na direção contrária à da luz que vem subindo,
-       de modo que os dois se cruzam. Antes ele apenas subia e a "luz" era
-       um gradiente escalando de 1 para 1,4, que não produz movimento
-       visível nenhum. */
-    /* A demão de céu vai a ZERO, e não a 0,7.
-
-       Ela é um campo âmbar-bronze de tela cheia, e ela mora no PALCO — não
-       na fotografia. Apagar a fotografia por baixo da faixa sólida (o
-       poente faz isso) não apagava a demão: o que sobrava acima do Salão,
-       quando a luz ia embora, era um campo marrom quente com uma aresta
-       horizontal dura embaixo, onde o palco do capítulo seguinte começava.
-
-       Era a costura que o poente existe para esconder, reaparecendo do
-       lado errado do gesto. A 0 não sobra nada: o palco do Jardim vira
-       carvão liso, e o Salão sobe do preto como todo capítulo deve subir. */
+  if (tipoSaida === 'apaga') {
+    /* ╔════════════════════════════════════════════════════════════════╗
+       ║ A SAÍDA QUE SUBSTITUIU O POENTE                                ║
+       ║                                                                ║
+       ║ Era `engolir`: o texto se recolhia e uma faixa âmbar de 220svh ║
+       ║ atravessava a tela por cima de tudo. Essa faixa era a tela      ║
+       ║ dourada, e ela foi removida do site (ver o cabeçalho deste      ║
+       ║ arquivo).                                                      ║
+       ║                                                                ║
+       ║ O que entrou no lugar não é uma transição: é o fim do assunto.  ║
+       ║ Este capítulo é o sol se pondo, e no último quadro da sequência ║
+       ║ a fotografia já é uma noite com luzinhas acesas. A saída        ║
+       ║ simplesmente continua o que a cena está fazendo — a luz acaba,  ║
+       ║ a tela escurece até o carvão, e o carvão é o que a seção        ║
+       ║ seguinte usa para subir do preto.                               ║
+       ║                                                                ║
+       ║ Uma transição que é a continuação da cena não precisa de objeto ║
+       ║ nenhum por cima dela. Era essa a lição que três passadas de     ║
+       ║ conserto de gradiente não tinham aprendido.                     ║
+       ║                                                                ║
+       ║ `fromTo` com `immediateRender: false`, pelo mesmo motivo do     ║
+       ║ Reservado: a batida de preto (a chegada) é um `fromTo` de       ║
+       ║ render imediato que põe o media em opacidade 0 na montagem da   ║
+       ║ página, e um `.to()` posterior sobre a mesma propriedade        ║
+       ║ gravaria esse 0 como valor de partida — a seção inteira nasceria ║
+       ║ apagada.                                                        ║
+       ╚════════════════════════════════════════════════════════════════╝ */
     saida.to([title, text], { y: -80, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.06 }, 0)
-      .to(dusk, { opacity: 0, duration: 0.9, ease: 'none' }, 0)
+      .to(dusk, { opacity: 0, duration: 1.1, ease: 'none' }, 0)
+      .fromTo(media,
+        { opacity: 1 },
+        { opacity: 0, duration: 1.2, ease: 'power2.in', immediateRender: false }, 0.1)
   } else if (tipoSaida === 'fecha') {
-    /* `fromTo` com immediateRender: false, pelo mesmo motivo do poente.
+    /* `fromTo` com immediateRender: false, pelo mesmo motivo da saída do
+       Jardim, logo acima.
 
        A batida de preto (a chegada) é um `fromTo` de render imediato que
        põe a fotografia em opacidade 0 no momento em que a página é montada.
@@ -640,13 +673,14 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
        Agora a fotografia FICA ACESA e SAI. Ela desliza para cima mais
        depressa do que a rolagem a levaria — a foto abandona o quadro — e a
-       pausa aparece por baixo dela em vez de depois dela. É deslocamento,
-       não dissolução: nenhuma outra emenda do site usa este dispositivo, e
-       a de cima (o poente) usa o oposto exato dele.
+       seção seguinte aparece por baixo dela em vez de depois dela. É
+       deslocamento, não dissolução, e nenhuma outra emenda do site usa
+       este dispositivo (a de cima, o Jardim, usa o oposto exato: ela
+       apaga).
 
-       E o que sai por cima agora é a SALA CHEIA, correndo sozinha: o que a
-       seção seguinte (.passagem) descobre por baixo dela é a mesma sala, um
-       metro mais perto. A emenda deixa de ser uma troca de tema. */
+       E o que sai por cima é a SALA CHEIA, correndo sozinha: o que a pista
+       das 22h descobre por baixo dela é a mesma sala, parada e nítida. A
+       emenda deixa de ser uma troca de tema. */
     /* O empurrão vai no PLANO, não no .chapter__media — e a distinção não é
        de gosto, é de propriedade disputada.
 

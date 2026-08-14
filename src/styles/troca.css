@@ -1,53 +1,54 @@
-/* A troca · 17h — seção nova.
+/* A troca · 17h — a premissa da casa, e a tela que mais mudou de FORMA
+   nesta passada.
 
-   O porquê está no HTML. Aqui está a composição, e ela tem dois trabalhos
-   que nenhuma outra tela da página faz.
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A FRESTA SAIU                                                        ║
+   ║                                                                      ║
+   ║ A fotografia morava numa tarja horizontal de 22svh de altura, com    ║
+   ║ carvão em volta e o texto ao lado dela. A defesa era de composição e ║
+   ║ estava bem escrita: o site tinha UM modo — fotografia sangrando nos  ║
+   ║ quatro lados com texto por cima —, e nove telas seguidas dele fazem  ║
+   ║ a sangria total virar papel de parede. O modo que faltava era o      ║
+   ║ oposto: um assunto isolado no vazio.                                 ║
+   ║                                                                      ║
+   ║ A queixa do usuário foi: "a imagem do bar não tem nada a ver, não dá ║
+   ║ pra ver direito, e a seção tem espaços muito pretos, fica vazia".    ║
+   ║ Medido na tela a 414×896, as três coisas eram verdade ao mesmo       ║
+   ║ tempo, e a terceira explica as duas primeiras:                       ║
+   ║                                                                      ║
+   ║   0    → 30svh   preto                                               ║
+   ║   30   → 52svh   a fotografia, numa tarja de 197px de altura         ║
+   ║   52   → 62svh   preto                                               ║
+   ║   62   → 78svh   a frase                                             ║
+   ║   78   → 100svh  preto                                               ║
+   ║                                                                      ║
+   ║ Sessenta e oito por cento da tela em carvão liso, e a premissa mais  ║
+   ║ importante do site — o café fecha às 17h e o Âmbar abre — ilustrada  ║
+   ║ por uma tarja em que não cabia o balcão, o portão nem a calçada. Um  ║
+   ║ recorte de 197px de uma fotografia de 1200 é um detalhe; e o assunto ║
+   ║ desta foto não é um detalhe, é um LUGAR INTEIRO no minuto em que ele ║
+   ║ troca de dono.                                                       ║
+   ║                                                                      ║
+   ║ Vazio é composição quando o que sobra tem o que mostrar. Aqui não    ║
+   ║ sobrava.                                                             ║
+   ║                                                                      ║
+   ║ O modo isolado-no-vazio não morreu com esta tela: ele vive na cabine ║
+   ║ (um díptico com carvão em volta) e na pausa das 01h (a única         ║
+   ║ composição com bordas do site). Os dois têm o que emoldurar — um par ║
+   ║ e um detalhe. Esta tinha uma paisagem.                               ║
+   ╚══════════════════════════════════════════════════════════════════════╝
 
-   ── 1 · O outro modo de layout ──────────────────────────────────────────
+   ── O que distingue esta tela dos capítulos, agora que ela sangra ───────
 
-   O site tinha UM modo: fotografia sangrando nos quatro lados com texto por
-   cima. Nove telas seguidas dele, e o efeito de sangria total desaparece
-   quando ela é o padrão — o que era imersão vira papel de parede.
+   Não é mais a moldura. É o TEMPO, e é uma diferença que nenhuma outra
+   tela da página pode reivindicar: esta é a única fotografia do site
+   tirada com o sol ainda no céu, e a única em que se vê a RUA. O portão
+   está aberto, há um carro passando lá fora, e o lado de fora é de onde a
+   noite ainda vem.
 
-   O modo que faltava é o oposto: um assunto ISOLADO NO VAZIO. A fotografia
-   não toma a tela, ela ocupa uma fresta dentro dela, com carvão em volta, e
-   o carvão é metade da composição. A alternância entre os dois modos é o
-   que devolve peso aos dois — a sangria total do Jardim, logo abaixo, é
-   mais violenta por vir depois desta.
-
-   (A pausa das 00h também tem moldura, e as duas não se confundem: lá são
-   DOIS quadros em retrato sangrando por lados opostos; aqui é UM, deitado,
-   e o eixo é horizontal do começo ao fim.)
-
-   ── 2 · A composição flanqueada ─────────────────────────────────────────
-
-   Em toda outra tela da página o texto está POR CIMA da imagem. Aqui os
-   três elementos se encaram:
-
-       ─── A TROCA                        rótulo, na goteira
-
-       café   08h—17h  ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   os dados ao LADO do assunto,
-       âmbar  17h—03h  ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   e o assunto sangrando pela
-                       ┃ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓   direita, para a rua
-
-                          O café fecha.    a frase, embaixo e à direita
-                          A casa continua
-                          aberta.
-
-   O dado à esquerda, a fotografia à direita, a frase debaixo das duas. Nada
-   se sobrepõe a nada, e é a única tela do site em que isso acontece.
-
-   E a relação não é só de posição: o bloco de dados é a razão de a
-   fotografia estar ali. "café 08h—17h / âmbar 17h—03h" é a premissa inteira
-   da casa em quatro números, e a fotografia é o minuto entre as duas
-   linhas.
-
-   ── A sangria para a direita ────────────────────────────────────────────
-
-   A fresta não termina na tela: ela sai por ela. É a única direção que
-   significa alguma coisa aqui — o portão aberto do outro lado do quadro dá
-   para a rua, e a rua é de onde a noite ainda vem. Uma fresta centrada
-   seria um quadro pendurado; esta é uma abertura. */
+   E a composição também é a única flanqueada: o rótulo à esquerda, os
+   dados de horário à esquerda embaixo dele, a frase à direita e em baixo.
+   Nos capítulos o texto ocupa uma coluna só. */
 
 .troca {
   position: relative;
@@ -58,7 +59,50 @@
   position: relative;
   height: 100svh;
   overflow: hidden;
-  padding: 0 var(--gutter-r) 0 var(--gutter-l);
+}
+
+/* ── A fotografia ──────────────────────────────────────── */
+
+.troca__quadro {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  z-index: 0;
+  /* fechada, e ela abre de baixo para cima (troca.js): o balcão tem uma
+     fita de luz na base, e a casa acende de baixo */
+  clip-path: inset(100% 0% 0% 0%);
+}
+
+.troca__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* O balcão e os dois bancos estão no miolo do arquivo e o portão para a
+     rua na quina esquerda. Numa tela estreita entra cerca de 70% da
+     largura: a 44% o portão continua no quadro e o balcão fica centrado. */
+  object-position: 44% 52%;
+}
+
+/* A demão. O passe de luminância da casa, e aqui ele tem DOIS núcleos —
+   um no alto à esquerda, onde mora o rótulo, e outro no pé à direita, onde
+   cai a frase —, porque esta é a única tela do site com texto nos dois
+   cantos opostos.
+
+   `--ceu-dia` por baixo: é a mesma base dos capítulos com sol, e ela é o
+   que costura o pé desta tela ao carvão da seguinte. */
+.troca__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 86% 30% at 12% 12%, rgba(13, 13, 13, .82) 0%, rgba(13, 13, 13, .4) 52%, transparent 82%),
+    radial-gradient(ellipse 104% 42% at 78% 92%, rgba(13, 13, 13, .9) 0%, rgba(13, 13, 13, .56) 44%, rgba(13, 13, 13, .2) 70%, transparent 88%),
+    var(--ceu-dia);
 }
 
 /* ── O rótulo ──────────────────────────────────────────── */
@@ -68,6 +112,7 @@
    pertencer à mesma série que "01 — JARDIM" mesmo não sendo um capítulo. */
 .troca__rotulo {
   position: absolute;
+  z-index: 3;
   top: 14svh;
   left: var(--gutter-l);
   display: inline-flex;
@@ -76,7 +121,7 @@
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
-  color: rgba(255, 255, 255, .68);
+  color: rgba(255, 255, 255, .78);
 }
 
 .troca__dash {
@@ -89,50 +134,18 @@
   transform-origin: left center;
 }
 
-/* ── A fresta ──────────────────────────────────────────── */
-
-/* A altura é svh e não uma proporção da imagem: a fresta é uma janela de
-   composição, não um enquadramento da fotografia. O que decide o que se vê
-   dentro dela é o object-position, abaixo. */
-.troca__quadro {
-  position: absolute;
-  top: 30svh;
-  /* A fresta é DEITADA, e num telefone isso precisa ser medido contra o
-     que fica DENTRO da tela, não contra a caixa. Com `left: 43%` e a
-     sangria de 14vw, os 236px visíveis contra 233 de altura davam um
-     quadrado — a moldura lia como uma fotografia pendurada em vez de uma
-     abertura. */
-  left: 36%;
-  right: -20vw;
-  height: 22svh;
-  margin: 0;
-  overflow: hidden;
-  /* fechada, e ela abre de baixo para cima (troca.js) */
-  clip-path: inset(100% 0% 0% 0%);
-}
-
-.troca__quadro img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* O balcão e os dois bancos estão no miolo baixo do arquivo; o portão
-     para a rua, na quina esquerda. Numa fresta deitada entra uma faixa
-     estreita da altura: a 58% ela cai exatamente na linha do balcão aceso,
-     com os bancos inteiros e a calçada visível na ponta. */
-  object-position: 46% 58%;
-}
-
 /* ── Os dados ──────────────────────────────────────────── */
 
-/* Alinhados pelo TOPO da fresta, não centrados nela: é o alinhamento que
-   faz duas coisas de tamanhos diferentes lerem como uma linha só. */
+/* Logo abaixo do rótulo, na mesma coluna: os dois são a mesma voz — o que
+   a casa DECLARA — e a fotografia é o minuto entre as duas linhas do
+   horário. "café 08h—17h / âmbar 17h—03h" é a premissa inteira em quatro
+   números. */
 .troca__dados {
   position: absolute;
-  top: 30svh;
+  z-index: 3;
+  top: 21svh;
   left: var(--gutter-l);
-  width: 34%;
+  width: min(58%, 15rem);
   margin: 0;
   opacity: 0;
 }
@@ -140,32 +153,38 @@
 .troca__dados div {
   display: flex;
   flex-direction: column;
-  padding: .55rem 0;
+  padding: .5rem 0;
 }
 
-/* Tracejado, hairline, e só entre as duas linhas: é o único lugar desta
-   tela em que um filete carrega significado estrutural — ele separa dois
-   negócios que dividem o mesmo endereço. */
+/* Tracejado, hairline, e só entre as duas linhas: é o único filete desta
+   tela, e ele carrega significado estrutural — separa dois negócios que
+   dividem o mesmo endereço. */
 .troca__dados div + div {
-  border-top: 1px dashed rgba(107, 74, 46, .55);
+  border-top: 1px dashed rgba(200, 137, 46, .42);
 }
 
 .troca__dados dt {
-  color: rgba(119, 115, 110, .55);
+  color: rgba(255, 255, 255, .45);
 }
 
 .troca__dados dd {
   margin: 0;
-  color: rgba(255, 255, 255, .62);
+  color: rgba(255, 255, 255, .8);
 }
 
 /* ── A frase ───────────────────────────────────────────── */
 
+/* 17svh e não 13: o algarismo do relógio mora na goteira direita a 7,5svh
+   do pé, com 10svh de altura no degrau reduzido — e a última linha desta
+   frase é alinhada à direita, isto é, cai exatamente em cima dele. A hora
+   deve passar POR TRÁS da composição (é a profundidade real do site), e
+   não dentro dela. */
 .troca__linha {
   position: absolute;
-  top: 62svh;
+  z-index: 3;
+  bottom: 17svh;
   right: var(--gutter-r);
-  left: 30%;
+  left: 22%;
   text-align: right;
   opacity: 0;
   font-family: var(--font-display);
@@ -173,28 +192,25 @@
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
-  color: rgba(255, 255, 255, .92);
+  color: #fff;
 }
 
 /* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
-  .troca__quadro {
-    top: 26svh;
-    left: 38%;
-    right: -6vw;
-    height: 38svh;
+  .troca__quadro img {
+    object-position: 46% 56%;
   }
 
   .troca__dados {
-    top: 26svh;
-    width: 22%;
+    top: 22svh;
+    width: 14rem;
   }
 
   .troca__linha {
-    top: 70svh;
-    left: 38%;
-    max-width: 22ch;
+    left: auto;
+    bottom: 16svh;
+    max-width: 20ch;
   }
 }
 

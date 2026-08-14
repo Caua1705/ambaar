@@ -109,11 +109,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* O recuo de pé empurra o parágrafo para CIMA do eixo óptico, e ele fica
-     mesmo depois de o campo ter saído do terço baixo: o vazio embaixo da
-     última frase é agora vazio de verdade, e é ele que faz a tela ser
-     quieta em vez de só escura. */
-  padding: 0 var(--gutter-r) 22svh var(--gutter-l);
+  /* O recuo de pé empurra o parágrafo para CIMA do eixo óptico: o vazio
+     embaixo da última frase é vazio de verdade, e é ele que faz a tela ser
+     quieta em vez de só escura.
+
+     22svh → 14svh nesta passada. O fecho ganhou uma máscara com respiro e
+     cresceu de altura, e a soma dos dois punha o bloco no terço ALTO da
+     tela em vez de acima do eixo — com 45% de carvão embaixo dele, que é a
+     quantidade de vazio que a queixa desta passada chamou de "espaço preto
+     grande" em outra seção. Vazio abaixo do texto é a composição; vazio
+     abaixo do texto ocupando quase metade da tela é um buraco. */
+  padding: 0 var(--gutter-r) 14svh var(--gutter-l);
 }
 
 /* ── O parágrafo ───────────────────────────────────────── */
@@ -136,8 +142,13 @@
 
 /* Cada linha é a própria janela do clipPath. O respiro vertical existe para
    o corte não passar rente aos acentos e às descidas, e o recuo negativo
-   devolve o espaço ao ritmo da entrelinha. */
-.escuta__frase span {
+   devolve o espaço ao ritmo da entrelinha.
+
+   `> span` e não `span`: a terceira frase tem duas camadas de span (a
+   máscara e o texto dentro dela), e um seletor de descendente poria
+   clip-path nas duas — o que fecharia o fecho para sempre. */
+.escuta__frase--a > span,
+.escuta__frase--b > span {
   display: block;
   padding-block: .18em;
   margin-block: -.18em;
@@ -145,10 +156,55 @@
   clip-path: inset(0% 100% 0% 0%);
 }
 
-/* A frase de corte não tem janela: ela não é revelada, ela aparece. O
-   estado de entrada dela é a opacidade do bloco inteiro, e é binário. */
-.escuta__frase[data-corte] span {
-  clip-path: none;
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O FECHO DEIXOU DE APARECER DO NADA                                   ║
+   ║                                                                      ║
+   ║ A queixa foi literal: "«Quem escuta, fica» aparece do nada, sem       ║
+   ║ apresentação nenhuma". E o código dizia exatamente isso — a frase     ║
+   ║ entrava com `t.set(corte, { opacity: 1 })`: zero de duração,          ║
+   ║ opacidade binária, um quadro.                                        ║
+   ║                                                                      ║
+   ║ A defesa era boa no papel: num site em que tudo limpa, dissolve ou é  ║
+   ║ preso ao dedo, a coisa que NÃO se move é a mais alta da página. O     ║
+   ║ erro está em confundir não gritar com não acontecer. Zero de duração  ║
+   ║ não lê como silêncio — lê como um bloco de texto que pisca, e num     ║
+   ║ site onde catorze outras frases têm gesto, a única sem gesto parece   ║
+   ║ a que faltou terminar.                                               ║
+   ║                                                                      ║
+   ║ O que entrou no lugar é o gesto mais LENTO da página, não o mais      ║
+   ║ barulhento. Cada linha do fecho é uma máscara, e o texto sobe por     ║
+   ║ dentro dela — de baixo para cima, palavra inteira, com a letra        ║
+   ║ crescendo 4% enquanto sobe. Não é um fade e não é uma cortina         ║
+   ║ lateral (que é como as duas frases de cima entram, e repetir seria    ║
+   ║ fazer da terceira mais uma delas): é uma coisa que EMERGE.            ║
+   ║                                                                      ║
+   ║ E ela emerge no vazio que as outras duas abrem: no mesmo instante em  ║
+   ║ que a máscara começa a subir, as duas primeiras frases recuam para    ║
+   ║ 40% de branco. A tela escurece um degrau e a frase nasce dentro       ║
+   ║ desse degrau — que é o equivalente tipográfico de baixar a luz da     ║
+   ║ sala antes de alguém falar.                                          ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+/* A máscara. `overflow: hidden` num bloco por linha, e o texto de dentro é
+   quem anda: o corte fica sempre na linha de base seguinte, e nenhuma
+   descida de letra escapa por baixo dele.
+
+   O respiro de topo existe porque a Cormorant desenha acentos altos ("Quem"
+   não tem, mas a caixa da linha é a mesma) e a entrelinha é 0,9: sem folga,
+   o Â de uma futura variante bateria na borda da máscara. O recuo negativo
+   devolve o espaço ao ritmo da coluna. */
+.escuta__linha-mask {
+  display: block;
+  overflow: hidden;
+  padding-top: .16em;
+  margin-top: -.16em;
+}
+
+.escuta__linha-mask > span {
+  display: block;
+  /* o estado fechado mora no CSS, como todo estado de entrada do site */
+  transform: translateY(105%);
+  opacity: 0;
 }
 
 /* (a) serifada, na escala média: a abertura */
@@ -211,39 +267,35 @@
   letter-spacing: var(--track-display);
   color: #fff;
   max-width: 14ch;
-  /* ela não abre por clipPath: aparece inteira, de uma vez (escuta.js) */
-  opacity: 0;
 }
 
 /* ╔══════════════════════════════════════════════════════════════════════╗
-   ║ A PALAVRA QUE A LINHA TOCA                                           ║
+   ║ A PALAVRA QUE A LINHA TOCA — e ela é âmbar outra vez                 ║
    ║                                                                      ║
-   ║ "escuta" era a única palavra colorida da página, em âmbar, e a       ║
-   ║ defesa era boa: guardar a cor da marca para uma palavra só é um      ║
-   ║ gasto que funciona uma vez.                                          ║
+   ║ "escuta" foi a única palavra colorida da página e perdeu a cor na    ║
+   ║ passada anterior, com um argumento correto: quando o usuário chegava ║
+   ║ aqui já tinha visto âmbar no menu, no relógio, em três rótulos de    ║
+   ║ capítulo e no fio, então a raridade que a cor supunha não existia.   ║
    ║                                                                      ║
-   ║ O problema é que ela não funcionava uma vez — funcionava a           ║
-   ║ décima-quarta, porque quando o usuário chegava aqui já tinha visto   ║
-   ║ âmbar no menu, no relógio, no rótulo do capítulo e no fio. A         ║
-   ║ raridade que o argumento supunha não existia.                        ║
+   ║ O argumento continua correto e a conclusão estava errada. O que      ║
+   ║ havia de sobra não era ÂMBAR, era âmbar aplicado a categorias        ║
+   ║ inteiras de elemento. Esses saíram e não voltam. O que volta é uma   ║
+   ║ palavra escolhida à mão dentro de uma frase — o quarto papel do      ║
+   ║ acento, documentado em tokens.css —, e ela volta porque a tela sem   ║
+   ║ ela ficou com o defeito oposto: catorze frases brancas em que        ║
+   ║ nenhuma parece mais importante que as outras.                        ║
    ║                                                                      ║
-   ║ Com a disciplina do acento (tokens.css) restringindo o âmbar-tinta a ║
-   ║ três papéis, este quarto teve de sair. E o que entrou no lugar diz a ║
-   ║ mesma coisa com mais precisão: a LINHA para debaixo da palavra.      ║
+   ║ E a linha continua onde estava. O horizonte não atravessa a tela     ║
+   ║ atrás de tudo (isso é enfeite de fundo): ele tem um comprimento — o  ║
+   ║ da palavra — e um lugar — a base dela. O mesmo objeto que se desenha ║
+   ║ na abertura, pare a marca na hero e se recolhe até virar o losango   ║
+   ║ no fecho passa a sublinhar, no meio do caminho, a tese da casa.      ║
    ║                                                                      ║
-   ║ O horizonte atravessava a tela inteira atrás de tudo, o que é um     ║
-   ║ enfeite de fundo. Agora ele tem um comprimento — o da palavra — e um ║
-   ║ lugar — a base dela. O mesmo objeto que se desenha na abertura, pare ║
-   ║ a marca na hero e se recolhe até virar o losango no fecho passa a    ║
-   ║ sublinhar, no meio do caminho, a palavra que é a tese da casa.       ║
-   ║                                                                      ║
-   ║ E ele continua fazendo o que fazia: no instante em que "fica."       ║
-   ║ existe, ele se parte nos sete filetes do campo.                      ║
+   ║ Cor E filete na mesma palavra é deliberado: é o único ponto do site  ║
+   ║ em que dois recursos de ênfase se acumulam, e ele existe uma vez.    ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 .escuta__frase--c b {
   position: relative;
-  font-weight: inherit;
-  color: inherit;
 }
 
 /* ── O horizonte ───────────────────────────────────────── */
@@ -272,7 +324,7 @@
      encosta nos filetes, e o que era um fecho seguido de um espectro vira
      um bloco só. */
   .escuta__stage {
-    padding-bottom: 26svh;
+    padding-bottom: 18svh;
   }
 }
 
@@ -302,12 +354,18 @@
   padding-block: 18svh;
 }
 
-.escuta.is-estatica .escuta__frase span {
+.escuta.is-estatica .escuta__frase--a > span,
+.escuta.is-estatica .escuta__frase--b > span {
   clip-path: none;
 }
 
-.escuta.is-estatica .escuta__frase--c {
+.escuta.is-estatica .escuta__linha-mask > span {
+  transform: none;
   opacity: 1;
+}
+
+.escuta.is-estatica .escuta__horizonte {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -321,11 +379,13 @@
     padding-block: 18svh;
   }
 
-  .escuta__frase span {
+  .escuta__frase--a > span,
+  .escuta__frase--b > span {
     clip-path: none;
   }
 
-  .escuta__frase--c {
+  .escuta__linha-mask > span {
+    transform: none;
     opacity: 1;
   }
 

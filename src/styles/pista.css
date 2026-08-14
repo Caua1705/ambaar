@@ -1,0 +1,244 @@
+/* A pista · 22h — seção nova, e a única montagem de três camadas do site.
+
+   ── Por que ela existe ──────────────────────────────────────────────────
+
+   O capítulo 02 mostra a sala enchendo em 34 quadros de plano geral com
+   obturador aberto. É o melhor material da página e é, por construção, um
+   DESENHO da multidão: ninguém tem cara, ninguém tem gesto, ninguém está
+   fazendo nada em particular. Vinte pessoas viram uma textura.
+
+   Faltava a mesma sala com gente dentro dela. Não mais um plano — dois
+   instantes parados, tirados a duas distâncias, no meio do barulho.
+
+   ── As três camadas ─────────────────────────────────────────────────────
+
+     fundo     O ARRASTO. Um corpo desfeito por um giro de obturador. Esta
+               imagem morava no meio da passagem, em tela cheia, e não
+               funcionava lá: um borrão sozinho não tem contra o que ser
+               borrão, e o que se lia era uma fotografia desalinhada — que
+               foi exatamente a queixa. Aqui ela está ATRÁS de duas coisas
+               nítidas e deriva devagar (classe 3), então ela vira o que
+               sempre foi: a sala em movimento por trás de dois instantes
+               parados.
+     de cima   A pista vista do alto. É o único ponto de vista elevado da
+               página inteira.
+     de perto  O mesmo lugar à altura do ombro: um braço no alto, um leque,
+               a bola de espelhos na quina.
+
+   ── E os dois quadros se cruzam ─────────────────────────────────────────
+
+   Nenhum dos dois está centrado, e eles se SOBREPÕEM numa quina: o de cima
+   ocupa a metade alta à esquerda e sangra pela borda esquerda; o de perto
+   ocupa a metade baixa à direita e sangra pela direita. A diagonal entre os
+   dois é por onde o arrasto aparece, e é a única faixa da tela em que se vê
+   a camada de trás.
+
+   Sobreposição é o que distingue esta montagem das outras duas do site: na
+   cabine os quadros se TOCAM (comparação) e na pausa eles não se tocam
+   (montagem sobre carvão). Aqui um está por cima do outro, o que é a
+   terceira relação possível — e a que significa "muita gente no mesmo
+   lugar". */
+
+.pista {
+  position: relative;
+  background: var(--carvao);
+}
+
+.pista__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ── O arrasto, no fundo ───────────────────────────────── */
+
+/* Escala de 118% para a deriva não descobrir a borda do arquivo, e
+   opacidade parcial: ele não é uma fotografia que se olha, é a matéria
+   entre as duas que se olham. */
+/* 0,55 e não 1: ele é o FUNDO, e um borrão de tela cheia a cheio compete
+   com os dois quadros nítidos que estão por cima dele — na tela larga, onde
+   sobra muito arrasto visível entre as duas molduras, a cheio ele lia como
+   um campo laranja vazio em vez de como uma sala em movimento. */
+.pista__arrasto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  z-index: 0;
+  opacity: .55;
+  transform: scale(1.18);
+  pointer-events: none;
+}
+
+/* A demão. O passe de luminância da casa, com o núcleo no pé à esquerda,
+   onde a frase cai, e a borda de cima quase carvão para a emenda com o
+   capítulo anterior não ter aresta (ver `--ceu-noite` em tokens.css). */
+.pista__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 112% 36% at 24% 94%, rgba(13, 13, 13, .92) 0%, rgba(13, 13, 13, .56) 46%, rgba(13, 13, 13, .16) 72%, transparent 88%),
+    var(--ceu-noite);
+}
+
+/* ── O rótulo ──────────────────────────────────────────── */
+
+.pista__rotulo {
+  position: absolute;
+  z-index: 4;
+  top: 13svh;
+  left: var(--gutter-l);
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(255, 255, 255, .78);
+}
+
+.pista__dash {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: .55;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ── Os dois quadros ───────────────────────────────────── */
+
+.pista__quadro {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+}
+
+.pista__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* O de cima sangra pela esquerda e ocupa a metade alta. Ele é o maior dos
+   dois porque é o que informa — é a fotografia que diz "a sala está
+   cheia". */
+.pista__quadro--alto {
+  z-index: 1;
+  top: 20svh;
+  left: -12vw;
+  width: 74vw;
+  height: 38svh;
+}
+
+.pista__quadro--alto img {
+  object-position: 52% 42%;
+}
+
+/* O de perto sangra pela direita, começa DENTRO da faixa do outro (a quina
+   se sobrepõe em 6svh) e desce. Ele é menor e está por cima: é o detalhe
+   dentro do plano. */
+.pista__quadro--perto {
+  z-index: 2;
+  top: 46svh;
+  right: -10vw;
+  width: 58vw;
+  height: 30svh;
+}
+
+/* O braço e o leque estão no terço alto do arquivo; a bola de espelhos, na
+   quina baixa esquerda. A âncora alta é o que mantém o gesto — que é o
+   assunto — dentro de uma moldura deitada. */
+.pista__quadro--perto img {
+  object-position: 46% 26%;
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+/* 18svh do pé e 34% da direita: a moldura de baixo desce até 76svh e o
+   algarismo do relógio mora na goteira direita. A frase é a única coisa
+   desta tela que não pode ser atravessada por nenhum dos dois — as duas
+   fotografias já se sobrepõem entre si, e uma terceira sobreposição
+   transformaria a montagem em confusão. */
+.pista__linha {
+  position: absolute;
+  z-index: 4;
+  left: var(--gutter-l);
+  right: 34%;
+  bottom: 18svh;
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 7vw, 3.2rem);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #fff;
+}
+
+/* ── Tela larga ────────────────────────────────────────── */
+
+/* ── Tela larga: as duas molduras têm de CONTINUAR se cruzando ───────────
+
+   A primeira versão desta faixa punha o quadro de cima em 0—42vw e o de
+   perto em 63—100vw. Na tela estreita eles se sobrepõem; aqui ficavam com
+   21vw de arrasto puro entre os dois, e a montagem deixava de ser uma
+   montagem — eram duas fotografias nas duas pontas de um campo laranja.
+
+   A sobreposição é o assunto da seção (muita gente no mesmo lugar), então
+   ela não pode ser uma consequência da largura da tela. As medidas abaixo
+   fazem os dois se cruzarem numa quina de 4vw por 36svh em qualquer
+   proporção. */
+@media (min-width: 900px) {
+  .pista__quadro--alto {
+    top: 12svh;
+    left: -4vw;
+    width: 58vw;
+    height: 58svh;
+  }
+
+  .pista__quadro--perto {
+    top: 34svh;
+    right: -4vw;
+    width: 50vw;
+    height: 52svh;
+  }
+
+  /* Deitada, a moldura mostra uma faixa de 38% da altura do arquivo em vez
+     da altura inteira: a 26% essa faixa ia do braço à orelha e cortava a
+     cara na borda de baixo — o pior corte possível numa fotografia cujo
+     assunto é alguém rindo. A 46% ela abre acima da mão e fecha abaixo do
+     queixo. */
+  .pista__quadro--perto img {
+    object-position: 46% 46%;
+  }
+
+  .pista__linha {
+    right: auto;
+    max-width: 16ch;
+    bottom: 12svh;
+  }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .pista__quadro {
+    clip-path: none;
+  }
+
+  .pista__linha {
+    opacity: 1;
+  }
+
+  .pista__dash {
+    transform: scaleX(1);
+  }
+}

@@ -8,22 +8,26 @@
    ── O gesto ─────────────────────────────────────────────────────────────
 
      0,00  o traço do rótulo cresce
-     0,35  A FRESTA SOBE. A janela se abre de baixo para cima e, dentro
-           dela, a fotografia desce um pouco — a imagem e a moldura andam
-           em sentidos contrários, que é o que impede a abertura de parecer
-           um retângulo crescendo
-     0,95  os dados entram
-     1,25  a frase
+     0,25  A TELA SOBE. A fotografia, agora de sangria total, se descobre de
+           baixo para cima e, por dentro, a imagem desce um pouco — o quadro
+           e o conteúdo andam em sentidos contrários, que é o que impede a
+           abertura de parecer um retângulo crescendo
+     1,10  os dados entram
+     1,45  a frase
 
    ── Por que de baixo para cima ──────────────────────────────────────────
 
-   O inventário de aberturas do site já tinha quatro direções ocupadas: da
+   O inventário de aberturas do site tem quatro direções ocupadas: da
    esquerda para a direita (o texto), das bordas para dentro (as molduras da
-   pausa), do centro para fora (a fresta da 01h) e a faixa de luz subindo (o
-   poente). Uma quinta seção precisava de uma quinta direção, e a que
-   sobrava é a única que também SIGNIFICA aqui: o que se vê dentro da fresta
-   é um balcão com uma fita de luz na base. A janela sobe a partir da linha
-   em que a luz está. A casa acende de baixo.
+   pausa), do centro para fora (a fresta das 02h) e de cima e de baixo ao
+   mesmo tempo (o díptico da cabine). Esta usa a quinta, e ela é a única que
+   também SIGNIFICA aqui: o que se vê é um balcão com uma fita de luz na
+   base, e uma calçada que ainda tem sol. A tela sobe a partir da linha em
+   que a luz está. A casa acende de baixo.
+
+   E a duração cresceu junto com a imagem: 1,4s virou 1,9s. Uma tarja de
+   197px abre em um piscar; uma tela inteira precisa do tempo de uma
+   persiana subindo, ou o gesto vira um corte.
 
    ── A saída ─────────────────────────────────────────────────────────────
 
@@ -62,13 +66,13 @@ if (secao) {
       t.to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0)
         .fromTo(quadro,
           { clipPath: 'inset(100% 0% 0% 0%)' },
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: EASE }, 0.35)
-        // a fotografia desce enquanto a janela sobe
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.9, ease: EASE }, 0.25)
+        // a fotografia desce enquanto a tela sobe
         .fromTo(foto,
-          { yPercent: -7, scale: 1.06 },
-          { yPercent: 0, scale: 1, duration: 1.9, ease: EASE }, 0.35)
-        .to(dados, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 0.95)
-        .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.25)
+          { yPercent: -6, scale: 1.1 },
+          { yPercent: 0, scale: 1.02, duration: 2.6, ease: EASE }, 0.25)
+        .to(dados, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 1.1)
+        .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.45)
     }, {
       /* Cedo, como todas as entradas desta passada: a composição termina de
          se montar enquanto a seção ainda sobe, e o que toma a tela é uma

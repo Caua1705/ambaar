@@ -1,0 +1,198 @@
+/* O primeiro copo · 19h — seção nova.
+
+   ── Por que ela existe ──────────────────────────────────────────────────
+
+   A casa se chama COCKTAIL BAR e, em dezesseis telas, não havia um único
+   copo cheio na mão de ninguém. Havia um detalhe de bar — a rodela de limão
+   sendo posta na borda com a colher, na pausa — e mais nada. Metade do nome
+   prometia uma coisa que a página nunca mostrava.
+
+   E havia um buraco de HORA junto com o buraco de assunto: o site ia do
+   entardecer no jardim (17—19h) direto para a cabine (20h), isto é, do sol
+   caindo para o DJ montando. Ninguém aparecia no meio. As pessoas do site
+   só existiam depois das 20h, em multidão.
+
+   ── Uma ideia ───────────────────────────────────────────────────────────
+
+   O que a casa serve tem a cor do nome dela.
+
+   ── A composição: foto DENTRO de foto ───────────────────────────────────
+
+   É a única tela da página que empilha duas fotografias. A cabine e a
+   pausa põem duas lado a lado, o que é comparação e montagem; aqui uma
+   está POR CIMA da outra, deslocada para fora da margem direita, e as duas
+   são o mesmo assunto a duas distâncias:
+
+     fundo   a taça no jardim, contra a mesma folhagem do capítulo anterior
+     inset   a mesma taça a um palmo, âmbar dentro de vidro
+
+   O inset sangra pela direita de propósito. Uma moldura inteiramente
+   dentro da tela leria como um cartão colado por cima da fotografia; saindo
+   pela borda, ela lê como uma segunda câmera no mesmo lugar.
+
+   ── E a diagonal ────────────────────────────────────────────────────────
+
+   Rótulo no alto à esquerda, inset no meio à direita, frase no pé à
+   esquerda. Os três pontos desenham um Z, e o olho atravessa a tela duas
+   vezes antes de sair dela — que é o contrário exato da tela anterior (o
+   Jardim), em que tudo mora numa coluna à esquerda. */
+
+.copo {
+  position: relative;
+  background: var(--carvao);
+}
+
+.copo__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ── O fundo ───────────────────────────────────────────── */
+
+.copo__fundo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.copo__fundo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* A taça está no terço alto à esquerda e a bolsa no miolo. Numa tela
+     estreita entra pouco mais de metade da largura: a 38% a taça fica
+     inteira no quadro e a folhagem escura sobra à direita, que é onde o
+     inset vai pousar. */
+  object-position: 38% 34%;
+}
+
+/* A demão. Dois núcleos, como na troca: o rótulo no alto à esquerda e a
+   frase no pé à esquerda — e um terceiro passe, mais fraco, no miolo à
+   direita, para o inset não flutuar sobre uma área clara. */
+.copo__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 26% at 14% 12%, rgba(13, 13, 13, .8) 0%, rgba(13, 13, 13, .36) 56%, transparent 84%),
+    radial-gradient(ellipse 108% 40% at 18% 92%, rgba(13, 13, 13, .92) 0%, rgba(13, 13, 13, .58) 44%, rgba(13, 13, 13, .18) 72%, transparent 88%),
+    var(--ceu-noite);
+}
+
+/* ── O rótulo ──────────────────────────────────────────── */
+
+.copo__rotulo {
+  position: absolute;
+  z-index: 3;
+  top: 14svh;
+  left: var(--gutter-l);
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: rgba(255, 255, 255, .78);
+}
+
+.copo__dash {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: .55;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ── O inset ───────────────────────────────────────────── */
+
+/* Sangra pela direita. A moldura tem um filete de um pixel do lado de
+   dentro — é o único contorno de fotografia do site, e ele existe aqui por
+   uma razão mecânica antes de qualquer outra: as duas imagens têm a MESMA
+   luz e a mesma cor, e sem uma aresta declarada a de cima se dissolveria na
+   de baixo. */
+.copo__inset {
+  position: absolute;
+  z-index: 2;
+  top: 34svh;
+  right: -8vw;
+  width: 56vw;
+  height: 30svh;
+  margin: 0;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(200, 137, 46, .3);
+  /* fechada: ela entra deslizando da borda direita (copo.js) */
+  clip-path: inset(0% 0% 0% 100%);
+}
+
+.copo__inset img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* a taça ocupa o miolo do recorte; a mão entra pela direita */
+  object-position: 46% 50%;
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+.copo__linha {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  bottom: 13svh;
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-quieto);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #fff;
+}
+
+/* ── Tela larga ────────────────────────────────────────── */
+
+@media (min-width: 900px) {
+  .copo__fundo img {
+    object-position: 40% 40%;
+  }
+
+  .copo__inset {
+    top: 26svh;
+    right: -3vw;
+    width: 28vw;
+    height: 42svh;
+  }
+
+  .copo__linha {
+    right: auto;
+    max-width: 18ch;
+    bottom: 16svh;
+  }
+}
+
+/* ── Sem movimento ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .copo__inset {
+    clip-path: none;
+  }
+
+  .copo__linha {
+    opacity: 1;
+  }
+
+  .copo__dash {
+    transform: scaleX(1);
+  }
+}

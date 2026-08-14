@@ -1,0 +1,146 @@
+/* O brinde · 23h — seção nova, e ela conserta um problema de TEMPERATURA.
+
+   ── O diagnóstico ───────────────────────────────────────────────────────
+
+   Das 20h em diante o site era arrasto, silhueta, gente de costas e gente
+   sozinha. Todas as decisões estavam certas uma a uma e a soma delas
+   produzia uma casa noturna em que ninguém nunca sorri. Um bar que se
+   apresenta assim está vendendo um museu — e o acervo tinha a fotografia
+   mais alegre que este projeto viu, na pasta das descartadas, triada para
+   fora junto com um lote inteiro de "flash direto" que ela nunca teve.
+
+   Duas mulheres rindo com os copos na mão, uma delas com o braço no alto.
+   É a única tela da página em que alguém olha para a lente.
+
+   ── A inversão ──────────────────────────────────────────────────────────
+
+   Em toda outra seção do site a IMAGEM é o gesto: ela abre, sobe, escala,
+   dissolve, e o texto entra depois, discreto, num canto. Aqui é o
+   contrário, e é a única vez.
+
+   A fotografia não se move e não abre: ela ESTÁ, do primeiro quadro ao
+   último, em tela cheia. O que acontece é o TEXTO — duas metades de frase
+   que chegam de dois lados e se encontram no meio da tela, no maior corpo
+   que o site usa fora da tese e do wordmark.
+
+   A razão não é variedade: é que esta tela não tem o que revelar. Uma
+   fotografia de duas pessoas rindo não guarda um segredo que valha uma
+   abertura; ela é imediata, e qualquer dispositivo em cima dela seria uma
+   cortina na frente de uma coisa que já está pronta. O que ela precisa é
+   de alguém dizendo o que aquilo é.
+
+   ── E é a única frase CENTRADA da página ────────────────────────────────
+
+   Todo o resto do site alinha à esquerda, à direita ou pela goteira. Esta
+   fica no meio, porque as duas metades vêm de lados opostos e o centro é
+   onde elas se encontram — a composição é o próprio brinde. */
+
+.brinde {
+  position: relative;
+  background: var(--carvao);
+}
+
+.brinde__stage {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.brinde__quadro {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.brinde__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* As duas caras estão no terço alto do arquivo e os copos no miolo
+     baixo. A 50% 34% as duas ficam inteiras no quadro e o copo de baixo
+     continua visível na quina — o que importa, porque a seção se chama
+     brinde. */
+  object-position: 50% 34%;
+}
+
+/* A demão. Esta é a fotografia mais clara do site depois da hero — pele
+   iluminada sobre preto — e a frase mora exatamente em cima das duas caras.
+   O passe é mais fundo do que em qualquer outra tela por isso, e ele é uma
+   FAIXA horizontal em vez de uma elipse de canto: o texto atravessa a
+   largura inteira. */
+.brinde__stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 30%,
+      rgba(13, 13, 13, .3) 44%,
+      rgba(13, 13, 13, .72) 58%,
+      rgba(13, 13, 13, .82) 72%,
+      rgba(13, 13, 13, .74) 86%,
+      rgba(13, 13, 13, .8) 100%
+    ),
+    var(--ceu-noite);
+}
+
+/* ── A frase ───────────────────────────────────────────── */
+
+.brinde__linha {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  top: 56svh;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 8.2vw, 4.2rem);
+  font-weight: 300;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #fff;
+}
+
+/* Cada metade é um bloco próprio: elas entram de lados opostos e por isso
+   não podem dividir uma caixa de linha.
+
+   `balance` em cada uma separadamente, e não na frase inteira: as duas
+   metades quebram sozinhas, e sem isso a segunda partia em "Está todo
+   mundo / aqui." — três palavras em cima e uma sozinha embaixo, que é
+   exatamente a quebra que um tipógrafo desfaz à mão. */
+.brinde__meia {
+  display: block;
+  opacity: 0;
+  text-wrap: balance;
+}
+
+.brinde__meia--b {
+  margin-top: .12em;
+}
+
+@media (min-width: 900px) {
+  /* Deitada, a tela mostra 40% da altura do arquivo em vez de 100%: o
+     recorte fica severo e a escolha passa a ser entre as CARAS e os COPOS.
+     São as caras — a seção existe porque é a única tela do site em que
+     alguém está rindo, e um brinde sem rosto é uma foto de bebida. */
+  .brinde__quadro img {
+    object-position: 50% 18%;
+  }
+
+  .brinde__linha {
+    top: 58svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brinde__meia {
+    opacity: 1;
+  }
+}

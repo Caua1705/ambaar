@@ -11,19 +11,29 @@
 
    ── A altura ────────────────────────────────────────────────────────────
 
-   80% de permanência: o gesto dura 3,4 segundos e a frase entra aos 2,6, e
-   depois disso o rosto precisa de posse do quadro — que é a única coisa que
-   esta seção existe para dar a ele. Meia tela de permanência não bastava: a
-   saída disparava com a seção ainda 78% na tela e a fotografia ia embora
-   antes de ter sido olhada.
-   Com o palco sticky, quem lê em ritmo normal atravessa a seção em algo
-   entre quatro e seis segundos — o suficiente para o rosto ter posse do
-   quadro antes de a seção sair. */
+   55% de permanência, e ela encolheu de 80% nesta passada.
+
+   O número original foi medido contra um defeito real: com meia tela de
+   permanência a saída disparava com a seção ainda 78% visível e o rosto ia
+   embora antes de ter sido olhado. Oitenta por cento consertaram isso e
+   custaram 1,8 tela de rolagem.
+
+   O que mudou é o orçamento. A página ganhou quatro seções novas nesta
+   passada e todas as quatro custam uma tela cada; o documento não pode
+   crescer 25% porque a história ficou melhor. As 25 telas de permanência
+   que saem daqui pagam um quarto de uma das seções novas, e elas podem
+   sair porque o gesto encolheu junto: o estágio do meio deixou de ser um
+   borrão que precisava de tempo para ser decifrado e virou uma fotografia
+   nítida, que é lida no instante em que aparece.
+
+   O gesto dura 3,4s, a frase entra aos 2,6 e a saída dispara em
+   `bottom 35%` — o rosto continua com posse do quadro por mais de uma tela
+   depois de a frase estar posta. */
 
 .passagem {
   position: relative;
   background: var(--carvao);
-  height: 180svh;
+  height: 155svh;
 }
 
 .passagem__stage {
@@ -50,10 +60,34 @@
   display: block;
 }
 
-/* O borrão não tem assunto localizável: qualquer recorte serve, e o centro
-   é o que mantém o facho de luz na diagonal do quadro. */
-.passagem__plano--luz img {
-  object-position: 50% 46%;
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O DEGRAU DO MEIO TROCOU, E ELE ERA UM DEGRAU ILEGÍVEL                ║
+   ║                                                                      ║
+   ║ O estágio 2 era o ARRASTO (dj-blur): um corpo desfeito por um giro   ║
+   ║ de obturador, em tela cheia. A queixa foi que a imagem parecia       ║
+   ║ "deslocada e sem sentido", e o diagnóstico é de enquadramento, não   ║
+   ║ de escolha: um borrão que ocupa a tela inteira não tem nenhum ponto  ║
+   ║ de apoio para o olho, e uma tela sem ponto de apoio não lê como      ║
+   ║ APROXIMAÇÃO — lê como um arquivo fora de lugar. Ele chegava, ficava  ║
+   ║ meio segundo e ia embora sem que ninguém soubesse o que tinha visto. ║
+   ║                                                                      ║
+   ║ No lugar entrou uma fotografia NÍTIDA da mesma multidão à altura do  ║
+   ║ ombro: cabelo, costas, um copo, ninguém olhando para a lente. A      ║
+   ║ escada de distâncias passou a ser legível — seis metros, dois        ║
+   ║ metros, meio metro — e o que muda entre um degrau e o seguinte       ║
+   ║ continua sendo só a distância, que é a regra desta seção.            ║
+   ║                                                                      ║
+   ║ O arrasto não foi descartado: ele é o FUNDO da pista das 22h, atrás  ║
+   ║ de dois quadros nítidos. Ali ele tem contra o que ser borrão.        ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   Uma âncora só serve às duas orientações, e não por sorte: em pé a tela é
+   mais estreita que o arquivo e o recorte é horizontal (52% mantém a loira
+   de costas e a mulher de perfil no quadro); deitada ela é mais larga e o
+   recorte é vertical (46% abre acima das cabeças e fecha nos ombros). Cada
+   número governa um eixo, e cada eixo governa uma orientação. */
+.passagem__plano--meio img {
+  object-position: 52% 46%;
 }
 
 /* Ela está no terço direito do arquivo e o rosto no terço alto. Numa tela

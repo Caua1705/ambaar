@@ -33,8 +33,26 @@ img {
 .reservas__title,
 .retrato__linha,
 .troca__linha,
+.copo__linha,
+.pista__linha,
+.quemfica__linha,
 .outro__line {
   text-wrap: balance;
+}
+
+/* ── A palavra âmbar ───────────────────────────────────── */
+
+/* O quarto papel do âmbar-tinta, e a regra dele está em tokens.css: UMA
+   palavra por tela, sempre dentro de uma linha de display, nunca num rótulo
+   e nunca em corpo de texto.
+
+   `font-weight: inherit` porque o elemento é um <b>: semanticamente ele é
+   "a parte da frase que importa", que é exatamente o papel, e a marcação
+   certa não deve custar um peso tipográfico que o desenho não pediu. */
+.ouro {
+  color: var(--ambar);
+  font-weight: inherit;
+  font-style: inherit;
 }
 
 /* ── A voz de máquina ──────────────────────────────────── */

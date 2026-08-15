@@ -71,7 +71,13 @@
     /* a elipse fechou mais e subiu para a altura do wordmark: a marca
        preenchida com fotografia precisa de um fundo mais escuro do que a
        marca chapada precisava — é a diferença entre uma letra que tem cor
-       própria e uma que empresta a cor do que está atrás dela */
+       própria e uma que empresta a cor do que está atrás dela
+
+       ⚠︎ Esta elipse chegou a ser aberta (centro 40%, raio 40%) para tentar
+       fazer o acento do Â aparecer. Era diagnóstico errado: o acento não
+       estava fraco, estava CORTADO por um clip-path — ver a nota do
+       `.hero__mark`. Com a causa resolvida, ele lê com estes valores, que
+       são os medidos para a fotografia. */
     radial-gradient(ellipse 92% 32% at 50% 43%, rgba(13, 13, 13, .88) 0%, rgba(13, 13, 13, .5) 54%, transparent 82%),
     linear-gradient(to bottom, rgba(13, 13, 13, .55) 0%, rgba(13, 13, 13, .12) 20%, transparent 40%, rgba(13, 13, 13, .3) 78%, rgba(13, 13, 13, .72) 92%, var(--carvao) 100%);
 }
@@ -126,10 +132,68 @@
   text-indent: var(--track-marca);
   line-height: var(--lh-display);
   white-space: nowrap;
+  /* A folga que impede o `clip-path` de hero.js de decapitar o circunflexo
+     do Â. A margem negativa a cancela no layout: a palavra não se move um
+     pixel. A explicação inteira está na nota do `.hero__mark-layer`. */
+  padding-top: .34em;
+  margin-top: -.34em;
 }
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O CIRCUNFLEXO DO Â ESTAVA SENDO DECAPITADO                           ║
+   ║                                                                      ║
+   ║ A marca é `ÂMBAR` no HTML — U+00C2, o caractere certo — e a tela      ║
+   ║ desenhava AMBAR. Depois, meio consertada, desenhava duas marquinhas   ║
+   ║ soltas onde devia haver um `^`: a assinatura de um chapéu cortado na  ║
+   ║ horizontal, que deixa as duas pernas e leva o pico.                  ║
+   ║                                                                      ║
+   ║ A causa é a ENTRELINHA menor que a tinta, e ela cobra em dois        ║
+   ║ lugares diferentes ao mesmo tempo. Medido a 192px de corpo:          ║
+   ║                                                                      ║
+   ║   tinta do glifo acima da linha de base, com acento     178px        ║
+   ║   tinta acima da linha de base, sem acento (caixa alta) 145px        ║
+   ║   altura da caixa do elemento (line-height .9)          172,8px      ║
+   ║                                                                      ║
+   ║ A tinta do acento sobe 53px acima do topo da caixa. E aí:            ║
+   ║                                                                      ║
+   ║   · `.hero__mark-layer--foto` é pintada com `background-clip: text`, ║
+   ║     e a área de pintura de um background é a CAIXA, não o glifo. O   ║
+   ║     que cai fora não recebe fundo — e sem fundo a letra é            ║
+   ║     transparente. O acento estava lá, no lugar certo, oco.           ║
+   ║                                                                      ║
+   ║   · `.hero__mark` carrega um `clip-path: inset(...)`, posto por      ║
+   ║     hero.js: é com ele que a marca se abre para cima a partir do     ║
+   ║     filete. O estado final é `inset(0%)`, isto é, a caixa inteira —  ║
+   ║     e só ela. `clip-path` corta independente de overflow, então ele  ║
+   ║     decapitava o acento MESMO em cor sólida, depois da animação      ║
+   ║     terminar, para sempre.                                           ║
+   ║                                                                      ║
+   ║ O segundo é o que enganava: consertar só a área de pintura fazia o   ║
+   ║ acento aparecer pela metade, o que parecia problema de contraste e   ║
+   ║ levou a mexer no véu e na espessura do traço. Não era. As duas       ║
+   ║ tentativas foram desfeitas.                                          ║
+   ║                                                                      ║
+   ║ ── O conserto ──────────────────────────────────────────────────     ║
+   ║                                                                      ║
+   ║ `--lh-display` (.9) não muda: é a entrelinha de display do site      ║
+   ║ inteiro e é ela que faz o lockup fechar. O que muda são as CAIXAS.   ║
+   ║ A folga de cima estende o retângulo — de pintura no layer, de corte  ║
+   ║ no mark — e a margem negativa devolve a palavra ao pixel onde ela    ║
+   ║ estava. Altura externa idêntica, posição idêntica, acento inteiro.   ║
+   ║                                                                      ║
+   ║ .34em e não .28em: o mínimo medido é 53/192 = .276em, e a folga      ║
+   ║ existe para sobreviver a troca de peso, de fonte de fallback e de    ║
+   ║ arredondamento de subpixel. Ela não custa nada — é área de recorte,  ║
+   ║ não espaço ocupado.                                                  ║
+   ║                                                                      ║
+   ║ Nos dois layers, e não só no de fotografia: eles dividem a mesma     ║
+   ║ célula da grade e folga em um só desalinharia a troca da primeira    ║
+   ║ rolagem.                                                             ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 .hero__mark-layer {
   grid-area: 1 / 1;
+  padding-top: .34em;
+  margin-top: -.34em;
 }
 
 /* A camada de fotografia.
@@ -145,7 +209,12 @@
       viravam manchas. O traço âmbar de meio pixel devolve a aresta e é
       exatamente o mesmo tratamento do relógio da casa: preenchimento baixo,
       contorno âmbar. A marca e a hora passam a ser desenhadas pela mesma
-      regra, que é o que faz as duas pertencerem à mesma peça. */
+      regra, que é o que faz as duas pertencerem à mesma peça.
+
+      ⚠︎ Meio pixel chegou a virar 0,9 para tentar salvar o acento do Â.
+      Também era diagnóstico errado — ver a nota do `.hero__mark`. A 0,9 a
+      Jost 200 engorda para perto de uma 300 e a marca perde a linha fina,
+      que é a coisa mais cara dela. Resolvida a causa, meio pixel basta. */
 .hero__mark-layer--foto {
   background-image:
     linear-gradient(rgba(200, 137, 46, .52), rgba(200, 137, 46, .52)),

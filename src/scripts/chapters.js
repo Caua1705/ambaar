@@ -39,11 +39,10 @@
 
    ── Os três ambientes ───────────────────────────────────────────────────
 
-     01 Jardim    22 quadros de um plano fixo em 9 segundos: o entardecer
-                  acontece de verdade — as luzinhas acendem, a vela aparece
-                  na mesa, o céu perde a luz. E quando o sol acaba, o plano
-                  dissolve no MESMO jardim com a luz da casa acesa — o
-                  segundo ato, que é a resposta ao "efeito básico".
+     01 Jardim    28 quadros de um plano fixo em 11 segundos, e é a única
+                  seção em que duas coisas acontecem juntas: a luz cai E a
+                  casa enche. No fim a cabine está acesa e o DJ tocando,
+                  dentro do próprio plano.
      02 Salão     34 quadros de um plano fixo em 5,5 segundos. A sala começa
                   vazia e ENCHE, e no fim respira em vaivém. A passagem que
                   vinha depois virou seção própria (.passagem).
@@ -69,14 +68,12 @@ const OVERLAP = 0.3 // fatia da janela compartilhada com a vizinha
    gesto: o Jardim escurece devagar (uma luz que acaba), o Salão se parte em
    um segundo.
 
-   0,74 → 0,90 no Jardim, e o número foi medido em cima do defeito que ele
-   evita. A saída antiga (`engolir`) disparava a 74% porque o poente
-   precisava de um quarto de curso para atravessar a tela. A nova só apaga —
-   e apagando a 74% ela cobria justamente o trecho em que o SEGUNDO ATO
-   acontece: medido na tela, as luzinhas da parreira chegavam a 77% de
-   opacidade e a seção escurecia por cima delas. O capítulo ganhou um
-   segundo ato e a saída o comia. */
-const SAIDA_EM = { apaga: 0.9, parte: 0.9, fecha: 0.84 }
+   O Jardim já foi a 0,74 (quando a saída era o poente, que precisava de um
+   quarto de curso para atravessar a tela) e a 0,90 (quando havia um segundo
+   ato para não atropelar). Agora é 0,84 sobre um curso de 105%, e o número
+   vem do pedido: quando o vídeo acaba, a próxima seção começa. A sequência
+   satura a 0,68 do curso; 0,84 deixa uma batida de respiro e sai. */
+const SAIDA_EM = { apaga: 0.84, parte: 0.9, fecha: 0.84 }
 
 /* ── A declaração de cada sequência ──────────────────────────────────────
 
@@ -93,42 +90,49 @@ const SAIDA_EM = { apaga: 0.9, parte: 0.9, fecha: 0.84 }
    ancora  onde o recorte do `cover` cai no eixo horizontal (frames.js). */
 const SEQUENCIAS = {
   dusk: {
-    total: 22,
-    /* 9 segundos, e é o número mais importante desta passada.
+    /* ⚠︎ Este número tem de bater com `quadros` da mesma sequência em
+       scripts/frames.mjs. São dois arquivos e nenhum lê o outro: o build
+       decide quantos quadros GRAVAR e este decide quantos LER.
 
-       O entardecer é o melhor material do site e a premissa da narrativa
-       inteira: o café fecha, o sol cai, a casa abre. Ele merecia o
-       tratamento que faz a ideia chegar mais forte, e presa ao dedo ela
-       não chegava — 130 unidades de mudança entregues em saltos de oito
-       quadros por passada.
+       Quando a fonte do entardecer trocou (o pátio vazio virou o jardim com
+       gente), o build subiu de 22 para 28 e este ficou em 22. O defeito é
+       silencioso e duplo: o site nunca desenhava os seis últimos quadros —
+       justamente os mais cheios, à noite — e todo cálculo feito sobre o
+       progresso da sequência passou a saturar seis quadros cedo demais,
+       incluindo a dissolução para a fotografia da cabine, que acendia
+       inteira antes de a noite terminar de encher. */
+    total: 28,
+    /* 9s → 11s. A fonte deixou de ser uma rampa de luz sobre um pátio vazio
+       e passou a ter duas coisas acontecendo ao mesmo tempo: a luz caindo e
+       a casa enchendo. A 9s os 28 quadros correm a 3,1/s e a chegada das
+       pessoas passa como um borrão de stop-motion; a 11s são 2,5/s, que é o
+       ritmo em que se vê alguém sentar. */
+    dur: 11,
+    /* A janela é o trecho do curso em que a rolagem EMPURRA a sequência;
+       fora dela o piso satura em 0 e em 1.
 
-       Nove segundos é o tempo em que a mesma mudança vira uma rampa
-       contínua: cerca de 14 unidades por segundo, abaixo do limiar em que
-       o olho vê "corte" e acima daquele em que ele vê "parado". E é o
-       tempo que uma pessoa passa de fato olhando para uma fotografia de
-       tela cheia antes de rolar — não é uma duração inventada, é a
-       duração que a seção já tinha na prática, agora gasta em luz em vez
-       de em polegar.
+       0,60 → 0,68 junto com a saída do segundo ato. Enquanto havia uma
+       fotografia para acender depois do plano, valia a pena o piso saturar
+       cedo e sobrar curso. Sem ela, curso sobrando é a sala cheia PARADA
+       esperando o dedo — e o pedido foi explícito: quando o vídeo acaba, a
+       próxima seção começa.
 
-       Com o piso de rolagem, quem não tiver nove segundos empurra. */
-    dur: 9,
-    /* [0.02, 0.86] → [0.02, 0.60]. A janela é o trecho do curso em que a
-       rolagem EMPURRA a sequência; fora dela o piso satura. Encurtá-la faz
-       o sol acabar mais cedo para quem rola depressa, e o que sobra do
-       curso é o segundo ato: a cabine acesa no jardim.
+       A 0,68 de um curso de 105% o sol termina a 0,71 tela do topo da
+       seção, e a saída dispara a 0,88 (SAIDA_EM). Sobram 0,17 tela de
+       respiro entre a última mudança e a seção sair — uma batida, não uma
+       espera.
 
-       O curso do capítulo cresceu de 96% para 130% na mesma passada, então
-       encurtar a janela em proporção NÃO encurta o sol em pixels — 0,60 de
-       130 é mais rolagem do que 0,86 de 96. O que muda é quanto sobra
-       depois dele: 0,42 tela de cabine acesa em vez de 0,05.
-
-       Para quem NÃO rola depressa nada disso muda — o relógio de 9s
-       continua mandando, e a janela só existe para o caso em que o dedo é
-       mais rápido que a luz. */
-    janela: [0.02, 0.6],
+       Para quem NÃO rola depressa nada disso muda: o relógio de 11s manda,
+       e a janela só existe para o caso em que o dedo é mais rápido que a
+       luz. */
+    janela: [0.02, 0.68],
     /* O jardim também respira no fim: os últimos quadros são a noite já
        posta, e o vaivém entre eles é o piscar das luzinhas na parreira. */
-    laco: [19, 21],
+    /* Os últimos quadros, e eles se mudaram junto com a contagem: eram
+       [19, 21] no fim de uma sequência de 22. Numa de 28, aquele trecho é o
+       meio do estágio da hora dourada — a seção terminaria respirando na
+       parte errada da noite. */
+    laco: [25, 27],
     fps: 1.6,
     caminho: (i) => `/frames/dusk/d_${String(i + 1).padStart(3, '0')}.webp`
   },
@@ -222,13 +226,11 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      dentro dele guarda a própria escala e âncora no CSS, e as duas coisas
      precisam de transform ao mesmo tempo.
 
-     `--noite` fica de fora da lista de propósito. Ela é um plano no
-     desenho — está empilhada no mesmo lugar, no mesmo embrulho — e NÃO é
-     uma camada de montagem: quem a acende não é o curso da seção, é o
-     progresso da sequência de quadros (ver o bloco do segundo ato,
-     abaixo). Deixá-la entrar aqui poria duas timelines escrevendo na mesma
-     opacidade, e a que perde é sempre a que não está presa ao scrub. */
-  const planos = [...chapter.querySelectorAll('.chapter__plano:not(.chapter__plano--noite)')]
+     O seletor teve uma exceção enquanto o Jardim tinha um segundo ato: a
+     camada da cabine era um plano no desenho e não uma camada de montagem,
+     porque quem a acendia era o progresso da sequência e não o curso da
+     seção. Ela saiu do site, e a exceção com ela. */
+  const planos = [...chapter.querySelectorAll('.chapter__plano')]
   const camadas = planos.length ? planos : imgs
   const canvas = chapter.querySelector('.chapter__canvas')
   const video = chapter.querySelector('.chapter__video')
@@ -251,12 +253,6 @@ for (const chapter of document.querySelectorAll('.chapter')) {
     // estado final legível: o cartaz parado do ambiente e o texto inteiro
     gsap.set([dash, labelText, title, text, ...chars], NATURAL)
     gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
-    /* O segundo ato do Jardim fica de fora do caminho sem movimento. Ele é
-       o resultado de uma sequência que não corre aqui, e a fotografia que
-       representa o capítulo parado é a da hora dourada — que é o cartaz da
-       sequência e o nome da seção (Sunset Session). */
-    const noiteParada = chapter.querySelector('.chapter__plano--noite')
-    if (noiteParada) gsap.set(noiteParada, { opacity: 0 })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
     if (video) video.remove()
@@ -418,63 +414,32 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        "soltura" da passada anterior, que agora é o estado normal da seção
        inteira em vez de um acontecimento no meio dela. */
     /* ╔════════════════════════════════════════════════════════════════╗
-       ║ O SEGUNDO ATO DO JARDIM — e é a resposta ao "efeito básico"     ║
+       ║ O SEGUNDO ATO SAIU DAQUI                                       ║
        ║                                                                ║
-       ║ A queixa: o capítulo 01 era uma rampa. Vinte e dois quadros de  ║
-       ║ luz caindo, nove segundos, e no fim a mesma fotografia um pouco ║
-       ║ mais escura. Uma rampa não é um acontecimento; é um valor       ║
-       ║ mudando devagar.                                               ║
+       ║ Havia neste ponto uma terceira camada no Jardim: uma fotografia ║
+       ║ da cabine em close que dissolvia por cima do plano nos últimos  ║
+       ║ quadros, com a opacidade escrita pelo progresso da SEQUÊNCIA e  ║
+       ║ não pela rolagem — para acender sempre no mesmo quadro, com o   ║
+       ║ polegar parado ou correndo.                                     ║
        ║                                                                ║
-       ║ A proposta que veio junto — "as pessoas chegando depressa, como ║
-       ║ no salão" — foi recusada, e a razão está no HTML: o capítulo 02 ║
-       ║ JÁ É isso, e dois capítulos em que a sala enche são o mesmo     ║
-       ║ capítulo duas vezes. A rima entre 01 e 02 (mesma câmera         ║
-       ║ travada, mesmo mecanismo, assuntos opostos) é o que dá forma à  ║
-       ║ noite.                                                         ║
+       ║ O mecanismo estava certo e a razão de existir evaporou. Ele foi ║
+       ║ construído quando a fonte do capítulo era um pátio VAZIO com a  ║
+       ║ luz caindo: sem nada acontecendo nos últimos quadros, a         ║
+       ║ fotografia era o único acontecimento que a seção podia ter.      ║
        ║                                                                ║
-       ║ O que faltava era um SEGUNDO ATO: quando o sol termina de cair,  ║
-       ║ o plano dissolve na CABINE NO JARDIM — o balcão curvo aceso por  ║
-       ║ uma fita âmbar, as caixas de som, uma vela na mesa. O sol acaba  ║
-       ║ e o SOM começa.                                                 ║
+       ║ A fonte nova tem a cabine acesa e o DJ tocando DENTRO do plano, ║
+       ║ nos quadros 17 a 28. Mantida, a fotografia virava uma imagem    ║
+       ║ PARADA cobrindo justamente o trecho mais vivo da sequência — e  ║
+       ║ depois dela ainda sobrava meia tela de espera antes da seção    ║
+       ║ seguinte.                                                       ║
        ║                                                                ║
-       ║ É a ideia que veio junto com a queixa ("o DJ tocando lá fora de  ║
-       ║ tarde") e ela já existia em arquivo: a fotografia estava em      ║
-       ║ brand/originais com o nome `hero.jpg` e nunca fora publicada.    ║
+       ║ Saiu inteira: o elemento, a folha, este bloco e o arquivo       ║
+       ║ publicado (−135 kB). O capítulo termina no próprio plano, com a ║
+       ║ casa cheia, e sai. Quando o vídeo acaba, a próxima seção        ║
+       ║ começa.                                                         ║
        ║                                                                ║
-       ║ ── E a dissolução segue a SEQUÊNCIA, não a rolagem ──────────── ║
-       ║                                                                ║
-       ║ Este é o ponto mecânico que faz a coisa funcionar. A sequência  ║
-       ║ é classe 3: ela corre num relógio de 9 segundos com piso de     ║
-       ║ rolagem, então o instante em que o sol acaba NÃO corresponde a  ║
-       ║ nenhuma posição fixa de rolagem — depende de quanto tempo o     ║
-       ║ usuário passou na seção e de quão depressa ele empurrou.        ║
-       ║                                                                ║
-       ║ Um crossfade preso ao scrub acenderia as luzinhas com o sol     ║
-       ║ ainda alto para quem lê devagar, e com a noite já posta há      ║
-       ║ segundos para quem lê depressa. Amarrado ao progresso da        ║
-       ║ própria sequência, ele acontece sempre no mesmo QUADRO — que é  ║
-       ║ o único lugar em que ele significa alguma coisa.                ║
-       ║                                                                ║
-       ║ A janela é 0,72 → 0,99 do curso da sequência: começa quando os  ║
-       ║ últimos quadros já estão escuros e termina no último. Um `set`  ║
-       ║ por quadro numa opacidade, e só enquanto a seção está em cena.  ║
+       ║ O original continua em brand/originais/hero.jpg.                ║
        ╚════════════════════════════════════════════════════════════════╝ */
-    const noite = chapter.querySelector('.chapter__plano--noite')
-    if (noite) {
-      gsap.set(noite, { opacity: 0 })
-
-      const DE = 0.64
-      const ATE = 0.96
-      let ultimo = -1
-
-      laco(chapter, () => {
-        const p = total ? quadro.v / total : 0
-        const v = Math.min(1, Math.max(0, (p - DE) / (ATE - DE)))
-        if (Math.abs(v - ultimo) < 0.004) return
-        ultimo = v
-        gsap.set(noite, { opacity: v })
-      })
-    }
 
     if (seq.laco) {
       const [de, para] = seq.laco

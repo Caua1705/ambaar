@@ -107,19 +107,56 @@ const ENCHE = (u) => (u < 0.12
 const SEQUENCIAS = [
   {
     nome: 'dusk',
-    fonte: 'brand/originais/jardim-timelapse.mp4',
-    // o primeiro segundo é dia pleno e idêntico ao segundo: entra um quadro
-    // dele, não vinte e quatro
-    janela: ['-ss', '1.0'],
+    /* ── A fonte mudou: o jardim tem GENTE ─────────────────────────────
+
+       Era `jardim-timelapse.mp4`: oito segundos de um pátio VAZIO com a luz
+       caindo. Bonito, e a queixa era justa — "só um vídeo entardecendo".
+       Uma rampa de luz sobre móveis desocupados não é um acontecimento.
+
+       Agora são dois clipes de oito segundos, gerados a partir de quadros
+       do próprio timelapse antigo (brand/referencias/flow/), portanto com o
+       MESMO enquadramento — mesma parede, mesma viga, mesma bananeira,
+       mesma mesa:
+
+         t2-entardecer  hora dourada, gente chegando, sentando, brindando
+         t3-noite       luzinhas acesas, a cabine ao fundo, a mesa cheia
+
+       ── E um terceiro clipe foi descartado ──────────────────────────────
+
+       `t1-dia.mp4` era o estágio de luz do dia, e saiu por duas razões que
+       se somam. A primeira é de paleta: ele veio branco, verde e frio — um
+       almoço, não um bar —, e este site é âmbar sobre carvão do primeiro
+       pixel ao último. A segunda é de movimento: duas pessoas sentando e
+       conversando, num trecho amostrado a um quadro por segundo, produz
+       quadros IDÊNTICOS. Ele custava um terço da sequência para entregar
+       uma fotografia parada da hora errada.
+
+       Perder o estágio de dia não custa a frase do capítulo. "O sol cai"
+       continua verdadeiro entre a hora dourada e a noite — é exatamente aí
+       que ele cai. O que se perde é o preâmbulo, e o preâmbulo era a parte
+       que não pertencia à casa.
+
+       O arquivo continua em brand/originais/flow/, caso a decisão mude. */
+    fonte: 'brand/originais/jardim-sunset.mp4',
+    janela: [],
     saida: 'public/frames/dusk',
     prefixo: 'd',
-    /* Vinte e dois quadros para três horas de luz caindo. O que sustenta um
-       número tão baixo é o plano ser fixo: entre dois quadros vizinhos só a
-       luz muda, e a seção mistura o par em vez de trocar de um para o outro
-       (frames.js). A interpolação linear entre dois estados de luz da mesma
-       cena é quase exata — é o resto do movimento que ela não saberia
-       inventar, e aqui não há resto. */
-    quadros: 22,
+    /* Vinte e dois → trinta.
+
+       Vinte e dois bastavam quando entre dois quadros vizinhos só a LUZ
+       mudava: a interpolação linear entre dois estados de luz da mesma cena
+       parada é quase exata (frames.js mistura o par em vez de trocar de um
+       para o outro). Com gente atravessando o quadro há um resto que a
+       interpolação não sabe inventar — e a esta duração, 22 quadros dariam
+       um a cada 0,73s, que é a taxa em que um corpo aparece em três lugares
+       distantes e vira três pessoas parecidas piscando.
+
+       Trinta sobre 16s dá um quadro a cada 0,53s. Ainda é metade da
+       densidade do Salão (0,24s), e isso é de propósito: lá a câmera está
+       DENTRO da multidão e o assunto é o arrasto; aqui ela está longe e o
+       assunto é o tempo passando. Denso demais e os dois capítulos viram o
+       mesmo capítulo. */
+    quadros: 28,
     /* 480 e teto de 26 kB, contra 520 e 34 kB. A sequência do entardecer é
        o arquivo mais caro do site (folhagem em luz alta é ruído de alta
        frequência puro) e nesta passada ela deixou de precisar de tanto:
@@ -128,11 +165,25 @@ const SEQUENCIAS = [
        ninguém vê. O que se ganha em bytes paga a seção nova e a passagem
        do Salão, que é onde o pixel faz falta. */
     largura: 480,
-    teto: 26 * 1024,
-    curva: VIRADA,
+    teto: 22 * 1024,
+    /* LINEAR, e não mais a VIRADA.
+
+       A VIRADA foi desenhada para uma fonte em que a luz caía numa rampa
+       contínua: ela dava 30% dos quadros aos primeiros 28% do vídeo e
+       concentrava o resto no miolo, onde a virada acontecia. A fonte nova
+       são dois clipes emendados e a virada é o CORTE entre eles, no meio
+       exato. Uma curva que pesa o miolo passaria a pesar a emenda.
+
+       Linear dá quinze quadros para a hora dourada e quinze para a noite,
+       um a cada 0,53s dos dois lados. */
+    curva: (u) => u,
     // a folhagem gera ruído de alta frequência que o WebP paga caro e que
     // a demão da seção come de qualquer jeito
-    desfoque: 0.6,
+    // 0,6 → 0,3: o desfoque existia para amaciar folhagem em luz alta,
+    // que é ruído de alta frequência caro no WebP. A fonte nova tem gente
+    // no quadro, e meio pixel de desfoque sobre um rosto a 480px de
+    // largura é a diferença entre uma pessoa e uma mancha.
+    desfoque: 0.5,
     denoise: 'hqdn3d=6:4:9:9'
   },
 

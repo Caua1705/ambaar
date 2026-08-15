@@ -157,27 +157,18 @@ const FOTOS = [
      ╚══════════════════════════════════════════════════════════════════╝ */
   { saida: 'hero', de: 'hero-jardim.png', largura: 1024, q: 66, luz: 1.02 },
 
-  /* ── O segundo ato do capítulo 01 ────────────────────────────────────
-     A CABINE NO JARDIM: o balcão curvo aceso por uma fita âmbar, o
-     controlador em cima, duas caixas de som, as palmeiras atrás, uma vela
-     na mesa em primeiro plano e as luzinhas cruzando o alto do quadro.
+  /* ── A CABINE DO JARDIM SAIU DA PUBLICAÇÃO ────────────────────────────
+     Ela foi publicada por uma passada como `jardim-cabine`: o segundo ato
+     do capítulo 01, uma fotografia do balcão curvo aceso que dissolvia por
+     cima da sequência quando o sol acabava.
 
-     Ela estava em brand/originais desde a primeira passada, com o nome
-     `hero.jpg`, e nunca foi publicada. Era a fotografia mais valiosa da
-     pasta e ninguém tinha olhado para ela.
+     Saiu porque a SEQUÊNCIA passou a fazer o que ela fazia. A fonte nova do
+     entardecer tem a cabine acesa e o DJ tocando dentro do próprio plano,
+     nos quadros 17 a 28 — e uma fotografia parada por cima do trecho mais
+     vivo de um plano é uma cortina, não um ato.
 
-     É o que o capítulo 01 estava devendo. A queixa foi que o entardecer
-     era "só um vídeo entardecendo" — uma rampa de luz caindo sobre um
-     pátio vazio —, e a ideia que veio junto com a queixa foi "o DJ tocando
-     lá fora de tarde". Esta fotografia É isso, e ela já existia.
+     O original continua em brand/originais/hero.jpg. −135 kB. */
 
-     Agora o capítulo tem uma frase inteira: o sol cai sobre as mesas
-     vazias e, quando ele acaba, A CABINE ACENDE. Não é uma transição de
-     clima, é um acontecimento — a casa ligando o som.
-
-     900px: tela cheia. Sem tinta: a luz dela já é âmbar de fita de LED
-     sobre reboco, que é a paleta inteira do site em um objeto. */
-  { saida: 'jardim-cabine', de: 'hero.jpg', largura: 900, q: 74, luz: 1.06 },
 
   /* ══════════════════════════════════════════════════════════════════
      A QUARTA TRIAGEM — e ela responde à pergunta que faltava

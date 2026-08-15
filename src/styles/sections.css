@@ -107,44 +107,17 @@
   opacity: 1;
 }
 
-/* ── O segundo ato do Jardim ───────────────────────────── */
+/* O SEGUNDO ATO DO JARDIM SAIU DAQUI.
 
-/* A CABINE NO JARDIM, acesa: o balcão curvo com a fita âmbar, as caixas de
-   som, as palmeiras e uma vela na mesa. Ela está empilhada por cima da
-   sequência de quadros, no mesmo embrulho, e acende sozinha quando o sol
-   termina de cair — quem escreve a opacidade dela é o progresso da
-   SEQUÊNCIA, não a rolagem (chapters.js).
+   Havia uma camada `.chapter__plano--noite`: uma fotografia da cabine em
+   close, empilhada por cima da sequência de quadros e acesa pelo progresso
+   dela. Ela existia porque a fonte do capítulo era um pátio VAZIO com a luz
+   caindo — sem nada acontecendo nos últimos quadros, a fotografia era o
+   único acontecimento que a seção podia ter.
 
-   O porquê está no HTML: o capítulo era uma rampa de luz caindo e nada
-   mais, e a queixa foi que o efeito estava básico. Ele não ganhou um
-   segundo efeito, ganhou um segundo ATO — o sol acaba e o SOM começa, que
-   é a causa de tudo o que vem depois na página.
-
-   (A classe se chama `--noite` desde a versão em que o segundo ato era uma
-   foto do jardim com as luzinhas acesas. O nome ficou porque o papel é o
-   mesmo: é a camada da noite, seja ela luz ou som.)
-
-   A escala de 104% existe pela mesma razão que a do .chapter__media: a
-   fotografia mora dentro de um plano que a timeline de permanência gira
-   meio grau, e sem folga a rotação descobriria os cantos. */
-.chapter__plano--noite {
-  opacity: 0;
-  z-index: 1;
-}
-
-.chapter__plano--noite img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* A vela na mesa está no miolo baixo e as luzinhas ocupam o terço alto.
-     A 52% 46% as duas coisas ficam no quadro numa tela estreita, e é a
-     presença das DUAS que faz a fotografia dizer "a casa acendeu" em vez
-     de "escureceu". */
-  object-position: 52% 46%;
-  transform: scale(1.04);
-}
+   A fonte nova tem a cabine acesa e o DJ tocando dentro do próprio plano.
+   A camada virou uma imagem parada cobrindo o trecho mais vivo da
+   sequência, e saiu inteira. Ver a nota em chapters.js. */
 
 /* ── Os três planos do Salão ───────────────────────────── */
 

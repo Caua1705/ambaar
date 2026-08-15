@@ -32,10 +32,15 @@
   z-index: 0;
 }
 
-/* A foto é o jardim na hora dourada: sol baixo, sombras compridas, o terço
-   de cima limpo. A hero anterior era a cabine do DJ à noite — a primeira
-   tela do site contradizia a premissa do próprio site, que é o café
-   fechando às 17h e o Âmbar abrindo.
+/* O jardim na hora dourada, e é o MESMO canto do capítulo 01 antes de a
+   casa pôr as mesas: mesma parede caiada com a viga de concreto, mesma
+   bananeira, mesma parreira caindo do alto, mesma luz rasante — sem a mesa
+   e sem as cadeiras.
+
+   A relação com o capítulo é o ponto. Publicada com os móveis, esta tela e
+   a seguinte eram a mesma fotografia com duas cores; sem eles, a hera é o
+   lugar VAZIO e o capítulo é o lugar acontecendo. Ver a nota do arquivo em
+   scripts/fotos.mjs.
 
    E ela é uma foto PARADA, de propósito. O site inteiro é o tempo
    passando; a marca é o tempo parado. A abertura é o instante guardado, e
@@ -43,11 +48,15 @@
    mexe até o dedo tocá-la.
 
    Sem filtro: a exposição foi resolvida no arquivo. */
+/* 38% e não 46% no eixo vertical. O arquivo novo é mais alto que o
+   anterior (1536 contra 950), então o recorte da tela deitada ficou mais
+   severo: a 46% ele caía na base das folhas e a mancha de luz na parede —
+   que é o assunto — passava por cima da borda de cima. */
 .hero__bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 52% 46%;
+  object-position: 52% 38%;
 }
 
 /* Scrim local, não geral: uma elipse atrás do lockup e um pé escuro para o

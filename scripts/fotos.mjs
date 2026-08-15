@@ -113,28 +113,49 @@ const FOTOS = [
      do wordmark e é recortada por ele.
 
      ╔══════════════════════════════════════════════════════════════════╗
-     ║ O RECORTE, E POR QUE ELE EXISTE                                  ║
+     ║ O RECORTE SAIU, PORQUE O ARQUIVO MUDOU                           ║
      ║                                                                  ║
-     ║ Este arquivo é o MESMO enquadramento dos 22 quadros do capítulo   ║
-     ║ 01 — mesma mesa, mesmas cadeiras, mesma parede, mesma parreira.   ║
-     ║ Publicado inteiro, a primeira tela do site e a terceira eram a    ║
-     ║ mesma fotografia com duas cores diferentes, e o que o usuário     ║
-     ║ sentia era exatamente isso: "ficou estranho".                     ║
+     ║ O problema era este: `jardim-dourado.png` é o MESMO              ║
+     ║ enquadramento dos 22 quadros do capítulo 01 — mesma mesa,        ║
+     ║ mesmas cadeiras, mesma parede, mesma parreira. Publicado         ║
+     ║ inteiro, a primeira tela do site e a segunda eram a mesma        ║
+     ║ fotografia com duas cores diferentes.                            ║
      ║                                                                  ║
-     ║ O recorte tira o terço de baixo — a mesa e as cadeiras, que são   ║
-     ║ o assunto reconhecível — e deixa o que sobra: luz dourada         ║
-     ║ rasante numa parede, folha de bananeira, uma parreira caindo do   ║
-     ║ alto. Deixa de ser um LUGAR e passa a ser uma HORA.               ║
+     ║ O primeiro conserto foi recortar: tirar o terço de baixo, onde   ║
+     ║ estão a mesa e as cadeiras, e ficar só com a luz na parede. A    ║
+     ║ ideia estava certa e o preço era alto — o recorte jogava fora    ║
+     ║ 31% da ALTURA de um arquivo de 1536px, e a hero é limitada pela  ║
+     ║ altura em tela vertical. Medido: num telefone retina ela passou  ║
+     ║ a ser esticada 2,94× (era 2,02× antes do recorte).               ║
      ║                                                                  ║
-     ║ E é o que esta imagem precisa ser, por uma razão mecânica: ela    ║
-     ║ vive atrás do wordmark e é recortada por ele (hero.css). Uma      ║
-     ║ textura de luz enche as seis letras de ouro; uma cadeira dentro   ║
-     ║ de uma letra é um acidente.                                       ║
+     ║ `hero-jardim.png` resolve os dois de uma vez. É o mesmo canto,   ║
+     ║ a mesma parede caiada com a viga de concreto, a mesma bananeira, ║
+     ║ a mesma parreira caindo do alto e a mesma luz rasante — SEM a    ║
+     ║ mesa e sem as cadeiras. O chão virou laje com mato entre as      ║
+     ║ juntas, que é o que havia por baixo dos móveis.                  ║
      ║                                                                  ║
-     ║ Mesmo lugar, outra escala. É a mesma relação que a página usa     ║
-     ║ entre o copo no jardim e o copo na mão.                           ║
+     ║ Publicada INTEIRA, sem recorte:                                  ║
+     ║                                                                  ║
+     ║              telefone retina    desktop                          ║
+     ║   recorte          2,94×          2,17×                          ║
+     ║   original         2,02×          2,08×                          ║
+     ║   esta             1,82×          1,87×                          ║
+     ║                                                                  ║
+     ║ É a mais nítida das três em qualquer tela, e é a única que não   ║
+     ║ repete o capítulo 01. A relação com ele ficou melhor do que era: ║
+     ║ não é mais "a mesma foto duas vezes" nem "duas fotos sem         ║
+     ║ parentesco" — é o mesmo canto do jardim antes de a casa pôr as   ║
+     ║ mesas. A hero é o lugar vazio; o capítulo é o lugar acontecendo. ║
+     ║                                                                  ║
+     ║ E ela serve melhor à razão mecânica de existir: esta imagem vive ║
+     ║ atrás do wordmark e é recortada por ele (hero.css). Sem os       ║
+     ║ móveis, o que enche as seis letras é luz e folha — nunca a       ║
+     ║ quina de uma cadeira.                                            ║
+     ║                                                                  ║
+     ║ `jardim-dourado.png` continua em brand/originais e é a fonte do  ║
+     ║ timelapse; ela só não é mais publicada.                          ║
      ╚══════════════════════════════════════════════════════════════════╝ */
-  { saida: 'hero', de: 'jardim-dourado.png', corte: { left: 70, top: 0, width: 880, height: 950 }, largura: 1000, q: 72, luz: 1.06 },
+  { saida: 'hero', de: 'hero-jardim.png', largura: 1024, q: 66, luz: 1.02 },
 
   /* ── O segundo ato do capítulo 01 ────────────────────────────────────
      A CABINE NO JARDIM: o balcão curvo aceso por uma fita âmbar, o

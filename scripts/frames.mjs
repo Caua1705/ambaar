@@ -48,22 +48,36 @@ import sharp from 'sharp'
 
 const run = promisify(execFile)
 
-/* Amostragem do entardecer. Entrada 0→1 (posição na sequência final),
-   saída 0→1 (posição na janela recortada do vídeo).
+/* Amostragem do entardecer, e ela foi remedida CONTRA A LUZ DO ARQUIVO.
 
-   O original tem três trechos: um fim de tarde quase parado, a virada da
-   luz (as luzinhas acendem, a vela aparece, a parede fica quente) e uma
-   noite igualmente parada. A virada é 40% do tempo e recebe 55% dos
-   quadros; os dois extremos entram só o suficiente para existirem.
+   A fonte nova são dois clipes de 8s emendados por dissolve, e medindo a
+   luminância média quadro a quadro ela tem duas partes muito diferentes:
 
-   Em peso isso importa duas vezes: os quadros de DIA são os mais caros do
-   site — folhagem em luz alta é ruído de alta frequência puro — e o barato
-   é pedir menos deles. */
-const VIRADA = (u) => {
-  if (u < 0.3) return (u / 0.3) * 0.286
-  if (u < 0.85) return 0.286 + ((u - 0.3) / 0.55) * 0.4
-  return 0.686 + ((u - 0.85) / 0.15) * 0.314
-}
+     0—8s    a rampa. YAVG cai de 87 a 38 sem parar: o sol sai, as luzinhas
+             acendem, a cabine acende, as pessoas chegam e sentam.
+     8—12s   o patamar. YAVG fica em 38 e não se move mais. A luz acabou;
+             o que continua acontecendo é gente conversando.
+
+   Uma curva LINEAR sobre isso gasta um terço do dedo num trecho onde a luz
+   não muda — e a luz é o assunto do capítulo ("o sol cai atrás da
+   parreira"). Não é o mesmo erro do Salão, que era pior (75% dos quadros
+   na sala vazia), mas é o mesmo tipo de erro: quadro gasto onde nada
+   acontece.
+
+   Os primeiros 76% da sequência cobrem os 66,7% de rampa, e os 24% finais
+   cobrem o patamar. São 21 quadros a 0,38s na parte que muda e 7 a 0,57s
+   na parte que só respira — e os 7 bastam porque o patamar ainda tem
+   movimento de gente, que é o que alimenta o laço do fim (chapters.js).
+
+   A curva também decide ONDE cai a emenda dos dois clipes, aos 6,5s. Com
+   estes números ela cai entre o quadro 17 (6,24s, primeiro clipe) e o 18
+   (6,63s, segundo) — entre duas amostras, nunca em cima de uma. Isso
+   importa: um quadro amostrado dentro de uma dissolvência sai com as
+   pessoas transparentes e duplicadas, e foi exatamente assim que a
+   primeira montagem desta fonte falhou. */
+const PONTE = (u) => (u < 0.76
+  ? (u / 0.76) * 0.667
+  : 0.667 + ((u - 0.76) / 0.24) * 0.333)
 
 /* Amostragem do salão enchendo — e a curva foi INVERTIDA nesta passada.
 
@@ -107,84 +121,108 @@ const ENCHE = (u) => (u < 0.12
 const SEQUENCIAS = [
   {
     nome: 'dusk',
-    /* ── A fonte mudou: o jardim tem GENTE ─────────────────────────────
+    /* ── A fonte foi refeita: agora o sol CAI de verdade ────────────────
 
-       Era `jardim-timelapse.mp4`: oito segundos de um pátio VAZIO com a luz
-       caindo. Bonito, e a queixa era justa — "só um vídeo entardecendo".
-       Uma rampa de luz sobre móveis desocupados não é um acontecimento.
+       A versão anterior tinha gente, e ainda assim a queixa voltou. Medindo
+       a luminância dela quadro a quadro o motivo aparece inteiro: os 14s
+       começavam em YAVG 55 e terminavam em 40. Ela ia de NOITE a noite mais
+       cheia. O pôr do sol que a copy promete ("o sol cai atrás da parreira e
+       a cabine acende no lugar dele") não estava na tela em momento nenhum —
+       e um capítulo que se chama Sunset Session precisa que a rampa exista.
 
-       Agora são dois clipes de oito segundos, gerados a partir de quadros
-       do próprio timelapse antigo (brand/referencias/flow/), portanto com o
-       MESMO enquadramento — mesma parede, mesma viga, mesma bananeira,
-       mesma mesa:
+       A fonte nova nasce de uma chapa fotográfica da própria casa
+       (`_MG_2083`, recortada em 9:16 em brand/originais/chapas/), editada
+       em três estágios de luz e animada entre eles. Ela vai de YAVG 89 a
+       38: dia claro → hora dourada → noite. Mesmo enquadramento do começo
+       ao fim, porque a chapa é a mesma.
 
-         t2-entardecer  hora dourada, gente chegando, sentando, brindando
-         t3-noite       luzinhas acesas, a cabine ao fundo, a mesa cheia
+       ── A emenda, e por que ela é um CORTE ──────────────────────────────
 
-       ── E um terceiro clipe foi descartado ──────────────────────────────
+       Os dois clipes gerados partiram do MESMO primeiro quadro (o dia), e
+       não em cadeia como o plano previa: o segundo devia começar onde o
+       primeiro parou. Emendados crus, o resultado era dia→anoitecer, corte,
+       dia de novo→noite — a rampa reiniciava no meio.
 
-       `t1-dia.mp4` era o estágio de luz do dia, e saiu por duas razões que
-       se somam. A primeira é de paleta: ele veio branco, verde e frio — um
-       almoço, não um bar —, e este site é âmbar sobre carvão do primeiro
-       pixel ao último. A segunda é de movimento: duas pessoas sentando e
-       conversando, num trecho amostrado a um quadro por segundo, produz
-       quadros IDÊNTICOS. Ele custava um terço da sequência para entregar
-       uma fotografia parada da hora errada.
+       O conserto foi medir os dois e cortar o segundo onde a luz dele
+       ALCANÇA a do fim do primeiro: YAVG 53, aos 2,5s. Na emenda a luz não
+       dá um degrau (53 → 54); o que troca de uma vez é a posição das
+       pessoas.
 
-       Perder o estágio de dia não custa a frase do capítulo. "O sol cai"
-       continua verdadeiro entre a hora dourada e a noite — é exatamente aí
-       que ele cai. O que se perde é o preâmbulo, e o preâmbulo era a parte
-       que não pertencia à casa.
+       A primeira montagem pôs meio segundo de dissolve ali e ISSO FALHOU:
+       uma das 28 amostras caiu dentro da dissolvência e o quadro publicado
+       saiu com as pessoas transparentes, duas de cada. Num plano fixo o
+       dissolve tem de ser feito pelo frames.js, que mistura quadros
+       vizinhos em tempo de rolagem — assá-lo no arquivo é assar um fantasma
+       e depois amostrá-lo.
 
-       O arquivo continua em brand/originais/flow/, caso a decisão mude. */
+       Corte seco, então, e a curva PONTE o coloca entre duas amostras.
+
+       Também saiu 1,5s da cabeça do primeiro clipe: ali o YAVG ia de 89 a
+       85, isto é, quatro níveis em trinta e seis quadros. Era o aquecimento
+       do gerador, e era o trecho mais caro do arquivo (folhagem em luz
+       alta a 54 kB o quadro) para não mostrar nada acontecendo.
+
+       O que sobra é monotônico: 87 → 53 → 38, sem volta. */
     fonte: 'brand/originais/jardim-sunset.mp4',
     janela: [],
     saida: 'public/frames/dusk',
     prefixo: 'd',
-    /* Vinte e dois → trinta.
+    /* Vinte e oito sobre 13s, e a curva PONTE os distribui: 19 na rampa
+       (0,42s cada) e 9 no patamar (0,55s).
 
-       Vinte e dois bastavam quando entre dois quadros vizinhos só a LUZ
-       mudava: a interpolação linear entre dois estados de luz da mesma cena
-       parada é quase exata (frames.js mistura o par em vez de trocar de um
-       para o outro). Com gente atravessando o quadro há um resto que a
-       interpolação não sabe inventar — e a esta duração, 22 quadros dariam
-       um a cada 0,73s, que é a taxa em que um corpo aparece em três lugares
-       distantes e vira três pessoas parecidas piscando.
-
-       Trinta sobre 16s dá um quadro a cada 0,53s. Ainda é metade da
-       densidade do Salão (0,24s), e isso é de propósito: lá a câmera está
-       DENTRO da multidão e o assunto é o arrasto; aqui ela está longe e o
-       assunto é o tempo passando. Denso demais e os dois capítulos viram o
-       mesmo capítulo. */
+       O número não subiu junto com a qualidade porque o gargalo desta
+       sequência nunca foi a taxa: a câmera está LONGE e o assunto é o tempo
+       passando, não o arrasto dos corpos. O Salão, que é o contrário — a
+       lente dentro da multidão —, é o único capítulo que precisa de 0,24s
+       entre quadros. Igualar os dois faria deles o mesmo capítulo. */
     quadros: 28,
-    /* 480 e teto de 26 kB, contra 520 e 34 kB. A sequência do entardecer é
-       o arquivo mais caro do site (folhagem em luz alta é ruído de alta
-       frequência puro) e nesta passada ela deixou de precisar de tanto:
-       o último quarto do capítulo é engolido pelo poente (o campo âmbar de
-       chapters.js), e resolução debaixo de uma demão opaca é peso que
-       ninguém vê. O que se ganha em bytes paga a seção nova e a passagem
-       do Salão, que é onde o pixel faz falta. */
-    largura: 480,
-    teto: 22 * 1024,
-    /* LINEAR, e não mais a VIRADA.
+    /* 480 → 560, e o teto de 22 kB → 34 kB.
 
-       A VIRADA foi desenhada para uma fonte em que a luz caía numa rampa
-       contínua: ela dava 30% dos quadros aos primeiros 28% do vídeo e
-       concentrava o resto no miolo, onde a virada acontecia. A fonte nova
-       são dois clipes emendados e a virada é o CORTE entre eles, no meio
-       exato. Uma curva que pesa o miolo passaria a pesar a emenda.
+       O teto antigo era ficção. A escada de qualidade desce até 28 e
+       ESCREVE o que sobrar, tenha ele cabido ou não — e a sequência
+       publicada tinha média de 35 kB contra um teto de 22, isto é, todos
+       os 28 quadros saíam no degrau mais baixo da escada. O capítulo
+       pagava 981 kB e recebia qualidade 28 em troca.
 
-       Linear dá quinze quadros para a hora dourada e quinze para a noite,
-       um a cada 0,53s dos dois lados. */
-    curva: (u) => u,
-    // a folhagem gera ruído de alta frequência que o WebP paga caro e que
-    // a demão da seção come de qualquer jeito
-    // 0,6 → 0,3: o desfoque existia para amaciar folhagem em luz alta,
-    // que é ruído de alta frequência caro no WebP. A fonte nova tem gente
-    // no quadro, e meio pixel de desfoque sobre um rosto a 480px de
-    // largura é a diferença entre uma pessoa e uma mancha.
-    desfoque: 0.5,
-    denoise: 'hqdn3d=6:4:9:9'
+       O que estourava o teto não era a folhagem, era o GRÃO do gerador:
+       ruído fino, aleatório quadro a quadro, o pior caso possível para um
+       codec que trabalha por blocos. O denoise abaixo é o que faz a conta
+       fechar; o teto novo é o que impede a escada de destruir a imagem
+       enquanto ela tenta caber num número que não descrevia nada.
+
+       Com 560 de largura o rosto de quem senta à mesa tem ~17% mais pixel
+       de contorno, que é a diferença entre uma pessoa e uma mancha — e
+       agora existem pessoas em quase todos os quadros. */
+    largura: 560,
+    teto: 34 * 1024,
+    curva: PONTE,
+    /* O patamar da noite fecha em YAVG 38 de 255 — 15% de exposição —, e é
+       sobre ele que a seção ainda joga a demão de céu (`.chapter__dusk`) e
+       a vinheta global. Somadas, elas entregam as pessoas da última meia
+       tela como massa sem contorno.
+
+       Um brilho global não serve: ele levantaria a hora dourada junto e
+       achataria a rampa, que é o assunto. A curva abaixo abre só a parte
+       de baixo — a sombra sobe ~30%, o meio ~7%, o alto não se move —,
+       então o patamar clareia e a rampa continua caindo o mesmo tanto.
+
+       Assado no arquivo, como todo o resto: nenhum filter em tempo de
+       execução, em lugar nenhum. */
+    luz: "curves=all='0/0 0.2/0.26 0.5/0.535 1/1',eq=saturation=1.05",
+
+    /* 0,5 → 0,2, e o denoise afrouxou junto.
+
+       Os dois existiam para amaciar folhagem em luz alta, quando o pátio
+       estava vazio e não havia nada no quadro que precisasse de aresta.
+       Agora há: em quase todo quadro alguém está de pé ou sentado à mesa,
+       e o rosto é a menor coisa legível da cena. Desfoque e denoise fortes
+       comem exatamente essa escala primeiro.
+
+       O grão do gerador ainda precisa sair (é ele que estoura o teto), mas
+       6:4:9:9 arrastava contorno de gente junto com ele. 4:3:6:6 tira o
+       ruído temporal e deixa a aresta espacial em pé. */
+    desfoque: 0.2,
+    denoise: 'hqdn3d=4:3:6:6'
   },
 
   {

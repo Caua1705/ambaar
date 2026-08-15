@@ -1,0 +1,34 @@
+Os dois clipes que geram brand/originais/jardim-sunset.mp4.
+
+Ambos saíram do gerador partindo do MESMO primeiro quadro (a chapa de dia,
+brand/originais/chapas/chapa-base-cabine.png), e não em cadeia — o segundo
+devia começar onde o primeiro parou. Por isso a montagem não é uma emenda
+simples: cada ponta é cortada pela LUZ MEDIDA, não pelo relógio.
+
+  clipe-1-dourada  8s · YAVG 89 → 53 · o sol cai, a cabine acende
+  clipe-2-noite    8s · YAVG 89 → 38 · cai mais rápido e estaciona aos 4s
+
+  corte de entrada do 1  1,5s   até ali o YAVG só andava de 89 a 85: o
+                                aquecimento do gerador, e o trecho mais caro
+                                do arquivo para não mostrar nada
+  corte de entrada do 2  2,5s   é onde a luz dele ALCANÇA o fim do clipe 1
+                                (YAVG 53). Emendado antes disso, o vídeo
+                                voltava a ser dia no meio do pôr do sol
+  corte de saída dos 2   8,0s
+
+Corte SECO, sem dissolve. A primeira montagem tinha meio segundo de xfade e
+uma das 28 amostras de scripts/frames.mjs caiu dentro dele: o quadro
+publicado saiu com as pessoas transparentes e duplicadas. Num plano fixo a
+dissolvência é trabalho do src/scripts/frames.js, que mistura quadros
+vizinhos em tempo de rolagem — assá-la no arquivo é assar um fantasma e
+depois amostrá-lo. A curva PONTE põe a emenda entre duas amostras.
+
+  ffmpeg \
+    -ss 1.5 -to 8.0 -i clipe-1-dourada.mp4 \
+    -ss 2.5 -to 8.0 -i clipe-2-noite.mp4 \
+    -filter_complex "[0:v]settb=AVTB,fps=24,format=yuv420p[a];[1:v]settb=AVTB,fps=24,format=yuv420p[b];[a][b]concat=n=2:v=1[v]" \
+    -map "[v]" -c:v libx264 -crf 17 -preset slow -pix_fmt yuv420p -an \
+    ../jardim-sunset.mp4 -y
+
+Resultado: 12s, 288 quadros, YAVG 87 → 53 → 38, monotônico.
+Depois: npm run frames

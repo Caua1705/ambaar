@@ -15,7 +15,6 @@ import './scripts/abertura.js'
      brinde     23h   ninguém combinou nada
      passagem   00h   a câmera entra até achar uma pessoa
      pausa      01h   a conversa baixa
-     retrato    02h   ninguém está indo embora
      quemfica   03h   a regra da casa, dita uma vez só e no fim
      reservas   a escolha
      outro      o fecho */
@@ -27,7 +26,6 @@ import './scripts/pista.js'
 import './scripts/brinde.js'
 import './scripts/passagem.js'
 import './scripts/pausa.js'
-import './scripts/retrato.js'
 import './scripts/quemfica.js'
 import './scripts/reservas.js'
 import './scripts/outro.js'

@@ -67,7 +67,6 @@
            23h  o brinde         a meia-noite chegando
            00h  a passagem       a câmera entra até achar uma pessoa
            01h  a pausa          a conversa baixa
-           02h  o retrato        ninguém está indo embora
            02—03h  o Reservado   a noite se fecha em si mesma
            03h  quem fica        a tese da segunda tela, seis horas depois
 
@@ -522,25 +521,33 @@
         </div>
       </section>
 
-      <!-- ── O retrato · 02h ────────────────────────────────
-           Uma mulher sentada, cabeça baixa, o cabelo caindo, contra tijolo,
-           sob a mesma luz de tungstênio rasante que é a paleta da casa.
+      <!-- ── O RETRATO DAS 02h SAIU DAQUI ───────────────────
+           Havia uma seção inteira entre a pausa e o Reservado: `retrato.webp`
+           em tela cheia, abrindo por uma fresta, com a frase "Ninguém está
+           indo embora."
 
-           Das 17h até aqui o site fala de AMBIENTES e de MULTIDÕES. Esta
-           tela fala de uma pessoa à vontade, e às duas da manhã é
-           exatamente quando isso acontece — quem ia embora já foi.
+           Ela saiu por REPETIÇÃO DE ASSUNTO, e a conta é objetiva. Entre 00h
+           e o fecho a página mostrava QUATRO vezes a mesma fotografia:
 
-           Sem título, sem rótulo, sem numeral. Não é um ambiente: é uma
-           hora. -->
-      <section class="retrato" data-vrail="02H" data-choreo
-               data-hora="02" data-hora-em="dir-baixo" data-som=".30">
-        <div class="retrato__stage">
-          <figure class="retrato__quadro">
-            <img src="/img/retrato.webp" alt="" loading="lazy">
-          </figure>
-          <p class="retrato__linha">Ninguém está<br>indo embora.</p>
-        </div>
-      </section>
+             00h  passagem   salao-rosto     mulher, cabelo longo, olhos baixos
+             02h  retrato    retrato         mulher, cabelo longo, rosto oculto
+             03h  quem fica  perfil-brinco   mulher, cabelo longo, olhos baixos
+             fim  o fecho    dourada         mulher, cabelo longo, sem cabeça
+
+           Quatro telas seguidas dizendo a mesma coisa — uma mulher jovem,
+           sozinha, que não olha para a lente — e três legendas dizendo o
+           mesmo argumento: "ninguém está esperando mais ninguém", "ninguém
+           está indo embora", "ela ainda está aqui".
+
+           Das quatro, esta era a mais fraca de todas: a frase fala da CASA
+           ("ninguém está indo embora") e a imagem mostra UMA pessoa num
+           sofá, que não prova a frase. E o argumento dela já é dito melhor,
+           duas telas depois, pela `quem fica`, que é o fecho da tese.
+
+           A fotografia não se perdeu: ela foi para as 03h, na `quem fica`,
+           no lugar de `perfil-brinco` — ver a nota daquela seção. O gesto da
+           fresta (o único "abre, segura, fecha" da página) foi o que se
+           perdeu, e é um preço justo por uma tela que deixou de rimar. -->
 
       <!-- ── 03 · O reservado ───────────────────────────── -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
@@ -569,9 +576,35 @@
       <!-- ── Quem fica · 03h ────────────────────────────────
            SEÇÃO NOVA, e ela é o fecho do arco que a segunda tela abre.
 
-           Uma mulher de perfil, olhos baixos, o brinco comprido pegando a
-           luz. Ela não está posando, não está falando com ninguém e não está
-           olhando para a lente: está OUVINDO.
+           Uma mulher sentada, encostada no tijolo, a cabeça baixa e o cabelo
+           caindo sobre o rosto. Ela não está posando, não está falando com
+           ninguém e não está olhando para a lente: está INTEIRA ali.
+
+           ── A fotografia trocou: entrou o retrato das 02h ────────────────
+
+           Era `perfil-brinco` — a mesma mulher de perfil com o brinco comprido
+           pegando a luz. Ela saiu por duas razões que se somam.
+
+           A primeira é de REPETIÇÃO. Entre 00h e o fecho a página mostrava
+           quatro vezes a mesma fotografia: mulher jovem, cabelo longo,
+           sozinha, sem olhar para a lente — a passagem das 00h, o retrato das
+           02h, esta, e a `dourada` do fecho. A seção das 02h saiu inteira, e
+           trocar esta pela fotografia dela derruba a conta de quatro para
+           duas sem perder a imagem.
+
+           A segunda é de ASSUNTO, e vale por si. `perfil-brinco` ilustrava a
+           palavra "escuta" — a orelha e o brinco no meio da faixa — e ilustrar
+           uma palavra que já está escrita na tela é dizer a mesma coisa duas
+           vezes. O retrato não ilustra "escuta": ele mostra alguém instalada,
+           às três da manhã, que evidentemente não vai embora. Ele prova a
+           OUTRA frase, a que a seção nunca tinha provado — "e ela ainda está
+           aqui".
+
+           O `object-position` foi remedido para o arquivo novo (quemfica.css),
+           nos três pontos de quebra. E `perfil-brinco` saiu do build junto:
+           sem seção, ela era só 159 kB — o arquivo mais pesado do acervo —
+           copiados para dist a cada build sem aparecer em tela nenhuma. O
+           original e o recorte estão guardados em scripts/fotos.mjs.
 
            ── A copy mudou de tempo verbal ────────────────────────────────
 
@@ -600,7 +633,7 @@
                data-hora="03" data-hora-em="esq-baixo" data-som=".18">
         <div class="quemfica__stage">
           <figure class="quemfica__quadro">
-            <img src="/img/perfil-brinco.webp" alt="Uma mulher de perfil, ouvindo." loading="lazy">
+            <img src="/img/retrato.webp" alt="Uma mulher sentada, à vontade, às três da manhã." loading="lazy">
           </figure>
           <div class="quemfica__texto">
             <p class="quemfica__eyebrow">A casa tem uma regra só</p>
@@ -710,7 +743,25 @@
            No lugar entrou um vestido de paetê bronze de corpo inteiro: o
            assunto ocupa a tela toda e sobrevive a qualquer demão. E a taça
            não se perdeu — ela foi para as 19h, emoldurada e nítida, onde é
-           o assunto da seção em vez do fundo dele. -->
+           o assunto da seção em vez do fundo dele.
+
+           ── E ELA FICA, testada contra o retrato das 02h ────────────────
+
+           Quando a seção das 02h saiu, o `retrato` foi posto aqui por uma
+           passada: a ideia era que a última imagem do site não devia ser um
+           corpo sem cabeça em decote debaixo de "A gente guarda uma noite".
+           O argumento estava certo e o encaixe estava errado.
+
+           Este slot é um fundo SANGRADO debaixo de uma resina que escurece o
+           miolo a 44% e as bordas a 95%, com o wordmark e três linhas de
+           texto por cima. O que ele pede é campo de cor com textura — e a
+           `dourada` é a única fotografia do acervo que é exatamente isso, de
+           borda a borda, sem um assunto que a demão precise poupar. Uma
+           fotografia com composição própria posta aqui é uma fotografia
+           desperdiçada: metade dela vive debaixo de tinta.
+
+           O retrato foi para as 03h, na `quem fica`, onde a faixa é a
+           composição inteira e nada cobre a imagem. -->
       <footer class="outro" data-vrail="@AMBAR.BAR" data-hora="off" data-som=".15" data-choreo>
         <img class="outro__bg" src="/img/dourada.webp" alt="" loading="lazy">
         <img class="outro__po" src="/img/particulas.webp" alt="" aria-hidden="true" loading="lazy">

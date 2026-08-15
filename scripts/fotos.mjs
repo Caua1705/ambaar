@@ -307,20 +307,22 @@ const FOTOS = [
      900px: tela cheia. */
   { saida: 'brinde', de: 'nao-usadas/DSC02281.jpeg', corte: { left: 400, top: 900, width: 3400, height: 4200 }, largura: 1100, q: 72, luz: 1.06, sat: 0.76, tinta: 0.16 },
 
-  /* ── Quem fica · 03h ─────────────────────────────────────────────────
-     SEÇÃO NOVA, e ela fecha o arco que "A escuta" abre na segunda tela.
+  /* ── A `perfil-brinco` SAIU DO BUILD ──────────────────────────────────
+     Era a fotografia das 03h — uma mulher de perfil, olhos baixos, o brinco
+     comprido pegando a luz:
 
-     Uma mulher de perfil, olhos baixos, o brinco comprido pegando a luz,
-     o cabelo inteiro no quadro. Ela não está posando, não está falando com
-     ninguém e não está olhando para a lente: está OUVINDO. É literalmente
-     a frase da segunda tela — "Quem escuta, fica." — fotografada seis
-     horas depois.
+       { saida: 'perfil-brinco', de: 'nao-usadas/@FOTOBYDAVID -091.jpg',
+         corte: { left: 1150, top: 600, width: 2450, height: 3700 },
+         largura: 1000, q: 62, luz: 1.06, sat: 0.88, tinta: 0.08 },
 
-     O recorte tira a faixa esquerda do arquivo, onde havia uma marca de
-     destilado num quadro de parede. O que sobra é ela e o escuro.
+     A `quem fica` passou a usar o `retrato`, que veio da seção das 02h ao
+     ser removida (ver as notas no index.html). Esta ficou sem seção — e uma
+     entrada sem consumidor não é um arquivo guardado, são 159 kB copiados
+     de public/img para dist a cada build, os mais pesados do acervo.
 
-     880px: tela cheia, e o assunto é a orelha. */
-  { saida: 'perfil-brinco', de: 'nao-usadas/@FOTOBYDAVID -091.jpg', corte: { left: 1150, top: 600, width: 2450, height: 3700 }, largura: 1000, q: 62, luz: 1.06, sat: 0.88, tinta: 0.08 },
+     Sai do build, não do projeto: o original está em
+     nao-usadas/@FOTOBYDAVID -091.jpg, 4000×6000, e o recorte que funcionava
+     está escrito aqui em cima. Voltar é colar a linha de volta. */
 
   /* ── O fecho ─────────────────────────────────────────────────────────
      Uma mulher de vestido de paetê bronze, a bola de espelhos atrás. Ela é
@@ -348,6 +350,13 @@ const FOTOS = [
      pele no alto do quadro é o que impede a imagem de virar tecido — sabe-
      se que há alguém ali, e não se olha para o rosto dela em vez de para a
      marca.
+
+     ⚠︎ Ela JÁ SAIU daqui uma vez, trocada pelo `retrato`, e VOLTOU. O
+     argumento da troca era que a última imagem do site não devia ser um
+     corpo sem cabeça; o argumento da volta é mais forte e é de encaixe:
+     este slot é um fundo sangrado debaixo de uma resina que come 44% do
+     miolo, e o que ele pede é campo de cor com textura, não uma fotografia
+     com assunto. A `dourada` é a única do acervo que é exatamente isso.
 
      900px: tela cheia. */
   { saida: 'dourada', de: 'nao-usadas/DSC02228.jpeg', corte: { left: 250, top: 1980, width: 3500, height: 4020 }, largura: 1100, q: 72, luz: 1.04, sat: 0.8, tinta: 0.16 },
@@ -461,9 +470,26 @@ const FOTOS = [
      só para o tijolo não puxar para o rosa; a saturação desce um passo
      porque o vermelho do tijolo é a única cor que compete com o âmbar.
 
-     880px: é a segunda maior do site depois da hero. Ela é tela cheia numa
-     seção de uma ideia só, e a ideia é o rosto. */
-  { saida: 'retrato', de: 'nao-usadas/rosto.png', largura: 880, q: 72, luz: 1.02, sat: 0.88, tinta: 0.08 },
+     ── E ela MUDOU DE SEÇÃO: agora é o fecho ───────────────────────────
+
+     A seção das 02h saiu (ver a nota no index.html, entre a pausa e o
+     Reservado): entre 00h e o fim a página mostrava quatro vezes a mesma
+     fotografia — mulher jovem, cabelo longo, sozinha, sem olhar para a
+     lente. Esta era a mais fraca das quatro, porque a frase dela falava da
+     CASA e a imagem mostrava uma pessoa.
+
+     Ela ficou, e foi para o rodapé, no lugar da `dourada`. O slot pede
+     exatamente o que ela tem: a regra do `object-position: 50% 30%`
+     (outro.css) existe para manter um rosto fora de trás do wordmark, e
+     aqui não há rosto — está coberto pelo próprio cabelo e pela mão. A
+     `dourada` obedecia à mesma regra por amputação, recortada dos ombros
+     para baixo; esta obedece por composição, e continua inteira.
+
+     880 → 1020, que é o limite da fonte (rosto.png tem 1023 de largura).
+     Ela deixou de ser uma fotografia emoldurada numa seção e passou a ser
+     fundo sangrado debaixo de uma resina — o mesmo papel que a `dourada`
+     fazia a 1100. Ainda sai mais leve que ela. */
+  { saida: 'retrato', de: 'nao-usadas/rosto.png', largura: 1020, q: 72, luz: 1.02, sat: 0.88, tinta: 0.08 },
 
   /* ── A resina · o fecho ──────────────────────────────────────────────
      Pó em suspensão num facho de luz âmbar sobre preto. Não é fotografia

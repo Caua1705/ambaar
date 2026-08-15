@@ -76,10 +76,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* A cabeça está no terço alto e o cabelo ocupa o resto do quadro. Numa
-     faixa estreita e alta entra pouco mais de um terço da largura: a 34%
-     a orelha e o brinco — que são o assunto — ficam no meio da faixa. */
-  object-position: 34% 34%;
+  /* Remedido para o arquivo novo (o retrato entrou no lugar de
+     `perfil-brinco`), e a conta mudou de EIXO junto.
+
+     Em pé a faixa é MUITO mais estreita que a proporção do arquivo — 0,34
+     contra 0,67 —, então o `cover` escala pela altura e o recorte é
+     inteiramente HORIZONTAL: entram 51% da largura e nenhum pixel de altura
+     se perde. Por isso o segundo valor não faz diferença nenhuma aqui, e
+     fica em 50% só para não mentir.
+
+     A 20% a janela cai entre 10% e 61% do arquivo, que é onde estão a
+     cabeça, o braço levantado e o tronco. Centrado (50%) ela abriria em
+     72% e cortaria o braço fora, deixando na faixa meia figura e uma
+     parede de tijolo. */
+  object-position: 20% 50%;
 }
 
 /* A demão da faixa, e ela é VERTICAL: um degradê da borda esquerda da
@@ -145,17 +155,15 @@
 
   /* Deitada, a faixa é mais LARGA que a proporção do arquivo, então o
      `cover` escala pela largura e o recorte passa a ser inteiramente
-     VERTICAL — 51% da altura, e nenhum pixel de largura é jogado fora.
+     VERTICAL — entram 67% da altura, e nenhum pixel de largura é jogado
+     fora. O primeiro valor deixa de ter efeito e fica em 50%.
 
-     A 22% essa faixa ia do alto da cabeça até o queixo: cabelo escuro sobre
-     fundo escuro, com a única parte clara do arquivo (o ombro, a alça) fora
-     do quadro e o rosto justamente na faixa que o degradê da coluna de
-     texto escurece. Medido na tela, o terço direito ficava preto — a
-     fotografia estava lá e não se via nenhuma.
-
-     A 48% a mesma faixa abre na orelha e fecha abaixo do ombro. */
+     A 30% a janela vai de 10% a 77% do arquivo: entra no alto do cabelo,
+     pega o braço levantado e o tronco inteiro, e fecha antes do pé da
+     fotografia — que é sofá e sombra. Mais alto que isso corta o braço;
+     mais baixo entrega o terço de cima da faixa a tijolo vazio. */
   .quemfica__quadro img {
-    object-position: 42% 48%;
+    object-position: 50% 30%;
   }
 
   .quemfica__texto {
@@ -167,8 +175,12 @@
 
 /* Abaixo de 420px a coluna de texto não cabe em 46% da tela: a frase
    quebraria em cinco linhas de duas palavras. A faixa recua para dar
-   espaço, e a fotografia passa a ser um terço em vez de dois — o que
-   funciona porque o assunto dela (a orelha, o brinco) é vertical. */
+   espaço, e a fotografia passa a ser um terço em vez de dois.
+
+   Nesta largura entram só 40% do arquivo, e continua funcionando porque a
+   figura do retrato é VERTICAL: com a âncora em 20%, a janela vai de 12% a
+   52% e pega a coluna que vai do cabelo ao tronco. O que fica de fora é
+   tijolo à esquerda e sofá à direita — moldura, não assunto. */
 @media (max-width: 420px) {
   .quemfica__quadro {
     left: 42%;

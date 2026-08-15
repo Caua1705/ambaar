@@ -57,7 +57,6 @@
        23h brinde .78
        00h passagem .62 a câmera entrando
        01h pausa .40    a conversa baixando
-       02h retrato .30
        Reservado .25    poucas mesas, o som no ponto exato
        03h quem fica .18
        Reservas  .15

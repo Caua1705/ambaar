@@ -68,10 +68,24 @@ if (secao) {
           { yPercent: 6 }, { yPercent: 0, duration: 1.7, ease: EASE }, 0.62)
         .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.35)
     }, {
-      /* Cedo, como todas as entradas desta passada: o díptico termina de se
-         montar enquanto a seção ainda sobe, e o que toma a tela é uma coisa
-         pronta em vez de uma coisa se montando. */
-      start: 'top 82%'
+      /* ── 82% → 58%: era cedo DEMAIS, e não por si ────────────────────
+
+         O argumento antigo era bom sozinho — montar o díptico enquanto a
+         seção ainda sobe, para que o que tome a tela seja uma coisa pronta
+         em vez de uma coisa se montando. O que ele não olhava era a seção
+         de cima.
+
+         O pé do copo é o topo desta. A 82% o díptico começava a abrir
+         quando o copo ainda tinha a tela inteira, e a saída dele só
+         disparava 20% de tela depois: o inset se fechava no alto enquanto
+         estes dois quadros abriam embaixo. Dois gestos sem relação
+         acontecendo juntos.
+
+         A 58% a ordem fica sequencial — o copo se desmonta a 76%
+         (copo.js), esta se arma 18% de tela depois — e o argumento antigo
+         sobrevive: a 58% a seção ainda tem 42% de tela pela frente, e o
+         par termina de abrir antes de chegar ao meio. */
+      start: 'top 58%'
     })
   }
 }

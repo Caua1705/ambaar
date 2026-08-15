@@ -5,8 +5,8 @@
    ── O díptico ───────────────────────────────────────────────────────────
 
    Dois quadros encostados um no outro, separados por um único filete
-   tracejado, ocupando juntos uma faixa deitada no meio da tela. À esquerda
-   a sala VAZIA; à direita a CABINE.
+   tracejado. À esquerda a sala VAZIA; à direita a CABINE — maior, mais
+   baixa, e a única coisa desta tela que rompe o eixo da goteira.
 
    É a única composição do site em que duas fotografias se tocam. Todas as
    outras ou sangram nos quatro lados, ou moram em molduras separadas por
@@ -25,10 +25,15 @@
 
    ── A proporção ─────────────────────────────────────────────────────────
 
-   Cada metade é um retrato estreito, e as duas juntas formam um bloco
-   deitado no meio da tela. O formato importa: um retrato pede que se olhe
-   DENTRO dele, e as duas imagens são sobre o que há dentro de uma sala. Um
-   par deitado leria como um panorama partido.
+   Em pé as duas metades são retratos (0,50 e 0,57) e o formato faz sentido:
+   um retrato pede que se olhe DENTRO dele, e as duas imagens são sobre o
+   que há dentro de uma sala.
+
+   Deitada elas viram paisagens, e não há como não virarem — os dois
+   arquivos são retratos (0,66 e 0,75) e a tela é 2:1. O que a folha faz é
+   escolher QUANTO de paisagem: a 10% de sangria e 40/60 de divisão, a
+   cabine fecha em 1,3 e mostra 57% da altura do arquivo. A borda inteira
+   punha ela em 1,9 e mostrava 39% — dois punhos sem mesa de som embaixo.
 
    ╔══════════════════════════════════════════════════════════════════════╗
    ║ O CARVÃO MORTO EMBAIXO — e ele era metade de uma queixa              ║
@@ -99,17 +104,78 @@
 
 /* ── O par ─────────────────────────────────────────────── */
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O DÍPTICO ERA UMA CAIXA FLUTUANDO — três defeitos somados            ║
+   ║                                                                      ║
+   ║ A versão anterior punha os dois quadros do mesmo tamanho, encostados, ║
+   ║ dentro de um retângulo centrado a 20% de cada borda. Medida na tela:  ║
+   ║                                                                      ║
+   ║ 1. SEM HIERARQUIA. Metade e metade diz que as duas fotografias pesam  ║
+   ║    o mesmo. Não pesam: a frase é "alguém ESCOLHEU o que você vai     ║
+   ║    ouvir", e quem escolhe são as mãos. A sala vazia é o contexto —   ║
+   ║    o lugar que ainda vai ser preenchido.                             ║
+   ║                                                                      ║
+   ║ 2. FLUTUANDO. Contido nos quatro lados e centrado, o par virava um   ║
+   ║    slide de apresentação no meio de um campo de carvão. Todas as     ║
+   ║    outras telas do site ou sangram, ou se ancoram na faixa da        ║
+   ║    esquerda; esta não fazia nem uma coisa nem outra.                 ║
+   ║                                                                      ║
+   ║ 3. O DIVISOR NÃO EXISTIA. Um filete tracejado de 1px entre duas      ║
+   ║    fotografias escuras não se vê. O que a tela mostrava eram dois    ║
+   ║    retângulos escuros colados, e o comentário antigo desta folha     ║
+   ║    ainda chamava cada metade de "retrato estreito" — no desktop elas ║
+   ║    eram quase quadradas (1,16).                                       ║
+   ║                                                                      ║
+   ║ ── O que entra no lugar ──────────────────────────────────────────   ║
+   ║                                                                      ║
+   ║ O par continua encostado, porque a ideia estava certa: duas imagens  ║
+   ║ que se tocam são uma frase. O que muda é a MÉTRICA dela.             ║
+   ║                                                                      ║
+   ║   · a cabine leva 62% da largura contra 38% da sala. A hierarquia    ║
+   ║     passa a dizer o que a frase diz;                                 ║
+   ║   · o par vai da goteira esquerda até SANGRAR pela borda direita.    ║
+   ║     Cortado pelo quadro da tela, ele deixa de ser um objeto pousado  ║
+   ║     no preto e passa a ser um plano que continua fora dela;          ║
+   ║   · os dois quadros se DESALINHAM na vertical: a sala é mais curta e ║
+   ║     encosta no topo, a cabine é mais alta e desce. O olho passa a    ║
+   ║     ler uma diagonal — sala, depois cabine — em vez de dois          ║
+   ║     retângulos simultâneos;                                          ║
+   ║   · e o filete deixa de ser a borda de um dos quadros para ser uma   ║
+   ║     COLUNA própria, que atravessa a altura inteira do par, inclusive ║
+   ║     o vão que o desalinhamento abre. Ele vira estrutura visível.     ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
 .cabine__par {
   position: absolute;
-  top: 22svh;
+  top: 18svh;
   left: var(--gutter-l);
-  right: var(--gutter-r);
-  height: 44svh;
+  /* sangra pela direita: o par é cortado pela tela, não pousado nela */
+  right: 0;
+  /* 48svh e 42/58, e os dois números são a mesma conta: em pé a largura
+     disponível é ~350px, e uma coluna estreita sobre um quadro alto vira
+     uma fresta. A 42% a sala fica em 0,50 de proporção e mostra 76% da
+     largura do arquivo — a moldura, a luminária e o chão continuam no
+     quadro. Mais alto ou mais estreito que isto e ela vira uma tira de
+     parede. */
+  height: 48svh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* o filete tracejado entre os dois quadros é o único divisor desta tela,
-     e ele carrega estrutura: separa o antes do depois */
+  grid-template-columns: 42fr 58fr;
+  align-items: start;
   gap: 0;
+}
+
+/* O filete, agora uma coluna inteira e não a borda de um quadro. Ele
+   atravessa a altura toda do par — inclusive o vão aberto pelo
+   desalinhamento —, que é o que o faz ler como estrutura em vez de
+   costura entre duas fotografias. */
+.cabine__par::before {
+  content: '';
+  position: absolute;
+  left: 42%;
+  top: -3svh;
+  bottom: -3svh;
+  border-left: 1px dashed rgba(107, 74, 46, .7);
+  pointer-events: none;
 }
 
 .cabine__quadro {
@@ -118,8 +184,21 @@
   overflow: hidden;
 }
 
+/* A sala: mais curta e encostada no topo. Ela é o antes.
+
+   As duas alturas e o deslocamento somam 100% do par de propósito — a
+   cabine desce 12 e mede 88 —, para o desalinhamento acontecer DENTRO da
+   caixa. Deixando a cabine em 100% com 26 de recuo, ela transbordava o
+   par, era cortada pelo `overflow` do palco e colidia com a frase. */
+.cabine__quadro--antes {
+  height: 72%;
+}
+
+/* A cabine: mais alta e descida. Ela é o acontecimento, e é o único
+   elemento desta tela que toca a borda da janela. */
 .cabine__quadro--fonte {
-  border-left: 1px dashed rgba(107, 74, 46, .7);
+  height: 88%;
+  margin-top: 12%;
 }
 
 .cabine__quadro img {
@@ -164,16 +243,32 @@
 }
 
 @media (min-width: 900px) {
+  /* Deitada, o par cresce em vez de encolher: ele ia de 20% a 20% e virava
+     uma caixinha no meio da tela. Agora começa na goteira e sai pela
+     direita, como em pé — a diferença entre as duas larguras é só quanto
+     dele cabe. */
+  /* Sangra pela direita, mas só até 10%: a borda inteira punha a cabine
+     num quadro de 1,9 de proporção sobre um arquivo de 0,75, e o que
+     sobrava na tela eram dois punhos gigantes sem mesa de som embaixo
+     deles. Recolhendo um décimo, a proporção cai para 1,3 e a metade de
+     cima do equipamento volta ao quadro — que é o que faz a fotografia ser
+     sobre ESCOLHER e não sobre uma mão. */
   .cabine__par {
-    top: 20svh;
-    left: 20%;
-    right: 20%;
-    height: 52svh;
+    top: 15svh;
+    right: 10%;
+    height: 64svh;
+    grid-template-columns: 40fr 60fr;
   }
 
+  .cabine__par::before {
+    left: 40%;
+  }
+
+  /* A frase encosta na goteira, alinhada ao rótulo e à sala: as três
+     coisas da esquerda se empilham num eixo só, e a cabine é a única que
+     rompe para fora dele. */
   .cabine__linha {
-    top: 76svh;
-    left: 20%;
+    top: 84svh;
     max-width: 24ch;
   }
 }

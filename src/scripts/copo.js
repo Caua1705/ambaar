@@ -86,9 +86,23 @@ if (secao) {
       .to(inset, { clipPath: FECHADO, duration: 1, ease: EASE }, 0.1)
       .to(dash, { scaleX: 0, duration: 0.6, ease: EASE }, 0.1)
 
+    /* ── 62% → 76%: a saída daqui e a entrada da cabine ESBARRAVAM ──────
+
+       A cabine é a seção seguinte, então o topo dela é o pé desta. Ela
+       montava o díptico em `top 82%` e esta se desmontava em `bottom 62%` —
+       vinte por cento de tela DEPOIS. Traduzido para o que se via: os dois
+       quadros da cabine abriam no pé da tela enquanto o inset do copo ainda
+       estava se fechando no alto dela. Duas seções se mexendo ao mesmo
+       tempo, em direções diferentes, sem relação uma com a outra.
+
+       A ordem certa é a ordem da leitura: primeiro esta tela se desfaz,
+       depois a próxima se arma. Aqui sobe para 76% (a seção ainda tem a
+       tela, e é ela quem se desmonta) e a cabine desce para 58%
+       (cabine.js). Dezoito por cento de tela entre um gesto e o outro —
+       o bastante para não coincidirem, pouco para não virar espera. */
     ScrollTrigger.create({
       trigger: secao,
-      start: 'bottom 62%',
+      start: 'bottom 76%',
       invalidateOnRefresh: true,
       onEnter: () => saida.play(),
       onLeaveBack: () => saida.reverse()

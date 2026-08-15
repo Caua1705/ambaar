@@ -276,7 +276,9 @@
   }
 
   .reservas__title {
-    font-size: clamp(1.4rem, 6.8vw, 4.25rem);
+    /* 7,2vw: o maior corpo em que as duas frases ainda fecham numa linha
+       cada a 414px — o pedido da página no peso que ele merece */
+    font-size: clamp(1.45rem, 7.2vw, 4.25rem);
     max-width: none;
   }
 }

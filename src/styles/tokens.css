@@ -61,28 +61,25 @@
    ║ CATEGORIA de elemento. O que entra é âmbar por ESCOLHA — um trecho   ║
    ║ escolhido à mão dentro de uma frase, em CINCO telas de dezesseis:    ║
    ║                                                                      ║
-   ║    o copo      "…a cor do nome dela."     19h — o primeiro acento    ║
+   ║    o jardim    "…vira house."             o arco da noite            ║
+   ║    a carta     "…cor do nome da casa."    a assinatura líquida       ║
    ║    o salão     "…o que está tocando."     a tese                     ║
    ║    o brinde    "Está todo mundo aqui."    o pico                     ║
    ║    quem fica   "Quem escuta, fica."       a regra                    ║
    ║    reservas    "…recomeçar."              o pedido                   ║
    ║                                                                      ║
-   ║ A lista já teve oito entradas e desceu para cinco na passada de      ║
-   ║ copy. As três que saíram — "escolheu" (cabine), "deixa de ser        ║
-   ║ nossa" (pista), "baixa sozinha" (pausa) — caíram por RITMO, não por  ║
-   ║ mérito: cada uma era vizinha de porta de outro acento, e alternar    ║
-   ║ âmbar/branco em toda tela não é raridade, é padrão listrado. Com     ║
-   ║ cinco, nunca há duas telas âmbar seguidas (a exceção medida é quem   ║
-   ║ fica → reservas, dois acentos de UMA palavra em telas de natureza    ║
-   ║ oposta — foto contra fumê — e é o crescendo deliberado do fim), e a  ║
-   ║ primeira palavra colorida do site aparece no instante em que o       ║
-   ║ primeiro drink é servido: o âmbar entra no texto quando entra no     ║
-   ║ copo.                                                                ║
+   ║ A lista já teve oito entradas por padrão de categoria; hoje são seis ║
+   ║ por escolha. "escolheu" (cabine), "deixa de ser nossa" (pista) e     ║
+   ║ "baixa sozinha" (pausa) ficaram brancas — alternar âmbar/branco em   ║
+   ║ toda tela não é raridade, é padrão listrado. As duas vizinhanças que ║
+   ║ existem são medidas: jardim → carta abre o site em dois acentos de   ║
+   ║ escalas opostas (corpo pequeno, display), e quem fica → reservas é o ║
+   ║ crescendo deliberado do fim, foto contra fumê.                       ║
    ║                                                                      ║
-   ║ Lidas em sequência, as cinco contam a história sozinhas — a cor do   ║
-   ║ nome, o que está tocando, todo mundo aqui, quem escuta fica,         ║
-   ║ recomeçar — que é o teste. Uma palavra âmbar que não sobreviveria a  ║
-   ║ esse resumo não deve ser âmbar.                                      ║
+   ║ Lidas em sequência, as seis contam a história sozinhas — vira house, ║
+   ║ a cor do nome da casa, o que está tocando, todo mundo aqui, quem     ║
+   ║ escuta fica, recomeçar — que é o teste. Uma palavra âmbar que não    ║
+   ║ sobreviveria a esse resumo não deve ser âmbar.                       ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
 :root {
@@ -295,8 +292,13 @@
      de 330. */
   --fs-grande: clamp(1.9rem, 9.5vw, 4.5rem);
 
-  /* display discreto: pausas, escuta, fecho */
-  --fs-quieto: clamp(1.8rem, 8vw, 4.25rem);
+  /* display discreto: pausas, escuta, fecho.
+
+     8,6vw e não 8: a passada de copy encurtou as frases que vivem neste
+     degrau (a carta, a cabine, a passagem), e a folga que sobrou virou
+     corpo — no telefone, meio grau a mais de presença sem nenhuma frase
+     passar de duas linhas. Medido a 414px. */
+  --fs-quieto: clamp(1.9rem, 8.6vw, 4.25rem);
 
   /* nome de cartão grande */
   --fs-title: clamp(2.25rem, 9vw, 4rem);

@@ -107,13 +107,13 @@
          ║ O site foi de 18,4 para 16,4 telas e a casa aparece na segunda  ║
          ║ em vez de na quarta.                                            ║
          ║                                                                ║
-         ║ ATUALIZAÇÃO DA PASSADA DE COPY: as duas ideias voltaram como    ║
-         ║ LINHAS, não como telas. O handover das 17h é a primeira copy do ║
-         ║ site ("O café fecha às 17h. A mesma sala, outra vida."), dito   ║
-         ║ sobre o próprio pátio no capítulo 01 — custa zero rolagem. E    ║
-         ║ "Não é o volume. É o que está tocando." é a copy do Salão, dita ║
-         ║ no pico de som da página. Nenhuma tela nova; duas dívidas       ║
-         ║ pagas.                                                          ║
+         ║ ATUALIZAÇÃO DA PASSADA DE COPY: a decisão de negócio virou     ║
+         ║ regra absoluta — o CAFÉ NÃO APARECE EM TEXTO NENHUM. A         ║
+         ║ comunicação é 100% sobre o Âmbar: o arco da noite (sunset →    ║
+         ║ house) abre o site no capítulo 01, a carta autoral assina as   ║
+         ║ 19h, e "Não é o volume. É o que está tocando." voltou como     ║
+         ║ copy do Salão, dita no pico de som da página. A tese não       ║
+         ║ ganhou tela nova; ganhou o endereço certo.                     ║
          ╚════════════════════════════════════════════════════════════════╝
 
          data-som — o volume que cada seção pede. O controle de áudio não tem
@@ -264,27 +264,29 @@
               </span>
             </div>
             <div class="chapter__body">
-              <!-- A primeira copy do site é o HANDOVER, contado de frente.
+              <!-- A primeira copy do site é o ARCO DA NOITE do Âmbar.
 
-                   O fato mais distintivo da casa — o café fecha às 17h e o
-                   Âmbar abre na mesma sala — tinha virado nota de rodapé
-                   quando a tela "A troca" saiu. A premissa voltou como uma
-                   LINHA em vez de uma tela: dita às 17h em ponto, sobre o
-                   próprio pátio em que as mesas do café viram mesas de bar,
-                   ela custa zero rolagem e ganha a prova atrás dela.
+                   Decisão de comunicação: a página fala do Âmbar, e só dele
+                   — o café que divide o endereço não aparece em texto
+                   nenhum. O que a casa tem para dizer na segunda tela é o
+                   arco que a distingue: a noite começa sunset no jardim e
+                   vira house — e a frase entrega o arco inteiro em uma
+                   linha, sobre o próprio plano que o filma.
 
-                   A frase antiga ("O sol cai atrás da parreira e a cabine
-                   acende no lugar dele") saiu porque o plano agora FILMA
-                   exatamente isso, quadro a quadro — um texto que descreve o
-                   que a tela está mostrando é uma legenda.
+                   O âmbar cai em "vira house": é a virada, e é a palavra
+                   que o usuário vai reencontrar duas telas adiante no nome
+                   do capítulo 02 (House All Night). O acento aqui é uma
+                   semente do título de lá.
 
-                   E os gêneros desceram para a voz de sistema: são uma lista
-                   de programação, não uma frase, e tokens.css já os
-                   destinava à Jost. Um listening club continua dizendo O QUE
-                   toca na segunda tela — agora com a letra certa. -->
+                   O estilo musical da casa é declarado na voz de sistema,
+                   como lista: house e eletrônica. -->
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-              <p class="chapter__text reveal">O café fecha às 17h. A mesma sala, outra vida.</p>
-              <p class="chapter__generos reveal">Organic house · Downtempo · O que existe entre os dois</p>
+              <!-- "vira house" no MIOLO da linha, não no fim: medido na
+                   tela, o fim da segunda linha cai sobre a fita de luz da
+                   cabine — âmbar sobre âmbar. Com a frase mais curta o
+                   acento fica sobre a folhagem escura, onde canta. -->
+              <p class="chapter__text reveal">Quando o sol cai,<br>o jardim <b class="ouro">vira house</b>.</p>
+              <p class="chapter__generos reveal">House · Eletrônica</p>
             </div>
           </div>
         </div>
@@ -336,26 +338,31 @@
            com o copo PRONTO e nenhuma com a casa FAZENDO. Esta é a
            primeira. -->
 
-      <section class="copo" data-vrail="O COPO" data-choreo
+      <section class="copo" data-vrail="A CARTA" data-choreo
                data-hora="19" data-hora-em="esq-baixo" data-som=".34">
         <div class="copo__stage">
           <figure class="copo__fundo">
             <img src="/img/copo-jardim.webp" alt="As mãos da casa despejando âmbar numa taça, no balcão." loading="lazy">
           </figure>
 
+          <!-- "O primeiro copo" virou "A carta": a tela deixa de ser sobre
+               UM drink e passa a ser sobre o que a casa assina — a carta
+               autoral. É a única tela do site dedicada ao lado cocktail bar
+               do nome, então é dela o dever de dizer que a carta existe e
+               que é da casa. O âmbar continua onde sempre esteve: na cor,
+               que é a assinatura líquida da marca — dita em cima do próprio
+               líquido. Sem <br>: o `balance` (base.css) parte a frase em
+               duas linhas parelhas em qualquer largura. -->
           <p class="copo__rotulo">
             <span class="copo__dash" aria-hidden="true"></span>
-            <span>O primeiro copo</span>
+            <span>A carta</span>
           </p>
 
           <figure class="copo__inset">
             <img src="/img/copo-mao.webp" alt="A mesma taça pronta, a um palmo: âmbar dentro do vidro." loading="lazy">
           </figure>
 
-          <!-- O <br> saiu: com ele, a segunda metade estourava para uma
-               terceira linha a 414px. O `balance` (base.css) parte a frase
-               em duas linhas parelhas sozinho, em qualquer largura. -->
-          <p class="copo__linha">O que a casa serve tem a <b class="ouro">cor do nome dela</b>.</p>
+          <p class="copo__linha">Drinks autorais, na <b class="ouro">cor do nome da casa</b>.</p>
         </div>
       </section>
 
@@ -400,20 +407,10 @@
             </figure>
           </div>
 
-          <!-- "escolheu" perdeu o âmbar por RITMO: a tela anterior (o copo)
-               é onde o primeiro acento do site cai, e duas telas seguidas
-               com âmbar tipográfico é uma a mais. A frase aguenta em branco
-               — ela é a única coisa escrita nesta tela.
-
-               E a noite ganhou o crédito do autor dela: a linha de baixo
-               resolve o "alguém" da frase de cima. Voz de máquina, porque um
-               crédito é dado de programa, não composição — a mesma leitura
-               de uma ficha técnica.
-
-               ⚠︎ NOME DO CURADOR é placeholder, na convenção do site
-               (5585SEUNUMERO, SUA RUA). Trocar antes de ir ao ar. -->
+          <!-- Sem âmbar, por ritmo: a tela anterior (a carta) e a seguinte
+               (o salão) carregam acento, e esta é a batida branca entre as
+               duas. A frase aguenta — é a única coisa escrita na tela. -->
           <p class="cabine__linha">Alguém escolheu<br>o que você vai ouvir.</p>
-          <p class="cabine__credito maquina">curadoria · NOME DO CURADOR</p>
         </div>
       </section>
 
@@ -618,10 +615,10 @@
             <img src="/img/retrato.webp" alt="Uma mulher sentada, à vontade, sem esperar ninguém." loading="lazy">
           </span>
           <!-- "está esperando" virou "espera": mesmo argumento, uma linha a
-               menos — a frase tinha três linhas e o teto do site é dois.
-               Branca: entre o brinde (âmbar) e o resto da madrugada, esta
-               dobra é escuro puro. -->
-          <p class="passagem__linha">À meia-noite, ninguém<br>espera mais ninguém.</p>
+               menos. Sem <br> — o `balance` (base.css) parte em duas linhas
+               parelhas no corpo novo. Branca: entre o brinde (âmbar) e o
+               resto da madrugada, esta dobra é escuro puro. -->
+          <p class="passagem__linha">À meia-noite, ninguém espera mais ninguém.</p>
         </div>
       </section>
 
@@ -696,23 +693,21 @@
 
 
       <!-- ── 03 · O reservado ─────────────────────────────
-           A copy foi reescrita contra um erro de leitura que a antiga
-           cometia. "A noite se fecha em si mesma" contava o Reservado como
-           o FIM da noite — a casa esvaziando, o que sobra depois da festa.
-           Não é: às 02h a festa continua acontecendo no espaço inteiro, e o
-           Reservado é uma opção DENTRO dela — sair do centro da noite sem
-           sair da casa.
+           A copy conta o Reservado como ele é: o espaço vip da casa,
+           INTEGRADO ao salão — não o fim tranquilo da noite. A festa
+           acontece no salão, que é o ambiente principal, e este canto de
+           sofá verde é uma opção dentro dela: sair do centro da noite sem
+           sair da casa. "A um passo" põe a festa na mesma frase que o sofá.
 
-           A frase nova mantém a matéria da tela (a vela, que é o que a
-           fotografia mostra) e põe a festa de volta no quadro: "a dez
-           passos" diz, na mesma linha, que ela não parou.
+           Sem vela na copy, de propósito: vela quente é vocabulário de fim
+           de noite, e este espaço não é o que sobra da festa — é o melhor
+           lugar de dentro dela.
 
-           E a seção ganhou a regra da casa do Reservado, como nota. "Não se
-           pede música" é a identidade inteira do lugar (curadoria, não
-           pedido) dita do jeito que um bar diz — com a segunda metade
-           devolvendo o que se PODE pedir. Ela não colide com "a casa tem
-           uma regra só" das 03h: é a mesma regra, vista do balcão — quem
-           escuta não pede. -->
+           A nota é a regra da casa do Reservado. "Não se pede música" é a
+           identidade inteira (curadoria, não pedido) dita do jeito que um
+           bar diz — com a segunda metade devolvendo o que se PODE pedir.
+           Não colide com "a casa tem uma regra só" das 03h: é a mesma
+           regra, vista do balcão. -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
                data-nav="ambientes" data-run="40" style="--run:40" data-saida="fecha" data-choreo
                data-hora="02—03" data-hora-em="dir" data-som=".25">
@@ -730,7 +725,7 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
-              <p class="chapter__text reveal">Luz de vela, e a festa inteira a dez passos.</p>
+              <p class="chapter__text reveal">Sofá verde: o vip da casa, colado na festa do salão.</p>
               <p class="chapter__nota reveal">Não se pede música.<br>Pede-se outra rodada.</p>
             </div>
           </div>

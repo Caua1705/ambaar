@@ -150,7 +150,10 @@
   bottom: 13svh;
   opacity: 0;
   font-family: var(--font-display);
-  font-size: var(--fs-quieto);
+  /* fora do token: esta é a frase mais longa do degrau quieto (42
+     caracteres), e no corpo novo do token (8,6vw) ela quebrava em três
+     linhas a 414px. Fica no corpo antigo do degrau, que já era grande. */
+  font-size: clamp(1.8rem, 8vw, 4.25rem);
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);

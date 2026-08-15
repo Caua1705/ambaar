@@ -242,18 +242,6 @@
   color: rgba(255, 255, 255, .92);
 }
 
-/* ── O crédito do curador ──────────────────────────────── */
-
-/* A linha que resolve o "alguém" da frase de cima. Voz de máquina
-   (`.maquina`, base.css): um crédito é ficha técnica, não composição — e o
-   contraste entre a serifada grande e o passo fixo miúdo é o que faz a
-   dupla ler como obra + assinatura. Só a posição mora aqui. */
-.cabine__credito {
-  position: absolute;
-  top: 79svh;
-  left: var(--gutter-l);
-  opacity: 0;
-}
 
 @media (min-width: 900px) {
   /* Deitada, o par cresce em vez de encolher: ele ia de 20% a 20% e virava
@@ -279,19 +267,10 @@
 
   /* A frase encosta na goteira, alinhada ao rótulo e à sala: as três
      coisas da esquerda se empilham num eixo só, e a cabine é a única que
-     rompe para fora dele.
-
-     78svh e não 84: o crédito do curador entrou embaixo dela, e a 84 as
-     duas linhas de display terminavam a ~99svh — não sobrava pé para a
-     linha de máquina. Seis por cento acima, a pilha inteira (frase +
-     crédito) fecha a ~95svh. */
+     rompe para fora dele. */
   .cabine__linha {
-    top: 78svh;
+    top: 84svh;
     max-width: 24ch;
-  }
-
-  .cabine__credito {
-    top: 93svh;
   }
 }
 
@@ -300,8 +279,7 @@
     clip-path: none;
   }
 
-  .cabine__linha,
-  .cabine__credito {
+  .cabine__linha {
     opacity: 1;
   }
 

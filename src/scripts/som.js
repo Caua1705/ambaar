@@ -296,7 +296,9 @@ if (botao) {
     ligado = proximo
 
     botao.setAttribute('aria-pressed', String(ligado))
-    botao.setAttribute('aria-label', ligado ? 'Desligar o som da casa' : 'Ligar o som da casa')
+    // o rótulo diz a AÇÃO, não o estado: é o que o leitor de tela anuncia e
+    // é a mesma palavra que está escrita ao lado do disco
+    botao.setAttribute('aria-label', ligado ? 'Pausar a trilha da casa' : 'Ouvir a trilha da casa')
     for (const campo of campos) campo.classList.toggle('is-tocando', ligado)
 
     if (guardar) {

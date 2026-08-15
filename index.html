@@ -1019,32 +1019,34 @@
     </div>
 
     <!-- ── O som ──────────────────────────────────────────
-         Nasce no capítulo 01 — no instante em que a cabine acende no jardim,
-         isto é, em que a casa liga o som dela — e fica até o fim da sessão.
-         Desligado por padrão, sempre.
+         Um botão de play. Disco, triângulo, pausa — a convenção inteira, do
+         jeito que o cérebro já sabe ler, porque um controle que precisa ser
+         entendido em menos de um segundo não é lugar de inventar forma.
 
-         Em repouso ele é só o losango da casa. O traço e a palavra vivem
-         fora da caixa do botão e só saem quando ele fala: ao nascer, sob o
-         ponteiro, e por dois segundos depois de cada toque. Um rótulo
-         permanente para uma informação momentânea é ruído — e a chapa que
-         ele tinha por baixo era o único retângulo do site. -->
+         O que é da casa aqui é o MATERIAL, não o glifo: carvão, filete de
+         âmbar, tipo em caixa alta com o tracking dos rótulos. A palavra ao
+         lado diz o que acontece — "Ouvir a casa" — e some sozinha; no lugar
+         dela, tocando, ficam os três filetes com o espectro da faixa.
+
+         Nasce no capítulo 01, quando a cabine acende no jardim, com dois
+         anéis que se abrem para chamar o olho uma vez. -->
     <button class="som" id="som-toggle" type="button" aria-pressed="false"
-            aria-label="Ligar o som da casa">
-      <span class="som__fala" aria-hidden="true">
-        <span class="som__dash"></span>
-        <span class="som__palavra">
-          <span class="som__estado som__estado--off">Silêncio</span>
-          <span class="som__estado som__estado--on">No ar</span>
+            aria-label="Ouvir a trilha da casa">
+      <span class="som__lado" aria-hidden="true">
+        <span class="som__rotulo">
+          <span class="som__estado som__estado--off">Ouvir a casa</span>
+          <span class="som__estado som__estado--on">Pausar</span>
         </span>
-      </span>
-      <span class="som__marca" aria-hidden="true">
-        <span class="som__losango"></span>
-        <span class="som__pulso"></span>
         <span class="campo campo--mini" data-campo>
           <span class="campo__linha" style="--w:.5;--d:9s;--del:-1.1s"><i></i></span>
           <span class="campo__linha" style="--w:.9;--d:7s;--del:-3.4s"><i></i></span>
           <span class="campo__linha" style="--w:.65;--d:11s;--del:-5.8s"><i></i></span>
         </span>
+      </span>
+      <span class="som__disco" aria-hidden="true">
+        <span class="som__eco"></span>
+        <span class="som__play"></span>
+        <span class="som__pause"></span>
       </span>
     </button>
 

@@ -1,85 +1,69 @@
-/* O controle de som — a terceira forma.
+/* O som — um botão de play.
 
-   ── Onde ele estava ─────────────────────────────────────────────────────
+   ── O que as três passadas anteriores erraram ───────────────────────────
 
-   Primeiro foi um anel de 30px a 40% num canto: não se via, não pertencia
-   (a casa é losango, não círculo) e não dizia nada.
+   Um anel de 30px num canto. Um lockup tipografado numa placa. Um losango
+   pendurado no pé do fio. Formas diferentes, o mesmo erro: as três tentaram
+   ser ORIGINAIS num lugar onde originalidade é defeito.
 
-   Depois virou um lockup tipografado como rótulo de capítulo — traço,
-   palavra, losango — e a gramática ficou certa. O que ficou errado foi o
-   conserto de visibilidade que veio junto: para o âmbar poder ficar quieto
-   E ser lido sobre fotografia, o lockup ganhou uma PLACA — carvão a 62%,
-   contorno de bronze, 165 × 40 pixels.
+   Um controle que precisa ser compreendido em menos de um segundo, por
+   alguém que chegou de um anúncio, no telefone, no meio de uma fotografia,
+   não é lugar de inventar. Losango vazio não diz "toque aqui e sai música";
+   diz "isto é um enfeite". E "SILÊNCIO" / "NO AR" é estado — descreve o
+   mundo em vez de dizer o que acontece se a pessoa apertar.
 
-   ── Por que a placa caiu ────────────────────────────────────────────────
+   ── A regra ─────────────────────────────────────────────────────────────
 
-   Medida na tela de 430px, a placa é um retângulo de 165 pixels de largura
-   parado no canto inferior direito da página inteira. Três coisas:
+   Seja surpreendente na composição. Seja convencional nos controles.
 
-   1. É o único retângulo do site. Não existe uma caixa, um cartão, um chip
-      ou um botão preenchido em nenhuma das dez telas — o site é goteira,
-      filete e fotografia sangrada. A placa não era discreta: era a única
-      coisa da página que parecia INTERFACE em cima de uma composição.
-   2. Ela cobre. Nas reservas ela cai exatamente sobre "recomeçar", que é um
-      dos seis acentos âmbar do site — a palavra que o pedido inteiro existe
-      para dizer some debaixo de um controle de volume.
-   3. Ela está sempre dizendo. "SILÊNCIO" fica escrito na tela por oito
-      telas seguidas para informar uma coisa que só interessa uma vez: que
-      dá para ligar o som. Um rótulo permanente para uma informação
-      momentânea é ruído.
+   O triângulo de play e as duas barras de pausa são dos pouquíssimos
+   símbolos realmente universais que existem — e um disco com um símbolo
+   dentro é a forma que o olho lê como PRESSIONÁVEL desde o primeiro
+   walkman. Isso não se melhora; usa-se.
 
-   O erro de fundo é o mesmo dos dois desenhos anteriores: tratar presença
-   como uma propriedade CONSTANTE do objeto. Ou ele está sempre fraco
-   demais, ou está sempre gritando.
+   O que é da casa aqui é o MATERIAL: carvão no disco, filete de âmbar no
+   contorno, o âmbar no glifo, o rótulo em caixa alta com o tracking dos
+   rótulos de capítulo. Um leitor atento reconhece o Âmbar no botão. Um
+   leitor distraído reconhece um play — e é para ele que o botão existe.
 
-   ── O que ele é agora ───────────────────────────────────────────────────
+   ── Os quatro sinais de que é um botão ──────────────────────────────────
 
-   Um objeto que fala uma vez e depois vira marca.
+   1. FORMA FECHADA. Um disco de 48px com contorno. Fechado = tocável.
+   2. GLIFO. Triângulo parado, duas barras tocando. Sem ambiguidade.
+   3. PALAVRA DE AÇÃO. "Ouvir a casa" diz o que vai acontecer, não como o
+      mundo está. Ela aparece sozinha ao nascer, some, e volta a pedido.
+   4. RESPOSTA AO DEDO. Cresce 6% sob o ponteiro, ENCOLHE 6% no toque. O
+      encolhimento é o que faz um botão parecer físico — e é a única coisa
+      desta folha que nenhuma das três passadas anteriores tinha.
 
-   EM REPOUSO  o losango da casa, 34px, e nada mais. Sem caixa, sem
-               contorno de caixa, sem palavra. A superfície que a
-               legibilidade exige continua existindo — mas ela tem a FORMA
-               DA MARCA: o miolo do losango é carvão a 55%, e é ele que
-               separa o âmbar de qualquer fotografia por baixo. Uma chapa
-               não some do desenho; ela vira o desenho.
+   ── E dois anéis, uma vez ───────────────────────────────────────────────
 
-   FALANDO     o traço e a palavra saem de trás do losango, para a
-               esquerda, sobre uma resina radial que não tem aresta nenhuma
-               — e recolhem. Ele fala em três momentos, e só neles:
-                 · ao nascer, no capítulo 01, por 3,2s — diz o nome dele;
-                 · quando o ponteiro chega ou o foco entra;
-                 · por 2s depois de cada toque — para o estado novo ser
-                   dito, inclusive no telefone, onde não há ponteiro.
+   Quando ele nasce, dois anéis se abrem e apagam. É o gesto mais velho de
+   interface que existe para dizer "eu estou aqui e eu respondo", ele
+   acontece UMA vez e nunca mais, e é o que resolve o problema real de um
+   controle discreto: ser encontrado.
 
-   TOCANDO     o losango ESQUENTA: o miolo vai de carvão a bronze queimado
-               e o contorno vai a âmbar cheio. Um segundo losango se abre
-               para fora a cada 2,8s, e os três filetes deixam de derivar e
-               passam a ser o espectro real da faixa.
+   ── O lado esquerdo ─────────────────────────────────────────────────────
 
-   ── O que isso resolve ──────────────────────────────────────────────────
-
-   A pegada em repouso caiu de 165 × 40 para 34 × 34: o controle deixou de
-   cobrir a composição de qualquer seção, "recomeçar" voltou, e a única
-   coisa que fica sobre a fotografia por oito telas é o losango — que é a
-   assinatura da casa, e já está no favicon, no fio e em todo rótulo.
-
-   Sem sombra, sem desfoque, sem `backdrop-filter`. Duas superfícies, e a
-   segunda só existe enquanto ele está falando. */
+   Uma vaga, dois conteúdos, nunca os dois juntos: a PALAVRA quando ele
+   fala, o ESPECTRO quando ele toca. Assim o objeto em repouso é um disco de
+   48px e nada mais — não sobra nenhum rótulo permanente sobre a fotografia,
+   que era o defeito da placa de 165px. */
 
 .som {
   position: fixed;
-  right: .55rem;
-  bottom: calc(.55rem + env(safe-area-inset-bottom, 0px));
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   z-index: 16;
 
+  /* A caixa do botão é o DISCO e nada mais. A vaga da palavra fica fora
+     dela, em posição absoluta: um alvo de 164px de largura parado sobre a
+     fotografia interceptaria o dedo em tudo o que estivesse por baixo, e a
+     palavra não é para ser tocada — é para ser lida. */
   display: block;
+  padding: 0;
+  line-height: 0;
 
-  /* a área de toque vive no padding: o desenho tem 34px e o alvo passa de
-     50 nos dois eixos sem que o desenho precise crescer */
-  padding: .55rem;
-
-  /* o botão não é uma caixa — é o losango. O `button` do navegador vem com
-     fundo, contorno e fonte próprios; os três saem aqui. */
   background: none;
   border: 0;
   font: inherit;
@@ -100,57 +84,27 @@
 
 /* ── A resina ──────────────────────────────────────────── */
 
-/* A palavra precisa de um degrau de luminância por baixo para ser lida
-   sobre fotografia — mas ela só está na tela quando o controle fala, e
-   então a superfície também só existe nesse intervalo.
-
-   É um radial ancorado no losango, sem borda, sem raio e sem aresta: onde
-   ele acaba não há linha nenhuma, ele simplesmente deixa de existir. Essa
-   é a diferença entre uma resina e uma placa, e é a mesma resina que
-   escurece o miolo do fecho e o pé dos capítulos. */
+/* O degrau de luminância que a palavra precisa para ser lida sobre
+   fotografia — e ele só existe enquanto há palavra. Radial, ancorado no
+   disco, sem borda e sem raio: onde ele acaba não há aresta nenhuma, ele
+   simplesmente deixa de existir. É a mesma resina que escurece o miolo do
+   fecho, e é o contrário de uma placa. */
 .som::before {
   content: '';
   position: absolute;
-  inset: -1.5rem -1.2rem -1.3rem -9.5rem;
-  background: radial-gradient(115% 128% at 86% 52%,
-    rgba(9, 9, 9, .74) 0%,
-    rgba(9, 9, 9, .5) 38%,
-    rgba(9, 9, 9, 0) 72%);
+  inset: -1.9rem -1.5rem -1.7rem -8.5rem;
+  /* Funda de propósito. Ela só existe por três segundos, e no pé da tela
+     passa TEXTO em várias seções — não só fotografia. Uma resina tímida
+     deixa a palavra do botão brigar com a linha de baixo do fecho, que foi
+     exatamente o que aconteceu na primeira medição. */
+  background: radial-gradient(108% 148% at 82% 50%,
+    rgba(9, 9, 9, .92) 0%,
+    rgba(9, 9, 9, .74) 38%,
+    rgba(9, 9, 9, .34) 62%,
+    rgba(9, 9, 9, 0) 78%);
   opacity: 0;
   pointer-events: none;
   transition: opacity .55s var(--ease);
-}
-
-/* ── A fala ────────────────────────────────────────────── */
-
-/* Ela mora FORA da caixa do botão, à esquerda, em posição absoluta: assim
-   o alvo de toque continua sendo um quadrado de 50px no canto — e não uma
-   faixa de 180px atravessando a tela — e nada na página se desloca quando
-   a palavra entra e sai. */
-.som__fala {
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-right: -.1rem;
-
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  white-space: nowrap;
-  pointer-events: none;
-
-  opacity: 0;
-  transform: translate(10px, -50%);
-  transition: opacity .45s var(--ease), transform .75s var(--ease);
-}
-
-/* Os três momentos em que ele fala. `is-dizendo` é escrita por som.js: ao
-   nascer e depois de cada toque. */
-.som.is-dizendo .som__fala,
-.som:hover .som__fala,
-.som:focus-visible .som__fala {
-  opacity: 1;
-  transform: translate(0, -50%);
 }
 
 .som.is-dizendo::before,
@@ -159,22 +113,152 @@
   opacity: 1;
 }
 
-/* O mesmo traço dos rótulos de capítulo (.reveal__dash), na mesma
-   espessura — é ele que faz a linha ser lida como um rótulo da casa em vez
-   de como uma dica de interface. */
-.som__dash {
-  display: block;
-  width: 26px;
-  height: 1px;
-  background: currentColor;
-  opacity: .55;
+/* ── O disco ───────────────────────────────────────────── */
+
+.som__disco {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+
+  /* carvão a 72%: um degrau acima de qualquer fotografia desta paleta e um
+     degrau abaixo do carvão puro das seções lisas — ele se separa nas duas
+     situações. O contorno é âmbar rebaixado, hairline, na espessura de todo
+     filete do site. */
+  background: rgba(13, 13, 13, .72);
+  border: 1px solid rgba(200, 137, 46, .58);
+
+  transition: transform .35s var(--ease), background-color .45s var(--ease),
+    border-color .45s var(--ease);
 }
 
-/* Os dois estados ocupam a MESMA célula de grade: a caixa fica com a
-   largura da palavra mais longa e nada dança quando o texto troca. O
-   alinhamento é à direita porque o que tem de ficar parado é a borda que
-   encosta no losango. */
-.som__palavra {
+.som:hover .som__disco,
+.som:focus-visible .som__disco {
+  transform: scale(1.06);
+  background: rgba(200, 137, 46, .16);
+  border-color: var(--ambar);
+}
+
+/* O botão ENCOLHE no toque. É o sinal físico — a tecla que afunda — e é a
+   diferença entre uma coisa que se aperta e uma coisa que está desenhada
+   ali. Curva curta de propósito: resposta lenta não é resposta. */
+.som:active .som__disco {
+  transform: scale(.94);
+  transition-duration: .09s;
+}
+
+.som[aria-pressed="true"] .som__disco {
+  background: rgba(200, 137, 46, .2);
+  border-color: rgba(200, 137, 46, .85);
+}
+
+.som:focus-visible {
+  outline: none;
+}
+
+.som:focus-visible .som__disco {
+  outline: 1px dashed rgba(200, 137, 46, .8);
+  outline-offset: 4px;
+}
+
+/* ── Os glifos ─────────────────────────────────────────── */
+
+.som__play,
+.som__pause {
+  grid-area: 1 / 1;
+  transition: opacity .28s var(--ease), transform .35s var(--ease);
+}
+
+/* Triângulo em `border`: sem SVG, sem fonte de ícone, sem requisição. O
+   recuo de 2px é ÓPTICO — um triângulo centrado pela caixa parece deslocado
+   para a esquerda, porque a massa dele está na base. */
+.som__play {
+  width: 0;
+  height: 0;
+  border-left: 12px solid currentColor;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  transform: translateX(2px);
+}
+
+/* Duas barras, pelo mesmo caminho: o elemento é a vaga, os pseudos são as
+   barras. */
+.som__pause {
+  position: relative;
+  width: 11px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(.8);
+}
+
+.som__pause::before,
+.som__pause::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: currentColor;
+}
+
+.som__pause::before { left: 0; }
+.som__pause::after { right: 0; }
+
+.som[aria-pressed="true"] .som__play {
+  opacity: 0;
+  transform: translateX(2px) scale(.8);
+}
+
+.som[aria-pressed="true"] .som__pause {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Os dois anéis ─────────────────────────────────────── */
+
+/* Uma vez, ao nascer. `is-visivel` é escrita por som.js quando o capítulo
+   01 entra, e a animação não se repete: um botão que fica pulsando para
+   sempre não está chamando, está implorando. */
+.som__eco {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--ambar);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.som.is-visivel .som__eco {
+  animation: somEco 2.6s var(--ease) .9s 2;
+}
+
+@keyframes somEco {
+  0%   { opacity: .55; transform: scale(1); }
+  70%  { opacity: 0; transform: scale(1.7); }
+  100% { opacity: 0; transform: scale(1.7); }
+}
+
+/* ── O lado esquerdo: a palavra ou o espectro ──────────── */
+
+.som__lado {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + .8rem);
+  transform: translateY(-50%);
+
+  display: grid;
+  place-items: center end;
+  /* a vaga tem a largura do rótulo mais longo: nada dança quando o conteúdo
+     dela troca */
+  min-width: 6.2rem;
+  height: 14px;
+  pointer-events: none;
+}
+
+.som__rotulo {
+  grid-area: 1 / 1;
   display: grid;
   justify-items: end;
   font-size: var(--fs-label);
@@ -182,19 +266,32 @@
   letter-spacing: var(--track-wide);
   text-indent: var(--track-wide);
   text-transform: uppercase;
+  white-space: nowrap;
   line-height: 1;
+
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity .4s var(--ease), transform .6s var(--ease);
+}
+
+/* Os três momentos em que a palavra aparece: ao nascer (3,2s, para dizer o
+   que o botão faz), sob o ponteiro, e por 2s depois de cada toque — este
+   último existe pelo telefone, onde não há ponteiro e a troca de estado
+   precisa se anunciar sozinha. `is-dizendo` é escrita por som.js. */
+.som.is-dizendo .som__rotulo,
+.som:hover .som__rotulo,
+.som:focus-visible .som__rotulo {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .som__estado {
   grid-area: 1 / 1;
-  transition: opacity .5s var(--ease);
+  transition: opacity .35s var(--ease);
 }
 
-/* Desligado a palavra é luz branca; ligado ela vira âmbar, que é a única
-   troca de COR do controle — e a que diz que ele está fazendo alguma
-   coisa. */
 .som__estado--off {
-  color: rgba(255, 255, 255, .88);
+  color: rgba(255, 255, 255, .9);
   opacity: 1;
 }
 
@@ -206,123 +303,69 @@
 .som[aria-pressed="true"] .som__estado--off { opacity: 0; }
 .som[aria-pressed="true"] .som__estado--on { opacity: 1; }
 
-/* ── O losango ─────────────────────────────────────────── */
-
-.som__marca {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-}
-
-/* Um quadrado de 1px girado 45°, e não um SVG: são 24px de lado, 34 de
-   diagonal — exatamente a altura da caixa —, e a rotação é transform, que
-   é de graça. O losango do fio e o do fecho são o desenho completo da
-   marca (dois losangos encaixados); este é o miolo dele, que é a forma que
-   sobrevive a 34px. */
-.som__losango,
-.som__pulso {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 1px solid currentColor;
-  transform: rotate(45deg);
-  pointer-events: none;
-}
-
-/* ── A chapa virou o losango ───────────────────────────
-
-   O degrau de luminância que a placa dava continua aqui: carvão a 55%
-   dentro do contorno. É a mesma regra de sempre (profundidade por pilha de
-   superfícies, nunca por sombra) — o que mudou é que a superfície não é
-   mais um retângulo emprestado de outro projeto, é a forma da casa. Sobre
-   fotografia clara ela segura o âmbar; sobre carvão liso ela desaparece no
-   fundo e sobra o contorno. */
-.som__losango {
-  opacity: 1;
-  background-color: rgba(13, 13, 13, .55);
-  border-color: rgba(200, 137, 46, .72);
-  transition: background-color .7s var(--ease), border-color .5s var(--ease);
-}
-
-/* Tocando, o losango ESQUENTA. Bronze queimado em vez de carvão: continua
-   sendo um miolo escuro — o texto por baixo continua protegido — e mesmo
-   assim a leitura de estado é de relance, porque o que muda é a
-   TEMPERATURA da forma inteira, não dois degraus de opacidade. */
-.som[aria-pressed="true"] .som__losango {
-  background-color: rgba(72, 45, 13, .78);
-  border-color: rgba(200, 137, 46, 1);
-}
-
-/* O segundo losango só existe tocando: nasce no primeiro e se abre para
-   fora, devagar. É o que dá ao objeto uma pulsação própria — ele se move
-   sem o ponteiro e sem a rolagem, que é a definição de classe 3. */
-.som__pulso {
-  opacity: 0;
-}
-
-.som[aria-pressed="true"] .som__pulso {
-  animation: somPulso 2.8s var(--ease) infinite;
-}
-
-@keyframes somPulso {
-  0%   { opacity: .45; transform: rotate(45deg) scale(1); }
-  70%  { opacity: 0; transform: rotate(45deg) scale(1.85); }
-  100% { opacity: 0; transform: rotate(45deg) scale(1.85); }
-}
-
-/* Os três filetes ficam por cima do losango, no meio dele. Na cintura da
-   forma há 34px de largura útil; 12 é o que cabe sem encostar nas arestas
-   quando a linha mais longa está a cheio. */
+/* O espectro ocupa a MESMA vaga da palavra e só existe tocando: fora dali
+   o botão em repouso é um disco e nada mais. Comprimentos desiguais,
+   derivando em períodos primos entre si sem música; com música, o espectro
+   real da faixa (campo.css, som.js). */
 .som .campo--mini {
-  position: relative;
-  z-index: 1;
+  grid-area: 1 / 1;
+  justify-self: end;
+  width: 16px;
+  height: 14px;
+  opacity: 0;
+  transition: opacity .5s var(--ease);
 }
 
-/* ── Apontado e foco ───────────────────────────────────── */
-
-.som:hover .som__losango,
-.som:focus-visible .som__losango {
-  border-color: rgba(200, 137, 46, 1);
+.som[aria-pressed="true"] .campo--mini {
+  opacity: 1;
 }
 
-.som:focus-visible {
-  outline: 1px dashed rgba(200, 137, 46, .7);
-  outline-offset: 4px;
+/* quando a palavra entra, o espectro sai: uma vaga, um conteúdo */
+.som[aria-pressed="true"].is-dizendo .campo--mini,
+.som[aria-pressed="true"]:hover .campo--mini,
+.som[aria-pressed="true"]:focus-visible .campo--mini {
+  opacity: 0;
 }
 
 /* ── Estreito ──────────────────────────────────────────── */
 
 @media (max-width: 420px) {
-  .som__fala {
-    gap: .5rem;
+  .som {
+    right: .8rem;
+    gap: .7rem;
   }
 
-  .som__dash {
-    width: 18px;
+  .som__disco {
+    width: 44px;
+    height: 44px;
   }
 
   .som::before {
-    inset: -1.4rem -1.1rem -1.2rem -8rem;
+    inset: -1.5rem -1.2rem -1.2rem -7rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .som,
-  .som__fala,
-  .som__losango,
+  .som__disco,
+  .som__rotulo,
   .som__estado,
+  .som__play,
+  .som__pause,
   .som::before {
     transition: none;
   }
 
-  .som__fala {
-    transform: translate(0, -50%);
+  .som.is-visivel .som__eco {
+    animation: none;
   }
 
-  .som[aria-pressed="true"] .som__pulso {
-    animation: none;
-    opacity: .3;
+  .som:hover .som__disco,
+  .som:focus-visible .som__disco {
+    transform: none;
+  }
+
+  .som:active .som__disco {
+    transform: none;
   }
 }

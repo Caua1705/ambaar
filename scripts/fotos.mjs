@@ -242,28 +242,66 @@ const FOTOS = [
      SEÇÃO NOVA, e é a fotografia que uma casa que se chama COCKTAIL BAR
      estava devendo desde a primeira passada.
 
-     Uma mulher de verde, no jardim, com uma taça de âmbar na mão. O
-     conteúdo do copo é exatamente a cor da marca, a luz é a mesma
-     tungstênio quente do resto da noite, e o fundo é a folhagem do jardim
-     do capítulo 01 — a mesma parede, uma hora depois.
+     ── AS DUAS FOTOGRAFIAS TROCARAM, e a seção só agora diz o que promete
 
-     Ela é a resposta a duas perguntas de uma vez: onde estão as pessoas
-     entre o entardecer e o salão, e o que é que a casa serve. O recorte
-     fecha na taça e na mão e deixa o rosto fora do quadro: a seção é sobre
-     o copo, não sobre quem o segura.
+     A versão anterior era `detalhe-01` (uma mulher de verde no jardim com
+     uma taça) em cima e `mao-copo` (uma coupe vermelha sobre renda preta)
+     no inset. A composição — foto dentro de foto, duas distâncias do mesmo
+     assunto — estava certa. O MATERIAL desmentia ela em três pontos, e os
+     três são verificáveis abrindo os arquivos lado a lado:
 
-     900px: é tela cheia. */
-  { saida: 'copo-jardim', de: 'nao-usadas/detalhe-01.jpg', corte: { left: 200, top: 1400, width: 3600, height: 4000 }, largura: 1100, q: 72, luz: 1.06, sat: 0.92, tinta: 0.1 },
+       1. não era o mesmo copo. Balão de haste VERDE contra coupe de haste
+          fina; amarelo palha contra vermelho-âmbar; vestido verde-oliva ao
+          fim de tarde contra renda preta à noite. O alt dizia "a mesma
+          taça a um palmo" e o olho pegava a mentira em meio segundo.
+       2. a foto grande não era sobre o drink. O objeto mais claro e mais
+          detalhado da metade de baixo era uma BOLSA metálica; depois o
+          vestido e a corrente. Era uma foto de look com um copo dentro,
+          numa seção que existe porque o site nunca mostrava bebida.
+       3. a frase da tela é "o que a casa serve tem a COR DO NOME DELA" —
+          âmbar — e a taça grande era amarelo palha. A imagem que carregava
+          o argumento era a que o desmentia; a que provava era o inset.
 
-  /* O mesmo copo a um palmo, e é a única imagem do site em que a marca
-     aparece como MATÉRIA: âmbar dentro de vidro, na mão de alguém.
+     E o defeito não tinha conserto por recorte: o original de `detalhe-01`
+     é 4000×6000 e a bolsa está nele, grande, em qualquer enquadramento.
 
-     Ela era o fundo do fecho e foi mal servida ali — em tela cheia sob a
-     resina, o que se via era um pescoço e uma renda, com a taça escondida
-     atrás do próprio texto. Aqui ela é pequena, emoldurada e nítida, e o
-     recorte fecha na taça: a fotografia passou a mostrar o que ela sempre
-     teve de bom. */
-  { saida: 'copo-mao', de: 'mao-copo.png', corte: { left: 300, top: 460, width: 723, height: 900 }, largura: 620, q: 74, luz: 1.16 },
+     ── O que entrou ────────────────────────────────────────────────────
+
+     As mãos da casa MONTANDO o drink no balcão: o mixing glass despejando
+     âmbar numa coupe sobre gelo, a fita de LED do balcão acesa por baixo,
+     luzinhas ao fundo. É a primeira vez que o site mostra a casa fazendo
+     alguma coisa — havia quatro telas com o copo pronto e nenhuma com o
+     copo sendo feito.
+
+     Ela é âmbar sobre carvão de borda a borda, e o quadro tem áreas
+     grandes de escuro vazio à esquerda e no alto: é onde caem o rótulo, a
+     frase e o inset. A alternativa gerada na mesma leva mostrava mais o
+     lugar (prateleira de garrafas acesa, fruteira, lanterna) e foi
+     descartada por isso — o olho se dividia e o texto caía em cima de
+     coisa. O lugar já foi estabelecido duas telas antes, no Jardim.
+
+     Sem rótulo de marca em vidro nenhum: no site inteiro o único ouro é o
+     da casa.
+
+     1100px: é tela cheia. */
+  { saida: 'copo-jardim', de: 'copo-balcao.png', largura: 1100, q: 72, luz: 1.02, sat: 0.96, tinta: 0.06 },
+
+  /* O MESMO copo a um palmo — e desta vez "o mesmo" é literal.
+
+     Ela foi gerada A PARTIR da fotografia de cima, não do zero, e é isso
+     que faz a composição funcionar: mesma coupe, mesmo âmbar, mesmo gelo,
+     mesmo tampo, mesma fita de LED atrás. Empilhar duas fotografias no
+     mesmo quadro obriga o olho a compará-las; quando elas não batem, a
+     composição AMPLIFICA o defeito em vez de escondê-lo, que foi o que
+     aconteceu na versão anterior desta seção.
+
+     Quadrada de origem (1254×1254), e é o formato certo para este slot: o
+     inset mede ~1,07 deitado e ~0,86 em pé, então um quadrado atravessa as
+     duas orientações perdendo quase nada nas bordas.
+
+     É a única imagem do site em que a marca aparece como MATÉRIA: âmbar
+     dentro de vidro. */
+  { saida: 'copo-mao', de: 'copo-pronto.png', largura: 700, q: 74, luz: 1.02, sat: 0.96, tinta: 0.06 },
 
   /* ── A pista · 22h ───────────────────────────────────────────────────
      SEÇÃO NOVA. A sala cheia vista DE CIMA — a única fotografia do acervo

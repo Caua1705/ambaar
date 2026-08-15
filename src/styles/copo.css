@@ -64,11 +64,19 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* A taça está no terço alto à esquerda e a bolsa no miolo. Numa tela
-     estreita entra pouco mais de metade da largura: a 38% a taça fica
-     inteira no quadro e a folhagem escura sobra à direita, que é onde o
-     inset vai pousar. */
-  object-position: 38% 34%;
+  /* Remedido para a fotografia nova (as mãos montando o drink no balcão),
+     e ela é 9:16 de origem — a anterior era quase quadrada, e a diferença
+     muda tudo o que se vê no telefone.
+
+     A 0,56 contra a caixa de 0,46 do telefone, o `cover` escala pela
+     altura e entram 82% da largura: a altura inteira aparece e o segundo
+     valor não tem efeito. (Com a fotografia antiga, a 0,90, entravam 51% —
+     metade do quadro ficava do lado de fora.)
+
+     Centrado, os 82% seguram o mixing glass à esquerda, o fio de âmbar e a
+     coupe. O escuro que sobra à direita e no alto é onde o rótulo e o
+     inset pousam. */
+  object-position: 50% 50%;
 }
 
 /* A demão. Dois núcleos, como na troca: o rótulo no alto à esquerda e a
@@ -139,8 +147,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* a taça ocupa o miolo do recorte; a mão entra pela direita */
-  object-position: 46% 50%;
+  /* A fonte é QUADRADA (1254×1254), escolhida para este slot: o inset mede
+     ~1,07 deitado e ~0,86 em pé, então um quadrado perde 6% de altura numa
+     orientação e 14% de largura na outra — e a taça está no meio nos dois
+     casos. Centrado é o certo; não há assunto nas bordas para salvar. */
+  object-position: 50% 50%;
 }
 
 /* ── A frase ───────────────────────────────────────────── */
@@ -163,8 +174,19 @@
 /* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
+  /* Deitada, o corte inverte de eixo e fica SEVERO: a caixa é 1,6 contra
+     0,56 do arquivo, então entram 35% da altura e nenhum pixel de largura
+     se perde — o primeiro valor deixa de ter efeito.
+
+     35% não cabem o mixing glass (19—42%) e a coupe (45—72%) ao mesmo
+     tempo, então a âncora escolhe. A 51% a janela vai de 33% a 68%: pega o
+     pé do mixing glass, o fio inteiro e a coupe inteira, com a mão
+     entrando no canto de baixo. É o GESTO completo.
+
+     Medidas as vizinhas: a 30% a coupe fica sem haste, e a 65% o mixing
+     glass sai de cena e sobra um fio de âmbar vindo do nada. */
   .copo__fundo img {
-    object-position: 40% 40%;
+    object-position: 50% 51%;
   }
 
   .copo__inset {

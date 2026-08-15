@@ -228,9 +228,29 @@
 }
 
 /* O horário é dado, não composição: voz de máquina (`maquina`, no HTML).
-   Aqui só a cor, que precisa descer um passo sobre o fumê. */
+   Aqui só a cor.
+
+   ── Branco, e não dourado ───────────────────────────────────────────────
+
+   A tentação é óbvia: são horas de uma casa noturna, e dourado é a cor da
+   casa. Duas razões para não:
+
+   1. O âmbar-tinta desta tela já está gasto. "recomeçar" é um dos seis
+      acentos do site inteiro, e ele está a 8cm daqui, na mesma seção. Três
+      horários dourados na lista logo abaixo transformam o acento em
+      repetição — e um acento repetido é uma paleta, não um acento.
+   2. Eles disputariam o passo seguinte. A única coisa desta linha que a
+      pessoa tem de tocar é "RESERVAR"; o horário é a informação que
+      sustenta a decisão, não a decisão. Ouro puxa o olho, e aqui ele
+      puxaria para o lado errado da linha.
+
+   Era `--concreto` a 85% — cinza morno sobre fumê morno, dois cinzas
+   quentes um em cima do outro, e o horário sumia. Agora é LUZ rebaixada:
+   branco a 55%, exatamente um degrau abaixo do nome da sala (branco
+   cheio). O par lê como uma linha só — nome e hora, forte e fraca —, e a
+   cor quente fica inteira para quem a merece. */
 .sala__when {
-  color: rgba(119, 115, 110, .85);
+  color: rgba(255, 255, 255, .55);
 }
 
 .sala__go {

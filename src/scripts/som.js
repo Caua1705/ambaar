@@ -272,6 +272,24 @@ if (botao) {
     if (ligado) rampa(nivel, NARRATIVA)
   })
 
+  /* ── A fala ──────────────────────────────────────────
+
+     O controle não carrega um rótulo permanente: em repouso ele é só o
+     losango. A palavra sai de trás dele em três momentos, e este é o
+     segundo e o terceiro — ao nascer (3,2s, para dizer o nome) e depois de
+     cada toque (2s, para dizer o estado novo). O primeiro é o ponteiro, e
+     esse é CSS puro.
+
+     Os 2s do toque existem pelo telefone: sem ponteiro, o único jeito de o
+     estado ser DITO é ele se anunciar sozinho no instante em que muda. */
+  let calaBoca = 0
+
+  const dizer = (ms) => {
+    botao.classList.add('is-dizendo')
+    clearTimeout(calaBoca)
+    calaBoca = setTimeout(() => botao.classList.remove('is-dizendo'), ms)
+  }
+
   /* ── Alternar ────────────────────────────────────────── */
 
   const aplicar = (proximo, guardar = true) => {
@@ -310,7 +328,10 @@ if (botao) {
     rampa(nivel, ENTRADA)
   }
 
-  botao.addEventListener('click', () => aplicar(!ligado))
+  botao.addEventListener('click', () => {
+    aplicar(!ligado)
+    dizer(2000)
+  })
 
   /* ── A entrada ───────────────────────────────────────
 
@@ -344,12 +365,16 @@ if (botao) {
     if (botao.classList.contains('is-visivel')) return
     botao.classList.add('is-visivel')
 
-    // o anel sobe com o mesmo tempo das entradas de texto do site
+    // o losango sobe com o mesmo tempo das entradas de texto do site
     if (!reducedMotion) gsap.to(botao, { y: 0, duration: 0.9, ease: EASE })
 
     try {
       if (sessionStorage.getItem(CHAVE) === '1') aplicar(true, false)
     } catch { /* modo privado */ }
+
+    // e diz o nome dele uma vez: a única aparição do rótulo que ninguém
+    // pediu — a partir daqui a palavra só volta a pedido
+    dizer(3200)
   }
 
   if (!berco || reducedMotion) acender()

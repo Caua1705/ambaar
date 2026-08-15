@@ -8,7 +8,7 @@
 
 .outro {
   position: relative;
-  min-height: 100svh;
+  min-height: var(--tela);
   background: var(--carvao);
   display: flex;
   align-items: center;

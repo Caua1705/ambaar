@@ -44,7 +44,7 @@
 
 .copo__stage {
   position: relative;
-  height: 100svh;
+  height: var(--tela);
   overflow: hidden;
 }
 
@@ -137,14 +137,25 @@
   margin: 0;
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(200, 137, 46, .3);
-  /* fechada: ela entra deslizando da borda direita (copo.js) */
-  clip-path: inset(0% 0% 0% 100%);
+  /* Fechada na borda de DENTRO — a esquerda, a que está na tela.
+     A moldura abre para a direita, na direção da sangria. Ver a nota da
+     direção em copo.js. */
+  clip-path: inset(0% 100% 0% 0%);
 }
 
+/* A foto é MAIS LARGA que a moldura, e a sobra é o curso do movimento
+   interno — o mesmo recurso dos quadros da pausa das 00h.
+
+   Ela existe por causa da direção. A fotografia anda ao contrário da aresta
+   que a revela (copo.js), e a aresta caminha da esquerda para a direita:
+   sem sobra, a imagem entrando deslocada à direita descobriria a própria
+   borda esquerda justamente no lado que a moldura abre PRIMEIRO. Doze por
+   cento de cada lado cobrem os oito de deslocamento com folga, e nenhum
+   pixel de assunto se perde — a taça está no meio do arquivo. */
 .copo__inset img {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  inset: 0 -12%;
+  width: 124%;
   height: 100%;
   object-fit: cover;
   /* A fonte é QUADRADA (1254×1254), escolhida para este slot: o inset mede

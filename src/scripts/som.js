@@ -379,6 +379,41 @@ if (botao) {
     dizer(3200)
   }
 
+  /* ── E ele chama uma vez na cabine ───────────────────
+
+     A alternativa em cima da mesa era o controle VIVER na seção da cabine,
+     em vez de ser permanente. Ela não passa: o som continua tocando depois
+     de a seção sair, e um controle que produz um efeito duradouro não pode
+     desaparecer — quem ligasse teria de rolar de volta para calar. O
+     argumento inteiro está em som.css.
+
+     O que a ideia tinha de bom é o CONTEXTO, e isso dá para ficar com: a
+     cabine é a única tela cujo assunto é alguém escolhendo o que vai
+     tocar, e é o único ponto do site em que "quer ouvir a casa?" não é uma
+     interrupção. Ele repete os dois anéis e diz o nome outra vez, uma só
+     vez, e só se o som ainda estiver desligado — chamar quem já ligou é
+     pedir uma coisa que a pessoa já fez.
+
+     `once` no gatilho e não um sinalizador: subir de volta não recomeça a
+     chamada. Duas insistências não são um convite. */
+  const cabine = document.querySelector('.cabine')
+
+  if (cabine && !reducedMotion) {
+    ScrollTrigger.create({
+      trigger: cabine,
+      start: 'top 55%',
+      once: true,
+      onEnter: () => {
+        if (ligado || !botao.classList.contains('is-visivel')) return
+        botao.classList.add('is-chamando')
+        // 2 voltas de 2,4s: a classe sai quando a animação acaba, para não
+        // ficar um estado pendurado no elemento pelo resto da visita
+        setTimeout(() => botao.classList.remove('is-chamando'), 4900)
+        dizer(2800)
+      }
+    })
+  }
+
   if (!berco || reducedMotion) acender()
   else {
     /* `top 55%`: o capítulo já tomou quase metade da tela e o título dele

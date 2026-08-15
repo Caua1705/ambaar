@@ -526,10 +526,44 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      luz do balcão, que é o assunto, some dentro do próprio tempero.
 
      Sobe até 0,55 do curso e volta a 0,3 até 0,82, que é onde a cabine
-     assume. O que fica por cima dela é um véu, não uma demão. */
+     assume. O que fica por cima dela é um véu, não uma demão.
+
+     ╔════════════════════════════════════════════════════════════════════╗
+     ║ O VÉU COBRINDO A TELA INTEIRA — e era uma propriedade disputada    ║
+     ║                                                                    ║
+     ║ A queixa: "seguro a página, solto, e o negócio cinza cobre a tela   ║
+     ║ toda". Não era o desenho do véu; eram DOIS DONOS escrevendo a mesma ║
+     ║ opacidade.                                                          ║
+     ║                                                                    ║
+     ║ Esta timeline é scrub (com 1s de atraso, por construção) e vai de   ║
+     ║ 0 a 1 do curso. A saída do capítulo é um gatilho de POSIÇÃO e       ║
+     ║ dispara a 0,84 do mesmo curso (SAIDA_EM) — isto é, dentro da faixa  ║
+     ║ do scrub. Ela também escrevia `dusk.opacity`, levando o véu a zero. ║
+     ║                                                                    ║
+     ║ Nos últimos 16% do curso os dois escreviam ao mesmo tempo, e quem   ║
+     ║ ganhava dependia da ordem do quadro. Rolando depressa e SOLTANDO, o ║
+     ║ pior caso acontece inteiro: o gatilho dispara na hora (ele não tem  ║
+     ║ atraso), apaga o véu e apaga a fotografia; o scrub, um segundo      ║
+     ║ atrás, continua entregando o valor do MEIO do curso — onde o véu    ║
+     ║ está a cheio. O que sobra na tela é o véu de tela inteira por cima  ║
+     ║ de uma seção que já saiu, e ele fica: terminado o curso, o último   ║
+     ║ valor escrito pelo scrub é 0,3, e nada mais o toca.                 ║
+     ║                                                                    ║
+     ║ O conserto é o mesmo que esta folha já aplicou à escala do          ║
+     ║ `.chapter__media` (ver a nota do `alvoSaida`, na saída do Salão):   ║
+     ║ uma propriedade, um dono. O véu drena DENTRO do scrub, na mesma     ║
+     ║ posição em que a saída dispara — e some da saída.                   ║
+     ║                                                                    ║
+     ║ De graça, vem a reversibilidade: subindo, o scrub reacende o véu    ║
+     ║ pelo mesmo caminho, sem nenhuma volta declarada.                    ║
+     ╚════════════════════════════════════════════════════════════════════╝ */
   if (dusk) {
     tl.fromTo(dusk, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'none' }, 0.2)
       .to(dusk, { opacity: 0.3, duration: 0.27, ease: 'none' }, 0.55)
+      /* e drena junto com a seção, aqui e em lugar nenhum mais. A posição é
+         a MESMA fração do curso em que o gatilho de saída dispara, lida da
+         mesma tabela: se um dia ela mudar, os dois mudam juntos. */
+      .to(dusk, { opacity: 0, duration: 0.16, ease: 'none' }, SAIDA_EM[tipoSaida] ?? 0.84)
   }
 
   /* ── A batida de preto ────────────────────────────────
@@ -623,8 +657,9 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        ║ gravaria esse 0 como valor de partida — a seção inteira nasceria ║
        ║ apagada.                                                        ║
        ╚════════════════════════════════════════════════════════════════╝ */
+    /* O véu NÃO está aqui: ele é escrito pelo scrub, e só por ele. A conta
+       inteira está na nota do `dusk`, acima. */
     saida.to([title, text, ...extras], { y: -80, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.06 }, 0)
-      .to(dusk, { opacity: 0, duration: 1.1, ease: 'none' }, 0)
       .fromTo(media,
         { opacity: 1 },
         { opacity: 0, duration: 1.2, ease: 'power2.in', immediateRender: false }, 0.1)

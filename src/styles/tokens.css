@@ -315,6 +315,46 @@
   --gutter-l: 2.5rem;
   --gutter-r: 2.75rem;
   --pad-x: 1.5rem;
+
+  /* ╔════════════════════════════════════════════════════════════════════╗
+     ║ A ALTURA DE UMA TELA — e ela era `100svh` em dez folhas            ║
+     ║                                                                    ║
+     ║ A queixa: "tem uma parte embaixo que não preencheu, tá com um      ║
+     ║ delay". Ela aparecia segurando a página e soltando, no telefone.    ║
+     ║                                                                    ║
+     ║ `svh` é a viewport PEQUENA — a altura da tela COM a barra do        ║
+     ║ navegador visível — e é um valor fixo, que não muda enquanto a      ║
+     ║ pessoa rola. É o certo para posicionar conteúdo, e é por isso que   ║
+     ║ todas as âncoras deste site (13svh, 70svh, 18svh…) continuam nele:  ║
+     ║ uma frase que mudasse de lugar quando a barra some seria pior que   ║
+     ║ o defeito.                                                         ║
+     ║                                                                    ║
+     ║ Só que ele é o errado para a SUPERFÍCIE. Quando o Chrome recolhe a  ║
+     ║ barra a área visível cresce ~10% e a seção continua medindo o       ║
+     ║ tamanho de antes — então esses 10% mostram o que está EMBAIXO dela, ║
+     ║ que é o topo da seção seguinte. No caso da hero, o que aparece é o  ║
+     ║ Jardim, e o Jardim nasce em carvão puro de propósito (a fotografia  ║
+     ║ dele acende só em `top 78%` — a batida de preto de chapters.js). O  ║
+     ║ resultado na tela é uma faixa escura no pé, que chega atrasada      ║
+     ║ porque quem está atrasado é a animação da barra.                    ║
+     ║                                                                    ║
+     ║ `dvh` é a viewport DINÂMICA: ela acompanha a barra, então a         ║
+     ║ superfície preenche sempre a tela inteira e nunca sobra nada por    ║
+     ║ baixo. O preço é que a altura muda durante a rolagem — e é por      ║
+     ║ isso que motion.js passou a declarar `ignoreMobileResize`, que      ║
+     ║ existe no ScrollTrigger exatamente para esta situação: sem ele,     ║
+     ║ cada toque na barra remediria a página inteira.                     ║
+     ║                                                                    ║
+     ║ O `100svh` fica como piso para quem não tem `dvh`. Nesse caso o     ║
+     ║ comportamento é o de hoje — o defeito, mas nunca pior que ele.      ║
+     ╚════════════════════════════════════════════════════════════════════╝ */
+  --tela: 100svh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --tela: 100dvh;
+  }
 }
 
 @media (min-width: 900px) {

@@ -42,7 +42,7 @@
 
 .brinde__stage {
   position: relative;
-  height: 100svh;
+  height: var(--tela);
   overflow: hidden;
 }
 

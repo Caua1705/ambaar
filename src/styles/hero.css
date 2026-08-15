@@ -21,7 +21,7 @@
 
 .hero {
   position: relative;
-  height: 100svh;
+  height: var(--tela);
   width: 100%;
   overflow: hidden;
 }
@@ -303,46 +303,98 @@
 
 /* ── Indicador de rolagem ───────────────────────────────── */
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ O QUE ESTAVA ERRADO — três coisas, e nenhuma era o tamanho           ║
+   ║                                                                      ║
+   ║ 1. O GESTO. O traço ESTICAVA a partir do topo, ficava esticado meio  ║
+   ║    ciclo e então escorregava para baixo encolhendo. São três         ║
+   ║    movimentos (crescer, esperar, cair) para dizer uma coisa só, e o  ║
+   ║    trecho parado no meio é o que fazia o objeto parecer travado.     ║
+   ║    Agora o filete é FIXO — ele é um trilho, como todo filete desta   ║
+   ║    casa — e o que se move é uma gota de luz descendo por dentro      ║
+   ║    dele. Um movimento, uma direção, sem estado parado.               ║
+   ║                                                                      ║
+   ║ 2. A COR. `--concreto` é o token de TEXTO secundário, e ele é um     ║
+   ║    cinza morno: sobre uma fotografia de hora dourada, cinza morno    ║
+   ║    sobre parede quente é a mesma queixa que tirou o âmbar da         ║
+   ║    assinatura logo acima (`.hero__tag`). O convite se separa por     ║
+   ║    LUMINÂNCIA — branco rebaixado no tipo, branco quase apagado no    ║
+   ║    trilho — e a única cor é a gota, que é âmbar porque é a única     ║
+   ║    coisa viva da tela.                                               ║
+   ║                                                                      ║
+   ║ 3. A POSIÇÃO. Ele morava na quina inferior direita, que é onde nada  ║
+   ║    mais desta tela mora: a âncora de lugar está no alto à direita e  ║
+   ║    o lockup no eixo. Um terceiro ponto solto numa terceira quina não ║
+   ║    é composição, é sobra. No eixo do lockup ele vira o pé da mesma   ║
+   ║    coluna — marca, filete, assinatura, convite —, que é como uma     ║
+   ║    peça de papelaria se empilha.                                     ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
 .hero__scroll {
   position: absolute;
-  right: var(--gutter-r);
-  bottom: 2rem;
+  left: 0;
+  right: 0;
+  bottom: 2.25rem;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .75rem;
-}
-
-.hero__scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, var(--concreto));
-  transform-origin: top center;
-  animation: scrollTrace 2.4s var(--ease) infinite;
-}
-
-/* cresce a partir do topo e sai por baixo, sem nunca voltar subindo */
-@keyframes scrollTrace {
-  0%   { transform: translateY(0) scaleY(0); opacity: 0; }
-  30%  { transform: translateY(0) scaleY(1); opacity: 1; }
-  55%  { transform: translateY(0) scaleY(1); opacity: 1; }
-  100% { transform: translateY(40px) scaleY(0); opacity: 0; }
+  gap: .85rem;
+  /* ele atravessa a largura da tela para se centrar sozinho; sem isto a
+     faixa vazia dos dois lados interceptaria o dedo sobre a fotografia */
+  pointer-events: none;
 }
 
 .hero__scroll-word {
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: var(--track-wide);
-  color: rgba(119, 115, 110, .85);
+  color: rgba(255, 255, 255, .52);
   /* o tracking sobra à direita e desalinha a palavra do traço */
   text-indent: var(--track-wide);
 }
 
+/* O trilho: hairline, na espessura de todo filete do site, e ele mesmo já
+   dissolve para baixo — o objeto não tem quina inferior. */
+.hero__scroll-line {
+  position: relative;
+  width: 1px;
+  height: 54px;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, .22) 0%,
+    rgba(255, 255, 255, .1) 55%,
+    transparent 100%
+  );
+}
+
+/* A gota. Um terço do trilho, com a ponta acesa embaixo: ela desce, sai
+   pelo pé e recomeça — nunca sobe, nunca para no meio. */
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 34%;
+  background: linear-gradient(to bottom, transparent, var(--ambar));
+  animation: heroGota 2.6s var(--ease) infinite;
+}
+
+@keyframes heroGota {
+  0%   { transform: translateY(-110%); opacity: 0; }
+  18%  { opacity: .9; }
+  72%  { opacity: .9; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero__scroll-line {
+  /* sem a gota o trilho sozinho não diz "desça": a seta some e fica a
+     palavra, que é a instrução escrita */
+  .hero__scroll-line::after {
     animation: none;
-    transform: none;
+    opacity: 0;
   }
 
   .hero__rule {

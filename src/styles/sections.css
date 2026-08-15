@@ -31,13 +31,17 @@
   --run: 100;
   position: relative;
   background: var(--carvao);
-  height: calc(100svh + var(--run) * 1svh);
+  /* a tela vem do token (que segue a barra do navegador); o CURSO continua
+     em svh, porque ele é medida de rolagem e não superfície — um curso que
+     encolhesse quando a barra some mudaria a duração do capítulo no meio
+     dele */
+  height: calc(var(--tela) + var(--run) * 1svh);
 }
 
 .chapter__stage {
   position: sticky;
   top: 0;
-  height: 100svh;
+  height: var(--tela);
   overflow: hidden;
 }
 

@@ -43,7 +43,8 @@ if (secao) {
   const linha = secao.querySelector('.copo__linha')
 
   const ABERTO = 'inset(0% 0% 0% 0%)'
-  const FECHADO = 'inset(0% 0% 0% 100%)'
+  /* Fechado na borda de DENTRO (a esquerda). Ver o bloco da direção, abaixo. */
+  const FECHADO = 'inset(0% 100% 0% 0%)'
 
   if (reducedMotion) {
     /* O estado fechado mora no CSS, como todo estado de entrada do site, e
@@ -57,16 +58,50 @@ if (secao) {
     gsap.set(linha, { opacity: 0, y: 20 })
     gsap.set(inset, { clipPath: FECHADO })
 
+    /* ╔══════════════════════════════════════════════════════════════════╗
+       ║ A MOLDURA ABRIA PARA O LADO ERRADO, E ERA ISSO O TEMPO TODO      ║
+       ║                                                                  ║
+       ║ A queixa foi "esse efeito da foto menor está estranho", e as     ║
+       ║ duas primeiras tentativas de conserto mexeram no paralaxe de     ║
+       ║ dentro. Não era ali. Era a DIREÇÃO da abertura.                  ║
+       ║                                                                  ║
+       ║ Esta moldura sangra 8vw para FORA da margem direita (copo.css):  ║
+       ║ um sétimo dela vive do lado de fora da tela. Ela abria com       ║
+       ║ `inset(0 0 0 100%)` → `inset(0)`, isto é, a aresta que revela    ║
+       ║ nascia na borda DIREITA e caminhava para a esquerda.             ║
+       ║                                                                  ║
+       ║ Quer dizer: o gesto começava fora da tela. O primeiro sétimo da  ║
+       ║ animação acontecia onde ninguém podia ver, e o que aparecia na   ║
+       ║ tela era a moldura já em curso, brotando da borda — sem começo,  ║
+       ║ sem o filete âmbar entrando, sem nada que dissesse "isto está    ║
+       ║ chegando". Nenhum ajuste de paralaxe conserta um gesto cujo      ║
+       ║ primeiro ato é invisível.                                        ║
+       ║                                                                  ║
+       ║ Agora ela abre pela borda de DENTRO: `inset(0 100% 0 0)` →       ║
+       ║ `inset(0)`. A aresta nasce na esquerda, onde o olho está — ele   ║
+       ║ acabou de ler o rótulo no alto à esquerda —, e cresce para fora  ║
+       ║ até sangrar. O filete âmbar é a primeira coisa a existir e ele   ║
+       ║ atravessa a tela puxando a fotografia atrás de si.               ║
+       ║                                                                  ║
+       ║ É também o sentido do Z que a seção desenha (rótulo à esquerda,  ║
+       ║ inset à direita, frase à esquerda): a moldura passa a andar NA   ║
+       ║ direção em que a composição é lida, em vez de contra ela.        ║
+       ║                                                                  ║
+       ║ Com a aresta indo para a direita, a contramão da fotografia      ║
+       ║ inverte junto: ela entra deslocada à direita e assenta para a    ║
+       ║ esquerda. A sobra de 12% de cada lado (copo.css) é o que permite ║
+       ║ esse curso sem descobrir borda.                                  ║
+       ╚══════════════════════════════════════════════════════════════════╝ */
     autonomo(secao, (t) => {
       t.fromTo(fundo,
         { scale: 1.12 },
         { scale: 1.02, duration: 2.4, ease: EASE }, 0)
         .to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0.2)
         .to(inset, { clipPath: ABERTO, duration: 1.3, ease: EASE }, 0.55)
-        // e a fotografia de dentro anda ao contrário da moldura
+        // e a fotografia de dentro anda ao contrário da aresta
         .fromTo(insetImg,
-          { xPercent: 12 },
-          { xPercent: 0, duration: 1.8, ease: EASE }, 0.55)
+          { xPercent: 8, scale: 1.06 },
+          { xPercent: 0, scale: 1, duration: 1.9, ease: EASE }, 0.55)
         .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.4)
     }, {
       /* Cedo, como todas as entradas desta passada: a composição termina de
@@ -84,6 +119,11 @@ if (secao) {
     const saida = gsap.timeline({ paused: true })
     saida.to(linha, { opacity: 0, y: -18, duration: 0.7, ease: EASE }, 0)
       .to(inset, { clipPath: FECHADO, duration: 1, ease: EASE }, 0.1)
+      /* e a foto continua andando ao contrário da aresta, também na volta:
+         fechando, a aresta volta da direita para a esquerda — a imagem vai
+         para a direita. Sem isto ela ficaria parada enquanto a moldura a
+         come, que é o mesmo defeito da entrada, ao contrário. */
+      .to(insetImg, { xPercent: 8, duration: 1.1, ease: EASE }, 0.1)
       .to(dash, { scaleX: 0, duration: 0.6, ease: EASE }, 0.1)
 
     /* ── 62% → 76%: a saída daqui e a entrada da cabine ESBARRAVAM ──────

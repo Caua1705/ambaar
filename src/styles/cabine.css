@@ -69,7 +69,7 @@
 
 .cabine__stage {
   position: relative;
-  height: 100svh;
+  height: var(--tela);
   overflow: hidden;
   padding: 0 var(--gutter-r) 0 var(--gutter-l);
 }
@@ -167,15 +167,62 @@
 /* O filete, agora uma coluna inteira e não a borda de um quadro. Ele
    atravessa a altura toda do par — inclusive o vão aberto pelo
    desalinhamento —, que é o que o faz ler como estrutura em vez de
-   costura entre duas fotografias. */
-.cabine__par::before {
-  content: '';
+   costura entre duas fotografias.
+
+   ── E ele deixou de nascer pronto ───────────────────────────────────────
+
+   A seção inteira é sobre um ENCONTRO: a sala abre de cima para baixo, a
+   cabine abre de baixo para cima, e cabine.js diz desde a primeira versão
+   que "as duas aberturas se encontram no filete". Só que o filete já estava
+   desenhado antes de as duas começarem — o encontro era uma afirmação do
+   comentário, não uma coisa que acontecesse na tela.
+
+   Agora ele cresce do MEIO para as duas pontas, no quadro em que as duas
+   molduras se tocam. É a única estrutura desta tela, e ela passa a ser o
+   resultado do gesto em vez do cenário dele.
+
+   `scaleY(0)` com origem no centro: o estado fechado mora no CSS, como todo
+   estado de entrada do site. */
+.cabine__filete {
   position: absolute;
   left: 42%;
   top: -3svh;
   bottom: -3svh;
   border-left: 1px dashed rgba(107, 74, 46, .7);
   pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: center center;
+}
+
+/* ── A luz da cabine na sala vazia ─────────────────────── */
+
+/* Um passe de âmbar entrando pela borda de dentro da sala — a que encosta
+   no filete — e morrendo antes do meio do quadro.
+
+   Ele acrescenta LUZ em vez de tirar: a hierarquia entre as duas
+   fotografias (contexto e acontecimento) estava dita só pela largura
+   (42/58) e pela altura, que são medidas de layout. Escurecer a sala para
+   marcar a diferença seria o erro que as miniaturas das reservas já
+   cometeram uma vez — duas fotografias que já saem escuras do build não
+   sobrevivem a uma demão a mais. Iluminar o lado por onde a outra está
+   resolve a mesma hierarquia pelo lado certo, e diz de onde vem.
+
+   Nasce apagado: quem o acende é a timeline, depois de a cabine abrir. */
+.cabine__luz {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(to left,
+      rgba(200, 137, 46, .26) 0%,
+      rgba(200, 137, 46, .1) 32%,
+      rgba(200, 137, 46, .02) 58%,
+      transparent 78%),
+    /* e um pé de carvão na borda de fora, para o quadro não terminar numa
+       aresta clara contra o carvão da seção */
+    linear-gradient(to right, rgba(13, 13, 13, .38) 0%, transparent 34%);
 }
 
 .cabine__quadro {
@@ -261,7 +308,7 @@
     grid-template-columns: 40fr 60fr;
   }
 
-  .cabine__par::before {
+  .cabine__filete {
     left: 40%;
   }
 
@@ -285,5 +332,14 @@
 
   .cabine__dash {
     transform: scaleX(1);
+  }
+
+  /* a composição não depende do gesto: sem movimento ela fica montada */
+  .cabine__filete {
+    transform: scaleY(1);
+  }
+
+  .cabine__luz {
+    opacity: 1;
   }
 }

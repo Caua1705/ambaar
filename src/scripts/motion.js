@@ -59,6 +59,26 @@ import CustomEase from 'gsap/CustomEase'
 
 gsap.registerPlugin(ScrollTrigger, CustomEase)
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A BARRA DO NAVEGADOR NÃO É UM REDIMENSIONAMENTO                      ║
+   ║                                                                      ║
+   ║ No telefone, recolher e mostrar a barra de endereço dispara um       ║
+   ║ `resize` — e para o ScrollTrigger um resize significa remedir todos  ║
+   ║ os gatilhos da página. Isso acontece no meio de uma rolagem, que é   ║
+   ║ o pior momento possível: as posições mudam debaixo do dedo.          ║
+   ║                                                                      ║
+   ║ `ignoreMobileResize` existe exatamente para isto: ele ignora o       ║
+   ║ resize quando SÓ a altura mudou e a largura ficou igual, que é a     ║
+   ║ assinatura da barra indo e vindo. Girar o aparelho (onde a largura   ║
+   ║ muda) continua remedindo normalmente.                                ║
+   ║                                                                      ║
+   ║ Ele passou a ser obrigatório quando as superfícies de tela cheia     ║
+   ║ trocaram `100svh` por `--tela` (`100dvh`) — ver a nota do token em   ║
+   ║ tokens.css. Sem esta linha, o conserto do rodapé compraria um        ║
+   ║ defeito pior do que o que ele resolve.                               ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 /* mesma curva do --ease do CSS: a assinatura do movimento não muda ao sair
    das transitions para o GSAP */
 export const EASE = CustomEase.create('ambar', '0.16, 1, 0.3, 1')

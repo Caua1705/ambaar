@@ -179,9 +179,15 @@
           <span class="hero__rule" aria-hidden="true"></span>
           <p class="hero__tag">Cocktail Bar &nbsp;•&nbsp; Listening Club</p>
         </div>
+        <!-- O convite a rolar. A palavra vem PRIMEIRO e o filete depois:
+             lê-se a instrução e o olho já desce por ela — o contrário
+             obrigava a ler de baixo para cima. E ele saiu da quina direita
+             para o eixo do lockup, que é o único eixo centrado do site: a
+             hero se apresenta como papelaria, e um cotovelo solto num canto
+             era a única coisa da tela fora dessa simetria. -->
         <div class="hero__scroll" aria-hidden="true">
-          <span class="hero__scroll-line"></span>
           <span class="hero__scroll-word">Rolar</span>
+          <span class="hero__scroll-line"></span>
         </div>
       </section>
 
@@ -401,7 +407,19 @@
           <div class="cabine__par">
             <figure class="cabine__quadro cabine__quadro--antes">
               <img src="/img/salao-antes.webp" alt="O salão vazio, os dois pendentes acesos até o fundo." loading="lazy">
+              <!-- A luz da cabine alcançando a sala vazia. Ela entra pela
+                   borda de dentro do quadro — a que encosta no filete, isto
+                   é, o lado de onde a cabine está — e chega DEPOIS que a
+                   cabine abre. É a frase da seção acontecendo entre as duas
+                   fotografias em vez de só embaixo delas: alguém escolheu, e
+                   a sala que ainda está vazia já sabe disso. -->
+              <span class="cabine__luz" aria-hidden="true"></span>
             </figure>
+            <!-- O filete era um ::before do par e passou a ser elemento pelo
+                 mesmo motivo do traço dos rótulos (base.css): o GSAP não
+                 anima pseudo-elemento, e este deixou de ser um contorno para
+                 ser um gesto — ver cabine.js. -->
+            <span class="cabine__filete" aria-hidden="true"></span>
             <figure class="cabine__quadro cabine__quadro--fonte">
               <img src="/img/cabine.webp" alt="Duas mãos sobre a mesa de som, em contraluz âmbar." loading="lazy">
             </figure>

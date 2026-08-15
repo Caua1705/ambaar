@@ -76,20 +76,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Remedido para o arquivo novo (o retrato entrou no lugar de
-     `perfil-brinco`), e a conta mudou de EIXO junto.
+  /* Remedido para `salao-rosto`, que entrou no lugar de `perfil-brinco`.
 
-     Em pé a faixa é MUITO mais estreita que a proporção do arquivo — 0,34
-     contra 0,67 —, então o `cover` escala pela altura e o recorte é
-     inteiramente HORIZONTAL: entram 51% da largura e nenhum pixel de altura
-     se perde. Por isso o segundo valor não faz diferença nenhuma aqui, e
-     fica em 50% só para não mentir.
+     Em pé a faixa (0,34) é muito mais estreita que o arquivo (0,67): o
+     `cover` escala pela altura, entram 51% da largura e nenhum pixel de
+     altura se perde — o segundo valor não tem efeito e fica em 50% para
+     não mentir.
 
-     A 20% a janela cai entre 10% e 61% do arquivo, que é onde estão a
-     cabeça, o braço levantado e o tronco. Centrado (50%) ela abriria em
-     72% e cortaria o braço fora, deixando na faixa meia figura e uma
-     parede de tijolo. */
-  object-position: 20% 50%;
+     Centrado, a janela vai de 24% a 76% e é o enquadramento certo por
+     sorte de composição: o rosto dela já está no meio do arquivo, o mural
+     dourado sobra à esquerda dando fundo, e o cabelo fecha à direita. A
+     âncora deslocada que a fotografia usava na passagem (64%) existia
+     porque lá ela era tela cheia e o mural competia; numa faixa estreita o
+     mural vira moldura em vez de concorrente. */
+  object-position: 50% 50%;
 }
 
 /* A demão da faixa, e ela é VERTICAL: um degradê da borda esquerda da
@@ -153,17 +153,18 @@
     left: 38%;
   }
 
-  /* Deitada, a faixa é mais LARGA que a proporção do arquivo, então o
-     `cover` escala pela largura e o recorte passa a ser inteiramente
-     VERTICAL — entram 67% da altura, e nenhum pixel de largura é jogado
-     fora. O primeiro valor deixa de ter efeito e fica em 50%.
+  /* Deitada, a faixa é quase quadrada (~0,99) e mais LARGA que o arquivo,
+     então o `cover` escala pela largura e o recorte passa a ser
+     inteiramente VERTICAL — entram 67% da altura e nenhum pixel de largura
+     é jogado fora. O primeiro valor deixa de ter efeito.
 
-     A 30% a janela vai de 10% a 77% do arquivo: entra no alto do cabelo,
-     pega o braço levantado e o tronco inteiro, e fecha antes do pé da
-     fotografia — que é sofá e sombra. Mais alto que isso corta o braço;
-     mais baixo entrega o terço de cima da faixa a tijolo vazio. */
+     A 45% a janela vai de 15% a 82%: o mural entra por cima, o rosto cai
+     no terço alto e o copo na mão fecha o pé do quadro. Mais alto que isso
+     entrega metade da faixa a mural; mais baixo corta a testa. E o copo no
+     pé importa mais do que parece — é a única coisa nesta tela que diz que
+     ela está num BAR e não num sofá qualquer. */
   .quemfica__quadro img {
-    object-position: 50% 30%;
+    object-position: 50% 45%;
   }
 
   .quemfica__texto {
@@ -177,10 +178,9 @@
    quebraria em cinco linhas de duas palavras. A faixa recua para dar
    espaço, e a fotografia passa a ser um terço em vez de dois.
 
-   Nesta largura entram só 40% do arquivo, e continua funcionando porque a
-   figura do retrato é VERTICAL: com a âncora em 20%, a janela vai de 12% a
-   52% e pega a coluna que vai do cabelo ao tronco. O que fica de fora é
-   tijolo à esquerda e sofá à direita — moldura, não assunto. */
+   Nesta largura entram 40% do arquivo. Com a âncora centrada a janela vai
+   de 30% a 70%, e o que sobra é a coluna do rosto e do cabelo — o mural
+   sai quase todo, e não faz falta: ele era fundo. */
 @media (max-width: 420px) {
   .quemfica__quadro {
     left: 42%;

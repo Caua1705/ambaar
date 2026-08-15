@@ -307,22 +307,26 @@ const FOTOS = [
      900px: tela cheia. */
   { saida: 'brinde', de: 'nao-usadas/DSC02281.jpeg', corte: { left: 400, top: 900, width: 3400, height: 4200 }, largura: 1100, q: 72, luz: 1.06, sat: 0.76, tinta: 0.16 },
 
-  /* ── A `perfil-brinco` SAIU DO BUILD ──────────────────────────────────
-     Era a fotografia das 03h — uma mulher de perfil, olhos baixos, o brinco
-     comprido pegando a luz:
+  /* ── Quem fica · 03h ─────────────────────────────────────────────────
+     SEÇÃO NOVA, e ela fecha o arco que "A escuta" abre na segunda tela.
 
-       { saida: 'perfil-brinco', de: 'nao-usadas/@FOTOBYDAVID -091.jpg',
-         corte: { left: 1150, top: 600, width: 2450, height: 3700 },
-         largura: 1000, q: 62, luz: 1.06, sat: 0.88, tinta: 0.08 },
+     Uma mulher de perfil, olhos baixos, o brinco comprido pegando a luz,
+     o cabelo inteiro no quadro. Ela não está posando, não está falando com
+     ninguém e não está olhando para a lente: está OUVINDO. É literalmente
+     a frase da segunda tela — "Quem escuta, fica." — fotografada seis
+     horas depois.
 
-     A `quem fica` passou a usar o `retrato`, que veio da seção das 02h ao
-     ser removida (ver as notas no index.html). Esta ficou sem seção — e uma
-     entrada sem consumidor não é um arquivo guardado, são 159 kB copiados
-     de public/img para dist a cada build, os mais pesados do acervo.
+     O recorte tira a faixa esquerda do arquivo, onde havia uma marca de
+     destilado num quadro de parede. O que sobra é ela e o escuro.
 
-     Sai do build, não do projeto: o original está em
-     nao-usadas/@FOTOBYDAVID -091.jpg, 4000×6000, e o recorte que funcionava
-     está escrito aqui em cima. Voltar é colar a linha de volta. */
+     880px: tela cheia, e o assunto é a orelha.
+
+     ⚠︎ FORA DO BUILD. A `quem fica` passou a usar `salao-rosto` (ver a nota
+     daquela seção no index.html), e uma entrada sem consumidor são 159 kB
+     — o arquivo mais pesado do acervo — copiados para dist a cada build
+     sem aparecer em tela nenhuma. A fonte e o recorte ficam aqui: o
+     original é 4000×6000 e voltar é descomentar a linha. */
+  // { saida: 'perfil-brinco', de: 'nao-usadas/@FOTOBYDAVID -091.jpg', corte: { left: 1150, top: 600, width: 2450, height: 3700 }, largura: 1000, q: 62, luz: 1.06, sat: 0.88, tinta: 0.08 },
 
   /* ── O fecho ─────────────────────────────────────────────────────────
      Uma mulher de vestido de paetê bronze, a bola de espelhos atrás. Ela é
@@ -440,7 +444,15 @@ const FOTOS = [
      um passo de saturação (o mural tem verdes que competem com o âmbar) e
      de quase nenhuma tinta.
 
-     880px: tela cheia, e o assunto é a cara. */
+     880px: tela cheia, e o assunto é a cara.
+
+     ⚠︎ ELA MUDOU DE SEÇÃO: saiu da passagem e foi para a `quem fica`, às
+     03h. O terceiro estágio da passagem passou a usar o `retrato` (ver as
+     notas das duas seções no index.html).
+
+     Continua a 880px, e agora o número quer dizer outra coisa: não é mais
+     tela cheia, é a largura da FAIXA vertical da `quem fica`, que num
+     monitor de 1440 mede ~893px. Coincidiu. */
   { saida: 'salao-rosto', de: 'nao-usadas/perfil.png', largura: 880, q: 72, luz: 1.02, sat: 0.84, tinta: 0.1 },
 
   /* ── Os três cartões de reserva saíram ───────────────────────────────

@@ -90,18 +90,42 @@
   object-position: 52% 46%;
 }
 
-/* Ela está no terço direito do arquivo e o rosto no terço alto. Numa tela
-   estreita entra pouco mais de metade da largura: a âncora à direita do
-   centro é o que garante que o que sobra seja ELA, e não o mural. */
+/* ── O ÚLTIMO ESTÁGIO TROCOU DE FOTOGRAFIA ──────────────────────────────
+
+   Era `salao-rosto`: a mulher de perfil dentro do barulho, e as âncoras
+   eram 64%/30% em pé e 58%/14% deitada, medidas para ela.
+
+   Agora é o `retrato` — a mulher sentada contra o tijolo, que era a seção
+   das 02h antes de ela sair por repetição de assunto. A troca move a
+   fotografia para o único slot do site que a mostra INTEIRA (tela cheia,
+   sem demão e sem faixa estreita) e não muda a conta de repetição do terço
+   final, porque o que sai daqui é outra mulher sozinha.
+
+   O preço está no assunto e é honesto: a escada de distâncias desta seção
+   era seis metros, dois metros, meio metro DENTRO DO MESMO CÔMODO, e o
+   terceiro degrau passa a ser outro lugar da casa. O que a seção continua
+   fazendo é o que a frase dela promete — a câmera entra e acha uma pessoa
+   que não está esperando ninguém. O que ela deixa de fazer é provar que é
+   a mesma sala.
+
+   ── As âncoras ─────────────────────────────────────────────────────────
+
+   Em pé, a tela (0,46) é mais estreita que o arquivo (0,67): o `cover`
+   escala pela altura, entram 69% da largura e nenhum pixel de altura se
+   perde — o segundo valor não tem efeito. A 46% a janela abre em 14% e
+   fecha em 83%, que segura a figura inteira e deixa fora só tijolo.
+
+   Deitada, o corte é vertical e severo: entram 42% da altura. A 20% a
+   janela vai de 12% a 54% — abre acima do cabelo, pega os dois braços e
+   fecha no tronco. Mais baixo corta a cabeça; mais alto entrega meia tela
+   à parede. */
 .passagem__plano--rosto img {
-  object-position: 64% 30%;
+  object-position: 46% 50%;
 }
 
 @media (min-width: 900px) {
-  /* Deitada, o corte passa a ser vertical e severo: a âncora sobe para o
-     quadro abrir acima do cabelo em vez de cortar a testa. */
   .passagem__plano--rosto img {
-    object-position: 58% 14%;
+    object-position: 50% 20%;
   }
 }
 

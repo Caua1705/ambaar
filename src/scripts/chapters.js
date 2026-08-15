@@ -238,6 +238,10 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   const label = chapter.querySelector('.chapter__label')
   const title = chapter.querySelector('.chapter__title')
   const text = chapter.querySelector('.chapter__text')
+  /* As linhas de apoio da passada de copy: a lista de gêneros (Jardim) e a
+     regra da casa (Reservado). Entram depois do parágrafo e saem com ele —
+     são texto do capítulo, não um dispositivo próprio. */
+  const extras = [...chapter.querySelectorAll('.chapter__generos, .chapter__nota')]
   const meta = chapter.querySelector('.chapter__meta')
 
   const { dash, text: labelText } = splitLine(label)
@@ -251,7 +255,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
   if (reducedMotion) {
     // estado final legível: o cartaz parado do ambiente e o texto inteiro
-    gsap.set([dash, labelText, title, text, ...chars], NATURAL)
+    gsap.set([dash, labelText, title, text, ...extras, ...chars], NATURAL)
     gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
@@ -563,6 +567,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
       .to(labelText, { ...NATURAL, duration: 0.7, ease: EASE }, 0.2)
       .to(chars, { ...NATURAL, duration: 0.7, ease: EASE, stagger: 0.028 }, 0.34)
       .to(text, { ...NATURAL, duration: 0.9, ease: EASE }, 0.66)
+    if (extras.length) t.to(extras, { ...NATURAL, duration: 0.9, ease: EASE }, 0.88)
   }, {
     /* A seção já subiu 60% da tela quando o texto começa: a composição
        anterior terminou de sair e a entrada não acontece por cima dela.
@@ -618,7 +623,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        ║ gravaria esse 0 como valor de partida — a seção inteira nasceria ║
        ║ apagada.                                                        ║
        ╚════════════════════════════════════════════════════════════════╝ */
-    saida.to([title, text], { y: -80, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.06 }, 0)
+    saida.to([title, text, ...extras], { y: -80, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.06 }, 0)
       .to(dusk, { opacity: 0, duration: 1.1, ease: 'none' }, 0)
       .fromTo(media,
         { opacity: 1 },
@@ -639,7 +644,7 @@ for (const chapter of document.querySelectorAll('.chapter')) {
        É um defeito silencioso e simétrico — descendo e subindo ele dava o
        mesmo valor errado, então não aparecia num teste de reversibilidade.
        Só aparece medindo o valor absoluto. */
-    saida.to([title, text], { scale: 0.94, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.08 }, 0)
+    saida.to([title, text, ...extras], { scale: 0.94, opacity: 0, duration: 0.8, ease: EASE, stagger: 0.08 }, 0)
       .fromTo(media,
         { opacity: 1 },
         { opacity: 0.18, duration: 1, ease: EASE, immediateRender: false }, 0.1)

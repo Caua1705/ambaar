@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Cocktail bar e listening club em Fortaleza. Uma noite em três ambientes: Jardim, Salão e Reservado." />
+    <meta name="description" content="Cocktail bar e listening club que abre em Fortaleza em 2026. Uma noite em três ambientes: Jardim, Salão e Reservado." />
     <title>Âmbar · Cocktail Bar &amp; Listening Club</title>
 
     <!-- As duas famílias saíram do @import do CSS e vieram para cá.
@@ -106,6 +106,14 @@
          ║                                                                ║
          ║ O site foi de 18,4 para 16,4 telas e a casa aparece na segunda  ║
          ║ em vez de na quarta.                                            ║
+         ║                                                                ║
+         ║ ATUALIZAÇÃO DA PASSADA DE COPY: as duas ideias voltaram como    ║
+         ║ LINHAS, não como telas. O handover das 17h é a primeira copy do ║
+         ║ site ("O café fecha às 17h. A mesma sala, outra vida."), dito   ║
+         ║ sobre o próprio pátio no capítulo 01 — custa zero rolagem. E    ║
+         ║ "Não é o volume. É o que está tocando." é a copy do Salão, dita ║
+         ║ no pico de som da página. Nenhuma tela nova; duas dívidas       ║
+         ║ pagas.                                                          ║
          ╚════════════════════════════════════════════════════════════════╝
 
          data-som — o volume que cada seção pede. O controle de áudio não tem
@@ -157,7 +165,12 @@
           <img src="/img/hero.webp" alt="" fetchpriority="high" decoding="async">
         </picture>
         <span class="hero__scrim" aria-hidden="true"></span>
-        <p class="hero__place">Fortaleza · Ceará</p>
+        <!-- O ano entrou aqui, dito de frente. O site inteiro só o dizia em
+             algarismo romano no rail vertical (MMXXVI) — uma casa que ainda
+             não abriu precisa dizer QUANDO abre em algum lugar legível de
+             relance, e a âncora de lugar é onde esse dado mora: Fortaleza,
+             2026 — onde e quando, no mesmo canto. -->
+        <p class="hero__place">Fortaleza · Ceará<br>Abre em 2026</p>
         <div class="hero__lockup">
           <h1 class="hero__mark" aria-label="Âmbar">
             <span class="hero__mark-layer hero__mark-layer--foto" aria-hidden="true">ÂMBAR</span>
@@ -251,12 +264,27 @@
               </span>
             </div>
             <div class="chapter__body">
-              <!-- A primeira copy do site, e ela absorveu os gêneros que a
-                   tela de tese dizia antes de sair. Não é uma sobra: uma
-                   casa que se vende como listening club precisa dizer O QUE
-                   toca antes da terceira tela, e agora ela diz na segunda. -->
+              <!-- A primeira copy do site é o HANDOVER, contado de frente.
+
+                   O fato mais distintivo da casa — o café fecha às 17h e o
+                   Âmbar abre na mesma sala — tinha virado nota de rodapé
+                   quando a tela "A troca" saiu. A premissa voltou como uma
+                   LINHA em vez de uma tela: dita às 17h em ponto, sobre o
+                   próprio pátio em que as mesas do café viram mesas de bar,
+                   ela custa zero rolagem e ganha a prova atrás dela.
+
+                   A frase antiga ("O sol cai atrás da parreira e a cabine
+                   acende no lugar dele") saiu porque o plano agora FILMA
+                   exatamente isso, quadro a quadro — um texto que descreve o
+                   que a tela está mostrando é uma legenda.
+
+                   E os gêneros desceram para a voz de sistema: são uma lista
+                   de programação, não uma frase, e tokens.css já os
+                   destinava à Jost. Um listening club continua dizendo O QUE
+                   toca na segunda tela — agora com a letra certa. -->
               <h2 class="chapter__title reveal reveal--chars">Sunset Session</h2>
-              <p class="chapter__text reveal">O sol cai atrás da parreira e a cabine acende no lugar dele. Organic house, downtempo, e o que existe entre os dois.</p>
+              <p class="chapter__text reveal">O café fecha às 17h. A mesma sala, outra vida.</p>
+              <p class="chapter__generos reveal">Organic house · Downtempo · O que existe entre os dois</p>
             </div>
           </div>
         </div>
@@ -324,7 +352,10 @@
             <img src="/img/copo-mao.webp" alt="A mesma taça pronta, a um palmo: âmbar dentro do vidro." loading="lazy">
           </figure>
 
-          <p class="copo__linha">O que a casa serve<br>tem a <b class="ouro">cor do nome dela</b>.</p>
+          <!-- O <br> saiu: com ele, a segunda metade estourava para uma
+               terceira linha a 414px. O `balance` (base.css) parte a frase
+               em duas linhas parelhas sozinho, em qualquer largura. -->
+          <p class="copo__linha">O que a casa serve tem a <b class="ouro">cor do nome dela</b>.</p>
         </div>
       </section>
 
@@ -369,7 +400,20 @@
             </figure>
           </div>
 
-          <p class="cabine__linha">Alguém <b class="ouro">escolheu</b><br>o que você vai ouvir.</p>
+          <!-- "escolheu" perdeu o âmbar por RITMO: a tela anterior (o copo)
+               é onde o primeiro acento do site cai, e duas telas seguidas
+               com âmbar tipográfico é uma a mais. A frase aguenta em branco
+               — ela é a única coisa escrita nesta tela.
+
+               E a noite ganhou o crédito do autor dela: a linha de baixo
+               resolve o "alguém" da frase de cima. Voz de máquina, porque um
+               crédito é dado de programa, não composição — a mesma leitura
+               de uma ficha técnica.
+
+               ⚠︎ NOME DO CURADOR é placeholder, na convenção do site
+               (5585SEUNUMERO, SUA RUA). Trocar antes de ir ao ar. -->
+          <p class="cabine__linha">Alguém escolheu<br>o que você vai ouvir.</p>
+          <p class="cabine__credito maquina">curadoria · NOME DO CURADOR</p>
         </div>
       </section>
 
@@ -403,7 +447,27 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">House All Night</h2>
-              <p class="chapter__text reveal">A luz baixa. A sala enche sem que ninguém combine nada.</p>
+              <!-- A tese da casa, dita no lugar mais barulhento dela.
+
+                   "Não é o volume. É o que está tocando." é um dos textos
+                   fixos da marca e estava fora da página desde que "A
+                   escuta" saiu. Ela volta AQUI, e o endereço é o argumento:
+                   dizer "não é o volume" na tela em que o som da página
+                   chega ao pico (data-som .70) é a marca com confiança —
+                   qualquer bar nega a pista genérica no manifesto; este nega
+                   dentro dela.
+
+                   A frase antiga ("A sala enche sem que ninguém combine
+                   nada") descrevia o que o plano já mostra E gastava o
+                   "combinar" que o brinde das 23h paga: "Ninguém combinou.
+                   Está todo mundo aqui." era eco em vez de conclusão. Agora
+                   o brinde é dono da palavra.
+
+                   O âmbar cai em "o que está tocando" — a metade da frase
+                   que carrega a ideia; "não é o volume" é a metade que
+                   nega. Sobre o carvão do salão vazio, com o scrim central,
+                   a tinta canta. -->
+              <p class="chapter__text reveal">Não é o volume.<br>É <b class="ouro">o que está tocando</b>.</p>
             </div>
           </div>
         </div>
@@ -455,7 +519,11 @@
             <img src="/img/leque.webp" alt="Uma mulher dançando com um leque aberto no alto." loading="lazy">
           </figure>
 
-          <p class="pista__linha">Às dez a casa <b class="ouro">deixa de ser nossa</b>.</p>
+          <!-- Perdeu o acento por ritmo: o salão (a tese, âmbar) acabou de
+               sair da tela. Branco a cheio sobre a demão escura do pé — a
+               frase é a virada e continua sendo, sem disputar cor com a
+               tela anterior. -->
+          <p class="pista__linha">Às dez a casa deixa de ser nossa.</p>
         </div>
       </section>
 
@@ -549,7 +617,11 @@
           <span class="passagem__plano passagem__plano--rosto">
             <img src="/img/retrato.webp" alt="Uma mulher sentada, à vontade, sem esperar ninguém." loading="lazy">
           </span>
-          <p class="passagem__linha">À meia-noite<br>ninguém está esperando<br>mais ninguém.</p>
+          <!-- "está esperando" virou "espera": mesmo argumento, uma linha a
+               menos — a frase tinha três linhas e o teto do site é dois.
+               Branca: entre o brinde (âmbar) e o resto da madrugada, esta
+               dobra é escuro puro. -->
+          <p class="passagem__linha">À meia-noite, ninguém<br>espera mais ninguém.</p>
         </div>
       </section>
 
@@ -561,15 +633,20 @@
            Duas pessoas no sofá, uma falando no ouvido da outra, a cidade
            acesa na janela atrás — e o único gesto de BAR do site inteiro: a
            rodela de limão sendo posta na borda com a colher. -->
-      <section class="pausa" data-choreo data-hora="01" data-hora-em="esq-baixo" data-som=".40">
+      <section class="pausa" data-vrail="01H" data-choreo data-hora="01" data-hora-em="esq-baixo" data-som=".40">
         <div class="pausa__stage">
           <figure class="pausa__quadro pausa__quadro--retrato">
-            <img src="/img/conversa.webp" alt="" loading="lazy">
+            <img src="/img/conversa.webp" alt="Duas pessoas no sofá, uma falando no ouvido da outra, a cidade acesa na janela." loading="lazy">
           </figure>
           <figure class="pausa__quadro pausa__quadro--detalhe">
-            <img src="/img/guarnicao.webp" alt="" loading="lazy">
+            <img src="/img/guarnicao.webp" alt="A rodela de limão sendo posta na borda do copo com a colher." loading="lazy">
           </figure>
-          <p class="pausa__linha">A conversa <b class="ouro">baixa sozinha</b>.</p>
+          <!-- Sem âmbar. "baixa sozinha" não sobrevive ao teste do resumo
+               (tokens.css): as palavras âmbar do site, lidas em sequência,
+               contam a história da casa — e a conversa baixando não é um
+               capítulo dela, é uma vírgula. Branco sobre o carvão limpo da
+               moldura, que já é o passo de luminância. -->
+          <p class="pausa__linha">A conversa baixa sozinha.</p>
         </div>
       </section>
 
@@ -618,13 +695,30 @@
            não com três. -->
 
 
-      <!-- ── 03 · O reservado ───────────────────────────── -->
+      <!-- ── 03 · O reservado ─────────────────────────────
+           A copy foi reescrita contra um erro de leitura que a antiga
+           cometia. "A noite se fecha em si mesma" contava o Reservado como
+           o FIM da noite — a casa esvaziando, o que sobra depois da festa.
+           Não é: às 02h a festa continua acontecendo no espaço inteiro, e o
+           Reservado é uma opção DENTRO dela — sair do centro da noite sem
+           sair da casa.
+
+           A frase nova mantém a matéria da tela (a vela, que é o que a
+           fotografia mostra) e põe a festa de volta no quadro: "a dez
+           passos" diz, na mesma linha, que ela não parou.
+
+           E a seção ganhou a regra da casa do Reservado, como nota. "Não se
+           pede música" é a identidade inteira do lugar (curadoria, não
+           pedido) dita do jeito que um bar diz — com a segunda metade
+           devolvendo o que se PODE pedir. Ela não colide com "a casa tem
+           uma regra só" das 03h: é a mesma regra, vista do balcão — quem
+           escuta não pede. -->
       <section class="chapter chapter--night chapter--right" id="cap-reservado" data-vrail="RESERVADO"
                data-nav="ambientes" data-run="40" style="--run:40" data-saida="fecha" data-choreo
                data-hora="02—03" data-hora-em="dir" data-som=".25">
         <div class="chapter__stage">
           <div class="chapter__media">
-            <img class="chapter__poster" src="/img/reservado.webp" alt="" loading="lazy">
+            <img class="chapter__poster" src="/img/reservado.webp" alt="Mesas do Reservado à luz de vela." loading="lazy">
             <video class="chapter__video" data-src="/video/reservado.mp4"
                    muted loop playsinline preload="none" aria-hidden="true"></video>
           </div>
@@ -636,7 +730,8 @@
             </div>
             <div class="chapter__body">
               <h2 class="chapter__title reveal reveal--chars">Deep Listening</h2>
-              <p class="chapter__text reveal">Poucas mesas, luz de vela, o som no ponto exato. A noite se fecha em si mesma.</p>
+              <p class="chapter__text reveal">Luz de vela, e a festa inteira a dez passos.</p>
+              <p class="chapter__nota reveal">Não se pede música.<br>Pede-se outra rodada.</p>
             </div>
           </div>
         </div>
@@ -738,7 +833,12 @@
              título a larga da direita. -->
         <div class="reservas__cabeca">
           <p class="reservas__eyebrow reveal reveal--line">São 03h</p>
-          <h2 class="reservas__title reveal">A noite acabou de passar.<br><b class="ouro">Escolha onde recomeçar.</b></h2>
+          <!-- O acento encolheu de uma frase para uma palavra. Uma linha
+               inteira âmbar é uma mancha, não um acento — e "recomeçar" é a
+               palavra que o pedido existe para dizer: a noite que o usuário
+               acabou de rolar vai acontecer de novo, e ele escolhe onde
+               entra nela. -->
+          <h2 class="reservas__title reveal">A noite acabou de passar.<br>Escolha onde <b class="ouro">recomeçar</b>.</h2>
         </div>
 
         <ul class="salas">

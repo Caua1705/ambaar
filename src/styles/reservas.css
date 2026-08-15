@@ -259,17 +259,34 @@
 
 /* ── Estreito ──────────────────────────────────────────── */
 
+/* A composição flanqueada não sobrevive ao telefone, e a medida provou:
+   numa coluna de ~250px o título quebrava em QUATRO linhas — o dobro do
+   teto do site. Abaixo de 600px o rótulo sobe para a própria linha e o
+   título toma a largura útil inteira, com o corpo um degrau abaixo do
+   `--fs-quieto`: as duas frases fecham numa linha cada. O encontro
+   rótulo—título continua existindo onde há tela para ele. */
+@media (max-width: 600px) {
+  .reservas__cabeca {
+    grid-template-columns: 1fr;
+    gap: .9rem 0;
+  }
+
+  .reservas__eyebrow {
+    padding-top: 0;
+  }
+
+  .reservas__title {
+    font-size: clamp(1.4rem, 6.8vw, 4.25rem);
+    max-width: none;
+  }
+}
+
 /* Abaixo de 400px a miniatura, o nome e "RESERVAR" não cabem na mesma
    linha. A chamada desce para a segunda linha da coluna do nome, e a
    miniatura fica onde está — ela é a coluna que ORDENA a lista, e tirá-la
    do lugar em telas estreitas desmontaria o alinhamento vertical dos três
    itens, que é a única estrutura da seção. */
 @media (max-width: 400px) {
-  .reservas__cabeca {
-    grid-template-columns: 4rem 1fr;
-    gap: 0 .9rem;
-  }
-
   .sala__link {
     grid-template-columns: 3.4rem 1fr;
     grid-template-areas:

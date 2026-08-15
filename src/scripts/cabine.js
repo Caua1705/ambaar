@@ -38,6 +38,7 @@ if (secao) {
   const antes = secao.querySelector('.cabine__quadro--antes')
   const fonte = secao.querySelector('.cabine__quadro--fonte')
   const linha = secao.querySelector('.cabine__linha')
+  const credito = secao.querySelector('.cabine__credito')
 
   const ABERTO = 'inset(0% 0% 0% 0%)'
   // a sala vazia abre de cima para baixo; a cabine, de baixo para cima
@@ -50,10 +51,11 @@ if (secao) {
        movimento também é alcançado pelo ?reduce=1 de desenvolvimento, que
        não aciona media query nenhuma. */
     gsap.set([antes, fonte], { clipPath: ABERTO })
-    gsap.set(linha, { opacity: 1, y: 0 })
+    gsap.set([linha, credito], { opacity: 1, y: 0 })
     gsap.set(dash, { scaleX: 1 })
   } else {
     gsap.set(linha, { opacity: 0, y: 18 })
+    gsap.set(credito, { opacity: 0, y: 10 })
     gsap.set(antes, { clipPath: FECHADO_ANTES })
     gsap.set(fonte, { clipPath: FECHADO_FONTE })
 
@@ -67,6 +69,8 @@ if (secao) {
         .fromTo(fonte.querySelector('img'),
           { yPercent: 6 }, { yPercent: 0, duration: 1.7, ease: EASE }, 0.62)
         .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.35)
+        // o crédito assina depois da frase: obra primeiro, ficha depois
+        .to(credito, { opacity: 1, y: 0, duration: 0.9, ease: EASE }, 1.6)
     }, {
       /* ── 82% → 58%: era cedo DEMAIS, e não por si ────────────────────
 

@@ -441,6 +441,43 @@
   line-height: 1.5;
 }
 
+/* ── A lista de gêneros (só o Jardim) ──────────────────── */
+
+/* Voz de sistema, não frase: tokens.css já destinava a lista de gêneros à
+   Jost, junto com o wordmark e os rótulos. Ela morava dentro do parágrafo
+   serifado — "Organic house, downtempo, e o que existe entre os dois" com
+   vírgulas de oração — e saiu de lá pelas duas razões ao mesmo tempo: era
+   programação vestida de frase, e empurrava o parágrafo para cinco linhas
+   no telefone. Como lista, com o separador da casa (·), ela é lida como o
+   verso de um cartaz. */
+.chapter__generos {
+  margin-top: 1.1rem;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-mid);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, .62);
+  /* medido a 414px: a 30ch a lista quebrava em TRÊS linhas, e o teto do
+     site é dois. 22rem deixa a linha usar a largura útil do telefone
+     (330px) e fecha em duas nas duas orientações. */
+  max-width: 22rem;
+}
+
+/* ── A regra da casa (só o Reservado) ──────────────────── */
+
+/* A mesma escala da nota da `quem fica` (clamp .95—1.15), e a rima é
+   proposital: são as duas únicas notas serifadas pequenas do site, e as
+   duas dizem a mesma regra — uma do balcão ("não se pede música"), outra
+   da tese ("quem escuta, fica"). Branco a 62%, como lá: uma regra da casa
+   não grita. */
+.chapter__nota {
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(.95rem, 4vw, 1.15rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .62);
+}
+
 /* ── Estreito: as âncoras laterais não podem esbarrar no texto ── */
 
 @media (max-width: 600px) {

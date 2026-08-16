@@ -210,33 +210,42 @@ const FOTOS = [
      ══════════════════════════════════════════════════════════════════ */
 
   /* ── A cabine · 20h ──────────────────────────────────────────────────
-     As mãos sobre a mesa de som, contraluz âmbar, o resto preto. Nenhum
-     rosto, nenhuma cor fria, nenhum logotipo dentro do quadro — o recorte
-     joga fora a faixa de baixo, que é onde a marca do equipamento aparece.
+     DUAS FOTOGRAFIAS VIRARAM UMA, e é a única razão de esta linha existir.
 
-     Ela substitui a cabine vista de cima (`dj-cabine`), e a troca é de
-     ASSUNTO, não de qualidade: a de cima mostrava um DJ, e um DJ dentro do
-     quadro faz a seção virar um retrato e a casa virar um cartaz de
-     line-up. Um par de mãos num equipamento não é ninguém — é o GESTO de
-     escolher, que é a única coisa que esta seção precisa dizer.
+     A seção era um díptico: `salao-antes` (o salão vazio) à esquerda e
+     `cabine` (duas mãos na mesa de som) à direita, encostadas. As duas
+     saíram do site.
 
-     E ela é âmbar puro sobre preto, o que a faz encostar na sala vazia ao
-     lado sem costura de cor nenhuma. */
-  { saida: 'cabine', de: 'nao-usadas/salao-maos.png', corte: { left: 0, top: 0, width: 1024, height: 1370 }, largura: 820, q: 72, luz: 1.06 },
+     O argumento não é de qualidade — as duas chapas são boas. É que ESTA
+     fotografia contém as duas. A mesa de som está acesa em cima do
+     aparador, com os dois monitores e a luz vazando na parede; a sala está
+     vazia à volta dela; e o pendente da direita e o quadro dizem que é a
+     mesma sala dos 34 quadros do capítulo 02. Um díptico existe para pôr
+     duas coisas em relação. Quando as duas já estão dentro do mesmo quadro,
+     o díptico é uma montagem que refaz um trabalho que a lente já fez.
 
-  /* ── A sala antes · 20h ──────────────────────────────────────────────
-     O salão vazio visto de frente: os dois pendentes acesos, os quadros na
-     parede, o piso devolvendo a luz. É o mesmo lugar dos 34 quadros do
-     capítulo 02, sem uma única pessoa, e é a fotografia mais QUIETA do
-     acervo — dois cones de luz e nada mais.
+     E havia um argumento de repertório por cima: quadros sobre carvão com a
+     moldura abrindo é o dispositivo da PAUSA das 00h, e esta folha (fotos)
+     é a mesma que registra a regra — duas ocorrências do mesmo dispositivo
+     não são uma rima, são um template.
 
-     Ela substitui a mesa de mármore (`salao-som`), que tinha o mesmo
-     assunto e metade da profundidade: lá a sala terminava numa mesa a dois
-     metros da lente; aqui ela vai até o fundo, e é essa distância vazia que
-     torna a tela seguinte — a mesma sala cheia — um acontecimento.
+     ── O recorte ────────────────────────────────────────────────────────
 
-     760px: ela nunca é vista maior que meia tela. */
-  { saida: 'salao-antes', de: 'nao-usadas/salao-vazio.png', largura: 760, q: 72, luz: 1.1 },
+     `salao-som` foi descartada uma passada atrás com uma queixa correta: "a
+     sala termina numa mesa de mármore a dois metros da lente". Ela termina
+     — no arquivo INTEIRO, em que a mesa ocupa o terço de baixo e é a coisa
+     mais clara do quadro.
+
+     O recorte joga fora esse terço. De 340 a 1010 sobra a faixa em que a
+     sala é funda: o aparador com a mesa de som acesa, os dois monitores, o
+     quadro na parede, o vão da porta e o pendente inteiro no canto de cima
+     à direita. Da mesa de mármore fica um gume no rodapé do quadro, que é
+     o que dá o primeiro plano — sem ele a faixa vira um cenário chapado.
+
+     670 de altura sobre 1024 dá 1,53, que é a proporção da faixa na tela
+     (cabine.css). Igualar as duas é o que impede o `cover` de recortar uma
+     segunda vez o que este recorte já escolheu. */
+  { saida: 'salao-cabine', de: 'nao-usadas/salao-som.png', corte: { left: 0, top: 340, width: 1024, height: 670 }, largura: 900, q: 72, luz: 1.06, sat: 0.94 },
 
   /* ── O primeiro copo · 19h ───────────────────────────────────────────
      SEÇÃO NOVA, e é a fotografia que uma casa que se chama COCKTAIL BAR
@@ -286,22 +295,24 @@ const FOTOS = [
      1100px: é tela cheia. */
   { saida: 'copo-jardim', de: 'copo-balcao.png', largura: 1100, q: 72, luz: 1.02, sat: 0.96, tinta: 0.06 },
 
-  /* O MESMO copo a um palmo — e desta vez "o mesmo" é literal.
+  /* `copo-mao` SAIU, e ela é o caso mais instrutivo desta folha: uma
+     fotografia certa numa composição errada.
 
-     Ela foi gerada A PARTIR da fotografia de cima, não do zero, e é isso
-     que faz a composição funcionar: mesma coupe, mesmo âmbar, mesmo gelo,
-     mesmo tampo, mesma fita de LED atrás. Empilhar duas fotografias no
-     mesmo quadro obriga o olho a compará-las; quando elas não batem, a
-     composição AMPLIFICA o defeito em vez de escondê-lo, que foi o que
-     aconteceu na versão anterior desta seção.
+     Ela era o inset da carta — a mesma coupe a um palmo, gerada A PARTIR da
+     de cima para que "o mesmo copo" fosse literal. O material batia. O que
+     não batia era onde ele pousava: medido a 414×896, o inset caía EM CIMA
+     da coupe da fotografia de baixo, que é o assunto dela. O que a tela
+     mostrava eram duas taças empilhadas, a de baixo eclipsada pela metade e
+     escapando pela borda esquerda do inset como um copo partido.
 
-     Quadrada de origem (1254×1254), e é o formato certo para este slot: o
-     inset mede ~1,07 deitado e ~0,86 em pé, então um quadrado atravessa as
-     duas orientações perdendo quase nada nas bordas.
+     E duas chapas com a mesma luz, o mesmo balcão e a mesma fita de LED não
+     se distinguem uma da outra: o filete âmbar de 1px existia justamente
+     para separá-las e não dava conta. A composição pedia contraste entre as
+     duas camadas e o material foi escolhido para NÃO ter nenhum.
 
-     É a única imagem do site em que a marca aparece como MATÉRIA: âmbar
-     dentro de vidro. */
-  { saida: 'copo-mao', de: 'copo-pronto.png', largura: 700, q: 74, luz: 1.02, sat: 0.96, tinta: 0.06 },
+     Foto dentro de foto era, além disso, a única ocorrência do dispositivo
+     no site — um cartão colado sobre a melhor fotografia da página. A carta
+     passou a ser a fotografia inteira (copo.css). −34 kB. */
 
   /* ── A pista · 22h ───────────────────────────────────────────────────
      SEÇÃO NOVA. A sala cheia vista DE CIMA — a única fotografia do acervo

@@ -1,66 +1,72 @@
-/* A cabine · 20h — seção nova.
+/* A cabine · 20h.
 
-   O porquê está no HTML. Aqui está a composição.
-
-   ── O díptico ───────────────────────────────────────────────────────────
-
-   Dois quadros encostados um no outro, separados por um único filete
-   tracejado. À esquerda a sala VAZIA; à direita a CABINE — maior, mais
-   baixa, e a única coisa desta tela que rompe o eixo da goteira.
-
-   É a única composição do site em que duas fotografias se tocam. Todas as
-   outras ou sangram nos quatro lados, ou moram em molduras separadas por
-   carvão. Aqui a ausência de intervalo é o argumento: as duas imagens são
-   uma frase, e uma frase não tem espaço no meio.
-
-   ── E não se confunde com a pausa das 00h ───────────────────────────────
-
-   A pausa também tem dois quadros. Lá eles sangram por lados OPOSTOS sobre
-   carvão limpo, em formatos diferentes, e derivam em sentidos contrários:
-   é montagem, e o preto em volta é metade do trabalho. Aqui eles são
-   idênticos em tamanho, encostados, imóveis: é comparação.
-
-   Duas seções com duas fotografias não viram um template quando o que elas
-   fazem com as duas é oposto.
-
-   ── A proporção ─────────────────────────────────────────────────────────
-
-   Em pé as duas metades são retratos (0,50 e 0,57) e o formato faz sentido:
-   um retrato pede que se olhe DENTRO dele, e as duas imagens são sobre o
-   que há dentro de uma sala.
-
-   Deitada elas viram paisagens, e não há como não virarem — os dois
-   arquivos são retratos (0,66 e 0,75) e a tela é 2:1. O que a folha faz é
-   escolher QUANTO de paisagem: a 10% de sangria e 40/60 de divisão, a
-   cabine fecha em 1,3 e mostra 57% da altura do arquivo. A borda inteira
-   punha ela em 1,9 e mostrava 39% — dois punhos sem mesa de som embaixo.
+   O porquê está no HTML. Aqui está a composição, e ela deixou de ser um
+   díptico.
 
    ╔══════════════════════════════════════════════════════════════════════╗
-   ║ O CARVÃO MORTO EMBAIXO — e ele era metade de uma queixa              ║
+   ║ POR QUE O DÍPTICO SAIU                                               ║
    ║                                                                      ║
-   ║ "Embaixo dela tenho que rolar quatro vezes para chegar no Salão, e   ║
-   ║ fica um espaço preto vazio grande."                                  ║
+   ║ A folha anterior tinha três blocos de argumento defendendo a         ║
+   ║ métrica do par: 42/58 de largura, o desalinhamento vertical, o       ║
+   ║ filete virando coluna. Todos partiam de uma premissa que nunca foi   ║
+   ║ medida — a de que duas fotografias encostadas, num telefone,         ║
+   ║ podiam ler como UMA frase.                                           ║
    ║                                                                      ║
-   ║ Duas causas somadas, e as duas foram consertadas:                    ║
+   ║ Medido a 414×896, com as duas chapas reais dentro:                   ║
    ║                                                                      ║
-   ║ 1. O POENTE. A faixa âmbar da emenda 17h→20h terminava com o topo da ║
-   ║    CABINE cruzando 25% da tela — isto é, ela cobria esta seção       ║
-   ║    inteira e só drenava depois. O que o usuário via aqui era ouro    ║
-   ║    chapado, e o que vinha depois dele era o resto da seção sem nada. ║
-   ║    O objeto foi removido do site (ver a nota no index.html).         ║
+   ║   · a sala vazia ficava com 147×310. Uma sala funda, com dois        ║
+   ║     pendentes e um piso que devolve a luz até o fundo, dentro de um  ║
+   ║     retângulo do tamanho de uma miniatura de lista. A profundidade   ║
+   ║     que justificava a escolha da chapa não cabia na moldura;         ║
+   ║   · a cabine ficava com 203×379 de uma fotografia quase toda preta.  ║
+   ║     A essa escala não se lê um par de mãos numa mesa de som: lê-se   ║
+   ║     um retângulo escuro com pontos alaranjados;                      ║
+   ║   · o filete tracejado de 1px em rgba(107,74,46,.7) não existia      ║
+   ║     entre dois pretos — e as três células que ele atravessava para   ║
+   ║     baixo o faziam aparecer, sozinho, em cima da palavra "você" da   ║
+   ║     frase. A única vez que ele era visível era como defeito.         ║
    ║                                                                      ║
-   ║ 2. A COMPOSIÇÃO. Medida a 414×896, ela terminava aos 66svh (a        ║
-   ║    frase) e deixava 34svh de carvão liso até o fim da seção, mais os ║
-   ║    64% de tela que o capítulo seguinte gasta antes de a fotografia   ║
-   ║    dele acender. Uma tela e meia de preto seguido.                   ║
-   ║                                                                      ║
-   ║    O par subiu de 27svh para 22svh e cresceu de 34svh para 44svh; a  ║
-   ║    frase subiu de 66svh para 70svh e o pé da seção passou a ter      ║
-   ║    18svh de folga em vez de 34. E o Salão passou a acender a `top    ║
-   ║    78%` em vez de `top 64%` (chapters.js), o que corta a batida de   ║
-   ║    preto pela metade sem tirá-la — ela existe para que a chegada de  ║
-   ║    um capítulo seja um corte, e um corte precisa de escuro antes.    ║
-   ╚══════════════════════════════════════════════════════════════════════╝ */
+   ║ E por cima disso, quadros sobre carvão com a moldura abrindo é o     ║
+   ║ dispositivo da PAUSA das 00h — a regra de que duas ocorrências do    ║
+   ║ mesmo dispositivo são um template está escrita na folha dela.        ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
+   ── A FAIXA ─────────────────────────────────────────────────────────────
+
+   Uma fotografia só, deitada, cortando a tela de lado a lado.
+
+   É a única composição do site que sangra pelos DOIS lados e por nenhum
+   dos outros. As telas cheias sangram nos quatro; a pausa põe dois quadros
+   sangrando por lados opostos; os capítulos sangram tudo. Uma faixa
+   horizontal contida em cima e embaixo, cortada à esquerda e à direita, é
+   um formato que não se repete em lugar nenhum da página.
+
+   E ela diz o que a seção diz. Uma sala é larga; um retrato pede que se
+   olhe dentro, uma faixa pede que se olhe ATRAVÉS. O que está do lado de
+   fora dos dois cortes é o resto da sala, que a tela seguinte vai mostrar
+   cheia.
+
+   ── A proporção, e por que ela é a mesma do arquivo ─────────────────────
+
+   1,53 — os mesmos 1024×670 do recorte (scripts/fotos.mjs). Igualar as
+   duas é o que impede o `cover` de recortar uma segunda vez o que o
+   recorte já escolheu: cada coisa que entrou naquele quadro (o pendente
+   inteiro no canto de cima, o gume da mesa no rodapé) entrou porque cabe,
+   e chega à tela inteira.
+
+   A 414 a faixa mede 414×271; a 360, 360×235.
+
+   ── O carvão que sobra ──────────────────────────────────────────────────
+
+   Uma queixa antiga desta seção era "embaixo dela fica um espaço preto
+   vazio grande". Ele não sumiu — ele mudou de papel.
+
+   Antes o par terminava a 66svh e o que vinha depois era carvão liso até o
+   fim da seção: sobra. Agora a tela é um campo escuro com uma faixa acesa
+   atravessando o meio dele, e o escuro é a sala em volta. Os três blocos
+   (rótulo, faixa, frase) ficam entre 16svh e 78svh, e o pé de tela é onde o
+   algarismo das 20h mora (relogio.css, `esq-baixo`) — o vazio tem um
+   ocupante, e ele é o relógio da casa. */
 
 .cabine {
   position: relative;
@@ -71,7 +77,6 @@
   position: relative;
   height: var(--tela);
   overflow: hidden;
-  padding: 0 var(--gutter-r) 0 var(--gutter-l);
 }
 
 /* ── O rótulo ──────────────────────────────────────────── */
@@ -81,7 +86,8 @@
    "01 — JARDIM" mesmo não sendo um capítulo. */
 .cabine__rotulo {
   position: absolute;
-  top: 13svh;
+  z-index: 3;
+  top: 15svh;
   left: var(--gutter-l);
   display: inline-flex;
   align-items: center;
@@ -102,181 +108,100 @@
   transform-origin: left center;
 }
 
-/* ── O par ─────────────────────────────────────────────── */
+/* ── A faixa ───────────────────────────────────────────── */
 
-/* ╔══════════════════════════════════════════════════════════════════════╗
-   ║ O DÍPTICO ERA UMA CAIXA FLUTUANDO — três defeitos somados            ║
-   ║                                                                      ║
-   ║ A versão anterior punha os dois quadros do mesmo tamanho, encostados, ║
-   ║ dentro de um retângulo centrado a 20% de cada borda. Medida na tela:  ║
-   ║                                                                      ║
-   ║ 1. SEM HIERARQUIA. Metade e metade diz que as duas fotografias pesam  ║
-   ║    o mesmo. Não pesam: a frase é "alguém ESCOLHEU o que você vai     ║
-   ║    ouvir", e quem escolhe são as mãos. A sala vazia é o contexto —   ║
-   ║    o lugar que ainda vai ser preenchido.                             ║
-   ║                                                                      ║
-   ║ 2. FLUTUANDO. Contido nos quatro lados e centrado, o par virava um   ║
-   ║    slide de apresentação no meio de um campo de carvão. Todas as     ║
-   ║    outras telas do site ou sangram, ou se ancoram na faixa da        ║
-   ║    esquerda; esta não fazia nem uma coisa nem outra.                 ║
-   ║                                                                      ║
-   ║ 3. O DIVISOR NÃO EXISTIA. Um filete tracejado de 1px entre duas      ║
-   ║    fotografias escuras não se vê. O que a tela mostrava eram dois    ║
-   ║    retângulos escuros colados, e o comentário antigo desta folha     ║
-   ║    ainda chamava cada metade de "retrato estreito" — no desktop elas ║
-   ║    eram quase quadradas (1,16).                                       ║
-   ║                                                                      ║
-   ║ ── O que entra no lugar ──────────────────────────────────────────   ║
-   ║                                                                      ║
-   ║ O par continua encostado, porque a ideia estava certa: duas imagens  ║
-   ║ que se tocam são uma frase. O que muda é a MÉTRICA dela.             ║
-   ║                                                                      ║
-   ║   · a cabine leva 62% da largura contra 38% da sala. A hierarquia    ║
-   ║     passa a dizer o que a frase diz;                                 ║
-   ║   · o par vai da goteira esquerda até SANGRAR pela borda direita.    ║
-   ║     Cortado pelo quadro da tela, ele deixa de ser um objeto pousado  ║
-   ║     no preto e passa a ser um plano que continua fora dela;          ║
-   ║   · os dois quadros se DESALINHAM na vertical: a sala é mais curta e ║
-   ║     encosta no topo, a cabine é mais alta e desce. O olho passa a    ║
-   ║     ler uma diagonal — sala, depois cabine — em vez de dois          ║
-   ║     retângulos simultâneos;                                          ║
-   ║   · e o filete deixa de ser a borda de um dos quadros para ser uma   ║
-   ║     COLUNA própria, que atravessa a altura inteira do par, inclusive ║
-   ║     o vão que o desalinhamento abre. Ele vira estrutura visível.     ║
-   ╚══════════════════════════════════════════════════════════════════════╝ */
+/* `left: 0; right: 0` e nada de goteira: a faixa é a única coisa da tela
+   que ignora as duas margens, e é isso que a faz ler como um plano cortado
+   pela janela em vez de uma fotografia pousada no carvão. O rótulo e a
+   frase continuam na goteira esquerda, então o contraste entre texto
+   recuado e imagem sangrada é o que dá a estrutura.
 
-.cabine__par {
+   Nasce fechada no MEIO. A aresta que revela não vem de uma borda: são
+   duas, saindo do centro para os dois lados ao mesmo tempo (cabine.js). O
+   estado fechado mora aqui, como todo estado de entrada do site. */
+/* 32svh põe o centro óptico da faixa a 47% da altura da tela — um fio
+   acima do meio, que é onde uma faixa horizontal solitária precisa estar
+   para não ler como uma barra centrada num formulário. A 30svh (o primeiro
+   valor desta passada) o vão de cima ficava com 269px contra 223 embaixo, e
+   o desequilíbrio aparecia justamente no lado que não tem nada dentro; a
+   32svh o de baixo passa a ser o maior, e ele tem o algarismo das 20h. */
+.cabine__faixa {
   position: absolute;
-  top: 18svh;
-  left: var(--gutter-l);
-  /* sangra pela direita: o par é cortado pela tela, não pousado nela */
+  z-index: 2;
+  top: 32svh;
+  left: 0;
   right: 0;
-  /* 48svh e 42/58, e os dois números são a mesma conta: em pé a largura
-     disponível é ~350px, e uma coluna estreita sobre um quadro alto vira
-     uma fresta. A 42% a sala fica em 0,50 de proporção e mostra 76% da
-     largura do arquivo — a moldura, a luminária e o chão continuam no
-     quadro. Mais alto ou mais estreito que isto e ela vira uma tira de
-     parede. */
-  height: 48svh;
-  display: grid;
-  grid-template-columns: 42fr 58fr;
-  align-items: start;
-  gap: 0;
-}
-
-/* O filete, agora uma coluna inteira e não a borda de um quadro. Ele
-   atravessa a altura toda do par — inclusive o vão aberto pelo
-   desalinhamento —, que é o que o faz ler como estrutura em vez de
-   costura entre duas fotografias.
-
-   ── E ele deixou de nascer pronto ───────────────────────────────────────
-
-   A seção inteira é sobre um ENCONTRO: a sala abre de cima para baixo, a
-   cabine abre de baixo para cima, e cabine.js diz desde a primeira versão
-   que "as duas aberturas se encontram no filete". Só que o filete já estava
-   desenhado antes de as duas começarem — o encontro era uma afirmação do
-   comentário, não uma coisa que acontecesse na tela.
-
-   Agora ele cresce do MEIO para as duas pontas, no quadro em que as duas
-   molduras se tocam. É a única estrutura desta tela, e ela passa a ser o
-   resultado do gesto em vez do cenário dele.
-
-   `scaleY(0)` com origem no centro: o estado fechado mora no CSS, como todo
-   estado de entrada do site. */
-.cabine__filete {
-  position: absolute;
-  left: 42%;
-  top: -3svh;
-  bottom: -3svh;
-  border-left: 1px dashed rgba(107, 74, 46, .7);
-  pointer-events: none;
-  transform: scaleY(0);
-  transform-origin: center center;
-}
-
-/* ── A luz da cabine na sala vazia ─────────────────────── */
-
-/* Um passe de âmbar entrando pela borda de dentro da sala — a que encosta
-   no filete — e morrendo antes do meio do quadro.
-
-   Ele acrescenta LUZ em vez de tirar: a hierarquia entre as duas
-   fotografias (contexto e acontecimento) estava dita só pela largura
-   (42/58) e pela altura, que são medidas de layout. Escurecer a sala para
-   marcar a diferença seria o erro que as miniaturas das reservas já
-   cometeram uma vez — duas fotografias que já saem escuras do build não
-   sobrevivem a uma demão a mais. Iluminar o lado por onde a outra está
-   resolve a mesma hierarquia pelo lado certo, e diz de onde vem.
-
-   Nasce apagado: quem o acende é a timeline, depois de a cabine abrir. */
-.cabine__luz {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  background:
-    linear-gradient(to left,
-      rgba(200, 137, 46, .26) 0%,
-      rgba(200, 137, 46, .1) 32%,
-      rgba(200, 137, 46, .02) 58%,
-      transparent 78%),
-    /* e um pé de carvão na borda de fora, para o quadro não terminar numa
-       aresta clara contra o carvão da seção */
-    linear-gradient(to right, rgba(13, 13, 13, .38) 0%, transparent 34%);
-}
-
-.cabine__quadro {
-  position: relative;
+  aspect-ratio: 1.53;
   margin: 0;
   overflow: hidden;
+  clip-path: inset(0% 50% 0% 50%);
 }
 
-/* A sala: mais curta e encostada no topo. Ela é o antes.
+/* A imagem entra em 1,04 e não em 1: a proporção da caixa é a mesma do
+   arquivo, então a 1,00 não existe um pixel de sobra e a deriva do laço
+   (cabine.js) descobriria a borda no primeiro ciclo. Quatro por cento dão
+   2% de folga de cada lado para uma deriva de 1,2%.
 
-   As duas alturas e o deslocamento somam 100% do par de propósito — a
-   cabine desce 12 e mede 88 —, para o desalinhamento acontecer DENTRO da
-   caixa. Deixando a cabine em 100% com 26 de recuo, ela transbordava o
-   par, era cortada pelo `overflow` do palco e colidia com a frase. */
-.cabine__quadro--antes {
-  height: 72%;
-}
-
-/* A cabine: mais alta e descida. Ela é o acontecimento, e é o único
-   elemento desta tela que toca a borda da janela. */
-.cabine__quadro--fonte {
-  height: 88%;
-  margin-top: 12%;
-}
-
-.cabine__quadro img {
+   A escala baixa de 1,12 a 1,04 durante a abertura — a contramão das duas
+   arestas, que andam para fora enquanto a imagem assenta para dentro. */
+.cabine__faixa img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 50%;
+  transform: scale(1.04);
 }
 
-/* Os dois pendentes acesos estão no terço alto e o piso devolvendo a luz
-   ocupa o resto. Numa moldura estreita entra uma faixa central: a 50% 42%
-   ela pega uma lâmpada inteira em cima e o chão iluminado embaixo, que é a
-   profundidade que faz a sala parecer grande e vazia. */
-.cabine__quadro--antes img {
-  object-position: 50% 42%;
+/* O gume da mesa de mármore no rodapé do quadro é a coisa mais clara da
+   chapa, e ele termina numa aresta reta contra o carvão da seção. Meio
+   degrau de luminância no pé resolve — a faixa passa a morrer no escuro em
+   vez de ser cortada por ele.
+
+   Estático, e por isso é pseudo-elemento: não é gesto, é acabamento. */
+.cabine__faixa::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(13, 13, 13, .5) 0%, rgba(13, 13, 13, .16) 12%, transparent 26%);
 }
 
-/* As duas mãos estão no terço alto do arquivo — a esquerda a 10% da largura
-   e a direita a 65%. A moldura é estreita e alta (1:2,4) e mostra pouco
-   mais da metade da largura do arquivo: a 40% a janela cai entre 11% e 68%,
-   que é o único recorte em que as DUAS mãos cabem. Centrada, a da esquerda
-   ficava fora e a seção passava a ser sobre um equipamento. */
-.cabine__quadro--fonte img {
-  object-position: 40% 28%;
+/* ── A cabine acendendo ────────────────────────────────── */
+
+/* Um poço de âmbar em cima do aparador, onde a mesa de som está.
+
+   Ele é a frase da tela acontecendo antes de a frase ser escrita: a sala
+   está vazia e a única coisa que acontece nela é alguém ter ligado aquilo.
+   A folha anterior tentava dizer isto com uma fita de luz entrando por uma
+   borda; entrando por uma borda, luz é iluminação. Saindo de um ponto que
+   está DENTRO da fotografia, é uma fonte.
+
+   O centro (28% / 68%) é a posição da mesa de som no recorte publicado —
+   ela vai de 8% a 48% da largura e de 66% a 75% da altura. Medido no
+   arquivo, não estimado.
+
+   Nasce apagado: quem o acende é a timeline. */
+.cabine__luz {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 48% 42% at 28% 68%,
+    rgba(200, 137, 46, .3) 0%,
+    rgba(200, 137, 46, .13) 42%,
+    rgba(200, 137, 46, .03) 66%,
+    transparent 80%);
 }
 
 /* ── A frase ───────────────────────────────────────────── */
 
 .cabine__linha {
   position: absolute;
+  z-index: 3;
   top: 70svh;
   left: var(--gutter-l);
   right: var(--gutter-r);
@@ -289,40 +214,57 @@
   color: rgba(255, 255, 255, .92);
 }
 
+/* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
-  /* Deitada, o par cresce em vez de encolher: ele ia de 20% a 20% e virava
-     uma caixinha no meio da tela. Agora começa na goteira e sai pela
-     direita, como em pé — a diferença entre as duas larguras é só quanto
-     dele cabe. */
-  /* Sangra pela direita, mas só até 10%: a borda inteira punha a cabine
-     num quadro de 1,9 de proporção sobre um arquivo de 0,75, e o que
-     sobrava na tela eram dois punhos gigantes sem mesa de som embaixo
-     deles. Recolhendo um décimo, a proporção cai para 1,3 e a metade de
-     cima do equipamento volta ao quadro — que é o que faz a fotografia ser
-     sobre ESCOLHER e não sobre uma mão. */
-  .cabine__par {
-    top: 15svh;
-    right: 10%;
-    height: 64svh;
-    grid-template-columns: 40fr 60fr;
+  /* Deitada, uma faixa de 1,53 sangrando pelos dois lados teria 836px de
+     altura num monitor de 1280 — ela deixaria de ser uma faixa e passaria
+     a ser a tela. A altura vira o valor fixo e a proporção cede: a 40svh
+     de uma janela de 800 a faixa fica em 4,0, e o `cover` mostra 38% da
+     altura do arquivo.
+
+     38% não cabem o pendente (7—20% do recorte) e a mesa de som (68—75%)
+     ao mesmo tempo — eles estão a meia altura um do outro —, então a
+     âncora escolhe, e escolhe o assunto. A 66% a janela vai de 47% a 85%:
+     o pé do quadro na parede, os dois monitores, a mesa de som acesa e o
+     aparador inteiro. O pendente fica de fora e a faixa vira um letterbox
+     da cabine, que é o que uma tela deitada comporta.
+
+     ── E a frase fugiu do algarismo ─────────────────────────────────────
+
+     Medido a 1280×800: a frase ocupava y 612—734 e o "20h" ocupava y
+     620—760 no MESMO x. Não era proximidade, era sobreposição — as duas
+     coisas impressas uma por cima da outra. A faixa subiu de 26 para
+     16svh e encolheu de 52 para 40, e a frase subiu de 84 para 58svh, que
+     a põe entre o pé da faixa e o topo do algarismo com 34px de folga. */
+  /* 15 → 8svh: em pé o rótulo tem 17svh de carvão entre ele e a faixa; na
+     tela deitada a faixa sobe para 16svh e os dois encostavam. */
+  .cabine__rotulo {
+    top: 8svh;
   }
 
-  .cabine__filete {
-    left: 40%;
+  .cabine__faixa {
+    top: 16svh;
+    aspect-ratio: auto;
+    height: 40svh;
   }
 
-  /* A frase encosta na goteira, alinhada ao rótulo e à sala: as três
-     coisas da esquerda se empilham num eixo só, e a cabine é a única que
-     rompe para fora dele. */
+  .cabine__faixa img {
+    object-position: 50% 66%;
+  }
+
   .cabine__linha {
-    top: 84svh;
+    top: 58svh;
+    right: auto;
     max-width: 24ch;
   }
 }
 
+/* ── Sem movimento ─────────────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
-  .cabine__quadro {
+  /* a composição não depende do gesto: sem movimento ela fica montada */
+  .cabine__faixa {
     clip-path: none;
   }
 
@@ -332,11 +274,6 @@
 
   .cabine__dash {
     transform: scaleX(1);
-  }
-
-  /* a composição não depende do gesto: sem movimento ela fica montada */
-  .cabine__filete {
-    transform: scaleY(1);
   }
 
   .cabine__luz {

@@ -1,41 +1,61 @@
-/* O primeiro copo · 19h — seção nova.
+/* A carta · 19h.
 
-   ── Por que ela existe ──────────────────────────────────────────────────
+   O porquê está no HTML. Aqui está a composição, e ela agora tem UM
+   elemento de imagem em vez de dois.
 
-   A casa se chama COCKTAIL BAR e, em dezesseis telas, não havia um único
-   copo cheio na mão de ninguém. Havia um detalhe de bar — a rodela de limão
-   sendo posta na borda com a colher, na pausa — e mais nada. Metade do nome
-   prometia uma coisa que a página nunca mostrava.
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A FOTO DENTRO DA FOTO SAIU, E O DEFEITO NÃO ERA O EFEITO             ║
+   ║                                                                      ║
+   ║ Duas passadas tentaram consertar esta tela mexendo no gesto do inset ║
+   ║ — primeiro o paralaxe de dentro, depois a direção da abertura. A     ║
+   ║ queixa voltou as duas vezes, e voltou porque o problema nunca esteve ║
+   ║ na animação. Estava na GEOMETRIA, e ela se mede.                     ║
+   ║                                                                      ║
+   ║ A 414×896 o fundo entra por `cover` pela altura e mostra 82% da      ║
+   ║ largura do arquivo, centrado. A coupe do arquivo vive entre 42% e    ║
+   ║ 72% da largura e entre 45% e 58% da altura — o que na tela cai       ║
+   ║ perto de x 200—330, y 420—530.                                       ║
+   ║                                                                      ║
+   ║ O inset media `top: 34svh; right: -8vw; width: 56vw; height: 30svh`, ║
+   ║ isto é, x 232—447, y 305—574.                                        ║
+   ║                                                                      ║
+   ║ As duas caixas se sobrepõem quase inteiras. O inset caía EM CIMA da  ║
+   ║ taça da fotografia de baixo — sobre o assunto dela. O que a tela     ║
+   ║ mostrava eram duas coupes empilhadas, a de baixo eclipsada pela      ║
+   ║ metade e escapando pela aresta esquerda do inset como um copo        ║
+   ║ partido ao meio. Nenhum ajuste de tempo conserta isso: é onde a      ║
+   ║ caixa está.                                                          ║
+   ║                                                                      ║
+   ║ E havia um segundo defeito por baixo do primeiro. As duas chapas     ║
+   ║ foram feitas para ter a MESMA luz, o mesmo balcão e a mesma fita de  ║
+   ║ LED — "o mesmo copo" era literal, e era o orgulho da passada         ║
+   ║ anterior. Só que duas fotografias empilhadas precisam de contraste   ║
+   ║ para se separar, e estas foram escolhidas para não ter nenhum. O     ║
+   ║ filete âmbar de 1px do inset existia exatamente para resolver isso e ║
+   ║ não resolvia: a de cima se dissolvia na de baixo.                    ║
+   ║                                                                      ║
+   ║ ── O que entra no lugar ─────────────────────────────────────────────║
+   ║                                                                      ║
+   ║ A fotografia inteira, sangrando nos quatro lados, e mais nada. Ela é ║
+   ║ a melhor chapa da página — as mãos da casa despejando âmbar numa     ║
+   ║ coupe sobre gelo, a fita de LED acesa por baixo do tampo — e passou  ║
+   ║ três passadas com um cartão colado por cima do assunto.              ║
+   ║                                                                      ║
+   ║ A tela cai de cinco elementos para quatro, e o único dispositivo do  ║
+   ║ site que aparecia UMA vez (foto dentro de foto) deixa de existir.    ║
+   ╚══════════════════════════════════════════════════════════════════════╝
 
-   E havia um buraco de HORA junto com o buraco de assunto: o site ia do
-   entardecer no jardim (17—19h) direto para a cabine (20h), isto é, do sol
-   caindo para o DJ montando. Ninguém aparecia no meio. As pessoas do site
-   só existiam depois das 20h, em multidão.
+   ── E a diagonal continua, só que ela agora é da fotografia ─────────────
 
-   ── Uma ideia ───────────────────────────────────────────────────────────
+   O argumento antigo da folha era que rótulo (alto à esquerda), inset
+   (meio à direita) e frase (pé à esquerda) desenhavam um Z, e que isso era
+   o contrário do Jardim, em que tudo mora numa coluna à esquerda.
 
-   O que a casa serve tem a cor do nome dela.
-
-   ── A composição: foto DENTRO de foto ───────────────────────────────────
-
-   É a única tela da página que empilha duas fotografias. A cabine e a
-   pausa põem duas lado a lado, o que é comparação e montagem; aqui uma
-   está POR CIMA da outra, deslocada para fora da margem direita, e as duas
-   são o mesmo assunto a duas distâncias:
-
-     fundo   a taça no jardim, contra a mesma folhagem do capítulo anterior
-     inset   a mesma taça a um palmo, âmbar dentro de vidro
-
-   O inset sangra pela direita de propósito. Uma moldura inteiramente
-   dentro da tela leria como um cartão colado por cima da fotografia; saindo
-   pela borda, ela lê como uma segunda câmera no mesmo lugar.
-
-   ── E a diagonal ────────────────────────────────────────────────────────
-
-   Rótulo no alto à esquerda, inset no meio à direita, frase no pé à
-   esquerda. Os três pontos desenham um Z, e o olho atravessa a tela duas
-   vezes antes de sair dela — que é o contrário exato da tela anterior (o
-   Jardim), em que tudo mora numa coluna à esquerda. */
+   O Z era desenhado por um retângulo colado. Agora quem o desenha é o
+   assunto: o mixing glass está no alto à esquerda, o fio de âmbar cai pelo
+   meio, a coupe fica no centro e a mão que segura a haste volta para o pé
+   à esquerda. É a mesma travessia, feita pela luz da chapa em vez de por
+   uma caixa por cima dela. */
 
 .copo {
   position: relative;
@@ -48,40 +68,53 @@
   overflow: hidden;
 }
 
-/* ── O fundo ───────────────────────────────────────────── */
+/* ── A fotografia ──────────────────────────────────────── */
 
-.copo__fundo {
+/* A moldura é a tela inteira, e ela nasce FECHADA no alto: a aresta que
+   revela desce pelo quadro no sentido em que o líquido cai (copo.js). O
+   estado fechado mora aqui, como todo estado de entrada do site. */
+.copo__quadro {
   position: absolute;
   inset: 0;
   margin: 0;
   overflow: hidden;
   z-index: 0;
+  clip-path: inset(0% 0% 100% 0%);
 }
 
-.copo__fundo img {
+/* A imagem é MAIS ALTA que a moldura, e a sobra é o curso do movimento
+   interno — o mesmo recurso dos quadros da pausa das 00h.
+
+   Sete por cento em cima e sete embaixo. A fotografia anda ao contrário da
+   aresta que a revela (entra empurrada 4% para baixo e sobe até assentar),
+   e depois respira em escala; os dois cursos somados não passam de 5% da
+   altura da caixa, então nenhum deles chega a descobrir borda.
+
+   ── E o recorte fica um pouco mais fechado do que era ──────────────────
+
+   A caixa cresceu de 100% para 114% de altura, então o `cover` escala mais
+   e entram 72% da largura do arquivo em vez de 82%. A janela centrada vai
+   de 14% a 86%: o mixing glass (10—58%) entra quase inteiro, o fio e a
+   coupe (42—72%) entram com folga, e o que se perde nos dois lados é
+   balcão escuro. O assunto ficou maior na tela — que é a diferença entre
+   uma fotografia de um bar e uma fotografia de um gesto. */
+.copo__quadro img {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: -7%;
   width: 100%;
-  height: 100%;
+  height: 114%;
   object-fit: cover;
-  /* Remedido para a fotografia nova (as mãos montando o drink no balcão),
-     e ela é 9:16 de origem — a anterior era quase quadrada, e a diferença
-     muda tudo o que se vê no telefone.
-
-     A 0,56 contra a caixa de 0,46 do telefone, o `cover` escala pela
-     altura e entram 82% da largura: a altura inteira aparece e o segundo
-     valor não tem efeito. (Com a fotografia antiga, a 0,90, entravam 51% —
-     metade do quadro ficava do lado de fora.)
-
-     Centrado, os 82% seguram o mixing glass à esquerda, o fio de âmbar e a
-     coupe. O escuro que sobra à direita e no alto é onde o rótulo e o
-     inset pousam. */
   object-position: 50% 50%;
 }
 
-/* A demão. Dois núcleos, como na troca: o rótulo no alto à esquerda e a
-   frase no pé à esquerda — e um terceiro passe, mais fraco, no miolo à
-   direita, para o inset não flutuar sobre uma área clara. */
+/* A demão. Dois núcleos, e agora são só dois: o rótulo no alto à esquerda
+   e a frase no pé à esquerda.
+
+   O terceiro passe, no miolo à direita, existia para o inset não flutuar
+   sobre uma área clara. Sem inset ele passou a ser uma mancha escura em
+   cima do fio de âmbar — isto é, escurecia justamente o assunto. Saiu. */
 .copo__stage::after {
   content: '';
   position: absolute;
@@ -90,7 +123,7 @@
   pointer-events: none;
   background:
     radial-gradient(ellipse 80% 26% at 14% 12%, rgba(13, 13, 13, .8) 0%, rgba(13, 13, 13, .36) 56%, transparent 84%),
-    radial-gradient(ellipse 108% 40% at 18% 92%, rgba(13, 13, 13, .92) 0%, rgba(13, 13, 13, .58) 44%, rgba(13, 13, 13, .18) 72%, transparent 88%),
+    radial-gradient(ellipse 112% 42% at 18% 92%, rgba(13, 13, 13, .94) 0%, rgba(13, 13, 13, .62) 44%, rgba(13, 13, 13, .2) 72%, transparent 88%),
     var(--ceu-noite);
 }
 
@@ -120,59 +153,41 @@
   transform-origin: left center;
 }
 
-/* ── O inset ───────────────────────────────────────────── */
-
-/* Sangra pela direita. A moldura tem um filete de um pixel do lado de
-   dentro — é o único contorno de fotografia do site, e ele existe aqui por
-   uma razão mecânica antes de qualquer outra: as duas imagens têm a MESMA
-   luz e a mesma cor, e sem uma aresta declarada a de cima se dissolveria na
-   de baixo. */
-.copo__inset {
-  position: absolute;
-  z-index: 2;
-  top: 34svh;
-  right: -8vw;
-  width: 56vw;
-  height: 30svh;
-  margin: 0;
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(200, 137, 46, .3);
-  /* Fechada na borda de DENTRO — a esquerda, a que está na tela.
-     A moldura abre para a direita, na direção da sangria. Ver a nota da
-     direção em copo.js. */
-  clip-path: inset(0% 100% 0% 0%);
-}
-
-/* A foto é MAIS LARGA que a moldura, e a sobra é o curso do movimento
-   interno — o mesmo recurso dos quadros da pausa das 00h.
-
-   Ela existe por causa da direção. A fotografia anda ao contrário da aresta
-   que a revela (copo.js), e a aresta caminha da esquerda para a direita:
-   sem sobra, a imagem entrando deslocada à direita descobriria a própria
-   borda esquerda justamente no lado que a moldura abre PRIMEIRO. Doze por
-   cento de cada lado cobrem os oito de deslocamento com folga, e nenhum
-   pixel de assunto se perde — a taça está no meio do arquivo. */
-.copo__inset img {
-  position: absolute;
-  inset: 0 -12%;
-  width: 124%;
-  height: 100%;
-  object-fit: cover;
-  /* A fonte é QUADRADA (1254×1254), escolhida para este slot: o inset mede
-     ~1,07 deitado e ~0,86 em pé, então um quadrado perde 6% de altura numa
-     orientação e 14% de largura na outra — e a taça está no meio nos dois
-     casos. Centrado é o certo; não há assunto nas bordas para salvar. */
-  object-position: 50% 50%;
-}
-
 /* ── A frase ───────────────────────────────────────────── */
 
+/* ── Um transbordo que não existia, e por que ele vale um comentário ────
+
+   Meia hora desta passada foi gasta consertando um defeito imaginário.
+   Numa captura a 414 esta frase aparecia cortada na borda direita, com o
+   ponto final comido pelo `overflow: hidden` do palco. A conclusão óbvia
+   era que `--fs-quieto` (~35,6px a 414) não cabia na faixa de 330 entre as
+   goteiras, e a folha chegou a ganhar uma medida local de 7vw para
+   resolver.
+
+   O corte era da FERRAMENTA. `chrome --screenshot --window-size=414,896`,
+   no Windows, grava um PNG de 414 de largura — mas o layout por trás dele
+   tem 500, que é a largura mínima de janela do sistema. O arquivo é um
+   recorte de uma tela larga, não uma tela estreita, e a caixa de 416 que a
+   frase ocupava a 500 saía cortada aos 414 do arquivo.
+
+   Medida numa viewport de verdade (`node scripts/tela.mjs`, que emula pelo
+   protocolo em vez de pedir uma janela ao sistema): duas linhas, a maior
+   com 305px numa caixa de 330. Cabe, e sempre coube.
+
+   Fica `--fs-quieto`, que é o degrau da escala para a frase de uma tela —
+   o mesmo da cabine ao lado. Não há razão de composição para esta seção
+   sair do sistema, e não havia razão de largura. */
 .copo__linha {
   position: absolute;
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  bottom: 13svh;
+  /* 13svh → 16svh. A 13 a segunda linha terminava a 780px e o algarismo
+     das 19h começa a 780 (relogio.css, `esq-baixo`: 75px de altura a 5svh
+     do pé): os dois se encostavam sem se sobrepor, que é o pior dos dois
+     mundos — não lê como camada, lê como colisão. A 16 sobram 36px entre a
+     frase e o "19h", e o algarismo volta a ser o rodapé da tela. */
+  bottom: 16svh;
   opacity: 0;
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
@@ -185,31 +200,24 @@
 /* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
-  /* Deitada, o corte inverte de eixo e fica SEVERO: a caixa é 1,6 contra
-     0,56 do arquivo, então entram 35% da altura e nenhum pixel de largura
-     se perde — o primeiro valor deixa de ter efeito.
+  /* Deitada, o corte inverte de eixo e fica SEVERO: a caixa é ~1,4 contra
+     0,56 do arquivo, então entram ~40% da altura e nenhum pixel de largura
+     se perde — o primeiro valor da âncora deixa de ter efeito.
 
-     35% não cabem o mixing glass (19—42%) e a coupe (45—72%) ao mesmo
-     tempo, então a âncora escolhe. A 51% a janela vai de 33% a 68%: pega o
-     pé do mixing glass, o fio inteiro e a coupe inteira, com a mão
+     40% não cabem o mixing glass (19—42% da altura) e a coupe (45—72%) ao
+     mesmo tempo, então a âncora escolhe. A 51% a janela vai de 31% a 71%:
+     pega o pé do mixing glass, o fio inteiro e a coupe inteira, com a mão
      entrando no canto de baixo. É o GESTO completo.
 
      Medidas as vizinhas: a 30% a coupe fica sem haste, e a 65% o mixing
      glass sai de cena e sobra um fio de âmbar vindo do nada. */
-  .copo__fundo img {
+  .copo__quadro img {
     object-position: 50% 51%;
-  }
-
-  .copo__inset {
-    top: 26svh;
-    right: -3vw;
-    width: 28vw;
-    height: 42svh;
   }
 
   .copo__linha {
     right: auto;
-    max-width: 18ch;
+    max-width: 20ch;
     bottom: 16svh;
   }
 }
@@ -217,7 +225,7 @@
 /* ── Sem movimento ─────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .copo__inset {
+  .copo__quadro {
     clip-path: none;
   }
 

@@ -10,6 +10,7 @@
     "frames": "node scripts/frames.mjs",
     "fotos": "node scripts/fotos.mjs",
     "video": "node scripts/video.mjs",
+    "tela": "node scripts/tela.mjs",
     "midia": "npm run frames && npm run fotos && npm run video"
   },
   "devDependencies": {

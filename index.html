@@ -313,41 +313,49 @@
            despejando âmbar numa coupe sobre gelo, a fita de LED acesa por
            baixo do tampo — e a pequena é o mesmo copo pronto, a um palmo.
 
-           ── E é a única tela do site com foto DENTRO de foto ─────────────
+           ── A FOTO DENTRO DA FOTO SAIU, e ela era o defeito ──────────────
 
-           Duas distâncias do mesmo assunto no mesmo quadro, e a de perto
-           está por CIMA da de longe, deslocada para fora da margem. Nenhuma
-           outra composição da página empilha duas fotografias; a cabine e a
-           pausa põem duas lado a lado, o que é outra coisa.
+           A tela empilhava duas chapas: a grande, o gesto no balcão; a
+           pequena, a mesma coupe pronta a um palmo, encostada na margem
+           direita. Duas passadas tentaram consertar a queixa ("esse efeito
+           da foto menor está estranho") mexendo no gesto do inset — o
+           paralaxe primeiro, a direção da abertura depois. A queixa voltou
+           as duas vezes.
 
-           ── AS DUAS FOTOGRAFIAS TROCARAM, e a seção só agora cumpre ──────
+           Voltou porque o problema não era o efeito, era ONDE a caixa
+           estava. Medido a 414×896, o inset caía em cima da coupe da
+           fotografia de baixo — sobre o assunto dela. O que se via eram
+           duas taças empilhadas, a de baixo eclipsada pela metade e
+           escapando pela aresta esquerda do inset como um copo partido. A
+           conta com os números está em src/styles/copo.css.
 
-           A composição sempre esteve certa; o material desmentia ela. As
-           anteriores eram uma mulher de verde no jardim com uma taça e uma
-           coupe vermelha sobre renda preta, e tinham três defeitos que se
-           somavam (a conta está inteira em scripts/fotos.mjs):
+           E as duas chapas foram feitas de propósito para ter a MESMA luz,
+           o mesmo balcão e a mesma fita de LED — "o mesmo copo" era
+           literal, e era o orgulho da passada anterior. Só que empilhar
+           duas fotografias exige contraste entre as camadas, e estas foram
+           escolhidas para não ter nenhum: a de cima se dissolvia na de
+           baixo.
 
-             · NÃO ERAM O MESMO COPO. Haste verde contra haste fina, amarelo
-               palha contra vermelho, fim de tarde contra noite fechada. E é
-               esta composição que denuncia: empilhar duas fotografias no
-               mesmo quadro obriga o olho a compará-las, então ela
-               AMPLIFICAVA o defeito em vez de escondê-lo
-             · a foto grande não era sobre o drink — o objeto mais claro do
-               quadro era uma bolsa metálica
-             · a frase diz "a cor do nome dela" e a taça era amarelo palha
+           ── O que a tela é agora ────────────────────────────────────────
 
-           Agora a de perto foi gerada A PARTIR da de longe, então "o mesmo
-           copo" é literal: mesma coupe, mesmo âmbar, mesmo gelo, mesmo
-           tampo, mesma fita de LED.
+           Uma fotografia. Ela é a melhor chapa da página — as mãos da casa
+           despejando âmbar numa coupe sobre gelo, a fita de LED acesa por
+           baixo do tampo — e passou três passadas com um cartão colado por
+           cima do assunto.
 
-           E a seção ganhou o que o site inteiro devia: havia quatro telas
-           com o copo PRONTO e nenhuma com a casa FAZENDO. Esta é a
-           primeira. -->
+           A diagonal que o inset desenhava continua, e agora quem a desenha
+           é a luz da chapa: mixing glass no alto à esquerda, o fio caindo
+           pelo meio, a coupe no centro, a mão no pé à esquerda.
+
+           E a seção continua pagando a dívida que a fez nascer: havia
+           quatro telas com o copo PRONTO e nenhuma com a casa FAZENDO. -->
 
       <section class="copo" data-vrail="A CARTA" data-choreo
                data-hora="19" data-hora-em="esq-baixo" data-som=".34">
         <div class="copo__stage">
-          <figure class="copo__fundo">
+          <!-- A moldura é a tela. Ela abre por uma aresta que DESCE pelo
+               quadro, no sentido em que o líquido cai — ver copo.js. -->
+          <figure class="copo__quadro">
             <img src="/img/copo-jardim.webp" alt="As mãos da casa despejando âmbar numa taça, no balcão." loading="lazy">
           </figure>
 
@@ -364,10 +372,6 @@
             <span>A carta</span>
           </p>
 
-          <figure class="copo__inset">
-            <img src="/img/copo-mao.webp" alt="A mesma taça pronta, a um palmo: âmbar dentro do vidro." loading="lazy">
-          </figure>
-
           <p class="copo__linha">Drinks autorais, na <b class="ouro">cor do nome da casa</b>.</p>
         </div>
       </section>
@@ -376,26 +380,45 @@
            A noite tem um autor. Não é sobre um DJ — é sobre alguém estar
            escolhendo isto.
 
-           ── As duas fotografias trocaram, e por assunto ─────────────────
+           ── O DÍPTICO SAIU, e por dois motivos que se somam ─────────────
 
-           Havia aqui a sala com a mesa de mármore e um DJ visto de cima. As
-           duas saíram:
+           A tela era duas fotografias encostadas: o salão vazio à esquerda,
+           duas mãos na mesa de som à direita, um filete tracejado entre
+           elas. As duas chapas eram boas. A montagem é que não se
+           sustentava.
 
-             · o DJ de cima punha uma PESSOA no quadro, e uma pessoa
-               reconhecível transforma a seção num retrato e a casa num
-               cartaz de line-up. O que entra no lugar são as MÃOS sobre a
-               mesa de som em contraluz âmbar — o gesto de escolher, que é a
-               única coisa que esta tela precisa dizer.
-             · a mesa de mármore mostrava a sala terminando a dois metros da
-               lente. O que entra no lugar é o salão inteiro vazio, com os
-               dois pendentes acesos e o piso devolvendo a luz até o fundo —
-               e é essa distância vazia que faz a tela seguinte, a mesma
-               sala cheia, ser um acontecimento.
+           1. O DISPOSITIVO JÁ TEM DONO. Quadros sobre carvão com a moldura
+              abrindo é a PAUSA das 00h, e a regra está escrita na própria
+              folha dela: duas ocorrências do mesmo dispositivo não são uma
+              rima, são um template. A cabine se defendia dizendo "lá é
+              montagem, aqui é comparação" — uma distinção que existe no
+              comentário e não na tela. A 414 o que se via eram dois
+              retângulos escuros desalinhados, um deles do tamanho de uma
+              miniatura, e uma linha tracejada passando por cima da frase.
 
-           As duas são âmbar puro sobre preto, então elas se tocam sem
-           costura de cor. E a composição encolheu: o par subiu, cresceu e a
-           frase subiu junto — a versão anterior deixava 34svh de carvão
-           morto embaixo, que é metade da queixa do "espaço preto vazio". -->
+           2. UMA CHAPA JÁ CONTINHA AS DUAS. Um díptico existe para pôr duas
+              coisas em relação. A fotografia que entra no lugar tem a mesa
+              de som ACESA em cima do aparador, com os dois monitores e a
+              luz vazando na parede, e a sala vazia à volta dela. A relação
+              que a montagem tentava construir já está dentro do quadro, e
+              foi a lente que a construiu.
+
+           `salao-som` tinha sido descartada uma passada atrás por um motivo
+           correto — "a sala termina numa mesa de mármore a dois metros da
+           lente". Ela termina no arquivo inteiro; o recorte novo joga fora
+           o terço de baixo e guarda só um gume da mesa como primeiro plano
+           (scripts/fotos.mjs).
+
+           ── E a composição não repete a da carta ────────────────────────
+
+           A tela anterior é uma fotografia sangrando nos quatro lados com o
+           texto POR CIMA dela. Se esta fosse igual, as duas viravam um
+           formato. Aqui a fotografia é uma FAIXA deitada que corta a tela
+           de lado a lado, e o texto mora fora dela, no carvão. Nenhuma
+           outra tela do site tem uma faixa sangrando só pelos dois lados.
+
+           A carta abre por uma aresta que desce; esta abre do meio para as
+           duas pontas. Duas emendas vizinhas, dois eixos, dois sentidos. -->
       <section class="cabine" data-vrail="A CABINE" data-choreo
                data-hora="20" data-hora-em="esq-baixo" data-som=".50">
         <div class="cabine__stage">
@@ -404,30 +427,26 @@
             <span>A cabine</span>
           </p>
 
-          <div class="cabine__par">
-            <figure class="cabine__quadro cabine__quadro--antes">
-              <img src="/img/salao-antes.webp" alt="O salão vazio, os dois pendentes acesos até o fundo." loading="lazy">
-              <!-- A luz da cabine alcançando a sala vazia. Ela entra pela
-                   borda de dentro do quadro — a que encosta no filete, isto
-                   é, o lado de onde a cabine está — e chega DEPOIS que a
-                   cabine abre. É a frase da seção acontecendo entre as duas
-                   fotografias em vez de só embaixo delas: alguém escolheu, e
-                   a sala que ainda está vazia já sabe disso. -->
-              <span class="cabine__luz" aria-hidden="true"></span>
-            </figure>
-            <!-- O filete era um ::before do par e passou a ser elemento pelo
-                 mesmo motivo do traço dos rótulos (base.css): o GSAP não
-                 anima pseudo-elemento, e este deixou de ser um contorno para
-                 ser um gesto — ver cabine.js. -->
-            <span class="cabine__filete" aria-hidden="true"></span>
-            <figure class="cabine__quadro cabine__quadro--fonte">
-              <img src="/img/cabine.webp" alt="Duas mãos sobre a mesa de som, em contraluz âmbar." loading="lazy">
-            </figure>
-          </div>
+          <figure class="cabine__faixa">
+            <img src="/img/salao-cabine.webp" alt="O salão vazio e a mesa de som acesa sobre o aparador, sob o pendente." loading="lazy">
+            <!-- A cabine acendendo. Um poço de âmbar sobre o aparador, que
+                 chega DEPOIS de a faixa terminar de abrir: a sala está
+                 vazia, e a única coisa que acontece nela é alguém ter
+                 ligado aquilo. É a frase da tela dita por luz antes de ser
+                 dita por escrito — ver cabine.js. -->
+            <span class="cabine__luz" aria-hidden="true"></span>
+          </figure>
 
           <!-- Sem âmbar, por ritmo: a tela anterior (a carta) e a seguinte
                (o salão) carregam acento, e esta é a batida branca entre as
-               duas. A frase aguenta — é a única coisa escrita na tela. -->
+               duas. A frase aguenta — é a única coisa escrita na tela.
+
+               COM <br>, e ele é necessário: esta linha é uma das poucas de
+               display que não está na lista do `balance` (base.css), então
+               a quebra é a do navegador — "Alguém escolheu o / que você vai
+               ouvir.", com o artigo pendurado no fim da primeira linha.
+               Medido a 414. Escrito à mão, a segunda linha pede 308px numa
+               caixa de 330 e cabe. -->
           <p class="cabine__linha">Alguém escolheu<br>o que você vai ouvir.</p>
         </div>
       </section>

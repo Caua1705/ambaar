@@ -1,108 +1,146 @@
-/* O primeiro copo · 19h.
+/* A carta · 19h.
 
    O porquê está no HTML e a composição em copo.css. Aqui está o tempo, e
    ele é CLASSE 2 (motion.js) do começo ao fim: dispara na entrada, corre na
-   velocidade dele, termina com o dedo parado. Esta tela não tem estado
-   intermediário — ou o copo está na mão de alguém ou não está.
+   velocidade dele, termina com o dedo parado. Mais um laço de ambiente
+   (classe 3) que não pergunta nada à rolagem.
 
-   ── O gesto, em quatro batidas ──────────────────────────────────────────
+   ── O gesto é o próprio despejo ─────────────────────────────────────────
 
-     0,00  a fotografia de fundo assenta: 1,12 → 1,02 de escala. Não é uma
-           abertura, é uma câmera parando de andar — a tela anterior
-           terminou escurecendo e esta chega já acesa
-     0,20  o traço do rótulo cresce
-     0,55  O INSET DESLIZA da borda direita para dentro. A moldura entra
-           por clipPath e a fotografia de dentro anda em sentido contrário:
-           sem isso, o que se vê é um retângulo aparecendo em vez de uma
-           coisa chegando
-     1,40  a frase
+   A tela tinha dois gestos disputando: o fundo assentando em escala e o
+   inset deslizando pela margem. O inset saiu (copo.css tem a conta), e o
+   que sobrou não foi meio gesto — foi a chance de o gesto ser o assunto.
 
-   ── Por que a de baixo não abre ─────────────────────────────────────────
+   A fotografia é um líquido caindo de cima para baixo. A moldura abre por
+   uma aresta que desce pelo quadro na mesma direção: o que se vê não é uma
+   imagem aparecendo, é a tela sendo PREENCHIDA de cima para baixo, na
+   velocidade em que se enche uma taça.
 
-   Duas fotografias abrindo na mesma tela seriam duas aberturas, e a
-   composição inteira é sobre uma estar POR CIMA da outra. A de baixo
-   precisa já estar lá para a de cima poder chegar.
+     0,00  A ARESTA DESCE. `inset(0 0 100% 0)` → `inset(0)`, 1,7s. Ela
+           nasce no alto, que é onde o mixing glass está, e termina no pé,
+           que é onde a mão está
+     0,00  e a fotografia sobe contra ela: entra empurrada 4% para baixo e
+           assenta em 0. Sem a contramão, o que se vê é um retângulo
+           crescendo em vez de uma coisa chegando — é o mesmo princípio que
+           o inset usava, e é a única coisa dele que sobreviveu
+     0,25  o traço do rótulo cresce
+     1,35  a frase
 
-   É a mesma razão de a escala do fundo ser pequena (10%) e curta: ela é o
-   assentamento de uma coisa que já existe, não a entrada de uma coisa nova.
+   ── Por que não há escala na entrada ────────────────────────────────────
 
-   ── A saída ─────────────────────────────────────────────────────────────
+   A versão anterior assentava o fundo de 1,12 para 1,02. Com a aresta
+   descendo, uma escala simultânea é um segundo movimento na mesma imagem,
+   e dois movimentos numa fotografia só se anulam: o olho não sabe se a
+   coisa está chegando ou recuando. A escala foi para o laço, onde ela não
+   compete com nada.
 
-   O inset volta para fora pela mesma borda e a frase sobe. A de baixo não
-   se mexe: quem chegou é quem vai embora. */
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A SAÍDA FOI CONSTRUÍDA, MEDIDA E DESMONTADA NA MESMA PASSADA         ║
+   ║                                                                      ║
+   ║ A ideia era boa no papel e ruim na tela, e vale ficar escrita para   ║
+   ║ ninguém a ter de novo.                                               ║
+   ║                                                                      ║
+   ║ Como a entrada é uma aresta que DESCE enchendo o quadro, a saída     ║
+   ║ seria a mesma aresta seguindo em frente: `inset(0)` →                ║
+   ║ `inset(100% 0 0 0)`, o líquido escorrendo para fora pelo pé.         ║
+   ║ Entrada e saída viravam um movimento só.                             ║
+   ║                                                                      ║
+   ║ Fotografada a 414×896 com rolagem em degraus, a 3050px: a tela       ║
+   ║ inteira em carvão, com o "19h" e o rótulo da cabine boiando nela. O  ║
+   ║ dreno dispara a `bottom 76%`, isto é, quando a seção ainda ocupa     ║
+   ║ três quartos da altura — e é isso o que ele esvazia.                 ║
+   ║                                                                      ║
+   ║ E a seção seguinte não tem como socorrer: a cabine guarda 32svh de   ║
+   ║ carvão acima da faixa dela de propósito (cabine.css), então a faixa  ║
+   ║ só chega ao meio da tela uns 400px de rolagem depois. Somados, dava  ║
+   ║ quase uma tela e meia de preto seguido — que é, palavra por palavra, ║
+   ║ a queixa que esta região do site já levou uma passada inteira para   ║
+   ║ resolver.                                                            ║
+   ║                                                                      ║
+   ║ Adiar o dreno não salva: a `bottom 45%` ele passa a acontecer DEPOIS ║
+   ║ de a cabine abrir, e aí são duas seções se mexendo ao mesmo tempo —  ║
+   ║ o defeito que o próprio escalonamento 76/58 existe para evitar.      ║
+   ║ Encurtá-lo pela metade deixa uma faixa de fotografia cortada reta no ║
+   ║ alto, que é pior que as duas coisas.                                 ║
+   ║                                                                      ║
+   ║ O que ficou: a fotografia NÃO sai. Ela é o que a seção é, e a        ║
+   ║ rolagem já a leva embora. Sai o que é dito — a frase sobe, o traço   ║
+   ║ se recolhe — e a fotografia desce 4% atrás deles, o resto do curso   ║
+   ║ que a entrada deixou em reserva (copo.css). O escuro que a cabine    ║
+   ║ precisa antes do corte ela ganha da própria goteira dela.            ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 
-import { gsap, ScrollTrigger, reducedMotion, EASE, autonomo } from './motion.js'
+import { gsap, ScrollTrigger, reducedMotion, EASE, autonomo, laco } from './motion.js'
 
 const secao = document.querySelector('.copo')
 
 if (secao) {
   const dash = secao.querySelector('.copo__dash')
-  const fundo = secao.querySelector('.copo__fundo img')
-  const inset = secao.querySelector('.copo__inset')
-  const insetImg = secao.querySelector('.copo__inset img')
+  const quadro = secao.querySelector('.copo__quadro')
+  const foto = secao.querySelector('.copo__quadro img')
   const linha = secao.querySelector('.copo__linha')
 
-  const ABERTO = 'inset(0% 0% 0% 0%)'
-  /* Fechado na borda de DENTRO (a esquerda). Ver o bloco da direção, abaixo. */
-  const FECHADO = 'inset(0% 100% 0% 0%)'
+  /* ╔══════════════════════════════════════════════════════════════════╗
+     ║ POR QUE OS DOIS CLIPS SÃO `fromTo` E NÃO `to`                    ║
+     ║                                                                  ║
+     ║ Não é estilo. Um `to` a partir do estado cheio é um NO-OP        ║
+     ║ silencioso, e a saída desta seção era isso desde que ela existe. ║
+     ║                                                                  ║
+     ║ `inset(0% 0% 0% 0%)` tem quatro valores iguais, e o CSSOM        ║
+     ║ serializa isso como `inset(0%)` — um número só. Não importa o    ║
+     ║ que se escreveu: depois de o GSAP aplicar o valor, tanto         ║
+     ║ `el.style.clipPath` quanto o computado devolvem `inset(0%)`.     ║
+     ║                                                                  ║
+     ║ Um `to` lê o valor atual para montar a interpolação. Ele então   ║
+     ║ compara `inset(0%)` (um número) com `inset(100% 0% 0% 0%)`       ║
+     ║ (quatro): as duas cadeias não têm a mesma forma, o GSAP não      ║
+     ║ consegue parear os números e o tween não escreve nada. A         ║
+     ║ timeline roda inteira, chega a `progress() === 1`, e o elemento  ║
+     ║ termina exatamente como começou. Sem erro, sem aviso.            ║
+     ║                                                                  ║
+     ║ Medido: com `to`, a 3200px de rolagem a timeline de saída        ║
+     ║ marcava progress=1 / time=1.40 e o `style.clipPath` do quadro    ║
+     ║ continuava `inset(0%)`.                                          ║
+     ║                                                                  ║
+     ║ Com `fromTo` o GSAP não pergunta nada ao CSS: as duas pontas     ║
+     ║ vêm do objeto, as duas têm quatro números, e a interpolação      ║
+     ║ existe.                                                          ║
+     ║                                                                  ║
+     ║ A regra que sai daqui vale para o site inteiro, e é a razão de   ║
+     ║ este bloco continuar aqui mesmo depois de a saída que o          ║
+     ║ descobriu ter sido desmontada: UM CLIP QUE PARTE DO ESTADO       ║
+     ║ CHEIO PRECISA DE `fromTo`. Hoje nenhum clip da página faz isso   ║
+     ║ — hero, pausa, pista e quem fica só CHEGAM em `inset(0)`,        ║
+     ║ partindo de valores desiguais que o CSSOM não colapsa —, então   ║
+     ║ o defeito não existe em lugar nenhum e some sem avisar no dia    ║
+     ║ em que alguém escrever o primeiro.                               ║
+     ╚══════════════════════════════════════════════════════════════════╝ */
+  const CHEIO = 'inset(0% 0% 0% 0%)'
+  /* fechado no ALTO: a aresta que revela desce */
+  const VAZIO = 'inset(0% 0% 100% 0%)'
 
   if (reducedMotion) {
     /* O estado fechado mora no CSS, como todo estado de entrada do site, e
        precisa ser desfeito AQUI além da media query: o caminho sem
        movimento também é alcançado pelo ?reduce=1 de desenvolvimento, que
        não aciona media query nenhuma. */
-    gsap.set(inset, { clipPath: ABERTO })
+    gsap.set(quadro, { clipPath: CHEIO })
     gsap.set(linha, { opacity: 1, y: 0 })
     gsap.set(dash, { scaleX: 1 })
   } else {
     gsap.set(linha, { opacity: 0, y: 20 })
-    gsap.set(inset, { clipPath: FECHADO })
+    gsap.set(quadro, { clipPath: VAZIO })
 
-    /* ╔══════════════════════════════════════════════════════════════════╗
-       ║ A MOLDURA ABRIA PARA O LADO ERRADO, E ERA ISSO O TEMPO TODO      ║
-       ║                                                                  ║
-       ║ A queixa foi "esse efeito da foto menor está estranho", e as     ║
-       ║ duas primeiras tentativas de conserto mexeram no paralaxe de     ║
-       ║ dentro. Não era ali. Era a DIREÇÃO da abertura.                  ║
-       ║                                                                  ║
-       ║ Esta moldura sangra 8vw para FORA da margem direita (copo.css):  ║
-       ║ um sétimo dela vive do lado de fora da tela. Ela abria com       ║
-       ║ `inset(0 0 0 100%)` → `inset(0)`, isto é, a aresta que revela    ║
-       ║ nascia na borda DIREITA e caminhava para a esquerda.             ║
-       ║                                                                  ║
-       ║ Quer dizer: o gesto começava fora da tela. O primeiro sétimo da  ║
-       ║ animação acontecia onde ninguém podia ver, e o que aparecia na   ║
-       ║ tela era a moldura já em curso, brotando da borda — sem começo,  ║
-       ║ sem o filete âmbar entrando, sem nada que dissesse "isto está    ║
-       ║ chegando". Nenhum ajuste de paralaxe conserta um gesto cujo      ║
-       ║ primeiro ato é invisível.                                        ║
-       ║                                                                  ║
-       ║ Agora ela abre pela borda de DENTRO: `inset(0 100% 0 0)` →       ║
-       ║ `inset(0)`. A aresta nasce na esquerda, onde o olho está — ele   ║
-       ║ acabou de ler o rótulo no alto à esquerda —, e cresce para fora  ║
-       ║ até sangrar. O filete âmbar é a primeira coisa a existir e ele   ║
-       ║ atravessa a tela puxando a fotografia atrás de si.               ║
-       ║                                                                  ║
-       ║ É também o sentido do Z que a seção desenha (rótulo à esquerda,  ║
-       ║ inset à direita, frase à esquerda): a moldura passa a andar NA   ║
-       ║ direção em que a composição é lida, em vez de contra ela.        ║
-       ║                                                                  ║
-       ║ Com a aresta indo para a direita, a contramão da fotografia      ║
-       ║ inverte junto: ela entra deslocada à direita e assenta para a    ║
-       ║ esquerda. A sobra de 12% de cada lado (copo.css) é o que permite ║
-       ║ esse curso sem descobrir borda.                                  ║
-       ╚══════════════════════════════════════════════════════════════════╝ */
     autonomo(secao, (t) => {
-      t.fromTo(fundo,
-        { scale: 1.12 },
-        { scale: 1.02, duration: 2.4, ease: EASE }, 0)
-        .to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0.2)
-        .to(inset, { clipPath: ABERTO, duration: 1.3, ease: EASE }, 0.55)
-        // e a fotografia de dentro anda ao contrário da aresta
-        .fromTo(insetImg,
-          { xPercent: 8, scale: 1.06 },
-          { xPercent: 0, scale: 1, duration: 1.9, ease: EASE }, 0.55)
-        .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.4)
+      t.fromTo(quadro,
+        { clipPath: VAZIO },
+        { clipPath: CHEIO, duration: 1.7, ease: EASE }, 0)
+        // e a fotografia anda ao contrário da aresta que a revela
+        .fromTo(foto,
+          { yPercent: 4 },
+          { yPercent: 0, duration: 2.2, ease: EASE }, 0)
+        .to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0.25)
+        .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.35)
     }, {
       /* Cedo, como todas as entradas desta passada: a composição termina de
          se montar enquanto a seção ainda sobe, e o que toma a tela é uma
@@ -110,36 +148,59 @@ if (secao) {
       start: 'top 82%'
     })
 
-    /* ── A saída ─────────────────────────────────────────
-       O inset se recolhe pela borda por onde entrou. É o único gesto de
-       saída do site que desfaz literalmente o de entrada, e ele pode fazer
-       isso porque a seção seguinte (a cabine) sobe do carvão: não há nada
-       por baixo para descobrir, então a tela pode simplesmente se
-       desmontar. */
-    const saida = gsap.timeline({ paused: true })
-    saida.to(linha, { opacity: 0, y: -18, duration: 0.7, ease: EASE }, 0)
-      .to(inset, { clipPath: FECHADO, duration: 1, ease: EASE }, 0.1)
-      /* e a foto continua andando ao contrário da aresta, também na volta:
-         fechando, a aresta volta da direita para a esquerda — a imagem vai
-         para a direita. Sem isto ela ficaria parada enquanto a moldura a
-         come, que é o mesmo defeito da entrada, ao contrário. */
-      .to(insetImg, { xPercent: 8, duration: 1.1, ease: EASE }, 0.1)
-      .to(dash, { scaleX: 0, duration: 0.6, ease: EASE }, 0.1)
+    /* ── O líquido não pára de se mexer ────────────────────────────────
+
+       Sem isto a tela é um cartaz depois que a entrada acaba, que é o
+       defeito que esta mesma passada corrigiu na cabine.
+
+       Classe 3 (motion.js): não pergunta nada ao dedo, corre enquanto a
+       seção está em cena e para quando ela sai. Período de ~59s (0,107
+       rad/s), longo de propósito — não é para ser visto como movimento, é
+       para a fotografia não ficar morta.
+
+       ── Por que ESCALA, e só ela ────────────────────────────────────────
+
+       `yPercent` desta mesma imagem pertence à timeline de entrada e à de
+       saída. Duas timelines na mesma propriedade é o defeito que custou o
+       véu do Jardim uma passada atrás. A escala não é usada por nenhuma
+       das duas, então o laço pode tê-la inteira.
+
+       1,3% sobre uma caixa que já tem 7% de sobra em cima e embaixo
+       (copo.css): o curso nunca chega perto de descobrir borda, nem
+       somado aos 4% da entrada. */
+    let t = 0
+    laco(secao, (dt) => {
+      t += dt
+      gsap.set(foto, { scale: 1.03 + Math.sin(t * 0.107) * 0.013 })
+    })
 
     /* ── 62% → 76%: a saída daqui e a entrada da cabine ESBARRAVAM ──────
 
        A cabine é a seção seguinte, então o topo dela é o pé desta. Ela
-       montava o díptico em `top 82%` e esta se desmontava em `bottom 62%` —
-       vinte por cento de tela DEPOIS. Traduzido para o que se via: os dois
-       quadros da cabine abriam no pé da tela enquanto o inset do copo ainda
-       estava se fechando no alto dela. Duas seções se mexendo ao mesmo
-       tempo, em direções diferentes, sem relação uma com a outra.
+       montava a composição em `top 82%` e esta se desmontava em `bottom
+       62%` — vinte por cento de tela DEPOIS. Traduzido para o que se via:
+       a cabine abria embaixo enquanto esta ainda se desfazia no alto. Duas
+       seções se mexendo ao mesmo tempo, em direções diferentes, sem
+       relação uma com a outra.
 
        A ordem certa é a ordem da leitura: primeiro esta tela se desfaz,
        depois a próxima se arma. Aqui sobe para 76% (a seção ainda tem a
        tela, e é ela quem se desmonta) e a cabine desce para 58%
        (cabine.js). Dezoito por cento de tela entre um gesto e o outro —
        o bastante para não coincidirem, pouco para não virar espera. */
+    const saida = gsap.timeline({ paused: true })
+    saida.to(linha, { opacity: 0, y: -18, duration: 0.7, ease: EASE }, 0)
+      /* A frase sobe e a fotografia desce. É a mesma contramão da entrada,
+         só que agora entre o texto e a imagem em vez de entre a imagem e a
+         aresta: o que é dito vai embora por cima, o que é mostrado afunda.
+
+         4% é o resto do curso — a entrada gastou 4 dos 7% de sobra que a
+         caixa reserva em cima e embaixo (copo.css), e estes são os que
+         faltavam. A fotografia nunca descobre borda em nenhum ponto do
+         percurso, nem somada à respiração do laço. */
+      .to(foto, { yPercent: 4, duration: 1.3, ease: EASE }, 0.1)
+      .to(dash, { scaleX: 0, duration: 0.6, ease: EASE }, 0.1)
+
     ScrollTrigger.create({
       trigger: secao,
       start: 'bottom 76%',

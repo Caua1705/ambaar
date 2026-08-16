@@ -317,43 +317,57 @@
   --pad-x: 1.5rem;
 
   /* ╔════════════════════════════════════════════════════════════════════╗
-     ║ A ALTURA DE UMA TELA — e ela era `100svh` em dez folhas            ║
+     ║ A ALTURA DE UMA TELA — e por que são DUAS                          ║
      ║                                                                    ║
-     ║ A queixa: "tem uma parte embaixo que não preencheu, tá com um      ║
-     ║ delay". Ela aparecia segurando a página e soltando, no telefone.    ║
+     ║ Havia uma só, `--tela`, e ela era `100dvh`. Isso resolvia um        ║
+     ║ defeito de pintura e comprava um defeito de rolagem muito pior.     ║
      ║                                                                    ║
-     ║ `svh` é a viewport PEQUENA — a altura da tela COM a barra do        ║
-     ║ navegador visível — e é um valor fixo, que não muda enquanto a      ║
-     ║ pessoa rola. É o certo para posicionar conteúdo, e é por isso que   ║
-     ║ todas as âncoras deste site (13svh, 70svh, 18svh…) continuam nele:  ║
-     ║ uma frase que mudasse de lugar quando a barra some seria pior que   ║
-     ║ o defeito.                                                         ║
+     ║ ── O que `dvh` custou ──────────────────────────────────────────── ║
      ║                                                                    ║
-     ║ Só que ele é o errado para a SUPERFÍCIE. Quando o Chrome recolhe a  ║
-     ║ barra a área visível cresce ~10% e a seção continua medindo o       ║
-     ║ tamanho de antes — então esses 10% mostram o que está EMBAIXO dela, ║
-     ║ que é o topo da seção seguinte. No caso da hero, o que aparece é o  ║
-     ║ Jardim, e o Jardim nasce em carvão puro de propósito (a fotografia  ║
-     ║ dele acende só em `top 78%` — a batida de preto de chapters.js). O  ║
-     ║ resultado na tela é uma faixa escura no pé, que chega atrasada      ║
-     ║ porque quem está atrasado é a animação da barra.                    ║
+     ║ `dvh` é a viewport DINÂMICA: ela acompanha a barra do navegador.    ║
+     ║ Um elemento com `height: 100dvh` DENTRO DO FLUXO muda de altura     ║
+     ║ enquanto a pessoa rola — e a passada anterior pôs `--tela` em nove  ║
+     ║ superfícies de fluxo (a hero e os seis `__stage` relativos) e       ║
+     ║ ainda no pai sticky de cada capítulo.                               ║
      ║                                                                    ║
-     ║ `dvh` é a viewport DINÂMICA: ela acompanha a barra, então a         ║
-     ║ superfície preenche sempre a tela inteira e nunca sobra nada por    ║
-     ║ baixo. O preço é que a altura muda durante a rolagem — e é por      ║
-     ║ isso que motion.js passou a declarar `ignoreMobileResize`, que      ║
-     ║ existe no ScrollTrigger exatamente para esta situação: sem ele,     ║
-     ║ cada toque na barra remediria a página inteira.                     ║
+     ║ Medido: a barra recolhendo acrescenta ~60px a CADA uma delas. São   ║
+     ║ ~540px de documento que nascem e morrem debaixo do dedo, no meio    ║
+     ║ de uma rolagem. O navegador refaz o layout do documento inteiro e   ║
+     ║ reancora a posição de rolagem — que na tela é exatamente a queixa   ║
+     ║ desta passada: a página TRAVA ao descer, e às vezes ANDA SOZINHA.   ║
      ║                                                                    ║
-     ║ O `100svh` fica como piso para quem não tem `dvh`. Nesse caso o     ║
-     ║ comportamento é o de hoje — o defeito, mas nunca pior que ele.      ║
+     ║ E havia um agravante silencioso: `ignoreMobileResize` (motion.js)   ║
+     ║ manda o ScrollTrigger NÃO remedir quando só a altura muda. Ou seja, ║
+     ║ o layout mudava e os gatilhos ficavam com as posições antigas. As   ║
+     ║ duas metades do site discordavam sobre onde cada seção começa.      ║
+     ║                                                                    ║
+     ║ ── A separação ──────────────────────────────────────────────────── ║
+     ║                                                                    ║
+     ║   --tela        `100svh`. A viewport PEQUENA, que não muda nunca.   ║
+     ║                 É MEDIDA: toda altura que entra no fluxo e portanto ║
+     ║                 decide o tamanho do documento usa esta. Um curso de ║
+     ║                 rolagem que encolhe no meio dele não é um curso.    ║
+     ║                                                                    ║
+     ║   --superficie  `100dvh` onde existir. É PINTURA, e só pode ser     ║
+     ║                 usada por elemento FORA DO FLUXO (sticky, fixed,    ║
+     ║                 absolute): ele cresce com a barra e cobre a tela    ║
+     ║                 inteira sem que o documento saiba de nada.          ║
+     ║                                                                    ║
+     ║ É o que mantém o conserto de pintura da passada anterior — os       ║
+     ║ capítulos e a passagem, que são as superfícies de tela cheia mais   ║
+     ║ visíveis do site, são justamente sticky e continuam preenchendo —   ║
+     ║ sem nenhum pixel de layout oscilando.                               ║
+     ║                                                                    ║
+     ║ Regra, e ela não tem exceção: se o elemento ocupa espaço no fluxo,  ║
+     ║ ele NÃO pode usar `--superficie`.                                    ║
      ╚════════════════════════════════════════════════════════════════════╝ */
   --tela: 100svh;
+  --superficie: 100svh;
 }
 
 @supports (height: 100dvh) {
   :root {
-    --tela: 100dvh;
+    --superficie: 100dvh;
   }
 }
 

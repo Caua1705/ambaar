@@ -31,17 +31,20 @@
   --run: 100;
   position: relative;
   background: var(--carvao);
-  /* a tela vem do token (que segue a barra do navegador); o CURSO continua
-     em svh, porque ele é medida de rolagem e não superfície — um curso que
-     encolhesse quando a barra some mudaria a duração do capítulo no meio
-     dele */
+  /* Medida, inteira. Este elemento está NO FLUXO: ele é quem diz quanto o
+     capítulo ocupa no documento, e a conta é toda em `svh` — nem a tela nem
+     o curso podem mudar de tamanho enquanto o dedo anda. Ver o bloco das
+     duas alturas em tokens.css. */
   height: calc(var(--tela) + var(--run) * 1svh);
 }
 
 .chapter__stage {
   position: sticky;
   top: 0;
-  height: var(--tela);
+  /* Pintura. Sticky não ocupa espaço no fluxo — o pai já reservou o dele —,
+     então esta é a superfície que pode crescer com a barra do navegador e
+     preencher a tela até embaixo sem mexer em um pixel de layout. */
+  height: var(--superficie);
   overflow: hidden;
 }
 

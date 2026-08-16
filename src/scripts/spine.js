@@ -13,7 +13,7 @@
    Só toca custom properties consumidas por top e transform. Nenhuma leitura
    de layout no scroll: o curso é medido uma vez e no resize. */
 
-import { reducedMotion } from './motion.js'
+import { reducedMotion, ScrollTrigger } from './motion.js'
 
 const spine = document.querySelector('.spine')
 
@@ -60,10 +60,33 @@ if (spine) {
     window.addEventListener('scroll', onScroll, { passive: true })
   }
 
+  /* ── Quando remedir o curso ──────────────────────────────
+
+     `medir()` lê `scrollHeight`, e ler `scrollHeight` força o navegador a
+     assentar o layout na hora. Preso ao `resize` cru, isso acontecia a cada
+     toque na barra de endereço do telefone — um reflow síncrono no meio da
+     rolagem, que é o pior lugar possível para pedir um.
+
+     E era pior do que caro: era errado. O curso mudava (`innerHeight` cresce
+     quando a barra recolhe) sem que nada tivesse mudado no documento, então
+     o losango recuava no fio sozinho enquanto a pessoa descia.
+
+     Agora só a largura conta, e o recálculo pega carona no `refresh` do
+     ScrollTrigger — que é, por definição, o momento em que a altura do
+     documento mudou de verdade. Um só dono para "as medidas envelheceram". */
+  let larguraMedida = window.innerWidth
+
   window.addEventListener('resize', () => {
+    if (window.innerWidth === larguraMedida) return
+    larguraMedida = window.innerWidth
     medir()
     onScroll()
   }, { passive: true })
+
+  ScrollTrigger.addEventListener('refresh', () => {
+    medir()
+    onScroll()
+  })
 
   // pin e faixa horizontal mudam a altura do documento depois do load
   window.addEventListener('load', () => {

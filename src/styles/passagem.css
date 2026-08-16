@@ -39,7 +39,8 @@
 .passagem__stage {
   position: sticky;
   top: 0;
-  height: var(--tela);
+  /* sticky, fora do fluxo: pode ser `--superficie` (tokens.css) */
+  height: var(--superficie);
   overflow: hidden;
 }
 

@@ -211,8 +211,19 @@ if (relogio && valor) {
 
   /* A faixa útil e o pé são medidos em pixels: sem remedir, o algarismo fica
      ancorado na largura antiga. */
+  /* E só a LARGURA remede, como em motion.js e frames.js. `colocar` lê
+     `clientWidth` e `offsetWidth` — duas leituras de layout que forçam
+     reflow — e o `y` do algarismo é uma fração de `innerHeight`. Preso ao
+     `resize` cru, ele se reposicionava a cada toque na barra do navegador:
+     o algarismo dava um pulinho vertical no meio da rolagem, sem que nada
+     na página tivesse mudado. */
   let t = null
+  let larguraMedida = window.innerWidth
+
   window.addEventListener('resize', () => {
+    if (window.innerWidth === larguraMedida) return
+    larguraMedida = window.innerWidth
+
     clearTimeout(t)
     t = setTimeout(() => { if (lugarAtual) colocar(lugarAtual, false) }, 200)
   }, { passive: true })

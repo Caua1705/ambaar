@@ -178,11 +178,44 @@ export const prioridadeRefresh = (el) =>
    largura de tela: sem recalcular, os gatilhos ficam presos ao layout antigo. */
 export const refresh = () => ScrollTrigger.refresh()
 
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ E A BARRA DO NAVEGADOR TAMBÉM NÃO É UM REDIMENSIONAMENTO AQUI        ║
+   ║                                                                      ║
+   ║ `ignoreMobileResize`, lá em cima, protege o recálculo AUTOMÁTICO do  ║
+   ║ ScrollTrigger. Ele não tem como proteger um `ScrollTrigger.refresh()`║
+   ║ que o próprio site chama — e era exatamente isso que este listener   ║
+   ║ fazia: qualquer `resize`, 200ms depois, remedia a página inteira.     ║
+   ║                                                                      ║
+   ║ No telefone, recolher e mostrar a barra de endereço dispara `resize` ║
+   ║ o tempo todo, e sempre no meio de uma rolagem. Um refresh completo   ║
+   ║ percorre todos os gatilhos, remede cada um e reancora a posição de   ║
+   ║ rolagem: na tela isso é um engasgo e, quando a âncora cai em outro   ║
+   ║ lugar, é a página andando sozinha. As duas queixas desta passada.     ║
+   ║                                                                      ║
+   ║ A guarda é a mesma que o ScrollTrigger usa internamente, e agora ela ║
+   ║ é honesta porque nenhuma altura de layout depende mais da barra (ver ║
+   ║ as duas alturas em tokens.css): SÓ A LARGURA remede. Girar o         ║
+   ║ aparelho continua funcionando; a barra indo e vindo não custa nada.  ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 let resizeTimer = null
+let larguraMedida = window.innerWidth
+
 window.addEventListener('resize', () => {
+  if (window.innerWidth === larguraMedida) return
+  larguraMedida = window.innerWidth
+
   clearTimeout(resizeTimer)
   resizeTimer = setTimeout(refresh, 200)
 }, { passive: true })
+
+/* Girar o aparelho é o caso legítimo, e em alguns navegadores o `resize`
+   chega ANTES de o layout novo assentar. O evento de orientação garante a
+   segunda medida. */
+window.matchMedia('(orientation: portrait)').addEventListener?.('change', () => {
+  larguraMedida = window.innerWidth
+  clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(refresh, 250)
+})
 
 // as imagens já ocupam espaço reservado, mas as duas famílias chegam depois
 // do primeiro quadro: quando trocam a fonte de sistema pela real, cada bloco

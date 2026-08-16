@@ -153,9 +153,26 @@ export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6, anco
       // impedir os outros de chegarem
       img.onload = () => {
         prontas[i] = true
-        // o quadro em cena pode ter sido um substituto: refaz o pedido real
-        ultimo = -1
-        desenhar(pedido)
+
+        /* Repintar SÓ se este quadro melhora o que está na tela.
+
+           Isto era incondicional: cada um dos 28 (ou 34) quadros que chegava
+           zerava `ultimo` e forçava um `desenhar` completo — dois `drawImage`
+           num canvas de até 1,5× DPR. São 62 repinturas de tela cheia
+           disparadas por callbacks de rede, em rajada, e justamente enquanto
+           a pessoa rola em direção à seção. O canvas em cena nem estava
+           errado: na maioria das vezes o quadro que chegou está a dez
+           posições do que está sendo desenhado.
+
+           A repintura existe por um motivo real e estreito — o quadro em
+           cena pode ser um SUBSTITUTO (`disponivel`) e o que acabou de
+           chegar pode ser o pedido de verdade. Isso só pode acontecer perto
+           do pedido, então é só perto do pedido que se repinta. */
+        if (Math.abs(i - pedido) <= 1) {
+          ultimo = -1
+          desenhar(pedido)
+        }
+
         puxar()
       }
       img.onerror = () => { prontas[i] = false; puxar() }
@@ -181,8 +198,23 @@ export const criarSequencia = ({ palco, canvas, total, caminho, frente = 6, anco
 
   medir()
 
+  /* Só a LARGURA remede, pelo mesmo motivo de motion.js — e aqui o preço de
+     não ter a guarda era ainda mais direto: `medir()` escreve `canvas.width`,
+     e escrever nessa propriedade REALOCA o buffer inteiro e o pinta de preto.
+     Com a barra do navegador indo e vindo, isso acontecia nos dois canvas do
+     site no meio da rolagem, uma vez por toque na barra.
+
+     A altura da caixa vem de `--superficie` no capítulo, que acompanha a
+     barra — mas a diferença é de ~7% na aresta de baixo de uma fotografia em
+     `cover`, e o `cover` já recorta o excedente. Refazer o buffer para isso é
+     caro e não se vê; refazer para uma largura nova é obrigatório e se vê. */
   let t = null
+  let larguraMedida = window.innerWidth
+
   window.addEventListener('resize', () => {
+    if (window.innerWidth === larguraMedida) return
+    larguraMedida = window.innerWidth
+
     clearTimeout(t)
     t = setTimeout(() => {
       medir() // a caixa mudou: o quadro em cena precisa ser refeito

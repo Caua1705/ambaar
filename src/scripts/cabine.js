@@ -28,14 +28,22 @@
    ── As quatro batidas ───────────────────────────────────────────────────
 
      0,00  o traço do rótulo cresce
-     0,30  AS DUAS ARESTAS. 1,4s do centro até as bordas
+     0,30  AS DUAS ARESTAS. 1,4s do centro até as bordas — e o que elas
+           descobrem, do meio para fora, é a pessoa: ela está no centro do
+           recorte, então é a primeira coisa que aparece e a última que
+           acaba de aparecer
      0,30  e a fotografia assenta de 1,12 para 1,04 — a contramão: as
            arestas andam para fora, a imagem recolhe para dentro. Sem isso
            o que se vê é uma cortina abrindo sobre um cartaz parado
-     1,15  A CABINE ACENDE. O poço de âmbar sobre o aparador sobe de 0 a 1.
-           Ele chega DEPOIS de a faixa terminar de abrir, e é essa ordem
-           que faz dele um acontecimento em vez de uma propriedade da
-           fotografia: primeiro a sala existe, depois alguém liga aquilo
+     1,15  A SALA SOBE. O poço de âmbar da parede do fundo vai de 0 a 1,
+           DEPOIS de a faixa terminar de abrir.
+
+           Este beat mudou de assunto quando a chapa mudou (index.html).
+           Com a sala vazia, ele era o acontecimento da tela — "alguém
+           ligou aquilo", dito por luz porque não havia ninguém para
+           dizê-lo. Agora o acontecimento é a figura, e a luz é a sala
+           subindo em volta dela: primeiro alguém está tocando, depois a
+           sala em volta existe. A ordem é a mesma e o que ela diz é outro.
      1,45  a frase, que passa a ser a legenda de uma coisa que a tela já
            mostrou
 
@@ -103,13 +111,18 @@ if (secao) {
     })
 
     /* ╔══════════════════════════════════════════════════════════════════╗
-       ║ UMA SALA VAZIA NÃO É UMA SALA PARADA                             ║
+       ║ UMA FOTOGRAFIA PARADA NÃO É UMA CENA PARADA                      ║
        ║                                                                  ║
        ║ Esta seção era a única do site em que NADA se movia depois que o ║
        ║ gesto de entrada terminava, e uma versão deste arquivo defendia   ║
        ║ isso como "a batida de silêncio entre dois movimentos". O         ║
        ║ argumento tem um furo: silêncio entre dois movimentos é uma      ║
        ║ pausa; quinze segundos de cartaz parado é uma tela que acabou.   ║
+       ║                                                                  ║
+       ║ Vale ainda mais com a chapa nova: um cômodo vazio pode passar   ║
+       ║ por imóvel, uma PESSOA no meio de um gesto não. A deriva é o que ║
+       ║ mantém a diferença entre a fotografia de alguém tocando e        ║
+       ║ alguém tocando.                                                  ║
        ║                                                                  ║
        ║ Classe 3 (motion.js): não pergunta nada ao dedo, corre enquanto  ║
        ║ a seção está em cena e para quando ela sai. Período de ~86s      ║

@@ -119,19 +119,41 @@
    Nasce fechada no MEIO. A aresta que revela não vem de uma borda: são
    duas, saindo do centro para os dois lados ao mesmo tempo (cabine.js). O
    estado fechado mora aqui, como todo estado de entrada do site. */
-/* 32svh põe o centro óptico da faixa a 47% da altura da tela — um fio
-   acima do meio, que é onde uma faixa horizontal solitária precisa estar
-   para não ler como uma barra centrada num formulário. A 30svh (o primeiro
-   valor desta passada) o vão de cima ficava com 269px contra 223 embaixo, e
-   o desequilíbrio aparecia justamente no lado que não tem nada dentro; a
-   32svh o de baixo passa a ser o maior, e ele tem o algarismo das 20h. */
+/* ── A altura da faixa, e o vazio que ela deixou de deixar ──────────────
+
+   Era `top: 32svh` com proporção 1,53, e as duas mudaram juntas quando a
+   fotografia passou a ter uma pessoa dentro (index.html).
+
+   Medido a 414×896, na versão anterior:
+
+     0—16svh    carvão
+     16svh      o rótulo "A CABINE"
+     16—32svh   carvão. Dezesseis por cento de tela — 143px — de nada, e
+                logo depois da carta, que sangra nos quatro lados
+     32—62svh   a faixa: 271px de altura para uma sala inteira
+     70svh      a frase
+
+   O vão de cima não era respiro, era queda de intensidade: a tela anterior
+   ocupa 100% da área e esta ocupava 30%, com o buraco justamente no alto,
+   que é por onde a seção chega.
+
+   A 1,25 a faixa passa a 331px (37svh) e sobe para 26svh. As contas novas:
+   11svh de vão em cima (era 16), a faixa de 26 a 63svh, 7svh até a frase.
+   O centro óptico fica a 44,5% da altura da tela — continua acima do meio,
+   que é onde uma faixa solitária tem de estar para não ler como uma barra
+   centrada num formulário, e continua com o vão de baixo sendo o maior dos
+   dois, porque é ele que hospeda o algarismo das 20h (relogio.css).
+
+   Sessenta pixels a mais de faixa não são um ajuste de gosto: são a
+   diferença entre uma cabeça debruçada sobre uma mesa caber no quadro com
+   as duas mãos ou disputar espaço com o cenário. */
 .cabine__faixa {
   position: absolute;
   z-index: 2;
-  top: 32svh;
+  top: 26svh;
   left: 0;
   right: 0;
-  aspect-ratio: 1.53;
+  aspect-ratio: 1.25;
   margin: 0;
   overflow: hidden;
   clip-path: inset(0% 50% 0% 50%);
@@ -154,10 +176,10 @@
   transform: scale(1.04);
 }
 
-/* O gume da mesa de mármore no rodapé do quadro é a coisa mais clara da
-   chapa, e ele termina numa aresta reta contra o carvão da seção. Meio
-   degrau de luminância no pé resolve — a faixa passa a morrer no escuro em
-   vez de ser cortada por ele.
+/* O pé do quadro é onde estão os CDJs e o chão iluminado, e ele termina
+   numa aresta reta contra o carvão da seção. Meio degrau de luminância no
+   pé resolve — a faixa passa a morrer no escuro em vez de ser cortada por
+   ele.
 
    Estático, e por isso é pseudo-elemento: não é gesto, é acabamento. */
 .cabine__faixa::after {
@@ -171,29 +193,40 @@
 
 /* ── A cabine acendendo ────────────────────────────────── */
 
-/* Um poço de âmbar em cima do aparador, onde a mesa de som está.
+/* Um poço de âmbar na parede do fundo, e ele MUDOU DE PAPEL com a chapa
+   nova.
 
-   Ele é a frase da tela acontecendo antes de a frase ser escrita: a sala
-   está vazia e a única coisa que acontece nela é alguém ter ligado aquilo.
-   A folha anterior tentava dizer isto com uma fita de luz entrando por uma
-   borda; entrando por uma borda, luz é iluminação. Saindo de um ponto que
-   está DENTRO da fotografia, é uma fonte.
+   Enquanto a fotografia era uma sala vazia, este brilho era o único
+   acontecimento possível: a frase da tela dita por luz, porque não havia
+   ninguém para dizê-la. Ele estava a 28%/68% — em cima do aparador, onde a
+   mesa de som acesa estava — e era forte (0,3 no centro), porque tinha de
+   ser visto.
 
-   O centro (28% / 68%) é a posição da mesa de som no recorte publicado —
-   ela vai de 8% a 48% da largura e de 66% a 75% da altura. Medido no
-   arquivo, não estimado.
+   Agora quem diz a frase é a pessoa debruçada sobre os CDJs, e o brilho
+   passa a ser o que ele deve ser: a sala subindo em volta do gesto. Duas
+   mudanças, e as duas descem do mesmo raciocínio.
 
-   Nasce apagado: quem o acende é a timeline. */
+     · o CENTRO vai para 56%/22%, que é onde está a parede âmbar do fundo
+       no recorte publicado (ela ocupa de 42% a 72% da largura e de 0 a 40%
+       da altura). Um poço em cima do aparador, na chapa nova, cairia sobre
+       o mixer — que já é a coisa mais acesa do quadro — e o que sobrasse
+       seria um borrão claro em cima do assunto;
+     · a INTENSIDADE cai de 0,3 para 0,2. Uma tela em que a figura é o
+       assunto não pode ter uma mancha de luz competindo com ela. Ele tem
+       de ser sentido e não visto — se der para apontar onde ele está, está
+       forte demais.
+
+   Nasce apagado: quem o acende é a timeline (cabine.js). */
 .cabine__luz {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(ellipse 48% 42% at 28% 68%,
-    rgba(200, 137, 46, .3) 0%,
-    rgba(200, 137, 46, .13) 42%,
-    rgba(200, 137, 46, .03) 66%,
+  background: radial-gradient(ellipse 46% 40% at 56% 22%,
+    rgba(200, 137, 46, .2) 0%,
+    rgba(200, 137, 46, .09) 42%,
+    rgba(200, 137, 46, .02) 66%,
     transparent 80%);
 }
 
@@ -217,18 +250,22 @@
 /* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
-  /* Deitada, uma faixa de 1,53 sangrando pelos dois lados teria 836px de
-     altura num monitor de 1280 — ela deixaria de ser uma faixa e passaria
-     a ser a tela. A altura vira o valor fixo e a proporção cede: a 40svh
-     de uma janela de 800 a faixa fica em 4,0, e o `cover` mostra 38% da
-     altura do arquivo.
+  /* Deitada, uma faixa sangrando pelos dois lados na proporção do arquivo
+     teria mais de 800px de altura num monitor de 1280 — ela deixaria de
+     ser uma faixa e passaria a ser a tela. A altura vira o valor fixo e a
+     proporção cede: a 40svh de uma janela de 800 a faixa fica em 4,0, e o
+     `cover` mostra ~31% da altura do arquivo.
 
-     38% não cabem o pendente (7—20% do recorte) e a mesa de som (68—75%)
-     ao mesmo tempo — eles estão a meia altura um do outro —, então a
-     âncora escolhe, e escolhe o assunto. A 66% a janela vai de 47% a 85%:
-     o pé do quadro na parede, os dois monitores, a mesa de som acesa e o
-     aparador inteiro. O pendente fica de fora e a faixa vira um letterbox
-     da cabine, que é o que uma tela deitada comporta.
+     Trinta e um por cento obrigam a escolher, e a âncora escolhe o gesto.
+     A 46% a janela vai de 30% a 61% do recorte: a cabeça baixa, o ombro,
+     as duas mãos, o mixer e o CDJ da direita. Ficam de fora o teto (em
+     cima) e o corpo da pessoa da cintura para baixo. Uma tela deitada
+     comporta um letterbox do GESTO, não da cena — e o gesto é o assunto.
+
+     Era `66%`, a altura em que a mesa de som acesa estava na chapa antiga.
+     Mantido, o valor cortava a cabeça fora do quadro e deixava na tela um
+     par de mãos sem dono, que é exatamente o que esta passada tirou da
+     seção.
 
      ── E a frase fugiu do algarismo ─────────────────────────────────────
 
@@ -250,7 +287,7 @@
   }
 
   .cabine__faixa img {
-    object-position: 50% 66%;
+    object-position: 50% 46%;
   }
 
   .cabine__linha {

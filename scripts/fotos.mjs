@@ -683,7 +683,19 @@ for (const { saida, de, ...opcoes } of FOTOS) {
 // os cartazes passam pelo ffmpeg antes: sharp não lê mp4
 for (const cartaz of CARTAZES) {
   const tmp = `node_modules/.cache/cartaz-${cartaz.saida}.png`
-  await run('ffmpeg', ['-v', 'error', '-ss', cartaz.em, '-i', cartaz.de, '-frames:v', '1', '-y', tmp])
+  /* `-nostdin` antes de tudo, e ele não é enfeite.
+  
+     `execFile` entrega ao filho um stdin em CANO, e um cano aberto que nunca
+     fecha não é o mesmo que ausência de entrada: o ffmpeg tem um modo
+     interativo (q para sair, + e - para o nível de log) e fica esperando por
+     ele. Medido nesta passada: as fotos todas terminaram em 10 segundos e o
+     processo ficou 8 MINUTOS parado no cartaz, sem escrever nada e sem erro.
+  
+     O defeito é latente desde que estes pipelines existem — ele só não
+     aparecia porque a máquina onde a mídia foi gerada tinha um stdin que
+     fechava. `-nostdin` diz ao ffmpeg para não ler entrada nenhuma, que é a
+     verdade: aqui ninguém vai digitar nada. */
+  await run('ffmpeg', ['-nostdin', '-v', 'error', '-ss', cartaz.em, '-i', cartaz.de, '-frames:v', '1', '-y', tmp])
   total += await gravar(cartaz.saida, await readFile(tmp), cartaz)
 }
 

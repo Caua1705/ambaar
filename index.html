@@ -1010,27 +1010,37 @@
          entendido em menos de um segundo não é lugar de inventar forma.
 
          O que é da casa aqui é o MATERIAL, não o glifo: carvão, filete de
-         âmbar, tipo em caixa alta com o tracking dos rótulos. A palavra ao
-         lado diz o que acontece — "Ouvir a casa" — e some sozinha; no lugar
-         dela, tocando, ficam os três filetes com o espectro da faixa.
+         âmbar.
+
+         ── A PALAVRA SAIU ─────────────────────────────────────────────────
+
+         Havia um rótulo ao lado do disco — "Ouvir a casa" / "Pausar" — que
+         saía de trás dele ao nascer, sob o ponteiro e depois de cada toque,
+         e uma resina radial que escurecia a fotografia atrás para a palavra
+         poder ser lida. Duas peças (a palavra e a cortina que ela exigia)
+         para dizer o que o triângulo de play já diz sozinho.
+
+         Ficou o glifo. Quem lê com leitor de tela continua ouvindo a frase
+         inteira: ela mora no `aria-label`, que é onde ela sempre foi útil.
+
+         ── O QUE DIZ QUE ESTÁ TOCANDO ─────────────────────────────────────
+
+         Duas coisas, e as duas são movimento em vez de texto: o anel do
+         disco respira devagar enquanto a faixa corre (`som__pulso`), e os
+         três filetes ao lado passam a desenhar o espectro real dela.
 
          Nasce no capítulo 01, quando a cabine acende no jardim, com dois
          anéis que se abrem para chamar o olho uma vez. -->
     <button class="som" id="som-toggle" type="button" aria-pressed="false"
             aria-label="Ouvir a trilha da casa">
-      <span class="som__lado" aria-hidden="true">
-        <span class="som__rotulo">
-          <span class="som__estado som__estado--off">Ouvir a casa</span>
-          <span class="som__estado som__estado--on">Pausar</span>
-        </span>
-        <span class="campo campo--mini" data-campo>
-          <span class="campo__linha" style="--w:.5;--d:9s;--del:-1.1s"><i></i></span>
-          <span class="campo__linha" style="--w:.9;--d:7s;--del:-3.4s"><i></i></span>
-          <span class="campo__linha" style="--w:.65;--d:11s;--del:-5.8s"><i></i></span>
-        </span>
+      <span class="campo campo--mini" data-campo aria-hidden="true">
+        <span class="campo__linha" style="--w:.5;--d:9s;--del:-1.1s"><i></i></span>
+        <span class="campo__linha" style="--w:.9;--d:7s;--del:-3.4s"><i></i></span>
+        <span class="campo__linha" style="--w:.65;--d:11s;--del:-5.8s"><i></i></span>
       </span>
       <span class="som__disco" aria-hidden="true">
         <span class="som__eco"></span>
+        <span class="som__pulso"></span>
         <span class="som__play"></span>
         <span class="som__pause"></span>
       </span>

@@ -55,14 +55,20 @@ html.is-guardado body::after {
 
 /* `congelarAmbiente` (motion.js) desliga os laços de rAF — o pó do fecho,
    a sala do capítulo 02. O que ele NÃO alcança é o movimento que roda em
-   keyframes de CSS, porque esse não passa por JavaScript nenhum: os sete
-   filetes do campo e o pulso do losango do controle de som.
+   keyframes de CSS, porque esse não passa por JavaScript nenhum: os filetes
+   do campo e o pulso do controle de som.
 
    São justamente os dois objetos que atravessam a página inteira. Os
    filetes nasceram em "A escuta", do sublinhado da palavra caindo, e desde
-   então vivem no canto da tela respirando em toda seção. Se eles
+   então vivem no canto da tela respirando em toda seção; o pulso é o anel
+   que respira em volta do disco enquanto a faixa corre (som.css). Se eles
    continuassem se mexendo aqui, a última tela — a tela cujo assunto é o
-   tempo parando — teria uma coisa viva no canto contradizendo-a.
+   tempo parando — teria duas coisas vivas no canto contradizendo-a.
+
+   Nota de manutenção: `.som__pulso` esteve nesta regra por várias passadas
+   sem existir no HTML — era um seletor morto, herdado de uma forma antiga
+   do controle. Ele voltou a ter dono na passada que tirou a palavra do
+   botão, e esta regra voltou a fazer o que diz.
 
    `animation-play-state: paused` congela no ponto exato em que a animação
    está, sem salto e sem reinício, e voltar a `running` retoma dali. É a

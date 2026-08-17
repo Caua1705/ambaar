@@ -271,23 +271,19 @@ if (botao) {
     if (ligado) rampa(nivel, NARRATIVA)
   })
 
-  /* ── A fala ──────────────────────────────────────────
+  /* ── A FALA SAIU ─────────────────────────────────────
 
-     O controle não carrega um rótulo permanente: em repouso ele é só o
-     losango. A palavra sai de trás dele em três momentos, e este é o
-     segundo e o terceiro — ao nascer (3,2s, para dizer o nome) e depois de
-     cada toque (2s, para dizer o estado novo). O primeiro é o ponteiro, e
-     esse é CSS puro.
+     Havia aqui um `dizer(ms)` que acendia a classe `is-dizendo` por um
+     tempo: era ela que fazia o rótulo — "Ouvir a casa" / "Pausar" — sair
+     de trás do disco ao nascer (3,2s), depois de cada toque (2s) e na
+     chamada do capítulo 02, junto com a resina que escurecia a fotografia
+     atrás da palavra.
 
-     Os 2s do toque existem pelo telefone: sem ponteiro, o único jeito de o
-     estado ser DITO é ele se anunciar sozinho no instante em que muda. */
-  let calaBoca = 0
-
-  const dizer = (ms) => {
-    botao.classList.add('is-dizendo')
-    clearTimeout(calaBoca)
-    calaBoca = setTimeout(() => botao.classList.remove('is-dizendo'), ms)
-  }
+     A palavra e a resina saíram (o argumento inteiro está em som.css), e o
+     mecanismo saiu com elas: uma classe que nenhuma folha lê é código que
+     roda para não fazer nada. O que o botão diz agora ele diz por forma —
+     o glifo para a ação, o pulso do anel para o estado — e por
+     `aria-label`, que é onde a frase sempre foi útil. */
 
   /* ── Alternar ────────────────────────────────────────── */
 
@@ -329,10 +325,7 @@ if (botao) {
     rampa(nivel, ENTRADA)
   }
 
-  botao.addEventListener('click', () => {
-    aplicar(!ligado)
-    dizer(2000)
-  })
+  botao.addEventListener('click', () => aplicar(!ligado))
 
   /* ── A entrada ───────────────────────────────────────
 
@@ -372,10 +365,6 @@ if (botao) {
     try {
       if (sessionStorage.getItem(CHAVE) === '1') aplicar(true, false)
     } catch { /* modo privado */ }
-
-    // e diz o nome dele uma vez: a única aparição do rótulo que ninguém
-    // pediu — a partir daqui a palavra só volta a pedido
-    dizer(3200)
   }
 
   /* ── E ele chama uma vez no Salão ────────────────────
@@ -400,9 +389,8 @@ if (botao) {
      quase três telas depois. Duas falas do mesmo controle não se
      atropelam.
 
-     Ele repete os dois anéis e diz o nome outra vez, uma só vez, e só se o
-     som ainda estiver desligado — chamar quem já ligou é pedir uma coisa
-     que a pessoa já fez.
+     Ele repete os dois anéis, uma só vez, e só se o som ainda estiver
+     desligado — chamar quem já ligou é pedir uma coisa que a pessoa já fez.
 
      `once` no gatilho e não um sinalizador: subir de volta não recomeça a
      chamada. Duas insistências não são um convite. */
@@ -425,7 +413,6 @@ if (botao) {
         // 2 voltas de 2,4s: a classe sai quando a animação acaba, para não
         // ficar um estado pendurado no elemento pelo resto da visita
         setTimeout(() => botao.classList.remove('is-chamando'), 4900)
-        dizer(2800)
       }
     })
   }

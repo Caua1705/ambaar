@@ -195,38 +195,58 @@
   letter-spacing: var(--track-display);
   color: #fff;
 
-  /* ── O estado fechado da frase, e ele deixou de ser `opacity: 0` ──────
+  /* ╔══════════════════════════════════════════════════════════════════════╗
+     ║ A FRASE É SERVIDA, PALAVRA A PALAVRA                                 ║
+     ║                                                                      ║
+     ║ Duas versões anteriores e as duas eram básicas demais para a única   ║
+     ║ frase de uma tela:                                                   ║
+     ║                                                                      ║
+     ║   1ª  opacidade 0→1 com 20px de subida. O único elemento da página   ║
+     ║       cujo movimento era só acender.                                 ║
+     ║   2ª  um `clip-path` reto descendo sobre o parágrafo inteiro. Melhor ║
+     ║       de tempo (ver copo.js) e ainda assim um corte de guilhotina:   ║
+     ║       uma aresta horizontal atravessando um bloco é o gesto mais     ║
+     ║       genérico que existe.                                           ║
+     ║                                                                      ║
+     ║ Agora cada PALAVRA sobe por dentro da própria máscara. Não é um      ║
+     ║ bloco sendo descoberto — são oito coisas chegando em fila, que é o   ║
+     ║ ritmo de alguém dizendo a frase em vez de a frase existindo.         ║
+     ║                                                                      ║
+     ║ E o acento tem tempo próprio: "cor do nome da casa" — o `<b>` — sai  ║
+     ║ um quarto de segundo DEPOIS de a primeira metade assentar, com a     ║
+     ║ defasagem um pouco mais larga. Aquilo que a tela veio dizer chega    ║
+     ║ sozinho, na cor da casa, e por isso é lido como o argumento e não    ║
+     ║ como o fim da linha. Os tempos estão em copo.js.                     ║
+     ║                                                                      ║
+     ║ Nada de cor animada: a palavra já nasce âmbar e quem entra é ela.    ║
+     ║ (`transform` e `opacity` apenas — regra do projeto.)                 ║
+     ╚══════════════════════════════════════════════════════════════════════╝ */
 
-     A frase acendia: opacidade 0→1 com 20px de subida, disparada pelo
-     relógio da seção 1,35s depois do gatilho da COMPOSIÇÃO (`top 82%`).
-     Medido, esse gatilho cai a 2.574px de rolagem e a frase só entra na
-     tela a 2.502 — ou seja, ela chegava em cena JÁ VISÍVEL e acendia
-     depois, no meio do quadro, sem nada em volta se mexendo. Daí a queixa:
-     aparece de repente, e o gesto não é gesto nenhum — é o único elemento
-     de toda a página que só troca de opacidade.
+}
 
-     Agora ela abre pela MESMA aresta que abre a fotografia (copo.js): um
-     `clip-path` que desce, no sentido em que o líquido cai. Como a frase
-     tem duas linhas, uma aresta descendo entrega a primeira e depois a
-     segunda — o efeito é linha a linha, de graça, sem partir o texto em
-     spans e sem perder o `balance` que equilibra as duas.
+/* A máscara. `overflow: hidden` é o que esconde a palavra abaixo dela.
 
-     Estado fechado no CSS, como todo estado de entrada do site. */
-  clip-path: inset(0% 0% 100% 0%);
+   O recuo vertical é a mesma correção do `.hero__mark`, pela mesma causa:
+   `--lh-display` é .9, isto é, a caixa é MENOR que a tinta. Sem a folga a
+   máscara decapita o "D" de Drinks e come a cauda da vírgula — e come para
+   sempre, porque o estado final também é a caixa. A margem negativa cancela
+   o recuo no layout: a linha não anda um pixel.
 
-  /* A folga que impede a aresta de decapitar acento e descida.
-
-     Mesma correção do `.hero__mark`, pela mesma causa: `--lh-display` é
-     .9, isto é, a caixa é MENOR que a tinta. `clip-path` corta pela caixa,
-     não pelo glifo — sem esta folga, o "D" de Drinks perde o topo e a
-     vírgula perde a cauda, e perde para sempre, porque o estado final
-     (`inset(0%)`) é a caixa inteira e só ela.
-
-     A margem negativa cancela o recuo no layout: a frase não anda um pixel
-     (com `bottom`, a margem de baixo desce a caixa exatamente o quanto o
-     recuo de baixo sobe o conteúdo). */
+   Seletor com o escopo da seção porque `.word` é da casa: o splitChars o usa
+   nos títulos de capítulo, onde ele é só um invólucro que impede a quebra de
+   linha no meio da palavra (base.css) e não pode ganhar máscara nenhuma. */
+.copo__linha .word {
+  display: inline-block;
+  overflow: hidden;
   padding-block: .34em;
   margin-block: -.34em;
+}
+
+.copo__linha .word__in {
+  display: inline-block;
+  /* estado fechado, como todo estado de entrada do site: fora da máscara,
+     por baixo. Quem traz para 0 é copo.js */
+  transform: translateY(110%);
 }
 
 /* ── Tela larga ────────────────────────────────────────── */
@@ -257,9 +277,12 @@
 /* ── Sem movimento ─────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .copo__quadro,
-  .copo__linha {
+  .copo__quadro {
     clip-path: none;
+  }
+
+  .copo__linha .word__in {
+    transform: none;
   }
 
   .copo__dash {

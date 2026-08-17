@@ -75,7 +75,7 @@
    ║ seguinte precisa ela dá com a própria goteira dela.                  ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
-import { gsap, ScrollTrigger, reducedMotion, EASE, autonomo, laco } from './motion.js'
+import { gsap, ScrollTrigger, reducedMotion, EASE, autonomo, laco, splitWords } from './motion.js'
 
 const secao = document.querySelector('.copo')
 
@@ -84,6 +84,13 @@ if (secao) {
   const quadro = secao.querySelector('.copo__quadro')
   const foto = secao.querySelector('.copo__quadro img')
   const linha = secao.querySelector('.copo__linha')
+
+  /* A frase é partida em palavras, cada uma na própria máscara (motion.js).
+     As do `<b class="ouro">` são separadas das outras porque têm tempo
+     próprio — é o acento da tela e ele chega sozinho. */
+  const palavras = splitWords(linha)
+  const acento = linha ? [...linha.querySelectorAll('.ouro .word__in')] : []
+  const brancas = palavras.filter((p) => !acento.includes(p))
 
   /* ╔══════════════════════════════════════════════════════════════════╗
      ║ POR QUE OS DOIS CLIPS SÃO `fromTo` E NÃO `to`                    ║
@@ -130,10 +137,37 @@ if (secao) {
        movimento também é alcançado pelo ?reduce=1 de desenvolvimento, que
        não aciona media query nenhuma. */
     gsap.set(quadro, { clipPath: CHEIO })
-    gsap.set(linha, { clipPath: 'none', yPercent: 0, y: 0 })
+    gsap.set(palavras, { y: 0, yPercent: 0 })
+    gsap.set(linha, { y: 0 })
     gsap.set(dash, { scaleX: 1 })
   } else {
-    gsap.set(linha, { clipPath: VAZIO, yPercent: 9 })
+    /* ╔══════════════════════════════════════════════════════════════════╗
+       ║ `y: 0` JUNTO COM `yPercent` — e sem ele a frase não sai da        ║
+       ║ máscara                                                           ║
+       ║                                                                  ║
+       ║ O estado fechado das palavras mora no CSS, como todo estado de    ║
+       ║ entrada do site: `.word__in { transform: translateY(110%) }`. O   ║
+       ║ problema é o que o GSAP encontra quando toca no transform pela    ║
+       ║ primeira vez: ele lê o valor COMPUTADO, e o navegador já resolveu ║
+       ║ a porcentagem em pixels — `matrix(1,0,0,1,0,35.25)`. Não há como  ║
+       ║ ele saber que aquilo era 110%.                                    ║
+       ║                                                                  ║
+       ║ Então o 35,25px vira a BASE (`y`), e o `yPercent` da timeline     ║
+       ║ passa a ser um segundo deslocamento por cima dela. Medido:        ║
+       ║                                                                  ║
+       ║   translate(0%, 0.0078%) translate3d(0px, 35.2516px, 0px)         ║
+       ║                                                                  ║
+       ║ A timeline corria inteira, chegava a progress 1 — e as palavras   ║
+       ║ ficavam exatamente onde nasceram, porque o que ela zerava era a   ║
+       ║ camada errada. Na tela: uma nesga de cada palavra, para sempre.   ║
+       ║                                                                  ║
+       ║ `y: 0` explícito descarta o valor herdado do CSS e deixa o        ║
+       ║ `yPercent` ser o único componente vertical. A regra que sai daqui ║
+       ║ vale para o site todo: transform em PORCENTAGEM no CSS que o GSAP ║
+       ║ vá animar em porcentagem precisa ser zerado em pixels na primeira ║
+       ║ escrita.                                                          ║
+       ╚══════════════════════════════════════════════════════════════════╝ */
+    gsap.set(palavras, { y: 0, yPercent: 110 })
     gsap.set(quadro, { clipPath: VAZIO })
 
     autonomo(secao, (t) => {
@@ -173,26 +207,44 @@ if (secao) {
        ║ velocidade de rolagem.                                           ║
        ╚══════════════════════════════════════════════════════════════════╝
 
-       E o gesto é o da seção: a MESMA aresta que abre a fotografia, no
-       sentido em que o líquido cai. Como a frase quebra em duas linhas
-       (`balance`, base.css), a aresta descendo entrega a primeira e depois
-       a segunda — é uma revelação linha a linha sem partir o texto.
+       ── E o GESTO deixou de ser um corte ────────────────────────────────
 
-       A contramão do quadro, também: a fotografia entra empurrada para
-       baixo e sobe; aqui é o texto que sobe contra a aresta que desce. É o
-       único par de movimentos da tela, e ele acontece duas vezes — uma na
-       imagem, uma na frase.
+       Era um `clip-path` reto descendo sobre o parágrafo inteiro. Resolvia
+       o tempo e não resolvia a frase: uma aresta horizontal atravessando um
+       bloco é o gesto mais genérico que existe, e esta é a única frase de
+       uma tela inteira.
 
-       `fromTo` e não `to`: a regra do bloco acima. A frase parte de um clip
-       de quatro valores e chega em `inset(0%)`, que o CSSOM colapsa para um
-       número só — o pareamento tem de vir do objeto, não do CSS. */
+       Agora cada palavra sobe por dentro da própria máscara (copo.css), em
+       duas levas:
+
+         0,00  "Drinks autorais, na"      quatro palavras, 0,06s entre elas
+         1,00  "cor do nome da casa."     cinco, 0,075s entre elas
+
+       O intervalo entre as duas levas é o que faz o trabalho. A primeira
+       metade assenta, sobra um quarto de segundo de silêncio, e só então o
+       trecho âmbar sobe — sozinho, na cor da casa. O que a tela veio dizer
+       chega como argumento em vez de como fim de linha.
+
+       A defasagem da segunda leva é maior (0,075 contra 0,06) de propósito:
+       ela é lida mais devagar que a primeira, e é a única da página que tem
+       cor. Uma frase acentuada que corre no mesmo passo do resto não está
+       acentuada.
+
+       Nada de cor animada — a palavra já nasce âmbar e quem entra é ela.
+       Só `transform`, como manda a regra do projeto. */
     autonomo(linha, (t) => {
-      t.fromTo(linha,
-        { clipPath: VAZIO },
-        { clipPath: CHEIO, duration: 1.3, ease: EASE }, 0)
-        .fromTo(linha,
-          { yPercent: 9 },
-          { yPercent: 0, duration: 1.5, ease: EASE }, 0)
+      t.to(brancas, {
+        yPercent: 0,
+        duration: 0.95,
+        ease: EASE,
+        stagger: 0.06
+      }, 0)
+        .to(acento, {
+          yPercent: 0,
+          duration: 1.05,
+          ease: EASE,
+          stagger: 0.075
+        }, 1.0)
     }, { start: 'top 95%' })
 
     /* ── O líquido não pára de se mexer ────────────────────────────────

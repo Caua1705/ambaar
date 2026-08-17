@@ -587,6 +587,82 @@ const grafemas = (texto) => {
   return [...texto]
 }
 
+/* ── Partir em PALAVRAS, cada uma dentro da própria máscara ──────────────
+
+   O terceiro partidor da casa, e cada um serve a um registro:
+
+     splitChars  a voz da casa em escala grande — o wordmark, os nomes de
+                 ambiente. Letra a letra, com opacidade.
+     splitLine   o rótulo com traço.
+     splitWords  a FRASE em português. Palavra a palavra, e não por
+                 opacidade: cada palavra sobe por dentro de uma máscara, que
+                 é o gesto de uma coisa sendo SERVIDA em vez de acesa.
+
+   Duas razões para ele existir em vez de reaproveitar o splitChars:
+
+   1. escala. Letra a letra numa serifada de 35px em duas linhas são ~40
+      alvos e o efeito lê como máquina de escrever — barato, e o oposto do
+      que uma frase escrita à mão deve parecer. Palavra a palavra são 8.
+   2. marcação. Esta frase tem um `<b class="ouro">` dentro, e é ele que
+      carrega o acento da tela. O partidor ANDA na árvore em vez de ler
+      textContent, então o `<b>` sobrevive inteiro e as palavras dele
+      continuam sendo dele — o que permite dar a elas um tempo próprio.
+
+   A máscara é o `.word` (overflow oculto) e quem anda é o `.word__in`. O
+   recuo vertical que impede a máscara de decapitar acento e descida mora na
+   folha da seção, junto com a entrelinha que cria o problema. */
+export const splitWords = (el) => {
+  if (!el) return []
+  if (el.dataset.split === 'words') return [...el.querySelectorAll('.word__in')]
+
+  const feitas = []
+
+  const partir = (no) => {
+    const saida = document.createDocumentFragment()
+
+    for (const pedaco of no.nodeValue.split(/(\s+)/)) {
+      if (!pedaco) continue
+
+      // o espaço continua sendo nó de texto solto: é ele que permanece o
+      // único ponto de quebra de linha, então `text-wrap: balance` continua
+      // valendo e a frase segue se equilibrando sozinha em duas linhas
+      if (/^\s+$/.test(pedaco)) {
+        saida.append(document.createTextNode(' '))
+        continue
+      }
+
+      const mascara = document.createElement('span')
+      mascara.className = 'word'
+
+      const dentro = document.createElement('span')
+      dentro.className = 'word__in'
+      dentro.textContent = pedaco
+
+      mascara.append(dentro)
+      saida.append(mascara)
+      feitas.push(dentro)
+    }
+
+    no.replaceWith(saida)
+  }
+
+  const andar = (pai) => {
+    for (const no of [...pai.childNodes]) {
+      if (no.nodeType === Node.TEXT_NODE) partir(no)
+      else if (no.nodeType === Node.ELEMENT_NODE) andar(no)
+    }
+  }
+
+  andar(el)
+  el.dataset.split = 'words'
+
+  /* Sem `aria-label`, ao contrário do splitChars: lá ele é obrigatório
+     porque o leitor de tela soletraria a palavra letra a letra. Aqui as
+     palavras continuam separadas por espaços de verdade, então a frase é
+     lida como frase — pôr um rótulo por cima só duplicaria o texto. */
+  return feitas
+}
+
 export const splitChars = (el) => {
   if (!el) return []
   if (el.dataset.split === 'chars') return [...el.querySelectorAll('.char')]

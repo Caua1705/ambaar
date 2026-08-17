@@ -33,7 +33,7 @@
 .passagem {
   position: relative;
   background: var(--carvao);
-  height: 155svh;
+  height: 155lvh;
 }
 
 .passagem__stage {
@@ -148,7 +148,7 @@
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  bottom: 13svh;
+  bottom: 13lvh;
   opacity: 0;
   font-family: var(--font-display);
   /* fora do token: esta é a frase mais longa do degrau quieto (42
@@ -165,7 +165,7 @@
   .passagem__linha {
     right: auto;
     max-width: 18ch;
-    bottom: 16svh;
+    bottom: 16lvh;
   }
 }
 

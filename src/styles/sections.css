@@ -4,7 +4,7 @@
    ║ O PALCO É STICKY, NÃO É MAIS UM PIN                                  ║
    ║                                                                      ║
    ║ Os três capítulos eram pinados pelo ScrollTrigger. Agora a seção     ║
-   ║ mede 100svh + `--run`% e o palco fica colado no topo enquanto os     ║
+   ║ mede 100lvh + `--run`% e o palco fica colado no topo enquanto os     ║
    ║ run% passam. Na tela é indistinguível; por baixo, some tudo o que    ║
    ║ um pin arrasta consigo:                                              ║
    ║                                                                      ║
@@ -32,10 +32,10 @@
   position: relative;
   background: var(--carvao);
   /* Medida, inteira. Este elemento está NO FLUXO: ele é quem diz quanto o
-     capítulo ocupa no documento, e a conta é toda em `svh` — nem a tela nem
+     capítulo ocupa no documento, e a conta é toda em `lvh` — nem a tela nem
      o curso podem mudar de tamanho enquanto o dedo anda. Ver o bloco das
      duas alturas em tokens.css. */
-  height: calc(var(--tela) + var(--run) * 1svh);
+  height: calc(var(--tela) + var(--run) * 1lvh);
 }
 
 .chapter__stage {
@@ -269,7 +269,7 @@
   align-items: flex-start;
   width: 100%;
   /* o recuo vive no invólucro, não no rótulo */
-  padding-top: 14svh;
+  padding-top: 14lvh;
 }
 
 /* O losango saiu daqui.
@@ -314,7 +314,7 @@
 
 .chapter--left .chapter__body {
   align-items: flex-start;
-  padding-top: 26svh;
+  padding-top: 26lvh;
 }
 
 .chapter--center .chapter__content {
@@ -324,7 +324,7 @@
 
 .chapter--center .chapter__body {
   align-items: center;
-  padding-top: 30svh;
+  padding-top: 30lvh;
 }
 
 .chapter--center .chapter__text {
@@ -336,8 +336,8 @@
   text-align: right;
 }
 
-/* 19svh e não 24. O Reservado é o único capítulo em que o relógio fica na
-   goteira DIREITA, e ele sobe a 7svh do pé em vez de 4 (relogio.css) para
+/* 19lvh e não 24. O Reservado é o único capítulo em que o relógio fica na
+   goteira DIREITA, e ele sobe a 7lvh do pé em vez de 4 (relogio.css) para
    não encostar no controle de som. Somando os 110px do algarismo, ele
    ocupa a faixa entre 20% e 13% do pé — exatamente onde a terceira linha
    do parágrafo caía.
@@ -348,7 +348,7 @@
    passar POR TRÁS da composição em vez de dentro dela. */
 .chapter--right .chapter__body {
   align-items: flex-end;
-  padding-top: 19svh;
+  padding-top: 19lvh;
 }
 
 .chapter--center { --scrim-x: 50%; }

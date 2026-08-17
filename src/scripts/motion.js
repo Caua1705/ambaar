@@ -72,10 +72,11 @@ gsap.registerPlugin(ScrollTrigger, CustomEase)
    ║ assinatura da barra indo e vindo. Girar o aparelho (onde a largura   ║
    ║ muda) continua remedindo normalmente.                                ║
    ║                                                                      ║
-   ║ Ele passou a ser obrigatório quando as superfícies de tela cheia     ║
-   ║ trocaram `100svh` por `--tela` (`100dvh`) — ver a nota do token em   ║
-   ║ tokens.css. Sem esta linha, o conserto do rodapé compraria um        ║
-   ║ defeito pior do que o que ele resolve.                               ║
+   ║ Nenhuma altura de LAYOUT depende da barra — `--tela` é `100lvh` e   ║
+   ║ `1lvh` é uma constante (ver a nota das duas alturas em tokens.css).  ║
+   ║ Esta linha protege o que sobra: o `resize` continua chegando a cada  ║
+   ║ toque na barra, e remedir a página inteira no meio de uma rolagem    ║
+   ║ é um engasgo mesmo quando nada mudou de tamanho.                     ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 ScrollTrigger.config({ ignoreMobileResize: true })
 

@@ -209,7 +209,7 @@
      A diferença para o degrau antigo é que este não tem platô. Ele nasce em
      .92 e cai monotonicamente para os mesmos valores de sempre em 12% da
      altura — sem nenhum trecho constante, portanto sem nenhuma aresta em
-     que o olho possa se apoiar. Aos 14svh, onde o rótulo do capítulo mora,
+     que o olho possa se apoiar. Aos 14lvh, onde o rótulo do capítulo mora,
      ele já está em .17, que é praticamente o valor que estava lá antes.
 
      Cinco por cento da altura da tela um pouco mais escuros, e as três
@@ -343,26 +343,60 @@
      ║                                                                    ║
      ║ ── A separação ──────────────────────────────────────────────────── ║
      ║                                                                    ║
-     ║   --tela        `100svh`. A viewport PEQUENA, que não muda nunca.   ║
-     ║                 É MEDIDA: toda altura que entra no fluxo e portanto ║
-     ║                 decide o tamanho do documento usa esta. Um curso de ║
-     ║                 rolagem que encolhe no meio dele não é um curso.    ║
+     ║   --tela        É MEDIDA: toda altura que entra no fluxo e portanto ║
+     ║                 decide o tamanho do documento usa esta. Ela precisa ║
+     ║                 ser ESTÁTICA — um curso de rolagem que encolhe no   ║
+     ║                 meio dele não é um curso.                           ║
      ║                                                                    ║
      ║   --superficie  `100dvh` onde existir. É PINTURA, e só pode ser     ║
      ║                 usada por elemento FORA DO FLUXO (sticky, fixed,    ║
      ║                 absolute): ele cresce com a barra e cobre a tela    ║
      ║                 inteira sem que o documento saiba de nada.          ║
      ║                                                                    ║
-     ║ É o que mantém o conserto de pintura da passada anterior — os       ║
-     ║ capítulos e a passagem, que são as superfícies de tela cheia mais   ║
-     ║ visíveis do site, são justamente sticky e continuam preenchendo —   ║
-     ║ sem nenhum pixel de layout oscilando.                               ║
-     ║                                                                    ║
      ║ Regra, e ela não tem exceção: se o elemento ocupa espaço no fluxo,  ║
      ║ ele NÃO pode usar `--superficie`.                                    ║
+     ║                                                                    ║
+     ║ ╭──────────────────────────────────────────────────────────────╮   ║
+     ║ │ E A MEDIDA É `lvh`, NÃO `svh` — a queixa da cortina partida   │   ║
+     ║ ╰──────────────────────────────────────────────────────────────╯   ║
+     ║                                                                    ║
+     ║ `--tela` era `100svh`, a viewport PEQUENA (a tela COM a barra do    ║
+     ║ navegador). Estática, como tem de ser — mas pequena demais.         ║
+     ║                                                                    ║
+     ║ No telefone, descer recolhe a barra: a tela VISÍVEL passa a ter     ║
+     ║ ~90px a mais e cada seção continua com os 100svh que o documento    ║
+     ║ reservou para ela. A seção deixa de caber na tela por baixo, e o    ║
+     ║ que aparece na faixa que sobra é o topo da seção seguinte. Numa     ║
+     ║ página que é uma tela por ideia, isso lê como defeito: a imagem     ║
+     ║ não fecha embaixo, e no instante em que o dedo solta e a barra      ║
+     ║ volta ela fecha sozinha. Foi essa a queixa desta passada.           ║
+     ║                                                                    ║
+     ║ `lvh` é a viewport GRANDE — a tela SEM a barra. É tão estática      ║
+     ║ quanto `svh` (não é `dvh`: nada oscila debaixo do dedo, e o         ║
+     ║ argumento inteiro acima continua valendo), e é a medida do estado   ║
+     ║ em que o telefone REALMENTE está enquanto se rola.                  ║
+     ║                                                                    ║
+     ║ O preço, e ele é o lado certo da troca: com a barra à MOSTRA a      ║
+     ║ seção fica ~90px mais alta que a tela, isto é, um pouco cortada     ║
+     ║ embaixo. Cortar o pé de uma composição é uma tela cheia; mostrar    ║
+     ║ uma nesga da próxima é uma emenda quebrada. E o corte só acontece   ║
+     ║ enquanto a barra está visível, que é quando a pessoa NÃO está       ║
+     ║ descendo. Por isso toda medida vertical de composição virou `lvh`   ║
+     ║ junto: as âncoras internas têm de crescer com a caixa que as        ║
+     ║ hospeda, ou o texto sobe 11% dentro dela.                           ║
+     ║                                                                    ║
+     ║ A hero é a única exceção, e a razão está em hero.css: ela é a       ║
+     ║ ÚNICA tela que o telefone mostra com a barra à mostra por           ║
+     ║ definição — ninguém rolou ainda.                                    ║
      ╚════════════════════════════════════════════════════════════════════╝ */
-  --tela: 100svh;
-  --superficie: 100svh;
+  --tela: 100vh;
+  --superficie: 100vh;
+}
+
+@supports (height: 100lvh) {
+  :root {
+    --tela: 100lvh;
+  }
 }
 
 @supports (height: 100dvh) {

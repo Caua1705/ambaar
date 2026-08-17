@@ -98,7 +98,7 @@
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  top: 56svh;
+  top: 56lvh;
   text-align: center;
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 8.2vw, 4.2rem);
@@ -135,7 +135,7 @@
   }
 
   .brinde__linha {
-    top: 58svh;
+    top: 58lvh;
   }
 }
 

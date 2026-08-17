@@ -6,7 +6,7 @@
 
    ── O que saiu, e por quê ───────────────────────────────────────────────
 
-   Três cartazes de 33svh, cada um com a fotografia do ambiente
+   Três cartazes de 33lvh, cada um com a fotografia do ambiente
    correspondente e o texto por cima. Saíram inteiros. As razões estão no
    HTML; a consequência é esta folha, que ficou curta.
 
@@ -37,14 +37,14 @@
    salas com três horários —, e é isso que o tracejado diz antes de qualquer
    palavra ser lida. */
 
-/* 6svh e não 8: a 360px de largura as três linhas quebram (a chamada
+/* 6lvh e não 8: a 360px de largura as três linhas quebram (a chamada
    "Reservar" desce para a linha do horário) e a seção cresce de 1,04 para
    1,15 tela. Com treze seções, essa diferença é o que põe o documento em
    16,01 telas — um centésimo acima do teto. Dois por cento de folga
    vertical de cada lado devolvem a conta sem tocar em nenhuma composição. */
 .reservas {
   background: var(--fume);
-  padding: 6svh var(--gutter-r) 6svh var(--gutter-l);
+  padding: 6lvh var(--gutter-r) 6lvh var(--gutter-l);
   /* o link do cabeçalho fixo aponta para cá: compensa a altura da barra */
   scroll-margin-top: 5rem;
 }
@@ -110,7 +110,7 @@
 /* ╔══════════════════════════════════════════════════════════════════════╗
    ║ POR QUE ELA É PEQUENA, E NÃO UM CARTAZ                                ║
    ║                                                                      ║
-   ║ Esta seção já teve três cartazes de 33svh, um por ambiente, e eles    ║
+   ║ Esta seção já teve três cartazes de 33lvh, um por ambiente, e eles    ║
    ║ saíram por duas razões. A primeira continua de pé: uma galeria no     ║
    ║ fim de um site que acabou de mostrar os três lugares em tela cheia é  ║
    ║ uma repetição, e um site que seduz não pede comparação no fim.        ║
@@ -331,7 +331,7 @@
 
 @media (min-width: 900px) {
   .reservas {
-    padding-block: 14svh;
+    padding-block: 14lvh;
   }
 
   .reservas__cabeca {

@@ -33,8 +33,8 @@
    1. O ALGARISMO ENTRA NA SALA. O relógio da casa é fixo e vive na camada
       3; os quadros da pausa moram na 4. A hora passa POR TRÁS da
       fotografia em vez de flutuar por cima dela — a única profundidade
-      real do site, e a razão de a quina de baixo do retrato parar em 89svh
-      (o algarismo mora a 5svh do pé com 75px de altura, então a borda
+      real do site, e a razão de a quina de baixo do retrato parar em 89lvh
+      (o algarismo mora a 5lvh do pé com 75px de altura, então a borda
       cruza o terço alto dele). Um pouco mais e a hora some; um pouco menos
       e os dois só ficam perto.
 
@@ -90,17 +90,17 @@
    composição fecha junto: nada flutua. */
 
 .pausa__quadro--detalhe {
-  top: 4svh;
+  top: 4lvh;
   right: -10vw;
   width: 40vw;
-  height: 20svh;
+  height: 20lvh;
 }
 
 .pausa__quadro--retrato {
-  top: 20svh;
+  top: 20lvh;
   left: -14vw;
   right: 38vw;
-  bottom: 11svh;
+  bottom: 11lvh;
 }
 
 /* ── Enquadramento de cada foto ────────────────────────── */
@@ -119,7 +119,7 @@
   position: absolute;
   z-index: 5;
   opacity: 0;
-  top: 34svh;
+  top: 34lvh;
   right: var(--gutter-r);
   left: auto;
   text-align: right;
@@ -151,21 +151,21 @@
 
 @media (min-width: 900px) {
   .pausa__quadro--retrato {
-    top: 8svh;
+    top: 8lvh;
     left: -5vw;
     right: 50vw;
-    bottom: 9svh;
+    bottom: 9lvh;
   }
 
   .pausa__quadro--detalhe {
-    top: 8svh;
+    top: 8lvh;
     right: -3vw;
     width: 22vw;
-    height: 30svh;
+    height: 30lvh;
   }
 
   .pausa__linha {
-    top: 48svh;
+    top: 48lvh;
     width: min(34vw, 22rem);
   }
 }

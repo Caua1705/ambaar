@@ -91,7 +91,7 @@
 .pista__rotulo {
   position: absolute;
   z-index: 4;
-  top: 13svh;
+  top: 13lvh;
   left: var(--gutter-l);
   display: inline-flex;
   align-items: center;
@@ -133,10 +133,10 @@
    cheia". */
 .pista__quadro--alto {
   z-index: 1;
-  top: 20svh;
+  top: 20lvh;
   left: -12vw;
   width: 74vw;
-  height: 38svh;
+  height: 38lvh;
 }
 
 .pista__quadro--alto img {
@@ -144,14 +144,14 @@
 }
 
 /* O de perto sangra pela direita, começa DENTRO da faixa do outro (a quina
-   se sobrepõe em 6svh) e desce. Ele é menor e está por cima: é o detalhe
+   se sobrepõe em 6lvh) e desce. Ele é menor e está por cima: é o detalhe
    dentro do plano. */
 .pista__quadro--perto {
   z-index: 2;
-  top: 46svh;
+  top: 46lvh;
   right: -10vw;
   width: 58vw;
-  height: 30svh;
+  height: 30lvh;
 }
 
 /* O braço e o leque estão no terço alto do arquivo; a bola de espelhos, na
@@ -163,7 +163,7 @@
 
 /* ── A frase ───────────────────────────────────────────── */
 
-/* 18svh do pé e 34% da direita: a moldura de baixo desce até 76svh e o
+/* 18lvh do pé e 34% da direita: a moldura de baixo desce até 76lvh e o
    algarismo do relógio mora na goteira direita. A frase é a única coisa
    desta tela que não pode ser atravessada por nenhum dos dois — as duas
    fotografias já se sobrepõem entre si, e uma terceira sobreposição
@@ -173,7 +173,7 @@
   z-index: 4;
   left: var(--gutter-l);
   right: 34%;
-  bottom: 18svh;
+  bottom: 18lvh;
   opacity: 0;
   font-family: var(--font-display);
   font-size: clamp(1.55rem, 7vw, 3.2rem);
@@ -194,21 +194,21 @@
 
    A sobreposição é o assunto da seção (muita gente no mesmo lugar), então
    ela não pode ser uma consequência da largura da tela. As medidas abaixo
-   fazem os dois se cruzarem numa quina de 4vw por 36svh em qualquer
+   fazem os dois se cruzarem numa quina de 4vw por 36lvh em qualquer
    proporção. */
 @media (min-width: 900px) {
   .pista__quadro--alto {
-    top: 12svh;
+    top: 12lvh;
     left: -4vw;
     width: 58vw;
-    height: 58svh;
+    height: 58lvh;
   }
 
   .pista__quadro--perto {
-    top: 34svh;
+    top: 34lvh;
     right: -4vw;
     width: 50vw;
-    height: 52svh;
+    height: 52lvh;
   }
 
   /* Deitada, a moldura mostra uma faixa de 38% da altura do arquivo em vez
@@ -223,7 +223,7 @@
   .pista__linha {
     right: auto;
     max-width: 16ch;
-    bottom: 12svh;
+    bottom: 12lvh;
   }
 }
 

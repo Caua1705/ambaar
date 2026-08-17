@@ -19,9 +19,26 @@
    lockup, onde já era o lugar deles, e a caixa saiu. Sobraram quatro coisas
    na tela: a foto, o lugar, o lockup e o convite a rolar. */
 
+/* ── A ÚNICA TELA QUE NÃO USA `--tela` ──────────────────────────────────
+
+   `--tela` é `100lvh` (tokens.css): a tela SEM a barra do navegador, que é
+   o estado em que o telefone realmente está enquanto alguém rola. Toda
+   seção do site usa essa medida, e o preço combinado lá é que, com a barra
+   à MOSTRA, a composição fica ~90px cortada no pé.
+
+   Aqui esse preço não pode ser pago. A hero é a única tela que o telefone
+   mostra com a barra à mostra POR DEFINIÇÃO — ninguém rolou ainda, e a
+   barra só se recolhe depois do primeiro gesto. E o que mora nos últimos
+   90px desta tela é justamente o convite a fazer esse gesto (`.hero__scroll`,
+   a 2,25rem do pé). Cortá-lo é cortar a única instrução da página.
+
+   `100svh`, então: a viewport PEQUENA, a tela COM a barra. A hero cabe
+   inteira no primeiro quadro, e quando a barra se recolhe ela não está
+   mais em cena — a primeira rolagem já a está levando embora. Pelo mesmo
+   argumento, as medidas internas desta folha continuam em `svh`. */
 .hero {
   position: relative;
-  height: var(--tela);
+  height: 100svh;
   width: 100%;
   overflow: hidden;
 }

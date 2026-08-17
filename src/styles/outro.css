@@ -13,9 +13,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 26svh no pé, e não 22: o controle de som virou um lockup com palavra e
+  /* 26lvh no pé, e não 22: o controle de som virou um lockup com palavra e
      o rodapé subiu para não dividir a mesma faixa com ele */
-  padding: 8svh var(--gutter-r) 26svh var(--gutter-l);
+  padding: 8lvh var(--gutter-r) 26lvh var(--gutter-l);
   overflow: hidden;
 }
 
@@ -214,11 +214,11 @@
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  /* 9svh: o controle de som mora a 1rem do pé, no canto direito, e tem
+  /* 9lvh: o controle de som mora a 1rem do pé, no canto direito, e tem
      50px de altura. A coluna direita deste bloco (o endereço e o @) cai
-     exatamente em cima dele — 9svh é a folga que separa os dois sem
+     exatamente em cima dele — 9lvh é a folga que separa os dois sem
      empurrar o rodapé para dentro da composição. */
-  bottom: 9svh;
+  bottom: 9lvh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
@@ -250,7 +250,7 @@
   .outro__foot {
     grid-template-columns: 1fr;
     gap: .4rem;
-    bottom: 15svh;
+    bottom: 15lvh;
   }
 
   .outro__dado:last-child {

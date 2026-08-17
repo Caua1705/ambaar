@@ -86,7 +86,12 @@ if (hero && mark && !reducedMotion) {
         trigger: hero,
         start: 'top top',
         end: 'bottom top',
-        scrub: 1,
+        /* `true`, sem folga: o número em `scrub` é um ATRASO, não uma
+           suavização — com ele a saída da marca continuava correndo por um
+           segundo depois de o dedo parar. O argumento medido está no bloco
+           do `scrub` em chapters.js, e a regra vale para os quatro scrubs
+           da página. */
+        scrub: true,
         // o esticão do filete é medido em largura de tela
         invalidateOnRefresh: true
       }

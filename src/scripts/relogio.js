@@ -195,7 +195,13 @@ if (relogio && valor) {
           trigger: secao,
           start: 'top top',
           end: `+=${curso}%`,
-          scrub: 1,
+          /* `true`. Com `scrub: 1` a hora continuava CONTANDO depois de o
+             dedo parar — medido no jardim, o algarismo ia de 18h a 19h com
+             a tela imóvel. O relógio é a peça do site cujo contrato é
+             literalmente "a posição da rolagem é a hora": uma hora que
+             avança sozinha é a contradição mais visível que a página podia
+             cometer. Ver o bloco do `scrub` em chapters.js. */
+          scrub: true,
           invalidateOnRefresh: true
         }
       }).to(conta, {

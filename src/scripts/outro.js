@@ -136,7 +136,11 @@ if (outro) {
         trigger: outro,
         start: 'top bottom',
         end: 'bottom bottom',
-        scrub: 1
+        /* `true`. Esta é a outra demão de tela cheia do site — a resina —,
+           e com `scrub: 1` ela terminava de fechar sozinha um segundo
+           depois de a rolagem parar, que é a mesma queixa do véu do jardim.
+           O argumento medido está em chapters.js. */
+        scrub: true
       }
     })
       .fromTo(bg,

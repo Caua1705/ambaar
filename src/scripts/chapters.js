@@ -272,12 +272,43 @@ for (const chapter of document.querySelectorAll('.chapter')) {
      posição dentro do curso. O `end` é o mesmo `+=curso%` de sempre, então
      todas as contas de gatilho abaixo continuam valendo ao pixel — o que
      mudou é quem segura a tela. */
+  /* ╔══════════════════════════════════════════════════════════════════════╗
+     ║ `scrub: true` E NÃO `scrub: 1` — A CORTINA QUE DESCIA SOZINHA        ║
+     ║                                                                      ║
+     ║ O número em `scrub` não é uma suavização de curva: é um ATRASO. Com  ║
+     ║ `scrub: 1` o GSAP persegue a posição de rolagem com um segundo de    ║
+     ║ folga — quando o dedo para, a timeline NÃO para. Ela continua        ║
+     ║ correndo até alcançar onde a rolagem já está.                        ║
+     ║                                                                      ║
+     ║ Quem paga isso é o véu (`.chapter__dusk`), que é o objeto mais       ║
+     ║ visível desta timeline: uma demão cinza-marrom sobre a tela inteira, ║
+     ║ indo de 0 a 1 entre 20% e 55% do curso. Medido no jardim, uma        ║
+     ║ passada de polegar de 380px e o dedo fora da tela:                   ║
+     ║                                                                      ║
+     ║   0,486 → 0,206 → 0,089 → 0,037 → 0,012 → 0,003 → 0                  ║
+     ║                                                                      ║
+     ║ Um segundo inteiro de demão se desfazendo sozinha DEPOIS de a pessoa ║
+     ║ ter soltado a tela. Foi essa a queixa, nas duas vezes em que ela     ║
+     ║ chegou: "a cortina não está completa, e quando eu solto ela desce    ║
+     ║ toda". Não era o desenho do véu, era o atraso do scrub.              ║
+     ║                                                                      ║
+     ║ E é o pior tipo de defeito num site cujo contrato de movimento é a   ║
+     ║ classe 1 (motion.js): "a posição da rolagem É um estado da cena".    ║
+     ║ Um estado que continua mudando com o dedo parado não é um estado —   ║
+     ║ é uma animação disfarçada de scrub.                                  ║
+     ║                                                                      ║
+     ║ `true` amarra a timeline à rolagem sem folga nenhuma: o dedo para, o ║
+     ║ véu para. A suavidade não se perde — quem a fornece é o Lenis no     ║
+     ║ ponteiro e a rolagem nativa no telefone, que já entregam a posição   ║
+     ║ interpolada. O `1` estava suavizando o que já estava suave e         ║
+     ║ cobrando um segundo de movimento não pedido por isso.                ║
+     ╚══════════════════════════════════════════════════════════════════════╝ */
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: chapter,
       start: 'top top',
       end: `+=${curso}%`,
-      scrub: 1,
+      scrub: true,
       invalidateOnRefresh: true
     }
   })

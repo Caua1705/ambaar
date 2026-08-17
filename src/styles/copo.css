@@ -16,7 +16,7 @@
    ║ 72% da largura e entre 45% e 58% da altura — o que na tela cai       ║
    ║ perto de x 200—330, y 420—530.                                       ║
    ║                                                                      ║
-   ║ O inset media `top: 34svh; right: -8vw; width: 56vw; height: 30svh`, ║
+   ║ O inset media `top: 34lvh; right: -8vw; width: 56vw; height: 30lvh`, ║
    ║ isto é, x 232—447, y 305—574.                                        ║
    ║                                                                      ║
    ║ As duas caixas se sobrepõem quase inteiras. O inset caía EM CIMA da  ║
@@ -132,7 +132,7 @@
 .copo__rotulo {
   position: absolute;
   z-index: 3;
-  top: 14svh;
+  top: 14lvh;
   left: var(--gutter-l);
   display: inline-flex;
   align-items: center;
@@ -182,19 +182,51 @@
   z-index: 3;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  /* 13svh → 16svh. A 13 a segunda linha terminava a 780px e o algarismo
-     das 19h começa a 780 (relogio.css, `esq-baixo`: 75px de altura a 5svh
+  /* 13lvh → 16lvh. A 13 a segunda linha terminava a 780px e o algarismo
+     das 19h começa a 780 (relogio.css, `esq-baixo`: 75px de altura a 5lvh
      do pé): os dois se encostavam sem se sobrepor, que é o pior dos dois
      mundos — não lê como camada, lê como colisão. A 16 sobram 36px entre a
      frase e o "19h", e o algarismo volta a ser o rodapé da tela. */
-  bottom: 16svh;
-  opacity: 0;
+  bottom: 16lvh;
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: #fff;
+
+  /* ── O estado fechado da frase, e ele deixou de ser `opacity: 0` ──────
+
+     A frase acendia: opacidade 0→1 com 20px de subida, disparada pelo
+     relógio da seção 1,35s depois do gatilho da COMPOSIÇÃO (`top 82%`).
+     Medido, esse gatilho cai a 2.574px de rolagem e a frase só entra na
+     tela a 2.502 — ou seja, ela chegava em cena JÁ VISÍVEL e acendia
+     depois, no meio do quadro, sem nada em volta se mexendo. Daí a queixa:
+     aparece de repente, e o gesto não é gesto nenhum — é o único elemento
+     de toda a página que só troca de opacidade.
+
+     Agora ela abre pela MESMA aresta que abre a fotografia (copo.js): um
+     `clip-path` que desce, no sentido em que o líquido cai. Como a frase
+     tem duas linhas, uma aresta descendo entrega a primeira e depois a
+     segunda — o efeito é linha a linha, de graça, sem partir o texto em
+     spans e sem perder o `balance` que equilibra as duas.
+
+     Estado fechado no CSS, como todo estado de entrada do site. */
+  clip-path: inset(0% 0% 100% 0%);
+
+  /* A folga que impede a aresta de decapitar acento e descida.
+
+     Mesma correção do `.hero__mark`, pela mesma causa: `--lh-display` é
+     .9, isto é, a caixa é MENOR que a tinta. `clip-path` corta pela caixa,
+     não pelo glifo — sem esta folga, o "D" de Drinks perde o topo e a
+     vírgula perde a cauda, e perde para sempre, porque o estado final
+     (`inset(0%)`) é a caixa inteira e só ela.
+
+     A margem negativa cancela o recuo no layout: a frase não anda um pixel
+     (com `bottom`, a margem de baixo desce a caixa exatamente o quanto o
+     recuo de baixo sobe o conteúdo). */
+  padding-block: .34em;
+  margin-block: -.34em;
 }
 
 /* ── Tela larga ────────────────────────────────────────── */
@@ -218,19 +250,16 @@
   .copo__linha {
     right: auto;
     max-width: 20ch;
-    bottom: 16svh;
+    bottom: 16lvh;
   }
 }
 
 /* ── Sem movimento ─────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .copo__quadro {
-    clip-path: none;
-  }
-
+  .copo__quadro,
   .copo__linha {
-    opacity: 1;
+    clip-path: none;
   }
 
   .copo__dash {

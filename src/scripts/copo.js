@@ -24,7 +24,11 @@
            crescendo em vez de uma coisa chegando — é o mesmo princípio que
            o inset usava, e é a única coisa dele que sobreviveu
      0,25  o traço do rótulo cresce
-     1,35  a frase
+
+   A frase não está nesta lista, e essa é a correção desta passada: ela tem
+   gatilho próprio, ancorado nela mesma, porque mora no pé da tela e chegava
+   em cena depois de a timeline da seção já ter passado por ela. O bloco
+   com a medida está mais abaixo.
 
    ── Por que não há escala na entrada ────────────────────────────────────
 
@@ -126,10 +130,10 @@ if (secao) {
        movimento também é alcançado pelo ?reduce=1 de desenvolvimento, que
        não aciona media query nenhuma. */
     gsap.set(quadro, { clipPath: CHEIO })
-    gsap.set(linha, { opacity: 1, y: 0 })
+    gsap.set(linha, { clipPath: 'none', yPercent: 0, y: 0 })
     gsap.set(dash, { scaleX: 1 })
   } else {
-    gsap.set(linha, { opacity: 0, y: 20 })
+    gsap.set(linha, { clipPath: VAZIO, yPercent: 9 })
     gsap.set(quadro, { clipPath: VAZIO })
 
     autonomo(secao, (t) => {
@@ -141,13 +145,55 @@ if (secao) {
           { yPercent: 4 },
           { yPercent: 0, duration: 2.2, ease: EASE }, 0)
         .to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0.25)
-        .to(linha, { opacity: 1, y: 0, duration: 1, ease: EASE }, 1.35)
     }, {
       /* Cedo, como todas as entradas desta passada: a composição termina de
          se montar enquanto a seção ainda sobe, e o que toma a tela é uma
          coisa pronta em vez de uma coisa se montando. */
       start: 'top 82%'
     })
+
+    /* ╔══════════════════════════════════════════════════════════════════╗
+       ║ A FRASE SAIU DO RELÓGIO DA SEÇÃO E GANHOU O DELA                 ║
+       ║                                                                  ║
+       ║ Ela era a última linha da timeline acima, em t=1,35s. O problema  ║
+       ║ não era a duração nem a curva: era o ENDEREÇO do gatilho.         ║
+       ║                                                                  ║
+       ║ Medido a 414×896: a composição dispara em `top 82%`, isto é, a    ║
+       ║ 1.998px de rolagem. A frase mora a `bottom: 16lvh` — ela cruza a  ║
+       ║ borda de baixo da tela só a 2.502px. São 504px de rolagem entre   ║
+       ║ o gatilho e o instante em que a frase EXISTE para quem olha; num  ║
+       ║ arremesso de polegar isso é um terço de segundo. Resultado: aos   ║
+       ║ 1,35s a frase já está no meio da tela, parada, e acende ali —     ║
+       ║ depois de a fotografia ter terminado de abrir e sem nada em volta ║
+       ║ acompanhando. É literalmente "aparece de repente".                ║
+       ║                                                                  ║
+       ║ Amarrada a si mesma em `top 95%`, ela começa a se abrir no pixel  ║
+       ║ em que entra na tela e termina de se abrir com a seção já cheia.  ║
+       ║ O gesto passa a ser visto inteiro, por construção, em qualquer    ║
+       ║ velocidade de rolagem.                                           ║
+       ╚══════════════════════════════════════════════════════════════════╝
+
+       E o gesto é o da seção: a MESMA aresta que abre a fotografia, no
+       sentido em que o líquido cai. Como a frase quebra em duas linhas
+       (`balance`, base.css), a aresta descendo entrega a primeira e depois
+       a segunda — é uma revelação linha a linha sem partir o texto.
+
+       A contramão do quadro, também: a fotografia entra empurrada para
+       baixo e sobe; aqui é o texto que sobe contra a aresta que desce. É o
+       único par de movimentos da tela, e ele acontece duas vezes — uma na
+       imagem, uma na frase.
+
+       `fromTo` e não `to`: a regra do bloco acima. A frase parte de um clip
+       de quatro valores e chega em `inset(0%)`, que o CSSOM colapsa para um
+       número só — o pareamento tem de vir do objeto, não do CSS. */
+    autonomo(linha, (t) => {
+      t.fromTo(linha,
+        { clipPath: VAZIO },
+        { clipPath: CHEIO, duration: 1.3, ease: EASE }, 0)
+        .fromTo(linha,
+          { yPercent: 9 },
+          { yPercent: 0, duration: 1.5, ease: EASE }, 0)
+    }, { start: 'top 95%' })
 
     /* ── O líquido não pára de se mexer ────────────────────────────────
 

@@ -70,6 +70,32 @@ if (ligado) {
   addEventListener('touchstart', () => { dedo = 'SEGURANDO' }, { passive: true })
   addEventListener('touchend', () => { dedo = 'solto' }, { passive: true })
 
+  /* ── O pior instante fica GRAVADO ───────────────────────────────────────
+
+     A primeira versão disto só mostrava o agora, e isso põe no cliente a
+     tarefa de acertar o print no quadro certo de um gesto — que é
+     exatamente o que já falhou. Aqui o painel guarda o pior valor que
+     passou, com o contexto dele. Basta fazer o gesto e fotografar depois,
+     com calma.
+
+     E guarda também o intervalo de cada medida: se svh, lvh, dvh, a altura
+     visível ou a innerHeight variarem em algum momento do gesto, o mínimo e
+     o máximo mostram — é a diferença entre "a tela mudou de tamanho" e "a
+     tela é a mesma e o defeito é outro", que é a pergunta que sobrou. */
+  const faixa = { }
+  const anotar = (nome, v) => {
+    const f = faixa[nome] ??= { min: v, max: v }
+    if (v < f.min) f.min = v
+    if (v > f.max) f.max = v
+  }
+  const mostrar = (nome) => {
+    const f = faixa[nome]
+    if (!f) return '?'
+    return f.min === f.max ? `${f.min}` : `${f.min}→${f.max}  MUDOU`
+  }
+
+  let pior = { d: -1, texto: 'nada ainda' }
+
   /* ── O que conta como "a cortina não pega a tela toda" ──────────────────
 
      NÃO é estar no meio de duas seções: o documento é contínuo, uma seção
@@ -99,23 +125,42 @@ if (ligado) {
     falta.style.height = buraco + 'px'
     borda.style.top = (alturaVisivel - 2) + 'px'
 
-    /* E a pior de todas, não só a da vez: basta UMA ser curta para a queixa
-       poder acontecer em algum ponto da página. */
-    let pior = { nome: '—', d: 0 }
+    /* A pior superfície da página, não só a da vez: basta UMA ser curta para
+       a queixa poder acontecer em algum ponto. */
+    let curtaMax = { nome: '—', d: 0 }
     for (const el of document.querySelectorAll(SUPERFICIES)) {
       const d = Math.round(alturaVisivel - el.getBoundingClientRect().height)
-      if (d > pior.d) pior = { nome: el.className.split(' ')[0] || el.tagName, d }
+      if (d > curtaMax.d) curtaMax = { nome: el.className.split(' ')[0] || el.tagName, d }
+    }
+
+    const nome = dona ? (dona.className.split(' ')[0] || dona.tagName) : '?'
+
+    anotar('visivel', alturaVisivel)
+    anotar('inner', innerHeight)
+    anotar('svh', svh())
+    anotar('lvh', lvh())
+    anotar('dvh', dvh())
+
+    if (curtaMax.d > pior.d) {
+      pior = {
+        d: curtaMax.d,
+        texto: `${curtaMax.d}px em ${curtaMax.nome}, dedo ${dedo}, scrollY ${Math.round(scrollY)}, visivel ${alturaVisivel}`
+      }
     }
 
     caixa.textContent = [
-      `dedo        ${dedo}`,
-      `FALTA       ${buraco}px  ${buraco ? '<<<< CURTA DEMAIS' : 'ok — cobre a tela'}`,
-      `pior do site ${pior.d}px  (${pior.nome})`,
-      `secao       ${dona ? (dona.className.split(' ')[0] || dona.tagName) : '?'}`,
-      `caixa dela  topo ${r ? Math.round(r.top) : '?'}  alt ${r ? Math.round(r.height) : '?'}`,
-      `tela        visivel ${alturaVisivel}   innerHeight ${innerHeight}`,
-      `unidades    svh ${svh()}  lvh ${lvh()}  dvh ${dvh()}`,
-      `scrollY     ${Math.round(scrollY)}`
+      `── DIAG ATIVO ──`,
+      `dedo         ${dedo}`,
+      `agora        falta ${buraco}px  ${buraco ? '<<<< CURTA' : 'ok'}`,
+      `PIOR GRAVADO ${pior.texto}`,
+      ``,
+      `secao        ${nome}   topo ${r ? Math.round(r.top) : '?'}  alt ${r ? Math.round(r.height) : '?'}`,
+      `visivel      ${mostrar('visivel')}`,
+      `innerHeight  ${mostrar('inner')}`,
+      `svh          ${mostrar('svh')}`,
+      `lvh          ${mostrar('lvh')}`,
+      `dvh          ${mostrar('dvh')}`,
+      `scrollY      ${Math.round(scrollY)}`
     ].join('\n')
 
     requestAnimationFrame(ler)

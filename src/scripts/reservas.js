@@ -47,7 +47,13 @@ const secao = document.querySelector('.reservas')
 if (secao && !reducedMotion) {
   const salas = secao.querySelector('.salas')
   const linhas = salas ? [salas, ...salas.querySelectorAll('.sala')] : []
-  const texto = secao.querySelector('.reservas__text')
+  /* `.reservas__text` não existe no HTML e nunca existiu nesta forma da
+     seção: o bloco de texto é o `.reservas__cabeca` (o "São 03h" mais o
+     título). O seletor morto fazia o GSAP receber `null` como alvo — um
+     aviso no console a cada carga e, mais caro, a METADE do gesto de saída
+     que este arquivo descreve simplesmente não acontecia: a estrutura se
+     recolhia e o texto ficava parado por cima dela. */
+  const texto = secao.querySelector('.reservas__cabeca')
 
   if (linhas.length) {
     /* O filete mora na BORDA do elemento, e borda não se anima. O que se

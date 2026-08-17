@@ -256,7 +256,10 @@ for (const chapter of document.querySelectorAll('.chapter')) {
   if (reducedMotion) {
     // estado final legível: o cartaz parado do ambiente e o texto inteiro
     gsap.set([dash, labelText, title, text, ...extras, ...chars], NATURAL)
-    gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
+    /* O Reservado não tem plano nem <img>: a matéria dele é vídeo, e
+       `camadas` fica vazio. `gsap.set([])` avisa no console — sem alvo não
+       há o que escrever. */
+    if (camadas.length) gsap.set(camadas, { opacity: (i) => (i === camadas.length - 1 ? 1 : 0) })
     if (dusk) gsap.set(dusk, { opacity: 1 })
     if (canvas) canvas.remove()
     if (video) video.remove()

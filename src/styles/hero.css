@@ -19,26 +19,31 @@
    lockup, onde já era o lugar deles, e a caixa saiu. Sobraram quatro coisas
    na tela: a foto, o lugar, o lockup e o convite a rolar. */
 
-/* ── A ÚNICA TELA QUE NÃO USA `--tela` ──────────────────────────────────
-
-   `--tela` é `100lvh` (tokens.css): a tela SEM a barra do navegador, que é
-   o estado em que o telefone realmente está enquanto alguém rola. Toda
-   seção do site usa essa medida, e o preço combinado lá é que, com a barra
-   à MOSTRA, a composição fica ~90px cortada no pé.
-
-   Aqui esse preço não pode ser pago. A hero é a única tela que o telefone
-   mostra com a barra à mostra POR DEFINIÇÃO — ninguém rolou ainda, e a
-   barra só se recolhe depois do primeiro gesto. E o que mora nos últimos
-   90px desta tela é justamente o convite a fazer esse gesto (`.hero__scroll`,
-   a 2,25rem do pé). Cortá-lo é cortar a única instrução da página.
-
-   `100svh`, então: a viewport PEQUENA, a tela COM a barra. A hero cabe
-   inteira no primeiro quadro, e quando a barra se recolhe ela não está
-   mais em cena — a primeira rolagem já a está levando embora. Pelo mesmo
-   argumento, as medidas internas desta folha continuam em `svh`. */
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A EXCEÇÃO QUE ESTA TELA TEVE, E POR QUE ELA FOI DESFEITA             ║
+   ║                                                                      ║
+   ║ Uma passada pôs `height: 100svh` aqui — a tela COM a barra do        ║
+   ║ navegador — enquanto o resto do site foi para `100lvh`. O argumento  ║
+   ║ era bom: a hero é a única tela que o telefone mostra com a barra à   ║
+   ║ mostra POR DEFINIÇÃO (ninguém rolou ainda), e o que mora no pé dela  ║
+   ║ é o convite a rolar. Em `lvh` esse convite ficaria cortado no        ║
+   ║ primeiro quadro.                                                     ║
+   ║                                                                      ║
+   ║ Na tela, a exceção REPRODUZIU aqui o defeito que a passada estava    ║
+   ║ consertando em todo o resto. Basta o primeiro gesto: a barra         ║
+   ║ recolhe, a tela visível ganha ~90px e a hero continua com os         ║
+   ║ 100svh dela. A faixa que sobra embaixo mostra o topo do capítulo     ║
+   ║ 01 — e o topo de todo capítulo é a demão de céu, que começa em       ║
+   ║ carvão a 92% (tokens.css). Isto é: uma barra preta aparecendo sob a  ║
+   ║ fotografia da hero, que fecha sozinha quando a barra volta.          ║
+   ║                                                                      ║
+   ║ Uma medida diferente das outras é uma emenda quebrada a mais. A hero ║
+   ║ volta para `--tela`, como todas, e o convite a rolar sobe para caber ║
+   ║ no corte — ver `.hero__scroll`, no pé desta folha.                   ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
 .hero {
   position: relative;
-  height: 100svh;
+  height: var(--tela);
   width: 100%;
   overflow: hidden;
 }
@@ -112,7 +117,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--gutter-r) 6svh var(--gutter-l);
+  padding: 0 var(--gutter-r) 6lvh var(--gutter-l);
   pointer-events: none;
   text-align: center;
 }
@@ -272,7 +277,7 @@
   display: block;
   width: min(62%, 22rem);
   height: 1px;
-  margin: clamp(1.5rem, 4svh, 2.5rem) 0;
+  margin: clamp(1.5rem, 4lvh, 2.5rem) 0;
   background: var(--ambar);
   opacity: .55;
   transform: scaleX(0);
@@ -351,7 +356,20 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 2.25rem;
+  /* 2,25rem → 11lvh, e é a única linha que a hero paga por voltar a medir
+     como todas as outras telas.
+
+     Com a barra do navegador à mostra — que é como o telefone abre a
+     página — a tela visível é ~92% da caixa desta seção. Os últimos 8lvh
+     ficam abaixo da dobra no primeiro quadro. A 2,25rem (36px de 896, ou
+     4lvh) o convite inteiro caía nessa faixa: quem abria o site não via a
+     instrução para rolar.
+
+     A 11lvh sobram 3lvh de folga sob o trilho no pior caso, e a coluna do
+     lockup — marca, filete, assinatura, convite — continua se lendo como
+     uma peça de papelaria empilhada: o convite só deixou de encostar na
+     borda de baixo. */
+  bottom: 11lvh;
   z-index: 2;
   display: flex;
   flex-direction: column;

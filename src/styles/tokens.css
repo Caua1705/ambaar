@@ -341,67 +341,92 @@
      ║ o layout mudava e os gatilhos ficavam com as posições antigas. As   ║
      ║ duas metades do site discordavam sobre onde cada seção começa.      ║
      ║                                                                    ║
-     ║ ── A separação ──────────────────────────────────────────────────── ║
+     ║ ── A separação, e o que ela virou ────────────────────────────────── ║
      ║                                                                    ║
      ║   --tela        É MEDIDA: toda altura que entra no fluxo e portanto ║
-     ║                 decide o tamanho do documento usa esta. Ela precisa ║
-     ║                 ser ESTÁTICA — um curso de rolagem que encolhe no   ║
-     ║                 meio dele não é um curso.                           ║
+     ║                 decide o tamanho do documento.                      ║
+     ║   --superficie  É PINTURA: só elemento FORA DO FLUXO (sticky,       ║
+     ║                 fixed, absolute) pode usá-la.                       ║
      ║                                                                    ║
-     ║   --superficie  `100dvh` onde existir. É PINTURA, e só pode ser     ║
-     ║                 usada por elemento FORA DO FLUXO (sticky, fixed,    ║
-     ║                 absolute): ele cresce com a barra e cobre a tela    ║
-     ║                 inteira sem que o documento saiba de nada.          ║
+     ║ A regra de papéis continua: se o elemento ocupa espaço no fluxo,    ║
+     ║ ele NÃO pode usar `--superficie`. O que mudou é que as duas passam  ║
+     ║ a valer O MESMO NÚMERO, e esse número é `100lvh`.                   ║
      ║                                                                    ║
-     ║ Regra, e ela não tem exceção: se o elemento ocupa espaço no fluxo,  ║
-     ║ ele NÃO pode usar `--superficie`.                                    ║
+     ║ ╔══════════════════════════════════════════════════════════════╗   ║
+     ║ ║ NENHUMA MEDIDA DESTE SITE DEPENDE MAIS DA BARRA DO NAVEGADOR ║   ║
+     ║ ╚══════════════════════════════════════════════════════════════╝   ║
      ║                                                                    ║
-     ║ ╭──────────────────────────────────────────────────────────────╮   ║
-     ║ │ E A MEDIDA É `lvh`, NÃO `svh` — a queixa da cortina partida   │   ║
-     ║ ╰──────────────────────────────────────────────────────────────╯   ║
+     ║ Três passadas atacaram a mesma queixa — "a cortina não pega a tela  ║
+     ║ toda; quando eu solto o dedo ela preenche" — e as duas primeiras    ║
+     ║ erraram por trocar só METADE das medidas.                           ║
      ║                                                                    ║
-     ║ `--tela` era `100svh`, a viewport PEQUENA (a tela COM a barra do    ║
-     ║ navegador). Estática, como tem de ser — mas pequena demais.         ║
+     ║ ── O que cada unidade é ────────────────────────────────────────── ║
      ║                                                                    ║
-     ║ No telefone, descer recolhe a barra: a tela VISÍVEL passa a ter     ║
-     ║ ~90px a mais e cada seção continua com os 100svh que o documento    ║
-     ║ reservou para ela. A seção deixa de caber na tela por baixo, e o    ║
-     ║ que aparece na faixa que sobra é o topo da seção seguinte. Numa     ║
-     ║ página que é uma tela por ideia, isso lê como defeito: a imagem     ║
-     ║ não fecha embaixo, e no instante em que o dedo solta e a barra      ║
-     ║ volta ela fecha sozinha. Foi essa a queixa desta passada.           ║
+     ║   svh   a tela PEQUENA, com a barra à mostra. Estática.             ║
+     ║   lvh   a tela GRANDE, sem a barra. Estática.                       ║
+     ║   dvh   a tela de AGORA. Muda com a barra.                          ║
      ║                                                                    ║
-     ║ `lvh` é a viewport GRANDE — a tela SEM a barra. É tão estática      ║
-     ║ quanto `svh` (não é `dvh`: nada oscila debaixo do dedo, e o         ║
-     ║ argumento inteiro acima continua valendo), e é a medida do estado   ║
-     ║ em que o telefone REALMENTE está enquanto se rola.                  ║
+     ║ ── Por que `dvh` era o defeito, e não a cura ────────────────────── ║
      ║                                                                    ║
-     ║ O preço, e ele é o lado certo da troca: com a barra à MOSTRA a      ║
-     ║ seção fica ~90px mais alta que a tela, isto é, um pouco cortada     ║
-     ║ embaixo. Cortar o pé de uma composição é uma tela cheia; mostrar    ║
-     ║ uma nesga da próxima é uma emenda quebrada. E o corte só acontece   ║
-     ║ enquanto a barra está visível, que é quando a pessoa NÃO está       ║
-     ║ descendo. Por isso toda medida vertical de composição virou `lvh`   ║
-     ║ junto: as âncoras internas têm de crescer com a caixa que as        ║
-     ║ hospeda, ou o texto sobe 11% dentro dela.                           ║
+     ║ `--superficie` era `100dvh` justamente para "crescer com a barra e  ║
+     ║ cobrir a tela inteira". No papel é o certo. No Chrome do Android    ║
+     ║ não é, e a razão é QUANDO ele atualiza:                              ║
      ║                                                                    ║
-     ║ A hero é a única exceção, e a razão está em hero.css: ela é a       ║
-     ║ ÚNICA tela que o telefone mostra com a barra à mostra por           ║
-     ║ definição — ninguém rolou ainda.                                    ║
+     ║   · arrastando o dedo, o navegador recolhe a barra e revela mais    ║
+     ║     tela — mas não reavalia o layout enquanto o gesto dura. `dvh`   ║
+     ║     continua valendo a tela pequena. O palco fica ~90px mais curto  ║
+     ║     que a tela, e a faixa que sobra mostra a seção vizinha;         ║
+     ║   · no instante em que o dedo SOLTA, o gesto termina, `dvh` passa   ║
+     ║     a valer a tela grande e o palco cresce de uma vez.              ║
+     ║                                                                    ║
+     ║ Isto é, palavra por palavra, a queixa: segurando o dedo a cortina   ║
+     ║ não pega a tela toda; soltando, ela preenche num salto. E acontecia ║
+     ║ exatamente nas quatro seções que usavam `--superficie` — os três    ║
+     ║ capítulos (a sunset entre eles) e a passagem.                       ║
+     ║                                                                    ║
+     ║ ── `lvh` nas duas, e o defeito deixa de ter onde morar ──────────── ║
+     ║                                                                    ║
+     ║ Uma superfície de `100lvh` é SEMPRE do tamanho da tela sem barra:   ║
+     ║ com a barra recolhida ela cobre exato, com a barra à mostra ela     ║
+     ║ sobra por baixo. Nunca falta, e nunca muda de tamanho — não há      ║
+     ║ instante nenhum, nem durante o gesto nem no fim dele, em que uma    ║
+     ║ faixa da tela fique sem dono.                                       ║
+     ║                                                                    ║
+     ║ E o argumento original contra `dvh` (o layout mudando debaixo do    ║
+     ║ dedo, a página travando e andando sozinha) fica satisfeito de       ║
+     ║ graça: `lvh` é constante, então `ignoreMobileResize` (motion.js)    ║
+     ║ passa a ser honesto — não existe mais altura para remedir.          ║
+     ║                                                                    ║
+     ║ ── O preço, e ele é o lado certo da troca ──────────────────────── ║
+     ║                                                                    ║
+     ║ Com a barra à MOSTRA toda seção fica ~90px mais alta que a tela,    ║
+     ║ isto é, um pouco cortada no pé. Cortar o rodapé de uma composição   ║
+     ║ é uma tela cheia; mostrar uma nesga da próxima é uma emenda         ║
+     ║ quebrada, e é o que se estava vendo. Medido, o conteúdo mais baixo  ║
+     ║ de qualquer seção está a 813px de 896 — o corte não alcança nada.   ║
+     ║                                                                    ║
+     ║ Por isso TODA medida vertical de composição é `lvh` também: âncora  ║
+     ║ que não cresce com a caixa sobe 11% dentro dela.                    ║
+     ║                                                                    ║
+     ║ Não há exceção. A hero teve uma por uma passada — ela é a única     ║
+     ║ tela que o telefone mostra com a barra à mostra por definição — e   ║
+     ║ a exceção reproduziu o defeito na PRIMEIRA tela do site: em `svh`,  ║
+     ║ com a barra recolhida, a hero ficava mais curta que a tela e        ║
+     ║ deixava aparecer a faixa preta do topo do capítulo 01 embaixo dela. ║
+     ║ Uma medida diferente das outras é uma emenda quebrada a mais. Ver   ║
+     ║ hero.css, onde o convite a rolar subiu para caber no corte.         ║
      ╚════════════════════════════════════════════════════════════════════╝ */
   --tela: 100vh;
   --superficie: 100vh;
 }
 
+/* `100vh` acima é o fallback, e ele já é a medida certa: em todo navegador
+   com barra dinâmica `vh` resolve contra a viewport GRANDE. O `lvh` abaixo
+   só diz em voz alta qual das três é. */
 @supports (height: 100lvh) {
   :root {
     --tela: 100lvh;
-  }
-}
-
-@supports (height: 100dvh) {
-  :root {
-    --superficie: 100dvh;
+    --superficie: 100lvh;
   }
 }
 

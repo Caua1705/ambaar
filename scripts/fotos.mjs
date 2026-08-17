@@ -289,8 +289,50 @@ const FOTOS = [
      Sem rótulo de marca em vidro nenhum: no site inteiro o único ouro é o
      da casa.
 
-     1100px: é tela cheia. */
-  { saida: 'copo-jardim', de: 'copo-balcao.png', largura: 1100, q: 72, luz: 1.02, sat: 0.96, tinta: 0.06 },
+     1100px: é tela cheia.
+
+     ╔═══════════════════════════════════════════════════════════════════╗
+     ║ `copo-jardim` SAIU. A queixa foi "essa foto está meio IA e feia",  ║
+     ║ e ela estava certa: mãos com dedos errados e um despejo sem física.║
+     ║ As três chapas que a substituem estão logo abaixo.                 ║
+     ╚═══════════════════════════════════════════════════════════════════╝ */
+
+  /* ── A CARTA: três drinks, e eles são um CONJUNTO ──────────────────────
+
+     Fitzgerald, Melancita e Gin Tropical — os três autorais da casa. A tela
+     deixa de mostrar um copo anônimo e passa a dizer o que se bebe ali, que
+     é a única informação concreta do site inteiro.
+
+     As três nasceram na mesma cena de propósito: mesmo tampo de nogueira,
+     mesma fita de LED âmbar rasante por trás, mesmo fundo de carvão com as
+     mesmas luzinhas desfocadas. Sem mãos — era o que denunciava a chapa
+     anterior. É essa identidade de cena que faz três fotografias lerem como
+     UMA carta em vez de três imagens avulsas.
+
+     ── E as três passam pela mesma correção, com pesos diferentes ────────
+
+     A lição vem da galeria de cartazes que saiu das reservas (a nota está
+     em reservas.css): três imagens lado a lado competem, e a mais saturada
+     ganha o olho antes de alguém ler os nomes. Aqui a Melancita é coral
+     puro e ganharia sozinha.
+
+     Então a dessaturação e a tinta âmbar não são iguais nas três — elas são
+     o que equaliza:
+
+       fitzgerald  sat .95  tinta .08   já é palha, quase não precisa
+       melancita   sat .72  tinta .16   o coral desce dois passos
+       tropical    sat .90  tinta .08   dourado, já está na paleta
+
+     Depois disso nenhuma das três puxa a tela sozinha, e as três dividem o
+     viés de cor da casa sem deixar de ser o que são: a carta é sobre a
+     diferença entre elas.
+
+     700px: cada chapa ocupa uma janela retrato de ~66vw no telefone, e o
+     recorte para o formato da janela é do `object-fit` no navegador, e
+     não aqui, para o mesmo arquivo sobreviver a uma mudança de proporção. */
+  { saida: 'carta-fitzgerald', de: 'carta-01.png', largura: 700, q: 70, luz: 1.02, sat: 0.95, tinta: 0.08 },
+  { saida: 'carta-melancita', de: 'carta-02.png', largura: 700, q: 70, luz: 1.02, sat: 0.72, tinta: 0.16 },
+  { saida: 'carta-tropical', de: 'carta-03.png', largura: 700, q: 62, luz: 1.02, sat: 0.90, tinta: 0.08 },
 
   /* `copo-mao` SAIU, e ela é o caso mais instrutivo desta folha: uma
      fotografia certa numa composição errada.
@@ -327,7 +369,7 @@ const FOTOS = [
      desenho, aqui ela é um lugar onde não se enxerga por cima de ninguém.
 
      820px: moldura, nunca tela cheia. */
-  { saida: 'pista-perto', de: 'nao-usadas/@FOTOBYDAVID -086 (1).jpg', corte: { left: 350, top: 1750, width: 3050, height: 3600 }, largura: 1000, q: 70, luz: 1.1, sat: 0.8, tinta: 0.16 },
+  { saida: 'pista-perto', de: 'nao-usadas/@FOTOBYDAVID -086 (1).jpg', corte: { left: 350, top: 1750, width: 3050, height: 3600 }, largura: 860, q: 66, luz: 1.1, sat: 0.8, tinta: 0.16 },
 
   /* O gesto que fecha a seção: o leque aberto no alto, o braço estendido,
      a bola de espelhos na quina baixa. É a única fotografia do site em que
@@ -409,7 +451,7 @@ const FOTOS = [
      com assunto. A `dourada` é a única do acervo que é exatamente isso.
 
      900px: tela cheia. */
-  { saida: 'dourada', de: 'nao-usadas/DSC02228.jpeg', corte: { left: 250, top: 1980, width: 3500, height: 4020 }, largura: 1100, q: 72, luz: 1.04, sat: 0.8, tinta: 0.16 },
+  { saida: 'dourada', de: 'nao-usadas/DSC02228.jpeg', corte: { left: 250, top: 1980, width: 3500, height: 4020 }, largura: 840, q: 64, luz: 1.04, sat: 0.8, tinta: 0.16 },
 
   /* ── A TROCA E O JARDIM À NOITE SAÍRAM DAQUI ─────────────────────────
      Duas fotografias publicadas na passada anterior deixaram de ter

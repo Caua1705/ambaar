@@ -349,29 +349,86 @@
            E a seção continua pagando a dívida que a fez nascer: havia
            quatro telas com o copo PRONTO e nenhuma com a casa FAZENDO. -->
 
+      <!-- ── A CARTA VIROU UMA CARTA ────────────────────────────────────
+
+           A tela mostrava UM copo anônimo em tela cheia, e a chapa era
+           gerada — mãos com dedos errados, despejo sem física. A queixa
+           foi literal: "essa foto está meio IA e feia".
+
+           O conserto não foi trocar a foto. Foi perceber que uma seção
+           chamada A CARTA mostrando uma taça sem nome é uma promessa que a
+           tela não cumpre. Agora ela mostra a carta: TRÊS DRINKS DA CASA,
+           com nome e com o que tem dentro.
+
+           É a única informação concreta do site inteiro. As outras onze
+           telas são atmosfera — e atmosfera é o que este site sabe fazer —,
+           mas em nenhum momento alguém aprendia o que se bebe aqui. Três
+           nomes é o que a pessoa repete para um amigo.
+
+           ── Por que uma de cada vez, e não as três lado a lado ──────────
+
+           Três faixas cabem na largura de um telefone com 104px cada. Isso
+           é uma miniatura, não uma fotografia — e o material é vertical,
+           feito de propósito para ser visto grande. Uma de cada vez, numa
+           janela retrato que não se move enquanto o drink dentro dela
+           troca: é virar a página de uma carta.
+
+           O curso de permanência (`--run: 150`) é o que dá lugar às três.
+
+           ── E o dispositivo NÃO é o dos capítulos ───────────────────────
+
+           Os capítulos também são sticky, e os dois vizinhos desta seção
+           são capítulos. Mas eles DISSOLVEM: uma matéria vira outra por
+           opacidade, com véu e câmera andando. Aqui não há dissolução nem
+           véu nem movimento de câmera — as chapas DESLIZAM de lado, uma
+           empurrando a outra, como um copo sendo passado no balcão. A
+           emenda entre duas telas vizinhas continua não repetindo o mesmo
+           dispositivo. -->
       <section class="copo" data-vrail="A CARTA" data-choreo
+               data-run="150" style="--run:150"
                data-hora="19" data-hora-em="esq-baixo" data-som=".34">
         <div class="copo__stage">
-          <!-- A moldura é a tela. Ela abre por uma aresta que DESCE pelo
-               quadro, no sentido em que o líquido cai — ver copo.js. -->
-          <figure class="copo__quadro">
-            <img src="/img/copo-jardim.webp" alt="As mãos da casa despejando âmbar numa taça, no balcão." loading="lazy">
-          </figure>
-
-          <!-- "O primeiro copo" virou "A carta": a tela deixa de ser sobre
-               UM drink e passa a ser sobre o que a casa assina — a carta
-               autoral. É a única tela do site dedicada ao lado cocktail bar
-               do nome, então é dela o dever de dizer que a carta existe e
-               que é da casa. O âmbar continua onde sempre esteve: na cor,
-               que é a assinatura líquida da marca — dita em cima do próprio
-               líquido. Sem <br>: o `balance` (base.css) parte a frase em
-               duas linhas parelhas em qualquer largura. -->
           <p class="copo__rotulo">
             <span class="copo__dash" aria-hidden="true"></span>
             <span>A carta</span>
           </p>
 
-          <p class="copo__linha">Drinks autorais, na <b class="ouro">cor do nome da casa</b>.</p>
+          <!-- O cabeçalho da carta, e ele encolheu de propósito: quem é
+               display agora é o NOME de cada drink. Um cardápio tem o
+               título pequeno e os itens grandes.
+
+               A frase anterior era "Drinks autorais, na cor do nome da
+               casa" — bonita e, com um drink coral e um dourado na tela,
+               falsa. O olho pega isso em meio segundo. -->
+          <p class="copo__linha">A carta é curta. Os três são <b class="ouro">da casa</b>.</p>
+
+          <!-- Uma lista, porque é uma lista. Cada item carrega a própria
+               janela, o nome e o que tem dentro, e desliza inteiro. -->
+          <ul class="carta">
+            <li class="carta__item">
+              <figure class="carta__quadro">
+                <img src="/img/carta-fitzgerald.webp" alt="Fitzgerald: uma coupe com líquido palha e uma casca de limão na borda, no balcão." loading="lazy">
+              </figure>
+              <h3 class="carta__nome">Fitzgerald</h3>
+              <p class="carta__nota">Gin · limão · angostura</p>
+            </li>
+
+            <li class="carta__item">
+              <figure class="carta__quadro">
+                <img src="/img/carta-melancita.webp" alt="Melancita: uma taça balão com melancia, hortelã e gelo, no balcão." loading="lazy">
+              </figure>
+              <h3 class="carta__nome">Melancita</h3>
+              <p class="carta__nota">Gin · melancia · hortelã</p>
+            </li>
+
+            <li class="carta__item">
+              <figure class="carta__quadro">
+                <img src="/img/carta-tropical.webp" alt="Gin Tropical: um copo alto dourado com maracujá, abacaxi e alecrim, no balcão." loading="lazy">
+              </figure>
+              <h3 class="carta__nome">Gin Tropical</h3>
+              <p class="carta__nota">Gin · maracujá · tônica</p>
+            </li>
+          </ul>
         </div>
       </section>
 

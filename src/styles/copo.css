@@ -1,138 +1,109 @@
 /* A carta · 19h.
 
-   O porquê está no HTML. Aqui está a composição, e ela agora tem UM
-   elemento de imagem em vez de dois.
+   O porquê está no HTML. Aqui está a composição.
 
    ╔══════════════════════════════════════════════════════════════════════╗
-   ║ A FOTO DENTRO DA FOTO SAIU, E O DEFEITO NÃO ERA O EFEITO             ║
+   ║ A TELA DEIXOU DE SER UMA FOTOGRAFIA E VIROU UMA LISTA                ║
    ║                                                                      ║
-   ║ Duas passadas tentaram consertar esta tela mexendo no gesto do inset ║
-   ║ — primeiro o paralaxe de dentro, depois a direção da abertura. A     ║
-   ║ queixa voltou as duas vezes, e voltou porque o problema nunca esteve ║
-   ║ na animação. Estava na GEOMETRIA, e ela se mede.                     ║
+   ║ Três versões desta seção falharam pela mesma razão, e nenhuma delas  ║
+   ║ era de animação:                                                     ║
    ║                                                                      ║
-   ║ A 414×896 o fundo entra por `cover` pela altura e mostra 82% da      ║
-   ║ largura do arquivo, centrado. A coupe do arquivo vive entre 42% e    ║
-   ║ 72% da largura e entre 45% e 58% da altura — o que na tela cai       ║
-   ║ perto de x 200—330, y 420—530.                                       ║
+   ║   1ª  duas chapas empilhadas (foto dentro de foto). O inset caía em  ║
+   ║       cima da taça de baixo — sobre o assunto dela.                  ║
+   ║   2ª  uma chapa só, em tela cheia. Melhor, e ainda assim uma taça    ║
+   ║       ANÔNIMA numa seção chamada A CARTA.                            ║
+   ║   3ª  a mesma chapa, agora com o defeito nomeado pelo cliente: ela   ║
+   ║       era gerada, com dedos errados e um despejo sem física.         ║
    ║                                                                      ║
-   ║ O inset media `top: 34lvh; right: -8vw; width: 56vw; height: 30lvh`, ║
-   ║ isto é, x 232—447, y 305—574.                                        ║
+   ║ O erro comum às três é de assunto, não de imagem. Uma carta é uma    ║
+   ║ LISTA — ela tem itens, e itens têm nome. Enquanto a tela mostrasse   ║
+   ║ um copo sem nome, nenhuma fotografia a salvaria.                     ║
    ║                                                                      ║
-   ║ As duas caixas se sobrepõem quase inteiras. O inset caía EM CIMA da  ║
-   ║ taça da fotografia de baixo — sobre o assunto dela. O que a tela     ║
-   ║ mostrava eram duas coupes empilhadas, a de baixo eclipsada pela      ║
-   ║ metade e escapando pela aresta esquerda do inset como um copo        ║
-   ║ partido ao meio. Nenhum ajuste de tempo conserta isso: é onde a      ║
-   ║ caixa está.                                                          ║
-   ║                                                                      ║
-   ║ E havia um segundo defeito por baixo do primeiro. As duas chapas     ║
-   ║ foram feitas para ter a MESMA luz, o mesmo balcão e a mesma fita de  ║
-   ║ LED — "o mesmo copo" era literal, e era o orgulho da passada         ║
-   ║ anterior. Só que duas fotografias empilhadas precisam de contraste   ║
-   ║ para se separar, e estas foram escolhidas para não ter nenhum. O     ║
-   ║ filete âmbar de 1px do inset existia exatamente para resolver isso e ║
-   ║ não resolvia: a de cima se dissolvia na de baixo.                    ║
-   ║                                                                      ║
-   ║ ── O que entra no lugar ─────────────────────────────────────────────║
-   ║                                                                      ║
-   ║ A fotografia inteira, sangrando nos quatro lados, e mais nada. Ela é ║
-   ║ a melhor chapa da página — as mãos da casa despejando âmbar numa     ║
-   ║ coupe sobre gelo, a fita de LED acesa por baixo do tampo — e passou  ║
-   ║ três passadas com um cartão colado por cima do assunto.              ║
-   ║                                                                      ║
-   ║ A tela cai de cinco elementos para quatro, e o único dispositivo do  ║
-   ║ site que aparecia UMA vez (foto dentro de foto) deixa de existir.    ║
+   ║ Agora são três drinks da casa, um de cada vez, numa janela retrato   ║
+   ║ que não se move enquanto a chapa dentro dela troca.                  ║
    ╚══════════════════════════════════════════════════════════════════════╝
 
-   ── E a diagonal continua, só que ela agora é da fotografia ─────────────
+   ── A composição, e ela é a de um cardápio ──────────────────────────────
 
-   O argumento antigo da folha era que rótulo (alto à esquerda), inset
-   (meio à direita) e frase (pé à esquerda) desenhavam um Z, e que isso era
-   o contrário do Jardim, em que tudo mora numa coluna à esquerda.
+   Título pequeno em cima, itens grandes embaixo. É a inversão de escala em
+   relação a todas as outras telas do site, e é o que faz esta ler como
+   informação em vez de como atmosfera:
 
-   O Z era desenhado por um retângulo colado. Agora quem o desenha é o
-   assunto: o mixing glass está no alto à esquerda, o fio de âmbar cai pelo
-   meio, a coupe fica no centro e a mão que segura a haste volta para o pé
-   à esquerda. É a mesma travessia, feita pela luz da chapa em vez de por
-   uma caixa por cima dela. */
+     rótulo   12lvh    "A CARTA"
+     chamada  17lvh    pequena, serifada — o cabeçalho do cardápio
+     janela   26lvh    a chapa, retrato, 58vw × 40lvh, ancorada à esquerda
+     nome     ~69lvh   Cormorant grande — é ELE o display desta tela
+     nota     ~74lvh   o que tem dentro, em voz de máquina
+
+   A janela é estreita de propósito. O material é vertical (941×1672) e uma
+   moldura larga cortaria a taça em cima e embaixo justamente para mostrar
+   balcão vazio dos lados. 58vw por 40lvh dá 0,61 de proporção contra 0,56
+   do arquivo: o `cover` corta 8% da altura e nenhum pixel de largura.
+
+   E o terço direito da tela fica vazio, em carvão. Não é sobra: é onde o
+   texto vertical mora, e é o ar que separa esta tela — que é uma lista —
+   das duas vizinhas, que são fotografia sangrada de borda a borda. */
 
 .copo {
   position: relative;
   background: var(--carvao);
+  /* O curso de permanência: três drinks precisam de lugar. Medida inteira e
+     em `lvh`, como toda altura de fluxo (tokens.css). */
+  --run: 150;
+  height: calc(var(--tela) + var(--run) * 1lvh);
 }
 
+/* Pintura, e por isso pode ser `--superficie`: sticky não ocupa espaço no
+   fluxo — o pai já reservou o dele. Mesma construção dos capítulos
+   (sections.css), pelo mesmo motivo: permanência é layout do navegador, não
+   trabalho de biblioteca. */
 .copo__stage {
+  position: sticky;
+  top: 0;
+  height: var(--superficie);
+  overflow: hidden;
+}
+
+/* ── Sem movimento: a carta vira uma LISTA de verdade ───────────────────
+
+   Sem permanência não há troca, e três chapas absolutas no mesmo lugar
+   seriam três nomes empilhados e ilegíveis. A seção desiste do curso e as
+   três se empilham na vertical, que é como uma lista se lê sem gesto.
+
+   A classe vem do JS e não de uma media query, e isso é deliberado:
+   `reducedMotion` (motion.js) é a ÚNICA autoridade sobre este estado no
+   site, e ela é a media query MAIS o `?reduce=1` de desenvolvimento. Com a
+   regra presa à media query, o caminho sem movimento não podia ser
+   conferido em dev — e não era: as três chapas se empilhavam no mesmo
+   ponto, e só a captura mostrou. */
+.copo--lista {
+  height: auto;
+}
+
+.copo--lista .copo__stage {
   position: relative;
-  height: var(--tela);
-  overflow: hidden;
+  height: auto;
+  padding-bottom: 8lvh;
 }
 
-/* ── A fotografia ──────────────────────────────────────── */
-
-/* A moldura é a tela inteira, e ela nasce FECHADA no alto: a aresta que
-   revela desce pelo quadro no sentido em que o líquido cai (copo.js). O
-   estado fechado mora aqui, como todo estado de entrada do site. */
-.copo__quadro {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  overflow: hidden;
-  z-index: 0;
-  clip-path: inset(0% 0% 100% 0%);
-}
-
-/* A imagem é MAIS ALTA que a moldura, e a sobra é o curso do movimento
-   interno — o mesmo recurso dos quadros da pausa das 00h.
-
-   Sete por cento em cima e sete embaixo. A fotografia anda ao contrário da
-   aresta que a revela (entra empurrada 4% para baixo e sobe até assentar),
-   e depois respira em escala; os dois cursos somados não passam de 5% da
-   altura da caixa, então nenhum deles chega a descobrir borda.
-
-   ── E o recorte fica um pouco mais fechado do que era ──────────────────
-
-   A caixa cresceu de 100% para 114% de altura, então o `cover` escala mais
-   e entram 72% da largura do arquivo em vez de 82%. A janela centrada vai
-   de 14% a 86%: o mixing glass (10—58%) entra quase inteiro, o fio e a
-   coupe (42—72%) entram com folga, e o que se perde nos dois lados é
-   balcão escuro. O assunto ficou maior na tela — que é a diferença entre
-   uma fotografia de um bar e uma fotografia de um gesto. */
-.copo__quadro img {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -7%;
-  width: 100%;
-  height: 114%;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
-
-/* A demão. Dois núcleos, e agora são só dois: o rótulo no alto à esquerda
-   e a frase no pé à esquerda.
-
-   O terceiro passe, no miolo à direita, existia para o inset não flutuar
-   sobre uma área clara. Sem inset ele passou a ser uma mancha escura em
-   cima do fio de âmbar — isto é, escurecia justamente o assunto. Saiu. */
+/* A demão. Sem fotografia sangrada por baixo ela tem um segundo papel além
+   do de sempre: a borda de cima em carvão quase cheio é o que faz a emenda
+   com a seção anterior não ter aresta. Ver `--ceu-noite` em tokens.css. */
 .copo__stage::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 26% at 14% 12%, rgba(13, 13, 13, .8) 0%, rgba(13, 13, 13, .36) 56%, transparent 84%),
-    radial-gradient(ellipse 112% 42% at 18% 92%, rgba(13, 13, 13, .94) 0%, rgba(13, 13, 13, .62) 44%, rgba(13, 13, 13, .2) 72%, transparent 88%),
-    var(--ceu-noite);
+  background: var(--ceu-noite);
 }
 
 /* ── O rótulo ──────────────────────────────────────────── */
 
 .copo__rotulo {
   position: absolute;
-  z-index: 3;
-  top: 14lvh;
+  z-index: 4;
+  top: 12lvh;
   left: var(--gutter-l);
   display: inline-flex;
   align-items: center;
@@ -153,139 +124,177 @@
   transform-origin: left center;
 }
 
-/* ── A frase ───────────────────────────────────────────── */
+/* ── A chamada ─────────────────────────────────────────── */
 
-/* ── Um transbordo que não existia, e por que ele vale um comentário ────
+/* Ela ENCOLHEU, e a redução é a decisão de hierarquia desta passada.
 
-   Meia hora desta passada foi gasta consertando um defeito imaginário.
-   Numa captura a 414 esta frase aparecia cortada na borda direita, com o
-   ponto final comido pelo `overflow: hidden` do palco. A conclusão óbvia
-   era que `--fs-quieto` (~35,6px a 414) não cabia na faixa de 330 entre as
-   goteiras, e a folha chegou a ganhar uma medida local de 7vw para
-   resolver.
+   Era `--fs-quieto` (~35px), o degrau de "a frase de uma tela". Mas a tela
+   deixou de ter uma frase e passou a ter três itens, e num cardápio quem é
+   grande é o item. A chamada virou o cabeçalho: serifada, pequena, branca
+   rebaixada. O display desta tela é o `.carta__nome`.
 
-   O corte era da FERRAMENTA. `chrome --screenshot --window-size=414,896`,
-   no Windows, grava um PNG de 414 de largura — mas o layout por trás dele
-   tem 500, que é a largura mínima de janela do sistema. O arquivo é um
-   recorte de uma tela larga, não uma tela estreita, e a caixa de 416 que a
-   frase ocupava a 500 saía cortada aos 414 do arquivo.
+   ── A frase também mudou, e não por gosto ───────────────────────────────
 
-   Medida numa viewport de verdade (`node scripts/tela.mjs`, que emula pelo
-   protocolo em vez de pedir uma janela ao sistema): duas linhas, a maior
-   com 305px numa caixa de 330. Cabe, e sempre coube.
+   Era "Drinks autorais, na cor do nome da casa." — a assinatura líquida da
+   marca, e uma das seis manchas âmbar da página (a disciplina do acento
+   está em tokens.css). Com um drink coral e um dourado na tela, a linha
+   passou a ser desmentida pela própria fotografia ao lado dela, e isso o
+   olho pega em meio segundo — é o mesmo defeito das duas coupes empilhadas
+   que abriram esta folha.
 
-   Fica `--fs-quieto`, que é o degrau da escala para a frase de uma tela.
-   Não há razão de composição para esta seção sair do sistema, e não havia
-   razão de largura. */
+   "A carta é curta. Os três são da casa." sobrevive a qualquer cor, e o
+   acento migrou para "da casa", que é o argumento que restou. */
 .copo__linha {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
+  top: 17lvh;
   left: var(--gutter-l);
   right: var(--gutter-r);
-  /* 13lvh → 16lvh. A 13 a segunda linha terminava a 780px e o algarismo
-     das 19h começa a 780 (relogio.css, `esq-baixo`: 75px de altura a 5lvh
-     do pé): os dois se encostavam sem se sobrepor, que é o pior dos dois
-     mundos — não lê como camada, lê como colisão. A 16 sobram 36px entre a
-     frase e o "19h", e o algarismo volta a ser o rodapé da tela. */
-  bottom: 16lvh;
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 4.4vw, 1.3rem);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: var(--track-display);
+  color: rgba(255, 255, 255, .82);
+}
+
+/* ── A carta ───────────────────────────────────────────── */
+
+.carta {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cada item é uma CAMADA inteira, e não só a chapa: a janela, o nome e a
+   nota deslizam juntos. Um cardápio não troca a foto e mantém o nome. */
+.carta__item {
+  position: absolute;
+  inset: 0;
+}
+
+.carta__quadro {
+  position: absolute;
+  top: 26lvh;
+  left: var(--gutter-l);
+  width: 58vw;
+  height: 40lvh;
+  margin: 0;
+  overflow: hidden;
+  /* Filete hairline em vez de borda cheia, na espessura de todo filete do
+     site. Ele existe porque a chapa é escura nas bordas e o palco também é
+     carvão: sem a linha, a janela não teria aresta e a fotografia pareceria
+     vazar. É o mesmo recurso da miniatura das reservas. */
+  box-shadow: inset 0 0 0 1px rgba(200, 137, 46, .22);
+}
+
+.carta__quadro img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 50% 46%: o corte tira 8% da altura, e tirá-los do PÉ deixaria a base do
+     copo colada na aresta de baixo. A 46% a sobra se divide, a taça respira
+     nos dois lados e o garnish do alto (o alecrim do Tropical é o mais
+     alto) continua dentro do quadro. */
+  object-position: 50% 46%;
+}
+
+/* ── O nome, que é o display desta tela ────────────────── */
+
+.carta__nome {
+  position: absolute;
+  top: 69lvh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  margin: 0;
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: var(--track-display);
   color: #fff;
-
-  /* ╔══════════════════════════════════════════════════════════════════════╗
-     ║ A FRASE É SERVIDA, PALAVRA A PALAVRA                                 ║
-     ║                                                                      ║
-     ║ Duas versões anteriores e as duas eram básicas demais para a única   ║
-     ║ frase de uma tela:                                                   ║
-     ║                                                                      ║
-     ║   1ª  opacidade 0→1 com 20px de subida. O único elemento da página   ║
-     ║       cujo movimento era só acender.                                 ║
-     ║   2ª  um `clip-path` reto descendo sobre o parágrafo inteiro. Melhor ║
-     ║       de tempo (ver copo.js) e ainda assim um corte de guilhotina:   ║
-     ║       uma aresta horizontal atravessando um bloco é o gesto mais     ║
-     ║       genérico que existe.                                           ║
-     ║                                                                      ║
-     ║ Agora cada PALAVRA sobe por dentro da própria máscara. Não é um      ║
-     ║ bloco sendo descoberto — são oito coisas chegando em fila, que é o   ║
-     ║ ritmo de alguém dizendo a frase em vez de a frase existindo.         ║
-     ║                                                                      ║
-     ║ E o acento tem tempo próprio: "cor do nome da casa" — o `<b>` — sai  ║
-     ║ um quarto de segundo DEPOIS de a primeira metade assentar, com a     ║
-     ║ defasagem um pouco mais larga. Aquilo que a tela veio dizer chega    ║
-     ║ sozinho, na cor da casa, e por isso é lido como o argumento e não    ║
-     ║ como o fim da linha. Os tempos estão em copo.js.                     ║
-     ║                                                                      ║
-     ║ Nada de cor animada: a palavra já nasce âmbar e quem entra é ela.    ║
-     ║ (`transform` e `opacity` apenas — regra do projeto.)                 ║
-     ╚══════════════════════════════════════════════════════════════════════╝ */
-
+  /* a folga que impede a máscara de decapitar acento e descida; a margem
+     negativa devolve a linha ao pixel em que ela estava (ver o `.hero__mark`) */
+  padding-block: .3em;
+  margin-block: -.3em;
 }
 
-/* A máscara. `overflow: hidden` é o que esconde a palavra abaixo dela.
-
-   O recuo vertical é a mesma correção do `.hero__mark`, pela mesma causa:
-   `--lh-display` é .9, isto é, a caixa é MENOR que a tinta. Sem a folga a
-   máscara decapita o "D" de Drinks e come a cauda da vírgula — e come para
-   sempre, porque o estado final também é a caixa. A margem negativa cancela
-   o recuo no layout: a linha não anda um pixel.
-
-   Seletor com o escopo da seção porque `.word` é da casa: o splitChars o usa
-   nos títulos de capítulo, onde ele é só um invólucro que impede a quebra de
-   linha no meio da palavra (base.css) e não pode ganhar máscara nenhuma. */
-.copo__linha .word {
-  display: inline-block;
-  overflow: hidden;
-  padding-block: .34em;
-  margin-block: -.34em;
+/* Voz de máquina: é um dado, não uma frase. O separador é o mesmo ponto
+   médio dos gêneros do Jardim e do rodapé do fecho. */
+.carta__nota {
+  position: absolute;
+  top: 76lvh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  margin: 0;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: var(--concreto);
 }
 
-.copo__linha .word__in {
-  display: inline-block;
-  /* estado fechado, como todo estado de entrada do site: fora da máscara,
-     por baixo. Quem traz para 0 é copo.js */
-  transform: translateY(110%);
+/* ── Sem movimento: a lista se empilha ─────────────────── */
+
+.copo--lista {
+  --nada: 0;
+}
+
+.copo--lista .carta {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6lvh;
+  padding: 30lvh var(--gutter-r) 0 var(--gutter-l);
+}
+
+.copo--lista .carta__item {
+  position: relative;
+  inset: auto;
+}
+
+.copo--lista .carta__quadro {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: 46lvh;
+}
+
+.copo--lista .carta__nome,
+.copo--lista .carta__nota {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+}
+
+.copo--lista .carta__nome {
+  margin-top: 1rem;
+}
+
+.copo--lista .carta__nota {
+  margin-top: .5rem;
 }
 
 /* ── Tela larga ────────────────────────────────────────── */
 
 @media (min-width: 900px) {
-  /* Deitada, o corte inverte de eixo e fica SEVERO: a caixa é ~1,4 contra
-     0,56 do arquivo, então entram ~40% da altura e nenhum pixel de largura
-     se perde — o primeiro valor da âncora deixa de ter efeito.
-
-     40% não cabem o mixing glass (19—42% da altura) e a coupe (45—72%) ao
-     mesmo tempo, então a âncora escolhe. A 51% a janela vai de 31% a 71%:
-     pega o pé do mixing glass, o fio inteiro e a coupe inteira, com a mão
-     entrando no canto de baixo. É o GESTO completo.
-
-     Medidas as vizinhas: a 30% a coupe fica sem haste, e a 65% o mixing
-     glass sai de cena e sobra um fio de âmbar vindo do nada. */
-  .copo__quadro img {
-    object-position: 50% 51%;
+  /* Deitada, 58vw seria uma janela enorme e a proporção inverteria. A
+     largura passa a ser medida em altura de tela para a janela continuar
+     sendo um retrato. */
+  .carta__quadro {
+    width: calc(40lvh * 0.62);
+    height: 40lvh;
   }
 
   .copo__linha {
-    right: auto;
-    max-width: 20ch;
-    bottom: 16lvh;
-  }
-}
-
-/* ── Sem movimento ─────────────────────────────────────── */
-
-@media (prefers-reduced-motion: reduce) {
-  .copo__quadro {
-    clip-path: none;
-  }
-
-  .copo__linha .word__in {
-    transform: none;
-  }
-
-  .copo__dash {
-    transform: scaleX(1);
+    max-width: 28ch;
   }
 }

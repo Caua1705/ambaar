@@ -10,7 +10,6 @@ import './scripts/abertura.js'
      hero       a marca
      chapters   17—19h · 20—22h · 02—03h   os três ambientes
      copo       19h   o primeiro copo
-     cabine     20h   alguém escolhe o que vai tocar
      pista      22h   a sala cheia
      brinde     23h   ninguém combinou nada
      passagem   00h   a câmera entra até achar uma pessoa
@@ -21,7 +20,6 @@ import './scripts/abertura.js'
 import './scripts/hero.js'
 import './scripts/chapters.js'
 import './scripts/copo.js'
-import './scripts/cabine.js'
 import './scripts/pista.js'
 import './scripts/brinde.js'
 import './scripts/passagem.js'

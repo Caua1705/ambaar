@@ -95,7 +95,6 @@ Uma por seção, na ordem da página:
 | `hero.js` | A marca entrando a partir do filete e a saída dela (scrub) |
 | `chapters.js` | Os três `.chapter` (Jardim, Salão, Reservado): permanência sticky, sequência quadro a quadro, véu do entardecer, entrada de texto e as três saídas (`data-saida`: apaga/parte/fecha) |
 | `copo.js` | 19h, a carta. Fundo assentando + o inset deslizando pela borda direita |
-| `cabine.js` | 20h. O díptico abrindo em direções opostas, o filete crescendo do encontro e a luz na sala vazia |
 | `pista.js` | 22h. Dois quadros que se cruzam (classe 2) sobre o arrasto derivando (classe 3) |
 | `brinde.js` | 23h. A seção mais curta em código: uma frase em duas metades |
 | `passagem.js` | 00h. A câmera entrando em três estágios até achar um rosto |
@@ -192,7 +191,7 @@ o material vira sequência de quadros.
 |---|---|
 | `brand/originais/` | material bruto (mp4, png, jpg, chapas). **Fora do build.** Toda imagem publicada nasce daqui |
 | `brand/originais/nao-usadas/` | material já triado que continua disponível |
-| `public/img/` | 20 fotos `.webp`, saída do `npm run fotos` |
+| `public/img/` | 17 fotos `.webp`, saída do `npm run fotos` |
 | `public/frames/dusk/`, `public/frames/sala/` | 28 + 34 quadros, saída do `npm run frames` |
 | `public/video/reservado.mp4` | saída do `npm run video` |
 | `public/brand/losango.svg`, `public/favicon.svg` | únicos assets escritos à mão |

@@ -209,70 +209,40 @@ const FOTOS = [
      cômodos e passou a ser uma sequência de pessoas dentro deles.
      ══════════════════════════════════════════════════════════════════ */
 
-  /* ── A cabine · 20h ──────────────────────────────────────────────────
-     A SALA VAZIA SAIU, e o motivo estava escrito no alto desta folha.
+  /* ── A CABINE · 20h SAIU DA PUBLICAÇÃO ───────────────────────────────
+     A seção inteira saiu do site, a pedido, e com ela a única fotografia
+     que existia para ela: `cabine-dj` (do original `nao-usadas/dj-cabine.png`,
+     recorte 0/320/1023×818, largura 900, q 72, luz 1.06, sat 0.94).
 
-     A linha anterior era `salao-som`: o aparador com a mesa de som acesa e
-     a sala vazia à volta. Ela resolvia bem um problema de MONTAGEM (ela
-     continha, num quadro só, as duas chapas do díptico que a seção tinha
-     antes) e por isso ninguém olhou o que ela era como ASSUNTO.
+     A nota da seção está em index.html, no lugar onde ela ficava. O que
+     interessa AQUI é que a chapa não foi descartada por qualidade: ela é a
+     única do acervo em que se vê alguém escolhendo o que vai tocar, e
+     continua em brand/originais/nao-usadas/dj-cabine.png. Se um dia a tela
+     voltar, a linha volta com os mesmos números. −31 kB.
 
-     Ela era uma sala vazia. E a passada que a escolheu é a mesma que
-     escreveu, quarenta linhas acima, a frase que condena a escolha: a noite
-     deixou de ser uma sequência de cômodos e passou a ser uma sequência de
-     PESSOAS dentro deles. Onze fotografias entraram por causa disso. Esta
-     seção ficou sendo a única superfície do site que continuou sendo o
-     cômodo sem ninguém.
+     ── O RECORTE, guardado porque ele custou uma medição ────────────────
 
-     E a tela dizia isso em voz alta sem perceber: a frase impressa em cima
-     dela é "Alguém escolheu o que você vai ouvir". A legenda prometia uma
-     pessoa e a fotografia entregava um móvel. Numa casa que se apresenta
-     como listening club, a única tela dedicada à escuta mostrava o
-     equipamento e não quem o opera — que é exatamente a diferença entre
-     vender um equipamento de som e vender uma curadoria.
+     O original é vertical (1023×1537) e a faixa era deitada, então o
+     recorte era quem decidia o que sobrevivia. De 320 a 1138 fica a parte
+     em que o gesto está inteiro: a cabeça, o ombro, as duas mãos, os dois
+     CDJs e o mixer, a parede âmbar e as serpentinas. Fora ficam os pés
+     (embaixo) e o teto (em cima) — nenhum dos dois era o assunto.
 
-     ── O que entra ──────────────────────────────────────────────────────
+     Os 60px entre 380 (o primeiro valor tentado) e 320 são ar em cima da
+     cabeça, e não sobravam: a 380 o alto do quadro passava rente ao cabelo
+     de quem toca e cortava a testa da segunda pessoa, ao fundo à esquerda.
+     Uma figura encostada na aresta de cima lê como enquadrada por engano.
 
-     `dj-cabine`, do alto: alguém de costas debruçado sobre os dois CDJs, a
-     mão direita no mixer, a cabeça baixa, e uma segunda pessoa ao fundo na
-     parede âmbar. É o gesto que a frase descreve, acontecendo.
+     Embaixo, os 60px que isso custou saíam do globo espelhado, no canto
+     inferior direito. Não fazia falta: o globo é um signo de FESTA, e a
+     festa é a pista das 22h.
 
-     Ela estava na pasta das descartadas. Como as outras onze, nunca tinha
-     sido olhada uma a uma — e é a única chapa do acervo em que se vê alguém
-     escolhendo, que é o assunto declarado desta tela.
-
-     ── O recorte, e por que a proporção MUDOU ───────────────────────────
-
-     O arquivo é vertical (1023×1537) e a faixa é deitada, então o recorte é
-     quem decide o que sobrevive. De 320 a 1138 fica a parte em que o gesto
-     está inteiro: a cabeça, o ombro, as duas mãos, os dois CDJs e o mixer,
-     a parede âmbar e as serpentinas. Fora ficam os pés (embaixo) e o teto
-     (em cima) — nenhum dos dois é o assunto.
-
-     Os 60px entre 380 (o primeiro valor) e 320 são ar em cima da cabeça, e
-     não sobra: a 380 o alto do quadro passava rente ao cabelo de quem toca
-     e cortava a testa da segunda pessoa, ao fundo à esquerda. Uma figura
-     encostada na aresta de cima lê como enquadrada por engano — e as duas
-     cabeças são o que faz esta chapa ser sobre pessoas.
-
-     Embaixo, os 60px que isso custou saem do globo espelhado, que estava no
-     canto inferior direito. Ele não faz falta: o globo é um signo de FESTA
-     e a festa é a pista das 22h. Esta tela é sobre o autor, não sobre o
-     salão dançando.
-
-     818 de altura sobre 1023 dá 1,25, e não os 1,53 de antes. A faixa
-     passou a ser mais alta de propósito: a 414 ela sai de 271px para 331px,
-     e a razão é que agora há uma FIGURA dentro dela. Uma sala cabe numa
-     fresta; uma pessoa debruçada sobre uma mesa, não — a 1,53 a cabeça e as
-     mãos disputavam 271px com o cenário todo.
-
-     A folha (cabine.css) acompanha a proporção nova, pelo mesmo motivo de
-     sempre: igualar as duas impede o `cover` de recortar uma segunda vez o
-     que este recorte já escolheu.
-
-     `luz` e `sat` seguem os da chapa anterior — o arquivo já nasce na luz
-     do site, âmbar sobre escuro, e por isso não pede `tinta`. */
-  { saida: 'cabine-dj', de: 'nao-usadas/dj-cabine.png', corte: { left: 0, top: 320, width: 1023, height: 818 }, largura: 900, q: 72, luz: 1.06, sat: 0.94 },
+     E a linha ANTERIOR a esta era `salao-som` — o aparador com a mesa de
+     som acesa e a sala VAZIA à volta. Ela saiu por assunto, não por
+     qualidade: numa casa que se apresenta como listening club, a única
+     tela dedicada à escuta mostrava o equipamento e não quem o opera. A
+     regra que sai daí vale para o site inteiro e não depende desta seção:
+     a noite é uma sequência de PESSOAS, não de cômodos. */
 
   /* ── O primeiro copo · 19h ───────────────────────────────────────────
      SEÇÃO NOVA, e é a fotografia que uma casa que se chama COCKTAIL BAR

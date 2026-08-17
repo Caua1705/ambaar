@@ -46,28 +46,29 @@
    ║ Entrada e saída viravam um movimento só.                             ║
    ║                                                                      ║
    ║ Fotografada a 414×896 com rolagem em degraus, a 3050px: a tela       ║
-   ║ inteira em carvão, com o "19h" e o rótulo da cabine boiando nela. O  ║
-   ║ dreno dispara a `bottom 76%`, isto é, quando a seção ainda ocupa     ║
-   ║ três quartos da altura — e é isso o que ele esvazia.                 ║
+   ║ inteira em carvão, com o "19h" boiando nela. O dreno dispara a       ║
+   ║ `bottom 76%`, isto é, quando a seção ainda ocupa três quartos da     ║
+   ║ altura — e é isso o que ele esvazia.                                 ║
    ║                                                                      ║
-   ║ E a seção seguinte não tem como socorrer: a cabine guarda 32svh de   ║
-   ║ carvão acima da faixa dela de propósito (cabine.css), então a faixa  ║
-   ║ só chega ao meio da tela uns 400px de rolagem depois. Somados, dava  ║
-   ║ quase uma tela e meia de preto seguido — que é, palavra por palavra, ║
-   ║ a queixa que esta região do site já levou uma passada inteira para   ║
-   ║ resolver.                                                            ║
+   ║ E a seção seguinte não tinha como socorrer: a cabine das 20h, que    ║
+   ║ ficava aqui embaixo, guardava 32svh de carvão acima da faixa dela de ║
+   ║ propósito, então a faixa só chegava ao meio da tela uns 400px de     ║
+   ║ rolagem depois. Somados, dava quase uma tela e meia de preto         ║
+   ║ seguido — que é, palavra por palavra, a queixa que esta região do    ║
+   ║ site já levou uma passada inteira para resolver. (A cabine saiu do   ║
+   ║ site; a nota está em index.html. O dreno continua não valendo a      ║
+   ║ pena pelo próprio motivo dele, abaixo.)                              ║
    ║                                                                      ║
-   ║ Adiar o dreno não salva: a `bottom 45%` ele passa a acontecer DEPOIS ║
-   ║ de a cabine abrir, e aí são duas seções se mexendo ao mesmo tempo —  ║
-   ║ o defeito que o próprio escalonamento 76/58 existe para evitar.      ║
-   ║ Encurtá-lo pela metade deixa uma faixa de fotografia cortada reta no ║
-   ║ alto, que é pior que as duas coisas.                                 ║
+   ║ Adiar o dreno também não salvava: mais tarde ele passa a acontecer   ║
+   ║ DEPOIS de a seção seguinte abrir, e aí são duas seções se mexendo ao ║
+   ║ mesmo tempo. Encurtá-lo pela metade deixa uma faixa de fotografia    ║
+   ║ cortada reta no alto, que é pior que as duas coisas.                 ║
    ║                                                                      ║
    ║ O que ficou: a fotografia NÃO sai. Ela é o que a seção é, e a        ║
    ║ rolagem já a leva embora. Sai o que é dito — a frase sobe, o traço   ║
    ║ se recolhe — e a fotografia desce 4% atrás deles, o resto do curso   ║
-   ║ que a entrada deixou em reserva (copo.css). O escuro que a cabine    ║
-   ║ precisa antes do corte ela ganha da própria goteira dela.            ║
+   ║ que a entrada deixou em reserva (copo.css). O escuro que o corte     ║
+   ║ seguinte precisa ela dá com a própria goteira dela.                  ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
 import { gsap, ScrollTrigger, reducedMotion, EASE, autonomo, laco } from './motion.js'
@@ -150,8 +151,9 @@ if (secao) {
 
     /* ── O líquido não pára de se mexer ────────────────────────────────
 
-       Sem isto a tela é um cartaz depois que a entrada acaba, que é o
-       defeito que esta mesma passada corrigiu na cabine.
+       Sem isto a tela é um cartaz depois que a entrada acaba. Uma
+       fotografia parada não é uma cena parada: quinze segundos de imagem
+       imóvel não leem como pausa, leem como uma tela que acabou.
 
        Classe 3 (motion.js): não pergunta nada ao dedo, corre enquanto a
        seção está em cena e para quando ela sai. Período de ~59s (0,107
@@ -174,20 +176,32 @@ if (secao) {
       gsap.set(foto, { scale: 1.03 + Math.sin(t * 0.107) * 0.013 })
     })
 
-    /* ── 62% → 76%: a saída daqui e a entrada da cabine ESBARRAVAM ──────
+    /* ── 62% → 76%: a saída daqui e a entrada de baixo ESBARRAVAM ───────
 
-       A cabine é a seção seguinte, então o topo dela é o pé desta. Ela
-       montava a composição em `top 82%` e esta se desmontava em `bottom
-       62%` — vinte por cento de tela DEPOIS. Traduzido para o que se via:
-       a cabine abria embaixo enquanto esta ainda se desfazia no alto. Duas
-       seções se mexendo ao mesmo tempo, em direções diferentes, sem
-       relação uma com a outra.
+       A regra que este número serve é a ordem da leitura: primeiro esta
+       tela se desfaz, depois a próxima se arma. A 62% era o contrário — a
+       seção de baixo montava a composição dela em `top 82%`, vinte por
+       cento de tela ANTES, e as duas se mexiam ao mesmo tempo em direções
+       diferentes.
 
-       A ordem certa é a ordem da leitura: primeiro esta tela se desfaz,
-       depois a próxima se arma. Aqui sobe para 76% (a seção ainda tem a
-       tela, e é ela quem se desmonta) e a cabine desce para 58%
-       (cabine.js). Dezoito por cento de tela entre um gesto e o outro —
-       o bastante para não coincidirem, pouco para não virar espera. */
+       ── E o vizinho de baixo MUDOU ───────────────────────────────────
+
+       Era a cabine das 20h, que saiu do site; agora o pé desta seção é o
+       topo do capítulo 02. O número fica em 76%, e a conta é melhor do que
+       era, não pior:
+
+         top 78%     a batida de PRETO do capítulo (chapters.js) — o
+                     capítulo subindo do escuro. Não é uma composição se
+                     armando, é uma chegada, e ela acontece na fatia de
+                     tela que esta seção já entregou. Dezoito pixels a
+                     414×896 separam os dois gatilhos: fotografado em
+                     degraus a 2930 e 2950, não há colisão na tela — o que
+                     se vê é o que se quer, a frase indo embora por cima e
+                     o corte chegando por baixo.
+         bottom 76%  esta seção se desmonta
+         top 40%     a COMPOSIÇÃO do capítulo (título e texto). Trinta e
+                     seis pontos de tela depois do gesto daqui — o dobro
+                     dos dezoito que a cabine deixava. */
     const saida = gsap.timeline({ paused: true })
     saida.to(linha, { opacity: 0, y: -18, duration: 0.7, ease: EASE }, 0)
       /* A frase sobe e a fotografia desce. É a mesma contramão da entrada,

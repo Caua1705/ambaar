@@ -34,8 +34,9 @@
            como duas caixas
      1,70  a frase
 
-   Direções opostas, como no díptico da cabine — e a diferença é que lá as
-   duas aberturas se ENCONTRAM num filete e param; aqui elas se ATRAVESSAM.
+   Direções opostas, e o site tem uma só montagem assim: aqui as duas
+   aberturas se ATRAVESSAM. (A outra era a faixa da cabine, que abria do
+   centro para as duas pontas e PARAVA nas bordas; essa seção saiu.)
 
    ── A saída ─────────────────────────────────────────────────────────────
 

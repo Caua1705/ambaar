@@ -61,7 +61,6 @@
 
            17—19h  o Jardim      o sol cai e a cabine acende no lugar dele
            19h  o primeiro copo  o que a casa serve
-           20h  a cabine         alguém escolhe o que vai tocar
            20—22h  o Salão       a sala enche
            22h  a pista          a sala cheia, por cima e por dentro
            23h  o brinde         a meia-noite chegando
@@ -376,98 +375,30 @@
         </div>
       </section>
 
-      <!-- ── A cabine · 20h ─────────────────────────────────
-           A noite tem um autor. Não é sobre um DJ — é sobre alguém estar
-           escolhendo isto.
-
-           ── A SALA VAZIA SAIU ───────────────────────────────────────────
-
-           Esta tela era uma fotografia do aparador com a mesa de som acesa
-           e a sala vazia à volta. Ela tinha entrado para resolver um
-           problema de montagem (ela continha, sozinha, as duas chapas do
-           díptico que a seção tinha antes), e resolvia — o que ninguém
-           olhou foi o que ela era como ASSUNTO.
-
-           Era um cômodo sem ninguém. E o cabeçalho deste arquivo, trinta
-           telas acima, é onde está escrito por que isso não pode ser: a
-           noite deixou de ser uma sequência de cômodos e passou a ser uma
-           sequência de PESSOAS. Onze fotografias entraram por causa disso.
-           Esta seção ficou sendo a única superfície do site que continuou
-           sendo o móvel.
-
-           E ela se entregava sozinha: a frase impressa aqui embaixo é
-           "Alguém escolheu o que você vai ouvir". A legenda prometia uma
-           pessoa e a imagem entregava um equipamento. Numa casa que se
-           apresenta como LISTENING CLUB, a única tela dedicada à escuta
-           mostrava a mesa de som e não quem opera — que é a diferença entre
-           vender um aparelho e vender uma curadoria.
-
-           No lugar entra `cabine-dj`: do alto, alguém debruçado sobre os
-           dois CDJs com a mão no mixer, a cabeça baixa, e uma segunda
-           pessoa ao fundo na parede âmbar. O gesto que a frase descreve,
-           acontecendo. A chapa estava na pasta das descartadas, triada em
-           lote e nunca olhada — como as outras onze.
-
-           ── Por que ela NÃO é redundante com o Jardim ───────────────────
-
-           O capítulo 01 mostra a cabine acesa com o DJ tocando dentro do
-           plano, nos quadros 17—28. É a mesma casa e não é a mesma tela: lá
-           é ao longe, do outro lado de um pátio, de tarde, e a cabine é UM
-           dos acontecimentos de uma sequência cheia de gente. Aqui é do
-           alto, a um metro, e não há mais nada na tela. Lá a cabine é parte
-           do lugar; aqui ela é o assunto.
-
-           ── E a composição não repete a da carta ────────────────────────
-
-           A tela anterior é uma fotografia sangrando nos quatro lados com o
-           texto POR CIMA dela. Se esta fosse igual, as duas viravam um
-           formato. Aqui a fotografia é uma FAIXA deitada que corta a tela
-           de lado a lado, e o texto mora fora dela, no carvão. Nenhuma
-           outra tela do site tem uma faixa sangrando só pelos dois lados.
-
-           A carta abre por uma aresta que desce; esta abre do meio para as
-           duas pontas. Duas emendas vizinhas, dois eixos, dois sentidos.
-
-           A faixa ficou mais alta (1,25 em vez de 1,53) porque agora há uma
-           FIGURA dentro dela: uma sala cabe numa fresta, uma pessoa
-           debruçada sobre uma mesa não. Ver cabine.css. -->
-      <section class="cabine" data-vrail="A CABINE" data-choreo
-               data-hora="20" data-hora-em="esq-baixo" data-som=".50">
-        <div class="cabine__stage">
-          <p class="cabine__rotulo">
-            <span class="cabine__dash" aria-hidden="true"></span>
-            <span>A cabine</span>
-          </p>
-
-          <figure class="cabine__faixa">
-            <img src="/img/cabine-dj.webp" alt="Vista do alto: alguém debruçado sobre a mesa de som, com a mão no mixer, na luz âmbar da sala." loading="lazy">
-            <!-- A sala acendendo em volta de quem toca. Um poço de âmbar na
-                 parede do fundo, que chega DEPOIS de a faixa terminar de
-                 abrir.
-
-                 Enquanto a fotografia era uma sala vazia, este brilho era o
-                 acontecimento da tela: "alguém ligou aquilo" dito por luz,
-                 porque não havia ninguém para dizê-lo. Agora há, e ele
-                 muda de papel — deixa de ser o assunto e passa a ser a sala
-                 subindo em volta do gesto, meio segundo depois de a figura
-                 aparecer. Por isso ele também baixou de intensidade e
-                 mudou de lugar: ver cabine.css. -->
-            <span class="cabine__luz" aria-hidden="true"></span>
-          </figure>
-
-          <!-- Sem âmbar, por ritmo: a tela anterior (a carta) e a seguinte
-               (o salão) carregam acento, e esta é a batida branca entre as
-               duas. A frase aguenta — é a única coisa escrita na tela.
-
-               COM <br>, e ele é necessário: esta linha é uma das poucas de
-               display que não está na lista do `balance` (base.css), então
-               a quebra é a do navegador — "Alguém escolheu o / que você vai
-               ouvir.", com o artigo pendurado no fim da primeira linha.
-               Medido a 414. Escrito à mão, a segunda linha pede 308px numa
-               caixa de 330 e cabe. -->
-          <p class="cabine__linha">Alguém escolheu<br>o que você vai ouvir.</p>
-        </div>
-      </section>
+      <!-- ╔══════════════════════════════════════════════════════════════╗
+           ║ A CABINE · 20h SAIU DO SITE                                  ║
+           ║                                                              ║
+           ║ Era a tela entre a carta e o Salão: uma faixa deitada         ║
+           ║ (`cabine-dj`, alguém debruçado sobre os CDJs, visto do alto)  ║
+           ║ que abria do centro para as duas bordas, um poço de âmbar     ║
+           ║ acendendo na parede do fundo e a frase "Alguém escolheu / o   ║
+           ║ que você vai ouvir".                                          ║
+           ║                                                              ║
+           ║ Saiu a pedido, e o que ela dizia não fica órfão: o capítulo   ║
+           ║ 01 já mostra a cabine acesa com o DJ tocando dentro do plano  ║
+           ║ (quadros 17—28), e a curadoria continua declarada em texto no ║
+           ║ Salão ("Não é o volume. É o que está tocando.") — que é a     ║
+           ║ mesma tese, dita no pico de som da página.                    ║
+           ║                                                              ║
+           ║ O que saiu junto, porque só existia para ela: cabine.js,      ║
+           ║ cabine.css, `/img/cabine-dj.webp` e a linha dela em           ║
+           ║ scripts/fotos.mjs. O relógio não perde nenhum degrau — ele    ║
+           ║ é lido de data-hora e vai de 19h direto para a faixa 20—22h   ║
+           ║ do Salão, que já cobria as 20h.                               ║
+           ║                                                              ║
+           ║ A emenda que sobrou é carta → Salão, e ela foi reajustada:    ║
+           ║ ver a nota do escalonamento em copo.js.                       ║
+           ╚══════════════════════════════════════════════════════════════╝ -->
 
       <!-- ── 02 · O salão ───────────────────────────────────
            A melhor tela do site, e ela não muda: 34 quadros de um plano fixo
@@ -1031,8 +962,8 @@
          ║ Medido outra vez neste navegador, a 414×896: o defeito continua  ║
          ║ lá. Na rolagem 3175 o quadro inteiro é âmbar com uma emenda      ║
          ║ horizontal dura no meio, e ele ainda está lá em 3600, dentro da  ║
-         ║ cabine. Duas correções aplicaram, mediram certo, e não           ║
-         ║ resolveram.                                                      ║
+         ║ cabine (a seção das 20h, que saiu do site depois disto). Duas    ║
+         ║ correções aplicaram, mediram certo, e não resolveram.            ║
          ║                                                                  ║
          ║ Porque a causa nunca foi nem a duração nem o platô. É a          ║
          ║ GEOMETRIA: uma faixa de 220svh cujo trecho acima de 0,7 de       ║

@@ -51,7 +51,6 @@
        Hero      .15    o instante guardado, antes de tudo
        Jardim    .30    som lá fora, entre as plantas
        19h copo  .34    a casa começou a servir
-       20h cabine .50   alguém escolhendo o que vai tocar
        Salão     .70    a casa cheia
        22h pista .80    o pico da página
        23h brinde .78
@@ -379,29 +378,46 @@ if (botao) {
     dizer(3200)
   }
 
-  /* ── E ele chama uma vez na cabine ───────────────────
+  /* ── E ele chama uma vez no Salão ────────────────────
 
-     A alternativa em cima da mesa era o controle VIVER na seção da cabine,
-     em vez de ser permanente. Ela não passa: o som continua tocando depois
-     de a seção sair, e um controle que produz um efeito duradouro não pode
+     A alternativa em cima da mesa era o controle VIVER numa seção só, em
+     vez de ser permanente. Ela não passa: o som continua tocando depois de
+     a seção sair, e um controle que produz um efeito duradouro não pode
      desaparecer — quem ligasse teria de rolar de volta para calar. O
      argumento inteiro está em som.css.
 
-     O que a ideia tinha de bom é o CONTEXTO, e isso dá para ficar com: a
-     cabine é a única tela cujo assunto é alguém escolhendo o que vai
-     tocar, e é o único ponto do site em que "quer ouvir a casa?" não é uma
-     interrupção. Ele repete os dois anéis e diz o nome outra vez, uma só
-     vez, e só se o som ainda estiver desligado — chamar quem já ligou é
-     pedir uma coisa que a pessoa já fez.
+     O que a ideia tinha de bom é o CONTEXTO, e isso dá para ficar com. A
+     chamada morava na cabine das 20h — a tela cujo assunto era alguém
+     escolhendo o que vai tocar —, e essa seção saiu do site (a nota está
+     em index.html, onde ela ficava). O endereço novo é o CAPÍTULO 02, e
+     ele não é um consolo: o Salão é o pico de volume da página (.70) e é
+     onde está escrito, em tipo grande, "Não é o volume. É o que está
+     tocando." Oferecer o som embaixo dessa frase é a única colocação do
+     site em que "quer ouvir a casa?" não é uma interrupção — é a legenda
+     do que está na tela.
+
+     Longe do berço, também: o botão nasce no capítulo 01 e o 02 começa
+     quase três telas depois. Duas falas do mesmo controle não se
+     atropelam.
+
+     Ele repete os dois anéis e diz o nome outra vez, uma só vez, e só se o
+     som ainda estiver desligado — chamar quem já ligou é pedir uma coisa
+     que a pessoa já fez.
 
      `once` no gatilho e não um sinalizador: subir de volta não recomeça a
      chamada. Duas insistências não são um convite. */
-  const cabine = document.querySelector('.cabine')
+  const chamado = document.querySelector('#cap-salao')
 
-  if (cabine && !reducedMotion) {
+  if (chamado && !reducedMotion) {
     ScrollTrigger.create({
-      trigger: cabine,
-      start: 'top 55%',
+      trigger: chamado,
+      /* `top 30%` e não os 55% que a cabine usava: lá o convite podia
+         chegar junto com a seção, porque a seção INTEIRA era o argumento.
+         Aqui o argumento é uma frase, e ela só termina de se escrever
+         depois do gatilho de texto do capítulo (`top 40%`, chapters.js).
+         Chamar antes dela seria pedir o som em cima de uma tela ainda
+         preta. */
+      start: 'top 30%',
       once: true,
       onEnter: () => {
         if (ligado || !botao.classList.contains('is-visivel')) return

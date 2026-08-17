@@ -241,15 +241,15 @@
 }
 
 /* ╔══════════════════════════════════════════════════════════════════════╗
-   ║ ONDE O CONTROLE MORA — a pergunta era topo fixo ou seção da cabine   ║
+   ║ ONDE O CONTROLE MORA — a pergunta era topo fixo ou uma seção só      ║
    ║                                                                      ║
    ║ Nem uma nem outra, e a razão não é de composição:                    ║
    ║                                                                      ║
-   ║ · SÓ NA CABINE não pode. Um controle que produz som e depois SAI de  ║
-   ║   cena prende o usuário num som que ele não tem como desligar — ele  ║
-   ║   teria de rolar de volta duas telas para calar a página. É o único  ║
-   ║   controle do site cujo efeito continua depois de ele sumir, e por   ║
-   ║   isso é o único que não pode sumir.                                 ║
+   ║ · DENTRO DE UMA SEÇÃO não pode. Um controle que produz som e depois  ║
+   ║   SAI de cena prende o usuário num som que ele não tem como          ║
+   ║   desligar — ele teria de rolar de volta duas telas para calar a     ║
+   ║   página. É o único controle do site cujo efeito continua depois de  ║
+   ║   ele sumir, e por isso é o único que não pode sumir.                ║
    ║                                                                      ║
    ║ · NO TOPO ele briga. O topo já é da barra fixa (marca à esquerda,    ║
    ║   menu e "RESERVAS" à direita), e no telefone só a chamada sobrevive ║
@@ -257,16 +257,17 @@
    ║   ação da página em duas. E é a pior faixa da tela para o polegar.   ║
    ║                                                                      ║
    ║ Fica onde está: quina inferior direita, fixo, permanente a partir do ║
-   ║ capítulo 01. O que ele ganha é a CHAMADA da cabine, abaixo — o único ║
-   ║ pedaço da ideia "aparecer na sessão de DJ" que vale a pena, sem o    ║
-   ║ preço de ele deixar de existir depois.                               ║
+   ║ capítulo 01. O que ele ganha é a CHAMADA de baixo — o único pedaço   ║
+   ║ da ideia "aparecer na sessão de DJ" que vale a pena, sem o preço de  ║
+   ║ ele deixar de existir depois.                                        ║
    ╚══════════════════════════════════════════════════════════════════════╝
 
    Ele nasce no capítulo 01, quando a casa acende a cabine no jardim, e
-   volta a chamar UMA vez, na tela em que alguém está escolhendo o que vai
-   tocar — e só se o som ainda estiver desligado. É o único momento da
-   página em que a pergunta "quer ouvir?" tem contexto: a seção inteira é
-   sobre isso.
+   volta a chamar UMA vez no capítulo 02, embaixo de "Não é o volume. É o
+   que está tocando." — e só se o som ainda estiver desligado. É o único
+   momento da página em que a pergunta "quer ouvir?" tem contexto: a tela
+   acabou de dizer que o que toca é o assunto da casa. (A chamada morava
+   na cabine das 20h, que saiu do site; ver som.js.)
 
    Nome de animação próprio, e não o `somEco` com outra contagem: repetir o
    mesmo `animation-name` com valores diferentes não reinicia nada — o

@@ -580,16 +580,27 @@ for (const chapter of document.querySelectorAll('.chapter')) {
 
      ── E ela acende mais cedo: `top 64%` virou `top 78%` ────────────────
 
-     Metade de uma queixa desta passada: "embaixo da cabine tenho que rolar
-     quatro vezes para chegar no Salão, e fica um espaço preto vazio
-     grande". A outra metade era o poente, que cobria a cabine inteira de
-     âmbar e foi removido; esta é o resto.
+     Metade de uma queixa de uma passada anterior: "embaixo da cabine tenho
+     que rolar quatro vezes para chegar no Salão, e fica um espaço preto
+     vazio grande". A outra metade era o poente, que cobria a cabine
+     inteira de âmbar e foi removido; esta é o resto.
 
      A 64%, o capítulo passava 36% de tela em preto absoluto antes de a
      fotografia começar a acender — somados aos 30svh de carvão que a seção
      anterior deixava no pé, davam mais de uma tela seguida sem nada.
      A 78% a batida de preto continua existindo (ela é o que faz a chegada
-     ser um corte), e ela dura 22% de tela em vez de 36. */
+     ser um corte), e ela dura 22% de tela em vez de 36.
+
+     ── E o vizinho do Salão mudou depois disso ──────────────────────────
+
+     A cabine saiu do site (a nota está em index.html), então quem entrega
+     o Salão agora é a carta das 19h — uma fotografia de sangria total, sem
+     os 30svh de carvão no pé. O número não mudou por causa disso: a 78% os
+     dois gatilhos ficam a 18px um do outro a 414×896 (a saída da carta
+     dispara a `bottom 76%`, copo.js), e fotografado em degraus a 2930 e
+     2950 não há colisão — a frase da carta sai por cima, o preto do
+     capítulo chega por baixo. Os 64% de antes reabririam o buraco que esta
+     nota existe para ter fechado. */
   autonomo(chapter, (t) => {
     t.fromTo(media, { opacity: 0 }, { opacity: 1, duration: 1.1, ease: 'power2.out' })
   }, { start: 'top 78%' })

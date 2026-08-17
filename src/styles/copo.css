@@ -174,9 +174,9 @@
    protocolo em vez de pedir uma janela ao sistema): duas linhas, a maior
    com 305px numa caixa de 330. Cabe, e sempre coube.
 
-   Fica `--fs-quieto`, que é o degrau da escala para a frase de uma tela —
-   o mesmo da cabine ao lado. Não há razão de composição para esta seção
-   sair do sistema, e não havia razão de largura. */
+   Fica `--fs-quieto`, que é o degrau da escala para a frase de uma tela.
+   Não há razão de composição para esta seção sair do sistema, e não havia
+   razão de largura. */
 .copo__linha {
   position: absolute;
   z-index: 3;

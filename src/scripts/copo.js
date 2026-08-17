@@ -62,6 +62,16 @@ if (secao) {
   const carta = secao.querySelector('.carta')
   const itens = [...secao.querySelectorAll('.carta__item')]
 
+  /* Os alvos deixaram de ser os itens. A JANELA não viaja — ela é a
+     abertura, e uma abertura que se desloca é um slide de apresentação. O
+     que viaja é a chapa dentro dela (recortada pelo `overflow` da janela) e,
+     em outro tempo, a legenda. */
+  const chapas = itens.map((it) => it.querySelector('.carta__quadro img'))
+  const legendas = itens.map((it) => [
+    it.querySelector('.carta__nome'),
+    it.querySelector('.carta__nota')
+  ])
+
   /* A chamada é partida em palavras, cada uma na própria máscara
      (motion.js). As do `<b class="ouro">` têm tempo próprio: é o acento da
      tela e ele chega sozinho, depois de a primeira metade assentar. */
@@ -84,7 +94,9 @@ if (secao) {
     gsap.set(palavras, { y: 0, yPercent: 0 })
     gsap.set(dash, { scaleX: 1 })
     gsap.set(carta, { autoAlpha: 1, x: 0 })
-    gsap.set(itens, { xPercent: 0, autoAlpha: 1 })
+    gsap.set(itens, { autoAlpha: 1 })
+    gsap.set(chapas, { xPercent: 0, scale: 1, autoAlpha: 1 })
+    gsap.set(legendas.flat(), { x: 0, autoAlpha: 1 })
   } else {
     /* ╔══════════════════════════════════════════════════════════════════╗
        ║ `y: 0` JUNTO COM `yPercent` — e sem ele a chamada não sai da      ║
@@ -109,12 +121,19 @@ if (secao) {
        ╚══════════════════════════════════════════════════════════════════╝ */
     gsap.set(palavras, { y: 0, yPercent: 110 })
 
-    /* As chapas nascem fora, à direita, menos a primeira. `autoAlpha` além
-       do deslocamento: uma chapa a 110% ainda é pintada pelo navegador e
-       ainda intercepta leitura de tela — e com três camadas de tela cheia
-       empilhadas isso é trabalho por nada em todo quadro. */
-    gsap.set(itens, { xPercent: 110, autoAlpha: 0 })
-    gsap.set(itens[0], { xPercent: 0, autoAlpha: 1 })
+    /* Os três itens ficam SEMPRE presentes e visíveis: quem esconde a chapa
+       que não é a da vez é o recorte da janela, não a opacidade dela. É essa
+       troca que permite as duas chapas coexistirem dentro da abertura
+       durante a passagem — sem isso não há uma empurrando a outra, há uma
+       apagando e outra acendendo.
+
+       A legenda é o contrário: ela mora FORA da janela, nada a recorta, e
+       por isso é ela que carrega o `autoAlpha`. */
+    gsap.set(itens, { autoAlpha: 1 })
+    gsap.set(chapas, { xPercent: 100, scale: 1.06 })
+    gsap.set(chapas[0], { xPercent: 0, scale: 1 })
+    gsap.set(legendas.flat(), { autoAlpha: 0, x: 22 })
+    gsap.set(legendas[0], { autoAlpha: 1, x: 0 })
 
     /* ── A entrada da tela (classe 2) ──────────────────── */
 
@@ -172,35 +191,114 @@ if (secao) {
       }
     })
 
-    /* Duas passagens, e as duas são o mesmo par: a de fora sai pela
-       esquerda, a de dentro entra pela direita. `ease: 'none'` porque quem
-       dá a curva é o dedo — dentro de um patamar não há nada acontecendo, e
-       a curva do gesto está na largura da janela de passagem, não na
-       aceleração dela. */
-    const PASSAGENS = [[0.90, 1.25], [2.15, 2.50]]
+    /* ╔══════════════════════════════════════════════════════════════════╗
+       ║ A PASSAGEM FOI REFEITA — era um slide, virou uma travessia        ║
+       ║                                                                  ║
+       ║ A queixa: "está travado, passa rápido, meio forçado, não é suave  ║
+       ║ e premium". Três causas, e nenhuma era a duração sozinha.         ║
+       ║                                                                  ║
+       ║ 1. A JANELA VIAJAVA. Quem deslizava era o `.carta__item` inteiro, ║
+       ║    e a moldura vai dentro dele — então a abertura atravessava a   ║
+       ║    tela junto com a fotografia. Isso é um slide de apresentação:  ║
+       ║    o quadro sai de cena e outro quadro entra.                     ║
+       ║                                                                  ║
+       ║    Agora a janela é FIXA. Ela é uma abertura, e o que passa é a   ║
+       ║    chapa por dentro dela, recortada pelo `overflow`. O olho tem   ║
+       ║    um ponto de apoio parado enquanto a matéria corre — que é a    ║
+       ║    diferença entre uma vitrine e um carrossel.                    ║
+       ║                                                                  ║
+       ║ 2. AS DUAS ANDAVAM JUNTAS, NO MESMO PASSO. Dois planos na mesma   ║
+       ║    velocidade não têm profundidade: leem como um retângulo só.    ║
+       ║    A que SAI anda 45% e cresce 6%; a que ENTRA anda os 100% e     ║
+       ║    assenta de 1,06 para 1. A de trás fica para trás e a da frente ║
+       ║    desliza por cima dela — é paralaxe, e é o que faz uma          ║
+       ║    passagem parecer cara.                                         ║
+       ║                                                                  ║
+       ║ 3. `ease: 'none'`. O argumento anterior era "quem dá a curva é o  ║
+       ║    dedo". Está errado na tela: uma translação linear tem partida  ║
+       ║    e chegada DURAS, e é exatamente isso que se lê como travado.   ║
+       ║    `power2.inOut` põe uma curva na passagem sem tirar o controle  ║
+       ║    do dedo — a posição continua sendo a rolagem, o que muda é a   ║
+       ║    taxa com que ela é gasta.                                      ║
+       ║                                                                  ║
+       ║ E a legenda chega DEPOIS da chapa. Nome e ingredientes não são    ║
+       ║ parte da fotografia: a chapa assenta, e só então o nome dela      ║
+       ║ aparece. Um cardápio não anuncia antes de servir.                 ║
+       ╚══════════════════════════════════════════════════════════════════╝
+
+       ── E o curso da passagem dobrou ────────────────────────────────────
+
+       Era 0,35 de 3,00 — a 150% de curso numa tela de 896, 157px de
+       rolagem para atravessar a tela inteira. Um polegar gasta isso em um
+       terço de segundo, e daí "passa rápido".
+
+       Agora são 0,60, e o curso subiu de 150 para 175: 314px por passagem,
+       o dobro. O tempo em movimento vai de 23% para 40% do curso — a tela
+       deixa de ser "parada, tranco, parada". */
+    const PASSAGENS = [[0.70, 1.30], [2.00, 2.60]]
 
     PASSAGENS.forEach(([entra, sai], i) => {
       const dur = sai - entra
 
-      /* `fromTo` também na que SAI. Um `to` dentro de um scrub grava o
-         valor de partida no instante em que a timeline é criada — e nesse
-         instante a chapa 1 ainda está no estado inicial (110%), não no de
-         cena (0%). O tween interpolaria de 110 a -110, atravessando a tela
-         de fora a fora. Com `fromTo` as duas pontas vêm do objeto. */
-      passar.fromTo(itens[i],
-        { xPercent: 0, autoAlpha: 1 },
-        { xPercent: -110, autoAlpha: 0, duration: dur, ease: 'none' },
+      /* ╔════════════════════════════════════════════════════════════════╗
+         ║ `fromTo` NAS DUAS PONTAS + `immediateRender: false`             ║
+         ║                                                                ║
+         ║ As duas metades da mesma armadilha, e as duas custaram uma      ║
+         ║ medição nesta seção.                                            ║
+         ║                                                                ║
+         ║ `fromTo` porque um `to` dentro de um scrub grava o valor de     ║
+         ║ PARTIDA no instante em que a timeline é criada, e nesse         ║
+         ║ instante nenhuma chapa está no estado de cena.                  ║
+         ║                                                                ║
+         ║ `immediateRender: false` porque `fromTo` faz o contrário e é    ║
+         ║ pior: por padrão ele ESCREVE o estado de partida na criação. A  ║
+         ║ segunda volta deste laço cria a saída da chapa 2, cujo `from` é ║
+         ║ "visível e no lugar" — e isso era escrito no elemento antes de  ║
+         ║ qualquer rolagem, apagando o `gsap.set` que a tinha posto fora  ║
+         ║ de cena.                                                       ║
+         ║                                                                ║
+         ║ Medido a 3.200px, no meio da primeira passagem:                 ║
+         ║                                                                ║
+         ║   Fitzgerald  opacity 0.486   (correto, saindo)                 ║
+         ║   Melancita   opacity 1       <<< devia ser 0, entra só em 1,03 ║
+         ║   Gin Tropical opacity 0                                        ║
+         ║                                                                ║
+         ║ Na tela: os dois nomes legíveis um por cima do outro no meio do ║
+         ║ gesto. Com `false`, quem manda no estado inicial são os         ║
+         ║ `gsap.set` lá de cima, e a timeline só escreve quando a         ║
+         ║ rolagem chega nela.                                             ║
+         ╚════════════════════════════════════════════════════════════════╝ */
+      const cru = { immediateRender: false, ease: 'power2.inOut' }
+
+      // a que sai: anda menos da metade, e cresce — ela fica para trás
+      passar.fromTo(chapas[i],
+        { xPercent: 0, scale: 1 },
+        { xPercent: -45, scale: 1.06, duration: dur, ...cru },
         entra)
 
-      passar.fromTo(itens[i + 1],
-        { xPercent: 110, autoAlpha: 0 },
-        { xPercent: 0, autoAlpha: 1, duration: dur, ease: 'none' },
+      // a que entra: atravessa a abertura inteira e ASSENTA na escala
+      passar.fromTo(chapas[i + 1],
+        { xPercent: 100, scale: 1.06 },
+        { xPercent: 0, scale: 1, duration: dur, ...cru },
         entra)
+
+      /* A legenda que sai vai embora na PRIMEIRA metade da passagem, e a
+         que entra chega na última — nunca as duas ao mesmo tempo, ou os
+         dois nomes se leem sobrepostos no meio do gesto. */
+      passar.fromTo(legendas[i],
+        { x: 0, autoAlpha: 1 },
+        { x: -22, autoAlpha: 0, duration: dur * 0.45, ease: 'power1.in', immediateRender: false },
+        entra)
+
+      passar.fromTo(legendas[i + 1],
+        { x: 22, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, duration: dur * 0.55, ease: 'power2.out', immediateRender: false },
+        entra + dur * 0.55)
     })
 
-    // o patamar final: sem ele a timeline acabaria em 2,50 e o último terço
-    // do curso não teria dono — a carta ficaria parada esperando a rolagem
-    passar.to({}, { duration: 0.5 }, 2.5)
+    // o patamar final: sem ele a timeline acabaria em 2,60 e o resto do
+    // curso não teria dono — a carta ficaria parada esperando a rolagem
+    passar.to({}, { duration: 0.4 }, 2.6)
 
     /* ── A saída ───────────────────────────────────────── */
 

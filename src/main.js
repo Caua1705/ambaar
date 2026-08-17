@@ -40,3 +40,9 @@ import './scripts/som.js'
 import './scripts/sections.js'
 import './scripts/spine.js'
 import './scripts/topbar.js'
+
+/* TEMPORÁRIO — a régua na tela do aparelho, e ela sai do projeto assim que
+   a queixa da cortina estiver respondida. Só faz alguma coisa com `?diag=1`
+   no endereço; sem isso o módulo não cria um nó nem registra um ouvinte.
+   Por último porque ele desenha por cima de tudo. */
+import './scripts/diag.js'

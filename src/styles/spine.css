@@ -11,7 +11,14 @@
   position: fixed;
   left: 0;
   top: 0;
-  bottom: 0;
+  /* Altura estática em vez de `bottom: 0`, pela mesma razão da vinheta (o
+     bloco está em grain.css): `bottom` em elemento fixo resolve contra a
+     viewport de LAYOUT, que o Chrome do Android não atualiza enquanto o
+     dedo arrasta a barra de endereço para fora. O fio ficava ~57px curto no
+     pé da tela durante o gesto e completava quando o dedo soltava — e ele é
+     o objeto que atravessa a página inteira, então o corte aparece em toda
+     tela. */
+  height: var(--superficie);
   width: var(--gutter-l);
   z-index: 15;
   pointer-events: none;

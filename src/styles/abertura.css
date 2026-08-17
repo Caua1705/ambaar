@@ -31,7 +31,14 @@
 
 .abertura {
   position: fixed;
-  inset: 0;
+  /* sem `bottom`: em elemento fixo ele resolve contra a viewport de LAYOUT,
+     que a barra do navegador deixa desatualizada durante o gesto. A cortina
+     de carregamento é a única superfície da tela nesse instante — uma faixa
+     dela faltando seria o primeiro quadro do site. Ver grain.css. */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--superficie);
   z-index: 60;
   background: var(--carvao);
 }

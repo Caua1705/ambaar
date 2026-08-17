@@ -37,6 +37,22 @@ if (ligado) {
   const SUPERFICIES = '.hero, .chapter__stage, .copo__stage, .pista__stage, ' +
     '.brinde__stage, .passagem__stage, .pausa__stage, .quemfica__stage, .outro'
 
+  /* ── E as camadas FIXAS, que era o ponto cego ───────────────────────────
+
+     A primeira versão desta régua media só as seções, e por isso ela dizia
+     "falta 0px" com o defeito na tela: as seções sempre estiveram certas.
+     Quem não cobria era a vinheta — uma camada `position: fixed` com
+     `inset: 0`, cujo `bottom` resolve contra a viewport de LAYOUT, que o
+     Chrome do Android não atualiza durante o gesto.
+
+     Pseudo-elemento não tem nó para medir, então a altura vem do estilo
+     computado do dono. */
+  const FIXAS = [
+    ['vinheta (body::after)', () => parseFloat(getComputedStyle(document.body, '::after').height)],
+    ['grao (body::before)', () => parseFloat(getComputedStyle(document.body, '::before').height)],
+    ['fio (.spine)', () => document.querySelector('.spine')?.getBoundingClientRect().height ?? 0]
+  ]
+
   const caixa = document.createElement('div')
   caixa.style.cssText = `position:fixed;top:0;left:0;z-index:99999;
     font:11px/1.45 monospace;color:#0f0;background:rgba(0,0,0,.82);
@@ -133,6 +149,13 @@ if (ligado) {
       if (d > curtaMax.d) curtaMax = { nome: el.className.split(' ')[0] || el.tagName, d }
     }
 
+    /* E as camadas fixas, contra a mesma altura visível. */
+    const fixas = FIXAS.map(([n, medir]) => {
+      const h = Math.round(medir() || 0)
+      return { n, h, d: Math.round(alturaVisivel - h) }
+    })
+    for (const f of fixas) if (f.d > curtaMax.d) curtaMax = { nome: f.n, d: f.d }
+
     const nome = dona ? (dona.className.split(' ')[0] || dona.tagName) : '?'
 
     anotar('visivel', alturaVisivel)
@@ -154,7 +177,8 @@ if (ligado) {
       `agora        falta ${buraco}px  ${buraco ? '<<<< CURTA' : 'ok'}`,
       `PIOR GRAVADO ${pior.texto}`,
       ``,
-      `secao        ${nome}   topo ${r ? Math.round(r.top) : '?'}  alt ${r ? Math.round(r.height) : '?'}`,
+      `secao        ${nome}   alt ${r ? Math.round(r.height) : '?'}`,
+      ...fixas.map((f) => `${f.n.padEnd(22)} alt ${f.h}  ${f.d > 0 ? 'FALTA ' + f.d + 'px' : 'ok'}`),
       `visivel      ${mostrar('visivel')}`,
       `innerHeight  ${mostrar('inner')}`,
       `svh          ${mostrar('svh')}`,

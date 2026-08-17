@@ -2,6 +2,53 @@
 
    Ambas fixas, inertes ao ponteiro e acima de todo o conteúdo.
 
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ A CORTINA QUE NÃO PEGAVA A TELA TODA ERA ESTA — e a causa é `inset`   ║
+   ║                                                                      ║
+   ║ Quatro passadas procuraram esta faixa no lugar errado. Eu media as    ║
+   ║ SEÇÕES, e as seções estavam certas o tempo todo. Quem não cobria a    ║
+   ║ tela era a vinheta — isto é, a própria camada que o cliente estava    ║
+   ║ chamando de cortina, porque é literalmente uma demão escura sobre a   ║
+   ║ tela inteira.                                                        ║
+   ║                                                                      ║
+   ║ ── O número que resolveu, medido no aparelho dele ──────────────────  ║
+   ║                                                                      ║
+   ║   svh 679   lvh 750        (a barra do Chrome vale 71px)              ║
+   ║   hero: altura 750         ✓ a seção cobre                            ║
+   ║                                                                      ║
+   ║   SEGURANDO o dedo:  visualViewport 735   innerHeight 678             ║
+   ║   SOLTANDO:          visualViewport 750   innerHeight 749             ║
+   ║                                                                      ║
+   ║ Aí está tudo. Arrastando o dedo, a área VISÍVEL cresce (679→735), e   ║
+   ║ a viewport de LAYOUT não: `innerHeight` fica preso em 678 até o gesto ║
+   ║ terminar.                                                            ║
+   ║                                                                      ║
+   ║ E `position: fixed` se posiciona contra a viewport de LAYOUT. Com     ║
+   ║ `inset: 0`, o `bottom: 0` destas duas camadas resolve contra os 678 — ║
+   ║ enquanto a tela mostra 735. Sobra uma faixa de ~57px no pé da tela    ║
+   ║ FORA da vinheta: um degrau de até 34% de luminância, que é uma faixa  ║
+   ║ visivelmente mais clara, cortada reta. No instante em que o dedo      ║
+   ║ solta, `innerHeight` salta para 749 e a faixa fecha.                  ║
+   ║                                                                      ║
+   ║ "Dá pra ver uma parte de baixo sem a cortina, ela tá meio que         ║
+   ║ cortada; quando eu solto, preenche." Palavra por palavra.             ║
+   ║                                                                      ║
+   ║ ── O conserto ──────────────────────────────────────────────────────  ║
+   ║                                                                      ║
+   ║ Não usar `bottom` em camada fixa que precisa cobrir a tela. A altura  ║
+   ║ vem de `--superficie` (`100lvh`, tokens.css), que é ESTÁTICA e vale a ║
+   ║ tela sem barra: a camada nasce sempre com 750px a partir do topo, e   ║
+   ║ 750 ≥ qualquer altura visível que a barra possa produzir. Cobre       ║
+   ║ durante o gesto, cobre depois dele, e nunca muda de tamanho.          ║
+   ║                                                                      ║
+   ║ Com a barra à mostra ela sobra por baixo da tela. Não custa nada:     ║
+   ║ é gradiente sem eventos, e o que passa da borda ninguém vê.           ║
+   ║                                                                      ║
+   ║ REGRA que sai daqui: camada fixa de tela cheia usa `top` + altura de  ║
+   ║ `--superficie`. `inset: 0` em elemento fixo é uma medida que depende  ║
+   ║ da barra do navegador, e este projeto não tem mais nenhuma.            ║
+   ╚══════════════════════════════════════════════════════════════════════╝
+
    ── Passe de luminância ─────────────────────────────────
    A vinheta estava a 55% de preto a partir de 45% do raio. Somada ao brilho
    reduzido das fotos e às duas demãos de cada seção, ela era a terceira
@@ -16,7 +63,11 @@
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
+  /* sem `bottom` — ver o bloco acima */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--superficie);
   z-index: 9998;
   pointer-events: none;
   opacity: .05;
@@ -28,7 +79,12 @@ body::before {
 body::after {
   content: '';
   position: fixed;
-  inset: 0;
+  /* sem `bottom` — ver o bloco acima. Esta é A camada da queixa: a vinheta
+     escurece até 34% na borda, então uma faixa sem ela é uma faixa clara. */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--superficie);
   z-index: 9997;
   pointer-events: none;
   background: radial-gradient(

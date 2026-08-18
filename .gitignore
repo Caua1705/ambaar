@@ -25,3 +25,6 @@ dist-ssr
 
 .vercel
 .env*
+
+# a saída da régua (npm run tela): capturas de trabalho, nunca versionadas
+.tmp-tela

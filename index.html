@@ -369,23 +369,38 @@
 
            Três faixas cabem na largura de um telefone com 104px cada. Isso
            é uma miniatura, não uma fotografia — e o material é vertical,
-           feito de propósito para ser visto grande. Uma de cada vez, numa
-           janela retrato que não se move enquanto o drink dentro dela
-           troca: é virar a página de uma carta.
+           feito de propósito para ser visto grande. Uma de cada vez, grande,
+           com a próxima esperando na borda.
 
-           O curso de permanência (`--run: 150`) é o que dá lugar às três.
+           ── AS TRÊS ESTÃO NUMA FITA, E A ROLAGEM ANDA COM ELA ───────────
 
-           ── E o dispositivo NÃO é o dos capítulos ───────────────────────
+           Duas versões tentaram trocar as chapas DENTRO de uma janela
+           parada: primeiro uma empurrando a outra, depois uma linha âmbar
+           varrendo a abertura e descobrindo a próxima. A queixa voltou nas
+           duas: "está travado, passa rápido, meio forçado".
 
-           Os capítulos também são sticky, e os dois vizinhos desta seção
-           são capítulos. Mas eles DISSOLVEM: uma matéria vira outra por
-           opacidade, com véu e câmera andando. Aqui não há dissolução nem
-           véu nem movimento de câmera — as chapas DESLIZAM de lado, uma
-           empurrando a outra, como um copo sendo passado no balcão. A
-           emenda entre duas telas vizinhas continua não repetindo o mesmo
-           dispositivo. -->
+           E voltou porque as duas eram TRANSIÇÕES — um estado, um evento,
+           outro estado. Evento tem começo e fim, e é o fim que se lê como
+           tranco. Uma varredura de 240px que acontece em 313px de rolagem
+           dura um terço de segundo no polegar: não dá tempo de ser suave.
+
+           Agora não há transição nenhuma. As três estão lado a lado numa
+           FITA que atravessa a tela da direita para a esquerda, e a
+           rolagem é a mão que a puxa. Não há dois estados com um evento no
+           meio: há uma posição, e ela é contínua. Um copo sendo passado no
+           balcão, que era a imagem que a seção sempre quis.
+
+           Quem não é o drink da vez fica meio apagado na borda — os dois
+           degraus de luminância que fazem profundidade em todo o site — e
+           é isso, e não uma aresta, que separa duas fotografias feitas de
+           propósito com a mesma luz.
+
+           O curso de permanência subiu de 175 para 200 (`--run`): cada
+           passagem passou a custar 609px de rolagem para 302px de
+           deslocamento. Duas vezes mais dedo do que matéria — é essa razão,
+           e não a curva de aceleração, que faz uma coisa parecer pesada. -->
       <section class="copo" data-vrail="A CARTA" data-choreo
-               data-run="175" style="--run:175"
+               data-run="200" style="--run:200"
                data-hora="19" data-hora-em="esq-baixo" data-som=".34">
         <div class="copo__stage">
           <p class="copo__rotulo">
@@ -403,32 +418,46 @@
           <p class="copo__linha">A carta é curta. Os três são <b class="ouro">da casa</b>.</p>
 
           <!-- Uma lista, porque é uma lista. Cada item carrega a própria
-               janela, o nome e o que tem dentro, e desliza inteiro. -->
-          <ul class="carta">
-            <li class="carta__item">
-              <figure class="carta__quadro">
-                <img src="/img/carta-fitzgerald.webp" alt="Fitzgerald: uma coupe com líquido palha e uma casca de limão na borda, no balcão." loading="lazy">
-              </figure>
-              <h3 class="carta__nome">Fitzgerald</h3>
-              <p class="carta__nota">Gin · limão · angostura</p>
-            </li>
+               janela, o nome e o que tem dentro, e viaja inteiro.
 
-            <li class="carta__item">
-              <figure class="carta__quadro">
-                <img src="/img/carta-melancita.webp" alt="Melancita: uma taça balão com melancia, hortelã e gelo, no balcão." loading="lazy">
-              </figure>
-              <h3 class="carta__nome">Melancita</h3>
-              <p class="carta__nota">Gin · melancia · hortelã</p>
-            </li>
+               ── O invólucro não é enfeite: ele é o SEGUNDO DONO ─────────
 
-            <li class="carta__item">
-              <figure class="carta__quadro">
-                <img src="/img/carta-tropical.webp" alt="Gin Tropical: um copo alto dourado com maracujá, abacaxi e alecrim, no balcão." loading="lazy">
-              </figure>
-              <h3 class="carta__nome">Gin Tropical</h3>
-              <p class="carta__nota">Gin · maracujá · tônica</p>
-            </li>
-          </ul>
+               `.carta__trilho` existe por uma razão só, e ela está anotada
+               em copo.js: a entrada da tela (classe 2, corre sozinha) e a
+               fita (classe 1, presa à rolagem) precisam das duas de um
+               deslocamento horizontal. Se as duas escrevessem `x` no mesmo
+               elemento, a última a tocar ganharia — foi assim que os três
+               nomes já apareceram empilhados no mesmo lugar.
+
+               Então são dois elementos: o trilho é o objeto que CHEGA, a
+               fita é o objeto que ANDA. Uma propriedade, um dono. -->
+          <div class="carta__trilho">
+            <ul class="carta">
+              <li class="carta__item">
+                <figure class="carta__quadro">
+                  <img src="/img/carta-fitzgerald.webp" alt="Fitzgerald: uma coupe com líquido palha e uma casca de limão na borda, no balcão." loading="lazy">
+                </figure>
+                <h3 class="carta__nome">Fitzgerald</h3>
+                <p class="carta__nota">Gin · limão · angostura</p>
+              </li>
+
+              <li class="carta__item">
+                <figure class="carta__quadro">
+                  <img src="/img/carta-melancita.webp" alt="Melancita: uma taça balão com melancia, hortelã e gelo, no balcão." loading="lazy">
+                </figure>
+                <h3 class="carta__nome">Melancita</h3>
+                <p class="carta__nota">Gin · melancia · hortelã</p>
+              </li>
+
+              <li class="carta__item">
+                <figure class="carta__quadro">
+                  <img src="/img/carta-tropical.webp" alt="Gin Tropical: um copo alto dourado com maracujá, abacaxi e alecrim, no balcão." loading="lazy">
+                </figure>
+                <h3 class="carta__nome">Gin Tropical</h3>
+                <p class="carta__nota">Gin · maracujá · tônica</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 

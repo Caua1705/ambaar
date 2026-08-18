@@ -19,8 +19,8 @@
    ║ LISTA — ela tem itens, e itens têm nome. Enquanto a tela mostrasse   ║
    ║ um copo sem nome, nenhuma fotografia a salvaria.                     ║
    ║                                                                      ║
-   ║ Agora são três drinks da casa, um de cada vez, numa janela retrato   ║
-   ║ que não se move enquanto a chapa dentro dela troca.                  ║
+   ║ Agora são três drinks da casa, em três janelas retrato lado a lado   ║
+   ║ numa fita, e a rolagem anda com ela.                                 ║
    ╚══════════════════════════════════════════════════════════════════════╝
 
    ── A composição, e ela é a de um cardápio ──────────────────────────────
@@ -40,16 +40,25 @@
    balcão vazio dos lados. 58vw por 40lvh dá 0,61 de proporção contra 0,56
    do arquivo: o `cover` corta 8% da altura e nenhum pixel de largura.
 
-   E o terço direito da tela fica vazio, em carvão. Não é sobra: é onde o
-   texto vertical mora, e é o ar que separa esta tela — que é uma lista —
-   das duas vizinhas, que são fotografia sangrada de borda a borda. */
+   E o terço direito da tela não fica mais vazio: é ali que a PRÓXIMA
+   janela espia, 72px dela. Continua sendo ar em relação às duas telas
+   vizinhas — que são fotografia sangrada de borda a borda —, mas agora é
+   um ar que diz para onde a carta continua. O texto vertical divide essa
+   faixa com a espia, e é por isso que a chapa que não é a da vez fica a
+   34%: ela não pode competir com uma palavra escrita de lado. */
 
 .copo {
   position: relative;
   background: var(--carvao);
   /* O curso de permanência: três drinks precisam de lugar. Medida inteira e
-     em `lvh`, como toda altura de fluxo (tokens.css). */
-  --run: 175;
+     em `lvh`, como toda altura de fluxo (tokens.css).
+
+     200 e não 175: a fita anda 302px por drink, e a razão entre dedo e
+     matéria é o que faz o gesto parecer pesado. A 175 cada passagem custava
+     533px de rolagem (1,76 : 1); a 200 custa 609px (2,02 : 1). O valor
+     verdadeiro vem do `style="--run:200"` no HTML — este é o espelho dele,
+     e o copo.js lê o mesmo número do `data-run`. */
+  --run: 200;
   height: calc(var(--tela) + var(--run) * 1lvh);
 }
 
@@ -159,30 +168,110 @@
   color: rgba(255, 255, 255, .82);
 }
 
-/* ── A carta ───────────────────────────────────────────── */
+/* ── A carta, e ela é uma FITA ──────────────────────────── */
 
-.carta {
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║ AS TRÊS ESTÃO LADO A LADO. NÃO HÁ TRANSIÇÃO — HÁ POSIÇÃO.            ║
+   ║                                                                      ║
+   ║ Duas versões trocaram as chapas dentro de uma janela parada: uma     ║
+   ║ empurrando a outra, depois uma linha âmbar varrendo a abertura. A    ║
+   ║ queixa voltou igual nas duas — "travado, passa rápido, forçado" —    ║
+   ║ e o defeito não era a curva de aceleração nem a duração.             ║
+   ║                                                                      ║
+   ║ Era a FORMA: as duas eram um evento entre dois estados. Evento tem   ║
+   ║ fim, e é o fim que se lê como tranco. Pior, a varredura punha duas   ║
+   ║ fotografias encostadas com uma aresta dura no meio — o mesmo defeito ║
+   ║ das duas coupes empilhadas que abriram esta folha, e pela mesma      ║
+   ║ razão: as três chapas foram feitas de propósito com a mesma luz e o  ║
+   ║ mesmo balcão, e não têm contraste para se separar.                   ║
+   ║                                                                      ║
+   ║ Agora as três estão numa fita horizontal, e a rolagem é a mão que a  ║
+   ║ puxa. O que separa uma da outra deixou de ser uma aresta e passou a  ║
+   ║ ser AR mais um degrau de luminância: a que não é a da vez fica a     ║
+   ║ 34% e fora do foco da tela. É a regra de profundidade do site        ║
+   ║ inteiro (dois degraus, sem sombra) aplicada onde ela faltava.        ║
+   ║                                                                      ║
+   ║   fita          três itens de --jan-w com --jan-gap entre eles       ║
+   ║   passo         --jan-w + --jan-gap = 302px a 414 de largura         ║
+   ║   espia         414 − 40 − 302 = 72px do próximo, na borda direita   ║
+   ║                                                                      ║
+   ║ Os 72px de espia são o argumento da tela: eles dizem que a carta     ║
+   ║ CONTINUA para o lado, e é isso que faz a pessoa arrastar. Sem eles a ║
+   ║ tela é uma fotografia e o movimento é uma surpresa.                  ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+/* O trilho é o objeto que CHEGA (a entrada da tela escreve `x` nele) e a
+   fita é o objeto que ANDA (o scrub escreve `x` nela). Dois elementos
+   porque as duas coisas são deslocamento horizontal, e uma propriedade só
+   pode ter um dono — a nota inteira está em copo.js. */
+/* ── E a fita se apaga antes de chegar na borda ──────────────────────────
+
+   A faixa direita da tela não é livre: é onde mora o texto vertical
+   (`--vrail`, "A CARTA" escrito de lado, por volta de x=395 num telefone
+   de 414). A espia de 72px passa exatamente por baixo dele, e duas coisas
+   claras no mesmo lugar viram uma mancha — a palavra deixava de se ler e a
+   fotografia deixava de ser fotografia.
+
+   O conserto é um esmaecimento, e não um recorte: a fita some no carvão
+   nos últimos 14% da largura. Ela CONTINUA para fora da tela — que é o que
+   a espia precisa dizer —, só que a última coisa que se vê é escuridão e
+   não uma aresta. Máscara e não gradiente pintado por cima: o que está
+   atrás é o palco em carvão, e um véu por cima dele mudaria a demão de
+   `--ceu-noite` que a seção usa para emendar com a tela anterior.
+
+   A máscara pega o trilho inteiro, nome e nota inclusive. Não é problema:
+   a medida de texto acaba em x=337 e o esmaecimento começa em x=356. */
+.carta__trilho {
   position: absolute;
   inset: 0;
   z-index: 3;
+  -webkit-mask-image: linear-gradient(to right, #000 0 86%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0 86%, transparent 100%);
+}
+
+.carta {
+  position: absolute;
+  top: 0;
+  left: var(--gutter-l);
+  height: 100%;
+  display: flex;
+  gap: var(--jan-gap);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Cada item é uma CAMADA inteira, e não só a chapa: a janela, o nome e a
-   nota deslizam juntos. Um cardápio não troca a foto e mantém o nome. */
+/* Cada item é uma COLUNA inteira, e não só a chapa: a janela, o nome e a
+   nota viajam juntos. Um cardápio não troca a foto e mantém o nome.
+
+   A largura é a da janela; a altura é a do palco, para que o nome e a nota
+   possam continuar ancorados em `lvh` como estavam quando o item era uma
+   camada de tela cheia. */
 .carta__item {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  flex: 0 0 var(--jan-w);
+  height: 100%;
+}
+
+/* A caixa da abertura mora em variáveis porque a JANELA e o PASSO da fita
+   têm de sair da mesma conta: o passo é `--jan-w + --jan-gap`, e é ele que
+   o copo.js lê do layout para saber quanto andar. */
+.copo__stage {
+  --jan-top: 26lvh;
+  --jan-w: 58vw;
+  --jan-h: 40lvh;
+  /* 15vw = 62px a 414. Menos que isso e as duas chapas quase se encostam,
+     que é o defeito que a fita veio resolver; mais e a espia da próxima
+     some antes de a atual sair. */
+  --jan-gap: 15vw;
 }
 
 .carta__quadro {
   position: absolute;
-  top: 26lvh;
-  left: var(--gutter-l);
-  width: 58vw;
-  height: 40lvh;
+  top: var(--jan-top);
+  left: 0;
+  width: 100%;
+  height: var(--jan-h);
   margin: 0;
   overflow: hidden;
   /* Filete hairline em vez de borda cheia, na espessura de todo filete do
@@ -192,6 +281,24 @@
   box-shadow: inset 0 0 0 1px rgba(200, 137, 46, .22);
 }
 
+/* A chapa é MAIOR do que a janela, e a sobra é o paralaxe.
+
+   Quem escreve a escala é o copo.js (aqui ela não pode morar: sem
+   movimento a chapa tem de ficar em 1, e `reducedMotion` é a única
+   autoridade sobre isso). A conta que amarra as duas:
+
+     folga de cada lado = (escala − 1) ÷ 2
+     deslocamento máximo = folga
+
+   Com escala 1,12 sobram 6% de cada lado, e é por isso que o `xPercent` da
+   chapa nunca passa de 6 — um pixel além e aparece o carvão do palco por
+   dentro da janela.
+
+   O corte não muda de forma, só de tamanho: `cover` numa caixa 12% maior
+   aproxima a taça 12% e mantém a proporção do recorte. Mas ele GASTA a
+   calibração do `object-position` abaixo, e é por isso que 12 é um teto
+   MEDIDO e não um gosto: a 18 o alecrim do Gin Tropical — o garnish mais
+   alto das três chapas — saía decapitado pela aresta de cima. */
 .carta__quadro img {
   position: absolute;
   inset: 0;
@@ -207,11 +314,17 @@
 
 /* ── O nome, que é o display desta tela ────────────────── */
 
+/* Ele é mais largo do que a coluna dele DE PROPÓSITO. O item mede --jan-w
+   (240px a 414), e "Gin Tropical" em `--fs-quieto` cabe — mas por pouco, e
+   a nota do Tropical cabe por menos ainda. A medida de texto continua
+   sendo a da página (a tela menos as duas goteiras), e não a da janela;
+   quem impede o nome de um item de invadir o do vizinho não é a caixa, é a
+   opacidade: só o drink da vez tem nome visível (copo.js). */
 .carta__nome {
   position: absolute;
   top: 69lvh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
+  left: 0;
+  width: calc(100vw - var(--gutter-l) - var(--gutter-r));
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
@@ -230,8 +343,8 @@
 .carta__nota {
   position: absolute;
   top: 76lvh;
-  left: var(--gutter-l);
-  right: var(--gutter-r);
+  left: 0;
+  width: calc(100vw - var(--gutter-l) - var(--gutter-r));
   margin: 0;
   font-size: var(--fs-label);
   text-transform: uppercase;
@@ -245,18 +358,30 @@
   --nada: 0;
 }
 
-.copo--lista .carta {
+/* A fita se levanta: mesma `flex`, outro eixo. Sem rolagem que a puxe, uma
+   fita horizontal é uma lista com dois terços fora da tela. */
+.copo--lista .carta__trilho {
   position: relative;
   inset: auto;
-  display: flex;
+  /* sem fita não há espia, e uma pilha vertical esmaecida à direita é só
+     uma chapa com defeito */
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.copo--lista .carta {
+  position: relative;
+  top: auto;
+  left: auto;
+  height: auto;
   flex-direction: column;
   gap: 6lvh;
   padding: 30lvh var(--gutter-r) 0 var(--gutter-l);
 }
 
 .copo--lista .carta__item {
-  position: relative;
-  inset: auto;
+  flex: 0 0 auto;
+  height: auto;
 }
 
 .copo--lista .carta__quadro {
@@ -272,7 +397,7 @@
   position: relative;
   top: auto;
   left: auto;
-  right: auto;
+  width: auto;
 }
 
 .copo--lista .carta__nome {
@@ -288,10 +413,11 @@
 @media (min-width: 900px) {
   /* Deitada, 58vw seria uma janela enorme e a proporção inverteria. A
      largura passa a ser medida em altura de tela para a janela continuar
-     sendo um retrato. */
-  .carta__quadro {
-    width: calc(40lvh * 0.62);
-    height: 40lvh;
+     sendo um retrato. E o vão acompanha a janela pelo mesmo motivo: 15vw
+     numa tela deitada seriam 200px de carvão entre duas chapas. */
+  .copo__stage {
+    --jan-w: calc(40lvh * 0.62);
+    --jan-gap: calc(40lvh * 0.16);
   }
 
   .copo__linha {

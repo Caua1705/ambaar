@@ -2,29 +2,31 @@
 
    Um clube de escuta com um site mudo é uma contradição que qualquer pessoa
    do ramo nota. Este arquivo é o mecanismo inteiro, e ele foi escrito para
-   funcionar ANTES de existir o arquivo de áudio: sem faixa, o controle
-   aparece, acende, pulsa, alterna e guarda a escolha — só não produz som.
+   funcionar ANTES de existir o arquivo de áudio: durante nove passadas o
+   controle apareceu, acendeu, pulsou, alternou e guardou a escolha sem que
+   nada saísse do alto-falante.
 
    ┌──────────────────────────────────────────────────────────────────────┐
-   │ PARA ENTREGAR O ÁUDIO — um passo                                     │
+   │ O ÁUDIO CHEGOU — e nenhuma linha daqui mudou por causa dele          │
    │                                                                      │
-   │   crie a pasta e ponha o arquivo em:                                 │
+   │   public/audio/ambar.mp3   2,1 MB   180s   mono   96 kbps   −16 LUFS │
    │                                                                      │
-   │       public/audio/ambar.mp3                                         │
+   │ Ele é assado por `npm run audio` (scripts/audio.mjs) a partir do      │
+   │ .wav em brand/originais/, com fade nas duas pontas para o laço não    │
+   │ estalar. A constante FAIXA abaixo já apontava para esse caminho desde │
+   │ o primeiro dia, e continuou apontando: a entrega foi um arquivo       │
+   │ aparecer onde o código já olhava.                                     │
    │                                                                      │
-   │ Só isso. Nada mais muda: a constante FAIXA abaixo já aponta para lá,  │
-   │ o Vite copia public/ inteiro para o build, e o mecanismo já está      │
-   │ ligado — o controle aparece, acende, pulsa, alterna, guarda a         │
-   │ escolha e persegue o volume de cada seção HOJE, sem arquivo nenhum.   │
-   │ O que falta é só o que sai do alto-falante.                          │
+   │ Se a faixa for trocada, troque o .wav de origem — não este arquivo.   │
+   │ Todo tratamento de som é ASSADO no mp3, como toda correção de         │
+   │ exposição é assada nas fotos. Aqui só moram os níveis narrativos.     │
    │                                                                      │
-   │ Se o nome do arquivo for outro, troque a linha da constante — é a     │
-   │ única linha a mudar em todo o projeto.                               │
-   │                                                                      │
-   │ Recomendação de material: um loop de 60 a 120s, organic house/        │
-   │ downtempo, normalizado a −16 LUFS e com fade nas duas pontas para o   │
-   │ laço não estalar. 128 kbps mono resolve; o áudio é ambiente, não é o  │
-   │ acervo do clube.                                                     │
+   │ O QUE O NAVEGADOR BAIXA, E QUANDO. Nada no carregamento da página.    │
+   │ O elemento <audio> só é construído no primeiro toque do botão         │
+   │ (`montar`), e nasce com `preload = 'none'` — as duas coisas, e não    │
+   │ uma delas: o elemento não existe antes do clique, e se existisse não  │
+   │ buscaria nada sem um `play()`. Quem nunca ligar o som não paga os     │
+   │ 2,1 MB nem o AudioContext.                                           │
    │                                                                      │
    │ Para conferir sem ouvir: em dev, `__som.estado()` no console devolve  │
    │ o estado do grafo, o ganho instantâneo, o nível que a seção atual     │
@@ -152,7 +154,19 @@ if (botao) {
 
     audio = new Audio()
     audio.loop = true
-    audio.preload = 'auto'
+    /* `none` e não `auto`, e a diferença é real mesmo aqui dentro.
+
+       Este bloco só roda no primeiro toque, então nenhum dos dois valores
+       custaria nada no carregamento da página. Mas `montar()` também é
+       chamado pelo caminho da preferência guardada (`acender`), e ali o
+       elemento nasce e o `play()` pode não vir — se o navegador recusar o
+       toque, `auto` teria começado a baixar 2,1 MB para uma faixa que
+       ninguém vai ouvir.
+
+       Com `none`, o download é o `play()` e nada mais. É a mesma disciplina
+       das fotos com `loading="lazy"`: nada entra na rede antes de a tela
+       precisar dele. */
+    audio.preload = 'none'
     audio.crossOrigin = 'anonymous'
     audio.src = FAIXA
 
@@ -431,6 +445,18 @@ if (botao) {
      única forma de conferir se o analisador está recebendo sinal é ouvir. */
   if (import.meta.env.DEV) {
     window.__som = {
+      /* Salta no tempo da faixa, e existe para uma prova só: a EMENDA DO
+         LAÇO. O arquivo tem 180s; conferir a volta esperando por ela custa
+         três minutos por tentativa, e ninguém confere o que custa isso.
+         Com `__som.saltar(176)` a volta acontece em quatro segundos.
+
+         Só em dev, como todo este bloco: o elemento <audio> nunca esteve
+         no DOM (nasce de `new Audio()` e vive fechado no módulo), então
+         esta é a única porta que existe para ele. */
+      saltar: (t) => {
+        if (audio) audio.currentTime = t
+        return audio?.currentTime ?? null
+      },
       estado: () => ({
         ligado,
         temSinal,

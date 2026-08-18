@@ -28,3 +28,7 @@ dist-ssr
 
 # a saída da régua (npm run tela): capturas de trabalho, nunca versionadas
 .tmp-tela
+
+# a trilha bruta: 44,5 MB por cópia, e um fonograma comercial.
+# o que o site publica (public/audio/ambar.mp3) esse sim é versionado.
+brand/originais/*.wav

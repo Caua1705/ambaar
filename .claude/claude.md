@@ -183,28 +183,52 @@ nenhum do site.
 Vídeo aqui **nunca** é preso ao dedo — quando a rolagem É o estado da cena,
 o material vira sequência de quadros.
 
-`npm run midia` roda os três em sequência.
+### Pipeline de áudio — `npm run audio`
+
+`scripts/audio.mjs`. Um arquivo só: a trilha bruta (`.wav`) →
+`public/audio/ambar.mp3` — 180s, mono, 96 kbps, −16 LUFS, com fade nas duas
+pontas para o laço não estalar. Duas passagens de `loudnorm` (mede, depois
+aplica ganho linear), e o silêncio de cabeça do original é detectado e
+cortado, porque ele cairia dentro do laço.
+
+Duas coisas que não são detalhe:
+
+- **A fonte `.wav` NÃO é versionada** (`.gitignore`), ao contrário de todo o
+  resto de `brand/originais/`: 44,5 MB por cópia, e é um fonograma
+  comercial. Num clone sem ela o script sai em silêncio, como os outros.
+- **O áudio não entra no carregamento inicial.** O `<audio>` só é construído
+  no primeiro toque do botão e nasce com `preload="none"`. Medido no build:
+  0 bytes de áudio na carga da página.
+
+`npm run midia` roda os quatro em sequência.
 
 ### Onde ficam os assets
 
 | caminho | o que é |
 |---|---|
-| `brand/originais/` | material bruto (mp4, png, jpg, chapas). **Fora do build.** Toda imagem publicada nasce daqui |
+| `brand/originais/` | material bruto (mp4, wav, png, jpg, chapas). **Fora do build.** Todo asset publicado nasce daqui |
 | `brand/originais/nao-usadas/` | material já triado que continua disponível |
 | `public/img/` | 17 fotos `.webp`, saída do `npm run fotos` |
 | `public/frames/dusk/`, `public/frames/sala/` | 28 + 34 quadros, saída do `npm run frames` |
 | `public/video/reservado.mp4` | saída do `npm run video` |
+| `public/audio/ambar.mp3` | 2,1 MB, saída do `npm run audio`. **Não conta no carregamento inicial** |
 | `public/brand/losango.svg`, `public/favicon.svg` | únicos assets escritos à mão |
 
 Tudo em `public/` é copiado **cru** pelo Vite e referenciado por caminho
 absoluto (`/img/hero.webp`), nunca por import.
 
-### Duas dívidas conhecidas
+### Dívidas conhecidas
 
-- **`public/audio/` não existe.** O `som.js` aponta para `/audio/ambar.mp3`
-  e o mecanismo inteiro já funciona sem o arquivo (o botão aparece, acende,
-  alterna e guarda a escolha) — só não sai som. Basta criar a pasta e pôr o
-  arquivo; nenhuma linha muda.
+- ~~**`public/audio/` não existe.**~~ **Paga.** O arquivo existe, o botão
+  toca, e nenhuma linha do `som.js` mudou por causa dele — a constante
+  `FAIXA` já apontava para o caminho certo desde o primeiro dia.
+- **O endereço do rodapé é inventado** (`SUA RUA, 000 · FORTALEZA CE`, no
+  `index.html`). É a última coisa placeholder do site — o WhatsApp já é o
+  número da casa.
+- **A licença da trilha está pendente.** O fonograma é comercial. Para o
+  site no ar isso precisa de licença de execução pública para web, ou de
+  uma trilha licenciada no lugar (trocar o `.wav` de origem, nada de
+  código).
 - **`prioridadeRefresh` (motion.js) é código morto.** Ele existia para
   ordenar o recálculo dos pins; os capítulos viraram `sticky` e ninguém
   mais o importa. Confirmado por busca, não por comentário.

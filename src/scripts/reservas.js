@@ -48,8 +48,8 @@ if (secao && !reducedMotion) {
   const salas = secao.querySelector('.salas')
   const linhas = salas ? [salas, ...salas.querySelectorAll('.sala')] : []
   /* `.reservas__text` não existe no HTML e nunca existiu nesta forma da
-     seção: o bloco de texto é o `.reservas__cabeca` (o "São 03h" mais o
-     título). O seletor morto fazia o GSAP receber `null` como alvo — um
+     seção: o bloco de texto é o `.reservas__cabeca` (o título mais a
+     condição). O seletor morto fazia o GSAP receber `null` como alvo — um
      aviso no console a cada carga e, mais caro, a METADE do gesto de saída
      que este arquivo descreve simplesmente não acontecia: a estrutura se
      recolhia e o texto ficava parado por cima dela. */

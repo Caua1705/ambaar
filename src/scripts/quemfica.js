@@ -12,9 +12,8 @@
      0,55  A FAIXA CRESCE da borda direita para a esquerda, e a fotografia
            dentro dela anda no sentido contrário — a imagem se descobre em
            vez de deslizar para dentro
-     1,25  "Quem escuta, fica."   a mesma frase da segunda tela, na mesma
-           serifada, com a mesma palavra em âmbar
-     1,95  "São três da manhã / e ela ainda está aqui."
+     1,25  "A última faixa é de quem ficou."   no degrau de display
+     1,95  "Ninguém anuncia nada. / O som só vai baixando."
 
    ── Por que a frase não usa a máscara da tese ───────────────────────────
 
@@ -31,8 +30,9 @@
 
    ── Sem saída ───────────────────────────────────────────────────────────
 
-   O que vem depois é a seção de reservas, que abre com "São 03h" — a mesma
-   hora desta tela. As duas são a mesma batida do relógio, e um gesto de
+   O que vem depois é a seção de reservas, e o relógio não bate de novo
+   entre as duas: esta tela é a última hora do site e a de baixo já nasce
+   com o relógio apagado. As duas são a mesma batida, e um gesto de
    saída entre elas romperia isso: a página passa de uma para a outra sem
    dispositivo nenhum, o que só acontece aqui e é o motivo de ser legível
    como continuação em vez de como descuido. */

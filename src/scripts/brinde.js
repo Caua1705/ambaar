@@ -12,8 +12,8 @@
      0,00  a fotografia respira: 1,06 → 1,00 em 3,2s. É lento e pequeno de
            propósito — não é uma entrada, é a única coisa que impede a tela
            de ser um cartaz enquanto o texto ainda não chegou
-     0,45  "Ninguém combinou."      entra da ESQUERDA
-     0,85  "Está todo mundo aqui."  entra da DIREITA
+     0,45  "A risada"    entra da ESQUERDA
+     0,85  "é uma só."   entra da DIREITA
 
    As duas metades se cruzam no ar: a segunda começa a andar quando a
    primeira ainda tem 40% do curso pela frente. Elas não chegam em fila —

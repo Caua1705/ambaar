@@ -1,8 +1,9 @@
 /* Reservas — a narrativa desemboca numa escolha.
 
    Esta é a chegada, não um formulário. O relógio acabou de fechar em 03h no
-   capítulo anterior, e a seção abre justamente com esse horário: "São 03h /
-   A noite acabou de passar. Escolha onde recomeçar."
+   capítulo anterior e aqui já nasce apagado: a seção não repete a hora, ela
+   dá a instrução. "Três ambientes. Escolha o seu." mais a condição —
+   mesas limitadas, confirmação pelo WhatsApp.
 
    ── O que saiu, e por quê ───────────────────────────────────────────────
 
@@ -49,8 +50,13 @@
   scroll-margin-top: 5rem;
 }
 
-/* ── O cabeçalho, flanqueado ───────────────────────────── */
+/* ── O cabeçalho ───────────────────────────────────────── */
 
+/* Ele era FLANQUEADO: o rótulo "São 03h" na coluna estreita, encarando o
+   título na larga. O rótulo saiu do HTML (a nota está lá), e com ele saiu
+   a regra `.reservas__eyebrow` que morava aqui — seletor sem elemento é
+   código morto, e este projeto já pagou por confiar em folha que descreve
+   uma tela que não existe mais. */
 .reservas__cabeca {
   display: grid;
   grid-template-columns: 5.5rem 1fr;
@@ -58,17 +64,20 @@
   gap: 0 1.25rem;
 }
 
-.reservas__eyebrow {
-  font-size: var(--fs-label);
-  text-transform: uppercase;
-  letter-spacing: var(--track-mid);
-  /* perdeu o âmbar: ver a disciplina do acento em tokens.css */
-  color: rgba(255, 255, 255, .55);
-  /* alinhado pela linha de base do título, não pelo topo da caixa */
-  padding-top: .5rem;
-}
+/* `grid-column: 1 / -1` nos dois, e ele é consequência de o rótulo ter
+   saído do HTML.
 
+   O cabeçalho é um grid de duas colunas — 5,5rem para o rótulo, o resto
+   para o título — e essa moldura continua aqui porque nada mais na seção
+   depende dela. Sem o rótulo, o primeiro filho cairia na coluna de 5,5rem:
+   o título do pedido dentro de uma tira de 88px. Atravessar as duas é o que
+   devolve a largura útil sem desmontar o cabeçalho.
+
+   Abaixo de 600px a media query já colapsa o grid para uma coluna só, e lá
+   isto não faz nada — que é o certo: a regra existe para as telas em que a
+   coluna vazia existiria. */
 .reservas__title {
+  grid-column: 1 / -1;
   font-family: var(--font-display);
   font-size: var(--fs-quieto);
   font-weight: 300;
@@ -76,6 +85,20 @@
   color: #fff;
   line-height: var(--lh-display);
   max-width: 16ch;
+}
+
+/* A condição do pedido. Mesmos valores das outras notas do site
+   (`.chapter__nota`, `.quemfica__nota`): serifada, um degrau abaixo do
+   corpo, 62% de branco. É a terceira voz da página — nem display, nem voz
+   de máquina — e ela é sempre a mesma. */
+.reservas__nota {
+  grid-column: 1 / -1;
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(.95rem, 4vw, 1.15rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .62);
+  max-width: 34ch;
 }
 
 /* ── Os três ambientes ─────────────────────────────────── */
@@ -235,10 +258,12 @@
    A tentação é óbvia: são horas de uma casa noturna, e dourado é a cor da
    casa. Duas razões para não:
 
-   1. O âmbar-tinta desta tela já está gasto. "recomeçar" é um dos seis
-      acentos do site inteiro, e ele está a 8cm daqui, na mesma seção. Três
-      horários dourados na lista logo abaixo transformam o acento em
-      repetição — e um acento repetido é uma paleta, não um acento.
+   1. Esta seção não tem mais direito a âmbar-tinta nenhum. O acento em
+      "recomeçar" saiu junto com a frase que o continha, e a disciplina
+      passou a admitir DOIS acentos no site inteiro — a abertura e o fecho
+      (tokens.css). Três horários dourados aqui não seriam repetição de um
+      acento: seriam um terceiro acento inventado numa tela que a regra
+      deixou de propósito em branco.
    2. Eles disputariam o passo seguinte. A única coisa desta linha que a
       pessoa tem de tocar é "RESERVAR"; o horário é a informação que
       sustenta a decisão, não a decisão. Ouro puxa o olho, e aqui ele
@@ -279,20 +304,19 @@
 
 /* ── Estreito ──────────────────────────────────────────── */
 
-/* A composição flanqueada não sobrevive ao telefone, e a medida provou:
+/* A composição flanqueada não sobrevivia ao telefone, e a medida provou:
    numa coluna de ~250px o título quebrava em QUATRO linhas — o dobro do
-   teto do site. Abaixo de 600px o rótulo sobe para a própria linha e o
-   título toma a largura útil inteira, com o corpo um degrau abaixo do
-   `--fs-quieto`: as duas frases fecham numa linha cada. O encontro
-   rótulo—título continua existindo onde há tela para ele. */
+   teto do site. Abaixo de 600px o grid vira uma coluna só e o título toma
+   a largura útil inteira, com o corpo um degrau abaixo do `--fs-quieto`:
+   as duas frases fecham numa linha cada.
+
+   Desde que o rótulo saiu, isto vale para toda largura — o `grid-column`
+   do título faz o mesmo trabalho acima de 600px. A regra fica porque o
+   CORPO ainda muda aqui, e é ele que resolve a quebra em quatro linhas. */
 @media (max-width: 600px) {
   .reservas__cabeca {
     grid-template-columns: 1fr;
     gap: .9rem 0;
-  }
-
-  .reservas__eyebrow {
-    padding-top: 0;
   }
 
   .reservas__title {

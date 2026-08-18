@@ -59,27 +59,31 @@
    ║ O que saiu era âmbar por PADRÃO — o menu inteiro, os três rótulos    ║
    ║ inteiros, cada "Reservar", cada algarismo: uma cor aplicada a uma    ║
    ║ CATEGORIA de elemento. O que entra é âmbar por ESCOLHA — um trecho   ║
-   ║ escolhido à mão dentro de uma frase, em CINCO telas de dezesseis:    ║
+   ║ escolhido à mão dentro de uma frase.                                 ║
    ║                                                                      ║
-   ║    o jardim    "…vira house."             o arco da noite            ║
-   ║    a carta     "…cor do nome da casa."    a assinatura líquida       ║
-   ║    o salão     "…o que está tocando."     a tese                     ║
-   ║    o brinde    "Está todo mundo aqui."    o pico                     ║
-   ║    quem fica   "Quem escuta, fica."       a regra                    ║
-   ║    reservas    "…recomeçar."              o pedido                   ║
+   ║ ── E hoje são DUAS, em dezesseis telas ───────────────────────────── ║
    ║                                                                      ║
-   ║ A lista já teve oito entradas por padrão de categoria; hoje são seis ║
-   ║ por escolha. "deixa de ser nossa" (pista) e "baixa sozinha" (pausa)  ║
-   ║ ficaram brancas — alternar âmbar/branco em toda tela não é raridade, ║
-   ║ é padrão listrado. As duas vizinhanças que existem são medidas:      ║
-   ║ jardim → carta abre o site em dois acentos de escalas opostas        ║
-   ║ (corpo pequeno, display), e quem fica → reservas é o crescendo       ║
-   ║ deliberado do fim, foto contra fumê.                                 ║
+   ║    o jardim    "…vira house."             a abertura                 ║
+   ║    o fecho     "…uma noite."              o fecho                    ║
    ║                                                                      ║
-   ║ Lidas em sequência, as seis contam a história sozinhas — vira house, ║
-   ║ a cor do nome da casa, o que está tocando, todo mundo aqui, quem     ║
-   ║ escuta fica, recomeçar — que é o teste. Uma palavra âmbar que não    ║
-   ║ sobreviveria a esse resumo não deve ser âmbar.                       ║
+   ║ A lista já teve oito por categoria, depois seis por escolha. Seis    ║
+   ║ eram ainda uma a cada duas telas e meia, e a essa frequência o olho  ║
+   ║ para de ler o âmbar como acento e passa a lê-lo como "a cor do       ║
+   ║ texto importante" — que é uma categoria outra vez, só que disfarçada.║
+   ║ Saíram "a cor do nome da casa" (carta), "o que está tocando"         ║
+   ║ (salão), "todo mundo aqui" (brinde) e "recomeçar" (reservas), as     ║
+   ║ três últimas junto com a própria frase que as continha.              ║
+   ║                                                                      ║
+   ║ Duas não é pouco: é o par que faz um ARCO. A primeira aparece na     ║
+   ║ segunda tela e a segunda na última, e entre elas há catorze telas    ║
+   ║ brancas. Lidas em sequência elas continuam contando a noite inteira  ║
+   ║ — vira house … uma noite —, que é o teste que esta regra sempre      ║
+   ║ aplicou: uma palavra âmbar que não sobreviveria ao resumo não deve   ║
+   ║ ser âmbar.                                                           ║
+   ║                                                                      ║
+   ║ ⚠︎ São DUAS, e a conta é literal: `grep 'class="ouro"' index.html`   ║
+   ║ tem de devolver duas linhas. Nada nesta folha impede uma terceira —  ║
+   ║ a disciplina é humana, e é por isso que ela está escrita.            ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
 :root {
@@ -106,7 +110,8 @@
      ── O terceiro modo que existia ─────────────────────────────────────
 
      Não era uma terceira família: era a Cormorant fazendo os DOIS papéis.
-     Ela assinava tanto "House All Night" quanto "Quem escuta, fica.", e
+     Ela assinava tanto "House All Night" quanto "Nós guardamos uma
+     noite.", e
      com os dois na mesma letra a troca de registro não existia — a
      serifada era só "o tipo grande". Passar os nomes de ambiente para a
      Jost 200, em caixa alta, é o que devolve significado à troca: eles

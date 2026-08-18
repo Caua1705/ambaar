@@ -107,8 +107,18 @@ if (secao) {
   ])
 
   /* A chamada é partida em palavras, cada uma na própria máscara
-     (motion.js). As do `<b class="ouro">` têm tempo próprio: é o acento da
-     tela e ele chega sozinho, depois de a primeira metade assentar. */
+     (motion.js). As de um `<b class="ouro">`, se houver, têm tempo próprio:
+     o acento chega sozinho, depois de a primeira metade assentar.
+
+     ⚠︎ HOJE NÃO HÁ ACENTO NESTA FRASE. A disciplina do âmbar apertou e
+     sobraram duas palavras douradas na página inteira — "house" no
+     capítulo 01 e "noite" no fecho —, e "da casa" foi uma das que saíram.
+     O mecanismo fica porque ele é a razão de esta seção usar `splitWords` e
+     não `splitChars` (a nota está em motion.js), e porque a lista de dois
+     não é uma lei da física. O que não pode ficar é um tween sem alvo: com
+     `acento` vazio o GSAP avisa no console a cada carga, e um aviso por
+     carga é o começo de um console que ninguém lê. Ver a guarda na
+     timeline, abaixo. */
   const palavras = splitWords(linha)
   const acento = linha ? [...linha.querySelectorAll('.ouro .word__in')] : []
   const brancas = palavras.filter((p) => !acento.includes(p))
@@ -224,7 +234,12 @@ if (secao) {
       t.to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0)
         .to(trilho, { autoAlpha: 1, x: 0, duration: 1.3, ease: EASE }, 0.1)
         .to(brancas, { yPercent: 0, duration: 0.95, ease: EASE, stagger: 0.06 }, 0.5)
-        .to(acento, { yPercent: 0, duration: 1.05, ease: EASE, stagger: 0.075 }, 1.5)
+
+      // a guarda anotada lá em cima: sem `<b class="ouro">` na frase não há
+      // segundo tempo, e um tween sem alvo é um aviso do GSAP por carga
+      if (acento.length) {
+        t.to(acento, { yPercent: 0, duration: 1.05, ease: EASE, stagger: 0.075 }, 1.5)
+      }
     }, {
       /* Cedo: a composição termina de se montar enquanto a seção ainda
          sobe, e o que toma a tela é uma coisa pronta. */

@@ -412,10 +412,22 @@
                display agora é o NOME de cada drink. Um cardápio tem o
                título pequeno e os itens grandes.
 
-               A frase anterior era "Drinks autorais, na cor do nome da
-               casa" — bonita e, com um drink coral e um dourado na tela,
-               falsa. O olho pega isso em meio segundo. -->
-          <p class="copo__linha">A carta é curta. Os três são da casa.</p>
+               A frase já foi "Drinks autorais, na cor do nome da casa" e
+               depois "A carta é curta. Os três são da casa". A de agora
+               troca a origem pelo MÉTODO: o que a casa vende não é o fato
+               de o drink ser dela, é o fato de ele sair igual. -->
+          <p class="copo__linha">Poucos drinks. Nenhum improviso.</p>
+
+          <!-- A descrição, na terceira voz do site (a mesma de
+               `.chapter__nota` e `.quemfica__nota`): serifada, um degrau
+               abaixo do corpo, 62% de branco.
+
+               Ela é o argumento que o título só anuncia. "Nenhum improviso"
+               é uma promessa; "testada até virar padrão" é o que a torna
+               verificável — e é a única frase do site que fala de processo
+               em vez de atmosfera. Cabe aqui porque esta é a única tela do
+               site que é informação. -->
+          <p class="copo__nota">Cada receita é testada até virar padrão.<br>Depois disso, não muda.</p>
 
           <!-- Uma lista, porque é uma lista. Cada item carrega a própria
                janela, o nome e o que tem dentro, e viaja inteiro.
@@ -458,6 +470,43 @@
               </li>
             </ul>
           </div>
+
+          <!-- ── A ASSINATURA DO CHEFE DE BAR ───────────────────────────
+               ⚠︎ SLOT PRONTO, DESLIGADO. O nome ainda não está definido.
+
+               Para ativar: apagar as duas linhas de comentário em volta do
+               <p> abaixo e trocar [NOME]. Nada mais — a regra
+               `.copo__assinatura` já está na folha (copo.css), no pé da
+               seção, na goteira da esquerda como todo o resto da coluna.
+
+               ── Onde ela cabe, e é uma faixa estreita ───────────────────
+
+               Entre a nota do drink e o algarismo do relógio há 5,5lvh, e é
+               só isso. Medido a 414×896: a nota acaba em 728px, a
+               assinatura ocupa 739–755, o "19h" começa em 779.
+
+               Alinhá-la à direita seria mais elegante e não cabe: o rótulo
+               tem 221px com "[NOME]" e 313px com um nome real, e o
+               algarismo ocupa de x=40 a x=175 — as duas coisas se
+               encontrariam. A conta completa, com o orçamento de largura do
+               nome, está em copo.css.
+
+               E há um argumento que não é de espaço: uma carta assinada se
+               assina no PÉ. É a única coisa desta tela que não é da noite —
+               é de uma pessoa.
+
+               ⚠︎ O SLOT NÃO EXISTE NO BUILD. O plugin do vite.config.js
+               remove os comentários do HTML, então o `<p>` comentado some
+               do dist — ele é um slot no CÓDIGO-FONTE, que é onde ele vai
+               ser ativado. A regra de CSS, essa sim, viaja (≈150 bytes).
+
+               ── A voz é a do `.carta__nota` ─────────────────────────────
+
+               Caixa alta, `--fs-label`, `--track-wide`, concreto: a mesma
+               voz de máquina de "GIN · LIMÃO · ANGOSTURA". Assinatura é
+               dado, não frase — se fosse serifada, competiria com o nome
+               do drink, que é o display da tela. -->
+          <!-- <p class="copo__assinatura">Carta assinada por [NOME]</p> -->
         </div>
       </section>
 

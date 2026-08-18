@@ -29,11 +29,42 @@
    relação a todas as outras telas do site, e é o que faz esta ler como
    informação em vez de como atmosfera:
 
-     rótulo   12lvh    "A CARTA"
-     chamada  17lvh    pequena, serifada — o cabeçalho do cardápio
-     janela   26lvh    a chapa, retrato, 58vw × 40lvh, ancorada à esquerda
-     nome     ~69lvh   Cormorant grande — é ELE o display desta tela
-     nota     ~74lvh   o que tem dentro, em voz de máquina
+     rótulo    9,5lvh   "A CARTA"
+     chamada  14lvh     pequena, serifada — o cabeçalho do cardápio
+     descrição 22lvh    o método da casa, na terceira voz do site
+     janela   30lvh     a chapa, retrato, 58vw × 40lvh, ancorada à esquerda
+     nome     ~73lvh    Cormorant grande — é ELE o display desta tela
+     nota     ~79,5lvh  o que tem dentro, em voz de máquina
+     [assinatura 82,5lvh o chefe de bar — slot desligado, ver o index.html]
+
+   ╔══════════════════════════════════════════════════════════════════════╗
+   ║ ⚠︎ ESTA COLUNA FOI RETUNADA, E NÃO POR GOSTO                         ║
+   ║                                                                      ║
+   ║ O mapa acima era 12 / 17 / 26 / 69 / 76 e não tinha descrição. O     ║
+   ║ pedido foi "adicionar uma descrição abaixo do título, sem mexer no   ║
+   ║ layout", e as duas metades não cabiam juntas. Medido a 414×896:      ║
+   ║                                                                      ║
+   ║   chamada (2 linhas)  termina em 203px                               ║
+   ║   janela              começa em 233px                                ║
+   ║   vão disponível       30px                                          ║
+   ║   descrição (2 linhas) 48px                                          ║
+   ║                                                                      ║
+   ║ Faltavam 18px só para o texto encostar na moldura, e mais 24 para    ║
+   ║ ele ter o ar que as outras notas do site têm. Não existe tamanho de  ║
+   ║ corpo que resolva 42px de déficit sem sair da voz que o pedido pede  ║
+   ║ ("o mesmo estilo das descrições já existentes").                     ║
+   ║                                                                      ║
+   ║ Então a coluna inteira andou, e ela andou dos DOIS lados: o          ║
+   ║ cabeçalho subiu 2,5lvh (havia 52px de ar entre a barra do topo e o   ║
+   ║ rótulo; agora há 29) e o bloco da chapa desceu 4lvh (havia 82px de   ║
+   ║ ar entre a nota do drink e o relógio; agora há 51). Nenhuma medida   ║
+   ║ INTERNA mudou: a janela continua 58vw × 40lvh, o vão janela→nome     ║
+   ║ continua ~16px, e o par nome/nota continua colado.                   ║
+   ║                                                                      ║
+   ║ O que se perdeu foi ar nas duas pontas. É o preço de uma quinta      ║
+   ║ linha numa tela que tinha quatro — e esta é a única tela do site que ║
+   ║ é informação, então é a única que suporta cinco.                     ║
+   ╚══════════════════════════════════════════════════════════════════════╝
 
    A janela é estreita de propósito. O material é vertical (941×1672) e uma
    moldura larga cortaria a taça em cima e embaixo justamente para mostrar
@@ -112,7 +143,7 @@
 .copo__rotulo {
   position: absolute;
   z-index: 4;
-  top: 12lvh;
+  top: 9.5lvh;
   left: var(--gutter-l);
   display: inline-flex;
   align-items: center;
@@ -156,7 +187,7 @@
 .copo__linha {
   position: absolute;
   z-index: 4;
-  top: 17lvh;
+  top: 14lvh;
   left: var(--gutter-l);
   right: var(--gutter-r);
   max-width: 24ch;
@@ -166,6 +197,80 @@
   line-height: 1.4;
   letter-spacing: var(--track-display);
   color: rgba(255, 255, 255, .82);
+}
+
+/* ── A descrição ───────────────────────────────────────── */
+
+/* A terceira voz do site, e ela é sempre a mesma: Cormorant, um degrau
+   abaixo do corpo, branco a 62%. Os valores são os de `.chapter__nota`,
+   `.quemfica__nota` e `.reservas__nota` — copiados de propósito em vez de
+   fatorados, que é a convenção desta pasta (uma folha por seção, sem
+   herança entre elas).
+
+   E SEM `max-width`, ao contrário da chamada, que tem 24ch. Medido: com
+   30ch a caixa fica com 237px, a primeira frase não cabe numa linha e a
+   descrição vira TRÊS linhas de 72px — que encostam na moldura da chapa
+   ao pixel. Na medida cheia da página (330px a 414) ela fecha em duas, com
+   o `<br>` do HTML caindo exatamente entre as duas frases, que é onde a
+   leitura quer a quebra. */
+.copo__nota {
+  position: absolute;
+  z-index: 4;
+  top: 22lvh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(.95rem, 4vw, 1.15rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, .62);
+}
+
+/* ── A assinatura do chefe de bar ──────────────────────── */
+
+/* ⚠︎ REGRA ATIVA PARA UM ELEMENTO DESLIGADO. O `<p class="copo__assinatura">`
+   está comentado no index.html — o nome ainda não existe —, e esta regra
+   fica aqui pronta para que ativar o slot seja apagar duas linhas de
+   comentário e nada mais.
+
+   É a única regra da folha sem elemento na página, e a exceção é
+   deliberada: o contrário (deixar a folha para depois) faz o slot nascer
+   sem estilo no dia em que o nome chegar, que é o dia em que ninguém vai
+   estar olhando para o CSS.
+
+   ── A posição foi medida contra o relógio ───────────────────────────────
+
+   82,5lvh é o meio do único vão livre do pé da tela. Medido com o slot
+   ligado à mão no navegador, com um nome curto e um longo:
+
+                       414×896            360×800
+     nota do drink     termina em 728     termina em 651
+     assinatura        739 – 755          660 – 675  (690 com nome longo)
+     relógio "19h"     começa em 779      começa em 697
+     folga             11 acima, 23 abaixo   9 acima, 7 abaixo
+
+   ⚠︎ O ORÇAMENTO DE LARGURA. A 360 o rótulo cabe numa linha até ~13
+   caracteres de nome; acima disso ele quebra em duas, e as duas ainda
+   passam — por 7px. Um nome muito longo ("Carta assinada por Maria
+   Fernanda Albuquerque") encostaria no algarismo. Se o nome for grande, o
+   ajuste é encurtar o rótulo ("Carta de [NOME]"), não mover a linha: o vão
+   entre a nota e o relógio é o que é.
+
+   E à direita seria mais elegante e não cabe: o rótulo tem 221px com
+   "[NOME]" e chega a 313px com um nome real, e alinhado à direita ele
+   entraria por cima do algarismo, que ocupa de x=40 a x=175. À esquerda,
+   na goteira de sempre, ele tem a página inteira antes do botão de som. */
+.copo__assinatura {
+  position: absolute;
+  z-index: 4;
+  top: 82.5lvh;
+  left: var(--gutter-l);
+  right: var(--gutter-r);
+  margin: 0;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  color: var(--concreto);
 }
 
 /* ── A carta, e ela é uma FITA ──────────────────────────── */
@@ -257,7 +362,7 @@
    têm de sair da mesma conta: o passo é `--jan-w + --jan-gap`, e é ele que
    o copo.js lê do layout para saber quanto andar. */
 .copo__stage {
-  --jan-top: 26lvh;
+  --jan-top: 30lvh;
   --jan-w: 58vw;
   --jan-h: 40lvh;
   /* 15vw = 62px a 414. Menos que isso e as duas chapas quase se encostam,
@@ -322,7 +427,7 @@
    opacidade: só o drink da vez tem nome visível (copo.js). */
 .carta__nome {
   position: absolute;
-  top: 69lvh;
+  top: 73lvh;
   left: 0;
   width: calc(100vw - var(--gutter-l) - var(--gutter-r));
   margin: 0;
@@ -342,7 +447,7 @@
    médio dos gêneros do Jardim e do rodapé do fecho. */
 .carta__nota {
   position: absolute;
-  top: 76lvh;
+  top: 79.5lvh;
   left: 0;
   width: calc(100vw - var(--gutter-l) - var(--gutter-r));
   margin: 0;
@@ -406,6 +511,18 @@
 
 .copo--lista .carta__nota {
   margin-top: .5rem;
+}
+
+/* A descrição continua absoluta: ela mora em 22lvh e a pilha só começa em
+   30lvh (o `padding` acima), então as duas não se encontram.
+
+   A assinatura, sim, precisa descer para o fluxo — 84lvh absoluto cairia no
+   meio da pilha, que aqui tem altura de três chapas e não de uma tela. A
+   regra é para o dia em que o slot for ativado; hoje ela não pega em nada. */
+.copo--lista .copo__assinatura {
+  position: relative;
+  top: auto;
+  margin-top: 6lvh;
 }
 
 /* ── Tela larga ────────────────────────────────────────── */

@@ -95,6 +95,7 @@ const secao = document.querySelector('.copo')
 if (secao) {
   const dash = secao.querySelector('.copo__dash')
   const linha = secao.querySelector('.copo__linha')
+  const nota = secao.querySelector('.copo__nota')
   const trilho = secao.querySelector('.carta__trilho')
   const fita = secao.querySelector('.carta')
   const itens = [...secao.querySelectorAll('.carta__item')]
@@ -151,6 +152,7 @@ if (secao) {
 
     gsap.set(palavras, { y: 0, yPercent: 0 })
     gsap.set(dash, { scaleX: 1 })
+    gsap.set(nota, { autoAlpha: 1, y: 0 })
     gsap.set(trilho, { autoAlpha: 1, x: 0 })
     gsap.set(fita, { x: 0 })
     /* Escala 1 e deriva 0: sem movimento não há paralaxe, e uma chapa 18%
@@ -230,10 +232,18 @@ if (secao) {
        ╚══════════════════════════════════════════════════════════════════╝ */
     gsap.set(trilho, { autoAlpha: 0, x: 26 })
 
+    /* A descrição não é partida em palavras. A chamada é — ela é a frase da
+       tela e chega SERVIDA, palavra a palavra, dentro das máscaras. Esta é
+       uma explicação, e explicação que chega palavra a palavra vira legenda
+       de vídeo. Ela sobe inteira, uma vez, depois da chamada. */
+    gsap.set(nota, { autoAlpha: 0, y: 12 })
+
     autonomo(secao, (t) => {
       t.to(dash, { scaleX: 1, duration: 0.8, ease: EASE }, 0)
         .to(trilho, { autoAlpha: 1, x: 0, duration: 1.3, ease: EASE }, 0.1)
         .to(brancas, { yPercent: 0, duration: 0.95, ease: EASE, stagger: 0.06 }, 0.5)
+        // 1,45: depois de a última palavra da chamada ter assentado
+        .to(nota, { autoAlpha: 1, y: 0, duration: 1.0, ease: EASE }, 1.45)
 
       // a guarda anotada lá em cima: sem `<b class="ouro">` na frase não há
       // segundo tempo, e um tween sem alvo é um aviso do GSAP por carga
